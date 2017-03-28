@@ -1,0 +1,54 @@
+// -------------------
+// Layouts
+// -------------------
+
+// Setting root sizes and base styles.
+html
+	text-size-adjust 100%
+
+body
+	font-feature-settings 'kern' 1, 'onum' 1, 'liga' 0
+	// -webkit-font-smoothing antialiased
+	// -moz-osx-font-smoothing grayscale
+	-webkit-tap-highlight-color rgba(0,0,0,0)
+
+strong, b
+	font-weight bold
+
+em, i
+	font-style italic
+	
+ul
+	list-style-type none
+
+img, video
+	display block
+	width 100%
+
+button
+	cursor pointer
+	border none
+	outline none
+	margin 0
+	padding 0
+	font-size 1rem
+
+sub, sup
+	font-size 75%
+	line-height 0
+	position relative
+	vertical-align baseline
+
+sup
+	top -0.5em
+
+sub
+	bottom -0.25em
+	
+// Various hides
+.hide-accessible
+	hidden(accessible)
+.hide-invisible
+	hidden(invisible)
+.hide-display
+	hidden()
