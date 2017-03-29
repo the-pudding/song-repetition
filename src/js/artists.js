@@ -18,13 +18,20 @@ for (let d=8; d<=11; d++) {
   decades.push(decade);
 }
 
+function round(x) {
+  return Math.round(x*100)/100;
+}
+
 function artistTooltip(a) {
   var lines = [];
   let s = '<div class="artist-tooltip d3-tip n">'
-  for (let attr of ["name", "rscore", "year", "nsongs"]) {
+  for (let attr of ["name", "rscore", "year", "nsongs", "mostrep"]) {
     let val = a[attr];
     if (attr === 'rscore') {
-      val = Math.round(val*100)/100;
+      val = round(val);
+    }
+    if (attr === 'mostrep') {
+      val += ' (' + round(a['topscore']) + ')';
     }
     let txt = attr + ' = ' + val;
     s += '<div>' + txt + '</div>';
