@@ -1,8 +1,68 @@
 import * as d3 from 'd3';
 import DATA from './years.js';
+import ScrollMagic from 'scrollmagic';
 
 var linecolor = "steelblue";
 const MOVING_YAXIS = false;
+const NSTAGES = 3;
+
+class OverTimeGraphic {
+  constructor(chart) {
+    this.chart = chart;
+    // TODO: controller per scene, or one global controller?
+    this.controller = new ScrollMagic.Controller();
+    let rootsel = '#overtime-graphic';
+    this.root = d3.select(rootsel);
+    this.vis = this.root.select('.graphic-vis');
+    this.prose = this.root.select('.graphic-prose');
+
+    var viewportHeight = window.innerHeight;
+    var enterExitScene = new ScrollMagic.Scene({
+      triggerElement: rootsel,
+      triggerHook: '0', // TODO: meaning?
+      duration: Math.max(1, this.root.node().offsetHeight - viewportHeight),
+    });
+    enterExitScene
+      .on('enter', () => {
+        this.toggleFixed(true, false);
+      })
+      .on('leave', (e) => {
+        this.toggleFixed(false, e.scrollDirection === 'FORWARD');
+      });
+    enterExitScene.addTo(this.controller);
+
+    this.setupIntermediateScenes();
+  }
+
+  toggleFixed(fixed, bottom) {
+    this.vis.classed('is-fixed', fixed);
+    this.vis.classed('is-bottom', bottom);
+  }
+
+  setupIntermediateScenes() {
+    for (let n=0; n <= NSTAGES-1; n++) {
+      let sel = '.stage' + n;
+      let scene = new ScrollMagic.Scene({
+        triggerElement: sel,
+        triggerHook: 'onCenter',
+      });
+
+      scene.on('enter', () => {
+        console.log('Entered ' + n);
+        this.chart.step(n);
+      });
+
+      scene.addTo(this.controller);
+    }
+
+  }
+
+  static init() {
+    let chart = new OverTimeChart();
+    let graphic = new OverTimeGraphic(chart);
+    return graphic;
+  }
+}
 
 class OverTimeChart {
 
@@ -66,10 +126,10 @@ class OverTimeChart {
 
   }
   
-  step() {
-    if (this.stage == 0) { 
+  step(stage) {
+    this.stage = stage;
+    if (stage == 1) { 
       this.plotOverall();
-      this.stage++;
     }
   }
 
@@ -203,4 +263,4 @@ class OverTimeChart {
   }
 }
 
-export default OverTimeChart;
+export default OverTimeGraphic;

@@ -38,6 +38,7 @@
     "request": "^2.81.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",
+    "scrollmagic": "^2.0.5",
     "source-map": "^0.5.6"
   }
 }
