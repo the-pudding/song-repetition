@@ -3,9 +3,24 @@ import DATA from './years.js';
 import ScrollMagic from 'scrollmagic';
 
 var linecolor = "steelblue";
+// Whether to dynamically adjust the yaxis bounds when hovering over a year,
+// to accomodate topsongs. Doesn't work very well.
 const MOVING_YAXIS = false;
-const NSTAGES = 3;
+// Don't include topsongs when calculating ybounds.
+const SMALL_YAXIS = 0;
 
+// Which year to stop at for each transition stage
+const TRANSITION_YEARS = [0, 1960, 1980, 2014, 2015];
+const NSTAGES = TRANSITION_YEARS.length;
+const FIRST_YEAR = 1960;
+const LAST_YEAR = 2015;
+
+/** Coordinates the OverTime chart and the associated bits of prose, and hitches
+ * them to ScrollMagic.
+ * ScrollMagic structure and code snippets taken from:
+ * - https://pudding.cool/process/how-to-implement-scrollytelling/
+ * - https://github.com/polygraph-cool/how-to-implement-scrollytelling
+ */
 class OverTimeGraphic {
   constructor(chart) {
     this.chart = chart;
@@ -48,8 +63,12 @@ class OverTimeGraphic {
       });
 
       scene.on('enter', () => {
-        console.log('Entered ' + n);
+        console.log('Entered stage' + n);
         this.chart.step(n);
+      })
+      .on('leave', () => {
+        console.log('Left stage' + n);
+        this.chart.step(Math.max(0, n-1));
       });
 
       scene.addTo(this.controller);
@@ -91,7 +110,7 @@ class OverTimeChart {
     let yrscores = DATA.map((yr) => (yr.rscore));
     let hitscores = DATA.map((yr) => (yr.hitsRscore));
     let all_ys = yrscores.concat(hitscores);
-    if (!MOVING_YAXIS) {
+    if (!MOVING_YAXIS && !SMALL_YAXIS) {
       all_ys = all_ys.concat(topsongs);
     }
     all_ys.push(0.75); 
@@ -101,6 +120,10 @@ class OverTimeChart {
     this.yscale = d3.scaleLinear()
       .domain(d3.extent(all_ys))
       .range([this.H, 0]);
+    
+    // helper functions mapping from data points to x/y coords
+    this.datx = (yr) => (this.xscale(yr.year));
+    this.daty = (yr) => (this.yscale(yr.rscore));
 
     // X axis
     this.svg.append("g")
@@ -117,20 +140,73 @@ class OverTimeChart {
     // TODO: figure out why label isn't showing up
 
     this.addGridLines();
-
-    this.root.append("button")
-      .text("next")
-      .on("click", ()=>(this.step()));
-
-    this.stage = 0;
-
+    // set up the data path for all songs (no top 10 yet)
+    this.setupOverall();
   }
   
   step(stage) {
-    this.stage = stage;
-    if (stage == 1) { 
-      this.plotOverall();
+    console.assert(0 <= stage && stage < NSTAGES);
+    // All years after this will be hidden
+    this.maxyear = TRANSITION_YEARS[stage];
+    this.redrawData();
+    // TODO: highlight 'focal' year. May also want to show topsongs
+    // for 1980 and 2014.
+    // TODO: top 10 line
+
+  }
+
+  /** Called when this.maxyear changes. Show/hide the appropriate points and
+   * parts of the line, using d3 transitions. */
+  redrawData() {
+    // TODO: cannot figure out why dots trail the line animation
+    // from 1980 to 2014 despite headstart :/
+    let currData = DATA.filter((y) => (y.year <= this.maxyear));
+    let pts = this.svg.selectAll('.pt').data(currData);
+    let newpts = pts.enter()
+      .append('circle')
+      .classed('pt', true)
+      .attr('r', 3)
+      .attr('cx', this.datx)
+      .attr('cy', this.daty)
+      .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
+      .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
+      .attr('fill', linecolor);
+    let animation_duration = 2000;
+    // Remove extra points (happens when scrolling up)
+    pts.exit()
+      .transition()
+      .duration(animation_duration)
+      .attr('opacity', 0)
+      .remove();
+    // Start point animation this much before line animation
+    let headstart = 200;
+    // How long to fade in an individual point
+    let pointAnimationDuration = 200;
+    let delay_scale = (d,i) => {
+      if (newpts.size() === 1) {
+        return animation_duration - pointAnimationDuration;
+      }
+      let scale = d3.scaleLinear().domain([0, newpts.size()-1])
+        .range([0, animation_duration-pointAnimationDuration])
+      return scale(i);
     }
+    newpts.attr('opacity', 0)
+      .transition()
+      .delay(delay_scale)
+      .duration(pointAnimationDuration)
+      .attr('opacity', 1);
+
+    // update extent of path/line
+    var totalLength = this.path.node().getTotalLength();
+    var lenscale = d3.scaleLinear()
+      .domain([FIRST_YEAR, LAST_YEAR])
+      .range([totalLength, 0]);
+    var newLength = Math.min(totalLength, lenscale(this.maxyear));
+    this.path.transition()
+      .delay(headstart)
+      .duration(animation_duration)
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', newLength);
   }
 
   updateYMax(ymax) {
@@ -152,10 +228,12 @@ class OverTimeChart {
   }
 
   addGridLines() {
-    let xgrid = d3.axisBottom(this.xscale).ticks(5);
-    let ygrid = d3.axisLeft(this.yscale).ticks(5);
+    let xgrid = d3.axisBottom(this.xscale).ticks(8);
+    let ygrid = d3.axisLeft(this.yscale).ticks(8);
+    let gridwidth = .3;
     this.svg.append("g")
       .attr("class", "grid")
+      .attr('stroke-width', gridwidth)
       .attr("transform", "translate(0," + this.H + ")")
       .call(xgrid
           .tickSize(-this.H)
@@ -163,21 +241,20 @@ class OverTimeChart {
       );
     this.svg.append("g")
       .attr("class", "grid")
+      .attr('stroke-width', gridwidth)
       .call(ygrid
           .tickSize(-this.W)
           .tickFormat("")
       );
   }
 
-  plotOverall() {
-    let xer = (yr) => (this.xscale(yr.year));
-    let yer = (yr) => (this.yscale(yr.rscore));
+  setupOverall() {
     // line
     var line = d3.line()
       .x( (yr) => (this.xscale(yr.year)))
       .y( (yr) => (this.yscale(yr.rscore)));
     // render it
-    var path = this.svg.append("path")
+    this.path = this.svg.append("path")
       .datum(DATA)
       .attr("stroke", linecolor)
       .attr("stroke-width", 1.5)
@@ -186,38 +263,11 @@ class OverTimeChart {
       .attr("stroke-linecap", "round")
       .attr("d", line);
     
-    // animate (copied from http://bl.ocks.org/duopixel/4063326, I don't fully
-    // understand this)
-    var totalLength = path.node().getTotalLength();
-
-    var addPoints = () => {
-      // zzz
-      this.pointifier = (sel) => (
-          sel.append('circle')
-            .classed('pt', true)
-            .attr('r', 3)
-            .attr('cx', xer)
-            .attr('cy', yer)
-      );
-      this.pointifier(
-        this.svg.selectAll('.pt').data(DATA)
-          .enter()
-        )
-        .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
-        .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
-        .attr('fill', linecolor);
-    }
-
-    path
+    // Hide the line by default (using some svg magic I don't totally understand)
+    var totalLength = this.path.node().getTotalLength();
+    this.path
       .attr('stroke-dasharray', totalLength + ' ' +totalLength)
-      .attr('stroke-dashoffset', totalLength)
-      .transition()
-      .duration(2000)
-      .ease(d3.easeLinear)
-      .on('start', ()=>{console.log('started transition')})
-      .on('end', addPoints)
-      .attr('stroke-dashoffset', 0)
-
+      .attr('stroke-dashoffset', totalLength);
   }
 
   focusYear(dat, i, nodes) {
