@@ -42,7 +42,6 @@ function artistTooltip(a) {
 
 class ArtChart {
   constructor() {
-    // TODO: put this somewhere, anywhere else
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
 
     this.root = d3.select('#artist-circles');
