@@ -58,6 +58,19 @@ class OverTimeChart {
 
     this.addGridLines();
 
+    this.root.append("button")
+      .text("next")
+      .on("click", ()=>(this.step()));
+
+    this.stage = 0;
+
+  }
+  
+  step() {
+    if (this.stage == 0) { 
+      this.plotOverall();
+      this.stage++;
+    }
   }
 
   updateYMax(ymax) {
@@ -104,7 +117,7 @@ class OverTimeChart {
       .x( (yr) => (this.xscale(yr.year)))
       .y( (yr) => (this.yscale(yr.rscore)));
     // render it
-    this.svg.append("path")
+    var path = this.svg.append("path")
       .datum(DATA)
       .attr("stroke", linecolor)
       .attr("stroke-width", 1.5)
@@ -112,22 +125,38 @@ class OverTimeChart {
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", line);
+    
+    // animate (copied from http://bl.ocks.org/duopixel/4063326, I don't fully
+    // understand this)
+    var totalLength = path.node().getTotalLength();
 
-    // zzz
-    this.pointifier = (sel) => (
-        sel.append('circle')
-          .classed('pt', true)
-          .attr('r', 3)
-          .attr('cx', xer)
-          .attr('cy', yer)
-    );
-    this.pointifier(
-      this.svg.selectAll('.pt').data(DATA)
-        .enter()
-      )
-      .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
-      .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
-      .attr('fill', linecolor);
+    var addPoints = () => {
+      // zzz
+      this.pointifier = (sel) => (
+          sel.append('circle')
+            .classed('pt', true)
+            .attr('r', 3)
+            .attr('cx', xer)
+            .attr('cy', yer)
+      );
+      this.pointifier(
+        this.svg.selectAll('.pt').data(DATA)
+          .enter()
+        )
+        .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
+        .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
+        .attr('fill', linecolor);
+    }
+
+    path
+      .attr('stroke-dasharray', totalLength + ' ' +totalLength)
+      .attr('stroke-dashoffset', totalLength)
+      .transition()
+      .duration(2000)
+      .ease(d3.easeLinear)
+      .on('start', ()=>{console.log('started transition')})
+      .on('end', addPoints)
+      .attr('stroke-dashoffset', 0)
 
   }
 
@@ -170,7 +199,6 @@ class OverTimeChart {
 
   static init() {
     let c = new OverTimeChart();
-    c.plotOverall();
     return c;
   }
 }
