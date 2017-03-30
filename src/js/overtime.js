@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import DATA from './years.js';
 
 var linecolor = "steelblue";
+const MOVING_YAXIS = false;
 
 class OverTimeChart {
 
@@ -29,8 +30,14 @@ class OverTimeChart {
     let topsongs = DATA.map((yr) => (yr.topsong.rscore));
     let yrscores = DATA.map((yr) => (yr.rscore));
     let hitscores = DATA.map((yr) => (yr.hitsRscore));
-    let all_ys = topsongs.concat(yrscores).concat(hitscores);
-    all_ys.push(0.75); // start at 0
+    let all_ys = yrscores.concat(hitscores);
+    if (!MOVING_YAXIS) {
+      all_ys = all_ys.concat(topsongs);
+    }
+    all_ys.push(0.75); 
+    let yextent = d3.extent(all_ys);
+    this.ymin = yextent[0];
+    this.ymax = yextent[1];
     this.yscale = d3.scaleLinear()
       .domain(d3.extent(all_ys))
       .range([this.H, 0]);
@@ -42,6 +49,7 @@ class OverTimeChart {
 
     // Y axis
     this.svg.append("g")
+        .classed('yaxis', true)
           .call(d3.axisLeft(this.yscale))
         .append("text")
           .attr("transform", "rotate(-90)")
@@ -50,6 +58,24 @@ class OverTimeChart {
 
     this.addGridLines();
 
+  }
+
+  updateYMax(ymax) {
+    if (!ymax) {
+      this.ymax = this.prevYMax;
+      this.prevYMax = null;
+    } else {
+      this.prevYMax = this.ymax;
+      this.ymax = ymax;
+    }
+    this.yscale.domain([this.ymin, this.ymax]);
+    this.svg.select('.yaxis').call(d3.axisLeft(this.yscale));
+    // need to redraw all points
+    //this.plotOverall()
+    // TODO: this turns out to be kinda complicated. probably should try
+    // to smoothly animate the line down (or up), but this has the effect
+    // of pulling the rug from under the user's cursor, causing the point
+    // they were on to be mouseout'd. Blargh.
   }
 
   addGridLines() {
@@ -113,6 +139,10 @@ class OverTimeChart {
     let topsong = dat.topsong;
     topsong.year = dat.year;
     let x = this.xscale(topsong.year);
+    if (MOVING_YAXIS && topsong.rscore > this.ymax) {
+      console.log('increasing ymax');
+      this.updateYMax(topsong.rscore);
+    }
     let y = this.yscale(topsong.rscore);
     hov.append('circle')
       .classed('pt', true)
@@ -130,6 +160,9 @@ class OverTimeChart {
   }
 
   defocusYear(dat, i, nodes) {
+    if (this.prevYMax) {
+      this.updateYMax();
+    }
     let pt = nodes[i];
     d3.select(pt).attr('fill', linecolor);
     this.svg.selectAll('.hover').remove();
