@@ -129,7 +129,7 @@ class ArtChart {
     var a = this.svg.selectAll(".artistNode").data(this.currData);
     var containers = a.enter()
       .append("g")
-      .attr("width", this.R*2)
+      .attr("width", this.R*2) // TODO: not necessary?
       .attr("height", this.R*2)
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide)
@@ -138,15 +138,16 @@ class ArtChart {
       .append("circle")
       .attr("fill", "aqua")
       .attr("r", this.R)
-      .attr("cx", this.R/2)
-      .attr("cy", this.R/2);
+      .attr("cx", 0)
+      .attr("cy", 0);
     // TODO: make text not overflow container
     containers
       .append("text")
+      .attr("text-anchor", "middle")
       .attr("font-size", 8)
       .attr("font-family", "verdana")
-      .attr("x", -this.R/3)
-      .attr("y", this.R/2)
+      .attr("x", 0)
+      .attr("y", 0)
       .attr("width", this.R*2)
       .attr("height", this.R*2)
       .text((a) => (a.name));
@@ -167,9 +168,6 @@ class ArtChart {
       d.y = this.yscale(0);
     });
     this.currData = curr;
-    //console.log(this.currData.length);
-    //console.log(this.decade);
-    //console.log(this.currData);
   }
 
   static init() {
