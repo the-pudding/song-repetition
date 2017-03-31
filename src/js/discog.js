@@ -71,6 +71,18 @@ class DiscogWidget {
     let artist = 'Bruno Mars';
     this.setupAxes();
     this.updateArtist(artist);
+
+    let fs = '10px';
+    this.root.append("div")
+      .style('line-height', fs*1.1)
+      .selectAll("a").data(Object.keys(ARTIST_LOOKUP).sort())
+      .enter()
+      .append("a")
+      .text((d)=>d)
+      .on("click", (d)=>{this.updateArtist(d)})
+      .attr("href", (d)=>"#"+d)
+      .style("font-size", fs)
+      .style("margin-right", "4px")
   }
 
   // TODO: this is all kind of a mess right now. Need to structure it better
