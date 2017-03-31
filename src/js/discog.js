@@ -5,8 +5,26 @@ import d3Tip from 'd3-tip';
 
 import ARTIST_LOOKUP from './starmap.js';
 
+const DEBUG_DISPLACEMENT = false;
+
+// Quantiles of repetition score
+const pctiles = {
+  10: 0.5388,
+  50: 0.9733,
+  90: 1.467
+};
+
+// Default limits for the rscore axis
+const RLIM = [pctiles[10], pctiles[90]];
+
+function round(x) {
+  return Math.round(x*100)/100;
+}
 function songToolTip(s) {
-  return s.title;
+  return `<div class="d3-tip">
+      <div>${s.title} (${Math.floor(s.yearf)})</div>
+      <div>${round(s.rscore)}</div>
+      </div>`;
 }
 
 class DiscogWidget {
@@ -27,7 +45,7 @@ class DiscogWidget {
         .attr("type", "checkbox")
         .attr("checked", this.beehive ? true : null)
         .on("change", ()=>{
-          this.beehive = !this.beehive;
+          this.toggleBeehive();
           this.renderSongs();
         });
     controls.append("button")
@@ -50,8 +68,72 @@ class DiscogWidget {
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
     this.svg.call(this.tip);
     
-    let artist = 'Lady Gaga';
+    let artist = 'Bruno Mars';
+    this.setupAxes();
     this.updateArtist(artist);
+  }
+
+  // TODO: this is all kind of a mess right now. Need to structure it better
+  // and make it more d3 idiomatic
+  setupAxes() {
+    if (!this.beehive) return;
+    this.rextent = this.rextent || RLIM;
+    this.xscale = d3.scaleLinear()
+      .domain(this.rextent)
+      .range([this.R, this.W-this.R]);
+    let xaxis_ypos = this.H*9/10;
+    this.svg.append("g")
+        .classed("axis", true)
+        .attr("transform", "translate(0 " + xaxis_ypos + ")")
+        .call(d3.axisBottom(this.xscale).ticks(10));
+
+      let offset = 100;
+    let marker_pctiles = [10, 50, 90];
+    let base = this.svg.selectAll(".baseline").data(marker_pctiles)
+      .enter()
+      .append("g")
+      .classed("baseline", true);
+    base.append("line")
+      .attr("x1", (k)=>this.xscale(pctiles[k]))
+      .attr("y1", xaxis_ypos)
+      .attr("x2", (k)=>this.xscale(pctiles[k]))
+      .attr("y2", offset)
+      .attr("stroke", "black")
+      .attr("stroke-width", 1);
+    base.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", (k)=>this.xscale(pctiles[k]))
+      .attr("y", offset-5)
+      .attr("font-size", 12)
+      .text((k) => (k === 50 ? "median" : k+"%"));
+  }
+
+  updateAxes() {
+    if (!this.beehive) return;
+    this.svg.select('.axis')
+        .call(d3.axisBottom(this.xscale).ticks(10));
+
+    this.svg.selectAll('.baseline').select('line')
+      .transition()
+      .duration(1000)
+      .attr("x1", (k)=>this.xscale(pctiles[k]))
+      .attr("x2", (k)=>this.xscale(pctiles[k]));
+    this.svg.selectAll('.baseline').select('text')
+      .transition()
+      .duration(1000)
+      .attr("x", (k)=>this.xscale(pctiles[k]));
+
+  }
+
+  toggleBeehive() {
+    this.beehive = !this.beehive;
+    if (!this.beehive) {
+      this.svg.selectAll(".axis").remove();
+      this.svg.selectAll(".baseline").remove();
+    }
+    if (this.beehive) {
+      this.setupAxes();
+    }
   }
 
   // Called to adjust circle positions when force simulation ticks
@@ -79,23 +161,28 @@ class DiscogWidget {
 
   renderSongs() {
     let discog = this.discog;
-    let xkey = (s) => (s.yearf);
-    let ykey = (s) => (s.rscore);
-    if (this.beehive) {
-      xkey = ykey;
-      ykey = ()=>0;
-    }
+    let yrkey = (s) => (s.yearf);
+    let rkey = (s) => (s.rscore);
+    let xkey = this.beehive ? rkey : yrkey;
+    let ykey = this.beehive ? ()=>0 : rkey;
+    let rextent = d3.extent(discog, rkey);
+    rextent[0] = Math.min(rextent[0], RLIM[0]);
+    rextent[1] = Math.max(rextent[1], RLIM[1]);
+    let yrextent = d3.extent(discog, yrkey);
+    this.rextent = rextent;
+
     this.xscale = d3.scaleLinear()
-      .domain(d3.extent(discog, xkey))
+      .domain(this.beehive ? rextent : yrextent)
       .range([this.R, this.W-this.R]);
-    let ydomain = this.beehive ? [-1,1] : d3.extent(discog, ykey);
+    let ydomain = this.beehive ? [-1,1] : rextent;
     this.yscale = d3.scaleLinear()
       .domain(ydomain)
-      .range([this.H, 0]);
+      .range([this.H-this.R, this.R]);
     // TODO: enough reuse going on at this point to consider some kind of helper
     // base class/mixin. Lots of duplication with artists.js.
     this.xdat = (d) => (this.xscale(xkey(d)));
     this.ydat = (d) => (this.yscale(ykey(d)));
+    this.updateAxes();
 
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX(this.xdat).strength(this.beehive ? 1 : .1))
@@ -111,11 +198,11 @@ class DiscogWidget {
     let newpts = pts
       .enter()
       .append("g")
+      .on('mouseover', this.mouseover())
+      .on('mouseout', this.mouseout())
       .classed("song", true);
     let newcircles = newpts
       .append("circle")
-      .on('mouseover', this.mouseover())
-      .on('mouseout', this.mouseout())
       .attr("r", this.R) 
       .attr("cx", 0) 
       .attr("cy", 0)
@@ -189,39 +276,47 @@ class DiscogWidget {
   mouseover() {
     return (d,i,n) => {
       this.tip.show(d);
-      this.svg.append("line")
-        .attr("stroke-width", 2)
-        .attr("stroke", "black")
-        .attr("x1", d.x)
-        .attr("y1", d.y)
-        .attr("x2", d.x)
-        .attr("y2", d.y)
-        .transition()
-        .ease(d3.easeLinear)
-        .duration(500)
-        .attr("x2", this.xdat(d))
-        .attr("y2", this.ydat(d))
-      this.svg
-        .append("circle")
-        .classed("ghost", true)
-        .attr("r", this.R)
-        .attr("opacity", 0)
-        .attr("cx", this.xdat(d))
-        .attr("cy", this.ydat(d))
-        .attr("fill", "yellow")
-        .style("mouse-events", "none")
-        .transition()
-        .delay(500)
-        .duration(500)
-        .attr("opacity", 0.5)
+      if (DEBUG_DISPLACEMENT) {
+        this.svg.select(".debugtrail").remove();
+        this.svg.select(".ghost").remove();
+        this.svg.append("line")
+          .classed("debugtrail", true)
+          .attr("stroke-width", 2)
+          .attr("stroke", "black")
+          .attr("x1", d.x)
+          .attr("y1", d.y)
+          .attr("x2", d.x)
+          .attr("y2", d.y)
+          .style('mouse-events', 'none')
+          .transition()
+          .ease(d3.easeLinear)
+          .duration(500)
+          .attr("x2", this.xdat(d))
+          .attr("y2", this.ydat(d))
+        this.svg
+          .append("circle")
+          .classed("ghost", true)
+          .attr("r", this.R)
+          .attr("opacity", 0)
+          .attr("cx", this.xdat(d))
+          .attr("cy", this.ydat(d))
+          .attr("fill", "yellow")
+          .style("mouse-events", "none")
+          .transition()
+          .delay(500)
+          .duration(500)
+          .attr("opacity", 0.5)
+      }
     };
   }
 
   mouseout() {
     return (d,i,n) => {
       this.tip.hide(d);
-      this.svg.select("line").remove();
-      this.svg.select(".ghost").remove();
+      if (DEBUG_DISPLACEMENT) {
+        this.svg.select(".debugtrail").remove();
+        this.svg.select(".ghost").remove();
+      }
     };
   }
 
