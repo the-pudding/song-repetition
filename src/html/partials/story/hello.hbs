@@ -1,7 +1,7 @@
 <div class="container">
 <h1>La la la - title TK</h1>
 
-<p>In 1977, great computer scientist Donald Knuth published a facetious paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, in which he used the language of complexity theory to analyze the space complexity of popular songs - i.e. for some family of songs, how much space do you need to describe one of those songs, and how does that number change as the song's length goes to infinity?
+<p>In 1977, the great computer scientist Donald Knuth published a facetious paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, in which he used the language of complexity theory to analyze the space complexity of popular songs - i.e. for some family of songs, how much space do you need to describe one of those songs, and how does that number change as the song's length goes to infinity?
 </p>
 
 <p>The running joke is that, over time, songwriters have worked to invent increasingly repetitive song structures ("the advent of modern drugs has led to demands for still less memory"). The paper ends with a proof, due to "Casey[sic] and the Sunshine Band", that some songs belong to the smallest possible complexity class, O(1).
@@ -20,7 +20,7 @@ One thing we might try is looking at the number of unique words in a song, as a 
         <blockquote><p>Baby I don't need dollar bills to have fun tonight<br>
         I love cheap thrills<br>
         Baby I don't need dollar bills to have fun tonight<br>
-        I love cheap thrills
+        I love cheap thrills<br>
         I don't need no money<br>
         As long as I can feel the beat<br>
         I don't need no money<br>
@@ -49,29 +49,30 @@ One thing we might try is looking at the number of unique words in a song, as a 
 <p>It sounds cheeky, but it turns out that the family of <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithms</a>, used in many compressed formats, have a pretty natural correspondence between their performance and the "repetitiveness" of the input data.</p>
 <p>Lempel-Ziv works by exploiting repeated sequences, which is exactly what we're interested in. It's also pretty easy to understand. The compressed version of the Sia excerpt above would look like...</p>
 
-<code>Baby I don't need dollar bills to have fun tonight<br/>
+<code id="lzexample">Baby I don't need dollar bills to have fun tonight<br/>
 I love cheap thrills<br/>
 {72,72}{139,13}no money<br/>
 As long as I can feel the beat{53,35}keep dancing</code>
+<br><br>
 <p>Where <code>{n,k}</code> tells the decompressor "go back n characters, and copy the substring of length k starting from there".</p>
 <p>This chorus shrunk down a lot! Notice that the compressor took advantage of repeated lines, but also repeated phrases within lines ("I don't need ", "As long as I "). But the best part is, the next time we see this chorus, we can replace all 242 characters of it with a single "ditto".</p>
 
 
-<h2>The most repetitive songs of all time</h2>
-
 <p>
-Words words words.
+Applying this algorithm, turns out to shrink the average pop song to about <b>50%</b> of its original size. Rihanna's "Work" is a perfectly average example: it shrinks from 2,800 letters to 1,400 after compression. For comparison, an average newswire article compresses Y%.
 </p>
 
+<p>There's considerable variation around that average - let's look at some of the outliers.</p>
+
+<h2>The most repetitive songs of all time</h2>
 <div id="topsongs"></div>
+
+<p>The current decade is pretty well-represented in the top 10, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). To figure out whether music is getting more repetitive, we'll need to look at a lot more data...</p>
 
 {{> story/overtime }}
 
 <p>Who's responsible for this madness?</p>
 
-<h2>Per-artist repetitiveness</h2>
-<p>Artists on the right are more repetitive. Use the radio buttons below to choose different decades. Artists are assigned a year based on the median of their charting songs.</p>
-<p>Currently limited to artists with at least 20 charting songs. Probably want to tune that number (or take a fixed # per decade).</p>
 <br/>
 
 <div id="artist-circles"></div>
