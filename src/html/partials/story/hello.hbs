@@ -1,50 +1,86 @@
-<h1>La la la</h1>
+<div class="container">
+<h1>La la la - title TK</h1>
+
+<p>In 1977, great computer scientist Donald Knuth published a facetious paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, in which he used the language of complexity theory to analyze the space complexity of popular songs - i.e. for some family of songs, how much space do you need to describe one of those songs, and how does that number change as the song's length goes to infinity?
+</p>
+
+<p>The running joke is that, over time, songwriters have worked to invent increasingly repetitive song structures ("the advent of modern drugs has led to demands for still less memory"). The paper ends with a proof, due to "Casey[sic] and the Sunshine Band", that some songs belong to the smallest possible complexity class, O(1).
+</p>
+
+<p>Nerdy computer science jokes aside, it's actually an interesting question whether the lyrics of popular songs have become more repetitive over time. Let's put it to the test.</p>
+
+<h2>Measuring repetitiveness</h2>
+
+<p>
+I know a repetitive song when I hear one, but translating that intuition into a number isn't easy.
+One thing we might try is looking at the number of unique words in a song, as a fraction of the total number of words. But this metric would call the following lyric excerpts equally repetitive:</p>
+
+<div class="row">
+    <div class="col-xs-5">
+        <blockquote><p>Baby I don't need dollar bills to have fun tonight<br>
+        I love cheap thrills<br>
+        Baby I don't need dollar bills to have fun tonight<br>
+        I love cheap thrills
+        I don't need no money<br>
+        As long as I can feel the beat<br>
+        I don't need no money<br>
+        As long as I keep dancing</p>
+        <p><cite>~ Sia, Cheap Thrills</cite></p>
+        </blockquote>
+    </div>
+    
+    <div class="col-xs-5">
+        <blockquote><p>tonight I need dollar bills<br>
+        I don't keep fun<br>
+        cheap thrills long to feel money<br>
+        the bills don't need the dancing baby<br>
+        fun dollar dancing thrills the baby I need<br>
+        don't have fun<br>
+        no no don't have dancing fun tonight<br>
+        beat the can as I don't feel thrills<br>
+        love the dancing money</p>
+        <p><cite>~ Colin Morris, Original composition</cite></p>
+        </blockquote>
+    </div>
+</div>
+<p>These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
+
+<p>What if we just zip each song and measure how much smaller it gets relative to the original size?</p>
+<p>It sounds cheeky, but it turns out that the family of <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithms</a>, used in many compressed formats, have a pretty natural correspondence between their performance and the "repetitiveness" of the input data.</p>
+<p>Lempel-Ziv works by exploiting repeated sequences, which is exactly what we're interested in. It's also pretty easy to understand. The compressed version of the Sia excerpt above would look like...</p>
+
+<code>Baby I don't need dollar bills to have fun tonight<br/>
+I love cheap thrills<br/>
+{72,72}{139,13}no money<br/>
+As long as I can feel the beat{53,35}keep dancing</code>
+<p>Where <code>{n,k}</code> tells the decompressor "go back n characters, and copy the substring of length k starting from there".</p>
+<p>This chorus shrunk down a lot! Notice that the compressor took advantage of repeated lines, but also repeated phrases within lines ("I don't need ", "As long as I "). But the best part is, the next time we see this chorus, we can replace all 242 characters of it with a single "ditto".</p>
+
+
+<h2>The most repetitive songs of all time</h2>
+
+<p>
+Words words words.
+</p>
+
+<div id="topsongs"></div>
+
+{{> story/overtime }}
+
+<p>Who's responsible for this madness?</p>
+
+<h2>Per-artist repetitiveness</h2>
+<p>Artists on the right are more repetitive. Use the radio buttons below to choose different decades. Artists are assigned a year based on the median of their charting songs.</p>
+<p>Currently limited to artists with at least 20 charting songs. Probably want to tune that number (or take a fixed # per decade).</p>
+<br/>
+
+<div id="artist-circles"></div>
+
 
 <h2>Artist discographies</h2>
 <p>The widget below shows the repetitiveness of all a particular artist's charting songs. The vertical lines represent the 10th, 50th, and 90th percentiles - i.e. 80% of all songs in the dataset fall between those goalposts. Untick "beehive" to see another version that uses the x-axis for time and the y-axis for repetitiveness. (No axes implemented right now for that one).
 </p>
 <div id="discog-widget"></div>
 
-<h2>Per-artist repetitiveness</h2>
-<p>Artists on the right are more repetitive. Use the radio buttons below to choose different decades. Artists are assigned a year based on the median of their charting songs.</p>
-<p>Currently limited to artists with at least 20 charting songs. Probably want to tune that number (or take a fixed # per decade).</p>
-<br/>
-<!-- <svg id="forcedemo" width="960" height="200"></svg> -->
-<div id="artist-circles"></div>
 
-<h2>Repetition over time</h2>
-<p>
-</p>
-
-<div class="graphic" id="overtime-graphic">
-    <div id="rovertime" class="graphic-vis"></div>
-    <div class="graphic-prose">
-        <div class="stage0"></div>
-        <div class="spacer"></div>
-        <div class="scrolly-slide stage1">
-            <p>In 1960, the average repetition-score of the hot-100 is 0.95. The most repetitive song of the year is Dee Clark's <i>At My Front Door</i>. Sample:</p>
-            <blockquote>
-                Knock, knock, knock, knock<br/>
-                Knock, knock, knock, knock<br/><br/>
-
-                Crazy little mama come knocking<br/>
-                Knocking at my front door<br/>
-                Crazy little mama come knocking<br/>
-                Knocking at my front door
-            </blockquote>
-        </div>
-        <div class="spacer"></div>
-        <div class="scrolly-slide stage2">
-            <p>By 1980, disco has reached the peak of its popularity. The year's most repetitive song is <i>Funkytown</i>, which spends 4 weeks at #1.</p>
-        </div>
-        <div class="spacer"></div>
-        <div class="scrolly-slide stage3">
-            <p>2014 is the most repetitive year on record. An average song from this year compresses 22% more efficiently than one from 1960.</p>
-            <p><small>* Each point actually represents a 3-year rolling average. 2015 is the last year having a full year of data on either side of it.</small></p>
-            <p><small>** "Repetition score" is basically the logarithm of the ratio between raw size and compressed size, so the 22% figure comes from taking <code>e^(1.15-0.95)</code>, where 1.15 and 0.95 are the repetition scores of 2014 and 1960, respectively.</small></p>
-        </div>
-        <div class="spacer"></div>
-        <div class="stage4">(hidden last waypoint)</div>
-    </div>
 </div>
-<div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
