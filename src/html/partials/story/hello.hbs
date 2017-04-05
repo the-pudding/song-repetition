@@ -62,16 +62,39 @@ As long as I can feel the beat{53,35}keep dancing</code>
 Applying this algorithm, turns out to shrink the average pop song to about <b>50%</b> of its original size. Rihanna's "Work" is a perfectly average example: it shrinks from 2,800 letters to 1,400 after compression. For comparison, an average newswire article compresses Y%.
 </p>
 
+<pre>TODO: some kind of animated illustration of the compression algorithm</pre>
+
 <p>There's considerable variation around that average - let's look at some of the outliers.</p>
+
+<pre>TODO:
+- probably not clear at a glance what the bars represent (even if there were column headings). Ideas for making this more intuitive:
+    - instead of stacked bars, put them sequentially with an arrow between them: [original size bar] --> [shrunk size]
+    - tooltips
+    - use the bar-style illustration above when talking about example song
+- excerpt a song's lyrics when hovering/focusing it?</pre>
 
 <h2>The most repetitive songs of all time</h2>
 <div id="topsongs"></div>
 
 <p>The current decade is pretty well-represented in the top 10, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). To figure out whether music is getting more repetitive, we'll need to look at a lot more data...</p>
 
+<pre>TODO:
+- try a subtle scatterplot underlay effect
+- explain the shift from measuring by compression % to the units on this y-axis. (Or maybe just try 
+    using % throughout and see how it looks, even though it's technically not a great scale. Could 
+    maybe compromise by labelling with % but using logarithmic scale.)
+- when talking about a particular year, make that year's point very prominent</pre>
+
 {{> story/overtime }}
 
 <p>Who's responsible for this madness?</p>
+
+<pre>TODO:
+- some text to yoke these visualizations together and tell a coherent story
+- consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook)
+    and talking through some observations, before unleashing the selection of all artists in the dataset.
+- remove non-beehive mode from discography widget
+- may want to limit number of songs per artist (Tswift's discog is v crowded right now)</pre>
 
 <br/>
 
