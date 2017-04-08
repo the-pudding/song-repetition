@@ -1,3 +1,11 @@
+const runits = 'pct';
+
+function rscore_to_pct(rscore) {
+  // using rscore gives the raw size as % of compressed (generally > 100%),
+  // using -rscore gives compressed size as % of raw (< 100)
+  return 100 * Math.pow(2, rscore);
+}
+
 const year_extent = [1960, 2015];
 const minyear = year_extent[0];
 const maxyear = year_extent[1];
@@ -16,4 +24,4 @@ for (let d=6; d<=11; d++) {
   decades.push(decade);
 }
 
-export {year_extent, minyear, maxyear, decades};
+export {rscore_to_pct, runits, year_extent, minyear, maxyear, decades};

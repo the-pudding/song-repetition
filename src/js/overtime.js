@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import DATA from './years.js';
 import ScrollMagic from 'scrollmagic';
+import * as c from './constants.js';
 
 var linecolor = "steelblue";
 // Whether to dynamically adjust the yaxis bounds when hovering over a year,
@@ -9,11 +10,11 @@ const MOVING_YAXIS = false;
 // Don't include topsongs when calculating ybounds.
 const SMALL_YAXIS = 1;
 
-// Which year to stop at for each transition stage
-const TRANSITION_YEARS = [0, 1960, 1980, 2014, 2015];
-const NSTAGES = TRANSITION_YEARS.length;
-const FIRST_YEAR = 1960;
-const LAST_YEAR = 2015;
+// scrollmagic transitions
+const STAGES = [
+  {maxyear:0}, {maxyear:1960, focus:1960}, {maxyear:1980, focus:1980},
+  {maxyear:2014, focus:2014}, {maxyear:2015}
+]
 
 /** Coordinates the OverTime chart and the associated bits of prose, and hitches
  * them to ScrollMagic.
@@ -55,7 +56,7 @@ class OverTimeGraphic {
   }
 
   setupIntermediateScenes() {
-    for (let n=0; n <= NSTAGES-1; n++) {
+    for (let n=0; n <= STAGES.length-1; n++) {
       let sel = '.stage' + n;
       let scene = new ScrollMagic.Scene({
         triggerElement: sel,
@@ -94,7 +95,7 @@ class OverTimeChart {
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
-    this.R = 25; // radius of artist circles
+    this.R = 3; // radius of year dots
     this.svg = this.root.append('svg')
       .attr('width', totalW)
       .attr('height', totalH)
@@ -119,16 +120,24 @@ class OverTimeChart {
     let yextent = d3.extent(all_ys);
     this.ymin = yextent[0];
     this.ymax = yextent[1];
+    if (c.runits === 'pct') {
+      all_ys = all_ys.map(c.rscore_to_pct);
+    }
     this.yscale = d3.scaleLinear()
       .domain(d3.extent(all_ys))
       .range([this.H, 0]);
     
     // helper functions mapping from data points to x/y coords
     this.datx = (yr) => (this.xscale(yr.year));
-    this.daty = (yr) => (this.yscale(yr.rscore));
+    if (c.runits === 'pct') {
+      this.daty = yr => this.yscale(c.rscore_to_pct(yr.rscore));
+    } else {
+      this.daty = (yr) => (this.yscale(yr.rscore));
+    }
 
     // X axis
     this.svg.append("g")
+        .classed('xaxis', true)
         .attr("transform", "translate(0 " + this.H + ")")
         .call(d3.axisBottom(this.xscale).ticks(10, 'd'));
 
@@ -146,10 +155,12 @@ class OverTimeChart {
     this.setupOverall();
   }
   
-  step(stage) {
-    console.assert(0 <= stage && stage < NSTAGES);
+  step(stage_index) {
+    console.assert(0 <= stage_index && stage_index < STAGES.length);
+    let stage = STAGES[stage_index];
     // All years after this will be hidden
-    this.maxyear = TRANSITION_YEARS[stage];
+    this.maxyear = stage.maxyear;
+    this.focalyear = stage.focus;
     this.redrawData();
     // TODO: highlight 'focal' year. May also want to show topsongs
     // for 1980 and 2014.
@@ -163,18 +174,29 @@ class OverTimeChart {
     // TODO: cannot figure out why dots trail the line animation
     // from 1980 to 2014 despite headstart :/
     let currData = DATA.filter((y) => (y.year <= this.maxyear));
+    console.log('Redrawing with ' + currData.length + ' data points.');
+    let opacityFn = y => {
+      if (!this.focalyear) return 1;
+      return y.year === this.focalyear ? 1 : .5;
+    }
     let pts = this.svg.selectAll('.pt').data(currData);
-    let newpts = pts.enter()
-      .append('circle')
+    let newpts = pts.enter().append('circle');
+    console.log(`${newpts.size()} new points appended`);
+    newpts.merge(pts)
       .classed('pt', true)
-      .attr('r', 3)
+      .attr('r', y => (y.year === this.focalyear ? this.R*1.8 : this.R))
       .attr('cx', this.datx)
       .attr('cy', this.daty)
       .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
       .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
-      .attr('fill', linecolor);
+      .attr('opacity', opacityFn)
+      .attr('fill', y => (y.year === this.focalyear ? 'rgb(0, 111, 200)' : linecolor));
     let animation_duration = 2000;
     // Remove extra points (happens when scrolling up)
+    // TODO: race condition-y bug with fast scrolling back and forth. When entering
+    // a stage, points that are on their way out from having left earlier might be
+    // caught in the selection. Then they get removed, and we don't have the right
+    // number of points.
     pts.exit()
       .transition()
       .duration(animation_duration)
@@ -196,14 +218,16 @@ class OverTimeChart {
       .transition()
       .delay(delay_scale)
       .duration(pointAnimationDuration)
-      .attr('opacity', 1);
+      .attr('opacity', opacityFn);
 
     // update extent of path/line
+    // TODO: why does the line stop just short of 1980 in stage 1?
     var totalLength = this.path.node().getTotalLength();
     var lenscale = d3.scaleLinear()
-      .domain([FIRST_YEAR, LAST_YEAR])
+      .clamp(true)
+      .domain(c.year_extent)
       .range([totalLength, 0]);
-    var newLength = Math.min(totalLength, lenscale(this.maxyear));
+    var newLength = lenscale(this.maxyear);
     this.path.transition()
       .delay(headstart)
       .duration(animation_duration)
@@ -234,7 +258,7 @@ class OverTimeChart {
     let ygrid = d3.axisLeft(this.yscale).ticks(8);
     let gridwidth = .3;
     this.svg.append("g")
-      .attr("class", "grid")
+      .attr("class", "grid grid-x")
       .attr('stroke-width', gridwidth)
       .attr("transform", "translate(0," + this.H + ")")
       .call(xgrid
@@ -242,7 +266,7 @@ class OverTimeChart {
           .tickFormat("")
       );
     this.svg.append("g")
-      .attr("class", "grid")
+      .attr("class", "grid grid-y")
       .attr('stroke-width', gridwidth)
       .call(ygrid
           .tickSize(-this.W)
@@ -253,8 +277,8 @@ class OverTimeChart {
   setupOverall() {
     // line
     var line = d3.line()
-      .x( (yr) => (this.xscale(yr.year)))
-      .y( (yr) => (this.yscale(yr.rscore)));
+      .x(this.datx)
+      .y(this.daty);
     // render it
     this.path = this.svg.append("path")
       .datum(DATA)
