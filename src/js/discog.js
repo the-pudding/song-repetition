@@ -32,22 +32,11 @@ class DiscogWidget {
   // TODO: a general pattern worth trying: use setters to handle the rerendering 
   // associated with certain state changes (setting beehive, setting artist, etc.)
   constructor() {
-    // Right now can flip between a beehive plot and one where x=date, y=rscore
-    this.beehive = true;
     this.tip = d3Tip().html((d) => (songToolTip(d)));
     let rootsel = '#discog-widget';
     this.root = d3.select(rootsel);
     this.root.append("h1");
     let controls = this.root.append("div");
-    controls.append("label")
-      .text("Beehive")
-        .append("input")
-        .attr("type", "checkbox")
-        .attr("checked", this.beehive ? true : null)
-        .on("change", ()=>{
-          this.toggleBeehive();
-          this.renderSongs();
-        });
     controls.append("button")
       .text("random artist")
       .on("click", ()=> {
@@ -88,7 +77,6 @@ class DiscogWidget {
   // TODO: this is all kind of a mess right now. Need to structure it better
   // and make it more d3 idiomatic
   setupAxes() {
-    if (!this.beehive) return;
     this.rextent = this.rextent || RLIM;
     this.xscale = d3.scaleLinear()
       .domain(this.rextent)
@@ -121,7 +109,6 @@ class DiscogWidget {
   }
 
   updateAxes() {
-    if (!this.beehive) return;
     this.svg.select('.axis')
         .call(d3.axisBottom(this.xscale).ticks(10));
 
@@ -135,17 +122,6 @@ class DiscogWidget {
       .duration(1000)
       .attr("x", (k)=>this.xscale(pctiles[k]));
 
-  }
-
-  toggleBeehive() {
-    this.beehive = !this.beehive;
-    if (!this.beehive) {
-      this.svg.selectAll(".axis").remove();
-      this.svg.selectAll(".baseline").remove();
-    }
-    if (this.beehive) {
-      this.setupAxes();
-    }
   }
 
   // Called to adjust circle positions when force simulation ticks
@@ -175,8 +151,8 @@ class DiscogWidget {
     let discog = this.discog;
     let yrkey = (s) => (s.yearf);
     let rkey = (s) => (s.rscore);
-    let xkey = this.beehive ? rkey : yrkey;
-    let ykey = this.beehive ? ()=>0 : rkey;
+    let xkey = rkey;
+    let ykey = ()=>0;
     let rextent = d3.extent(discog, rkey);
     rextent[0] = Math.min(rextent[0], RLIM[0]);
     rextent[1] = Math.max(rextent[1], RLIM[1]);
@@ -184,9 +160,9 @@ class DiscogWidget {
     this.rextent = rextent;
 
     this.xscale = d3.scaleLinear()
-      .domain(this.beehive ? rextent : yrextent)
+      .domain(rextent)
       .range([this.R, this.W-this.R]);
-    let ydomain = this.beehive ? [-1,1] : rextent;
+    let ydomain = [-1,1];
     this.yscale = d3.scaleLinear()
       .domain(ydomain)
       .range([this.H-this.R, this.R]);
@@ -197,7 +173,7 @@ class DiscogWidget {
     this.updateAxes();
 
     this.forcesim = d3.forceSimulation()
-      .force("x", d3.forceX(this.xdat).strength(this.beehive ? 1 : .1))
+      .force("x", d3.forceX(this.xdat).strength(1))
       .force("y", d3.forceY(this.ydat))
       .force("collide", d3.forceCollide(this.R))
       .on("tick", ()=>{this.nudge()})
