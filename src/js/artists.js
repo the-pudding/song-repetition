@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
+import { BeeswarmChart } from './basechart.js';
   
 var data = artists;
 
@@ -40,48 +41,39 @@ function artistTooltip(a) {
   return s;
 }
 
-class ArtChart {
+class ArtChart extends BeeswarmChart {
   constructor() {
+    super('#artist-circles');
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
-
-    this.root = d3.select('#artist-circles');
-    let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    var totalW = 800;
-    var totalH = 500;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
-    this.R = 25; // radius of artist circles
-    this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
-      .style('background-color', 'rgba(240,255,255,1)')
-      .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
     this.svg.call(this.tip)
 
     this.decade = decades[decades.length-1];
     // TODO: redo on decade change?
-    this.xscale = d3.scaleLinear()
-      .domain(d3.extent(data, (d)=> (d.rscore)))
-      .range([0, this.W - 2*this.R]); // subtract width of an artist marker
-    this.yscale = d3.scaleLinear()
-      .domain([-1, 1])
-      .range([0, this.H]);
-    var xaxis = d3.axisBottom(this.xscale).ticks(5);
-    this.svg.append("g")
-      .classed("axis", true)
-      .call(xaxis);
-
-
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
       .force("y", d3.forceY(this.yscale(0)))
       .force("collide", d3.forceCollide(this.R))
       .on("tick", ()=>{this.nudgeArtists()});
-
     this.setupControls();
     this.rerender();
   }
+
+  get currData() {
+    if (!this.decade) { // XXX: hack
+      return data;
+    }
+    // Reapply decade filter
+    var curr = data.filter( (d) => 
+        (d.year >= this.decade.earliest && d.year <= this.decade.latest)
+    );
+    // Set initial positions
+    curr.forEach((d) => {
+      d.x = this.xscale(d.rscore);
+      d.y = this.yscale(0);
+    });
+    return curr;
+  }
+  getx(d) { return d.rscore; }
 
   setupControls() {
     this.controls = this.root.append('form');
@@ -106,9 +98,7 @@ class ArtChart {
   // Called on init and when data changes (e.g. by user selecting a new decade)
   // Updates set of artist circles and their positions
   rerender() {
-    console.log('rerender');
     this.updateDecadeControls();
-    this.updateCurrData();
     this.renderArtists();
     // alpha(1) "reheats" the simulation. Why does that work but .restart()
     // doesn't? I have no idea. :/
@@ -124,8 +114,6 @@ class ArtChart {
   }
 
   renderArtists() {    
-    var artist_x = (a) => (this.xscale(a.rscore));
-    var artist_y = this.yscale(0);
     var a = this.svg.selectAll(".artistNode").data(this.currData);
     var containers = a.enter()
       .append("g")
@@ -155,19 +143,6 @@ class ArtChart {
     a.select("text")
       .text((a) => (a.name));
     a.exit().remove();
-  }
-
-  updateCurrData() {
-    // Reapply decade filter
-    var curr = data.filter( (d) => 
-        (d.year >= this.decade.earliest && d.year <= this.decade.latest)
-    );
-    // Set initial positions
-    curr.forEach((d) => {
-      d.x = this.xscale(d.rscore);
-      d.y = this.yscale(0);
-    });
-    this.currData = curr;
   }
 
   static init() {

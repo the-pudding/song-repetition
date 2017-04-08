@@ -2,10 +2,13 @@
  */
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
+import { BeeswarmChart } from './basechart.js';
 
 import ARTIST_LOOKUP from './starmap.js';
 
 const DEBUG_DISPLACEMENT = false;
+
+const DEFAULT_ARTIST = 'Bruno Mars';
 
 // Quantiles of repetition score
 const pctiles = {
@@ -27,39 +30,26 @@ function songToolTip(s) {
       </div>`;
 }
 
-class DiscogWidget {
+class DiscogWidget extends BeeswarmChart {
 
   // TODO: a general pattern worth trying: use setters to handle the rerendering 
   // associated with certain state changes (setting beehive, setting artist, etc.)
   constructor() {
-    this.tip = d3Tip().html((d) => (songToolTip(d)));
     let rootsel = '#discog-widget';
-    this.root = d3.select(rootsel);
-    this.root.append("h1");
-    let controls = this.root.append("div");
+    super(rootsel);
+    this.tip = d3Tip().html((d) => (songToolTip(d)));
+    let insert = elem => this.root.insert(elem, ":first-child");
+    let controls = insert("div");
+    insert('h1');
     controls.append("button")
       .text("random artist")
       .on("click", ()=> {
         this.updateArtist();
       });
-
-    let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    var totalW = 800;
-    var totalH = 500;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
-    this.R = 25;
-    this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
-      .style('background-color', 'rgba(240,255,255,1)')
-      .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
     this.svg.call(this.tip);
     
-    let artist = 'Bruno Mars';
     this.setupAxes();
-    this.updateArtist(artist);
+    this.updateArtist(DEFAULT_ARTIST);
 
     let fs = '10px';
     this.root.append("div")
@@ -74,20 +64,15 @@ class DiscogWidget {
       .style("margin-right", "4px")
   }
 
+  get extent() {
+    return RLIM;
+  }
+  getx(datum) { return datum.rscore; }
+
   // TODO: this is all kind of a mess right now. Need to structure it better
   // and make it more d3 idiomatic
   setupAxes() {
-    this.rextent = this.rextent || RLIM;
-    this.xscale = d3.scaleLinear()
-      .domain(this.rextent)
-      .range([this.R, this.W-this.R]);
-    let xaxis_ypos = this.H*9/10;
-    this.svg.append("g")
-        .classed("axis", true)
-        .attr("transform", "translate(0 " + xaxis_ypos + ")")
-        .call(d3.axisBottom(this.xscale).ticks(10));
-
-      let offset = 100;
+    let offset = 100;
     let marker_pctiles = [10, 50, 90];
     let base = this.svg.selectAll(".baseline").data(marker_pctiles)
       .enter()
@@ -95,7 +80,7 @@ class DiscogWidget {
       .classed("baseline", true);
     base.append("line")
       .attr("x1", (k)=>this.xscale(pctiles[k]))
-      .attr("y1", xaxis_ypos)
+      .attr("y1", this.H-offset)
       .attr("x2", (k)=>this.xscale(pctiles[k]))
       .attr("y2", offset)
       .attr("stroke", "black")
@@ -152,7 +137,6 @@ class DiscogWidget {
     let yrkey = (s) => (s.yearf);
     let rkey = (s) => (s.rscore);
     let xkey = rkey;
-    let ykey = ()=>0;
     let rextent = d3.extent(discog, rkey);
     rextent[0] = Math.min(rextent[0], RLIM[0]);
     rextent[1] = Math.max(rextent[1], RLIM[1]);
@@ -162,24 +146,17 @@ class DiscogWidget {
     this.xscale = d3.scaleLinear()
       .domain(rextent)
       .range([this.R, this.W-this.R]);
-    let ydomain = [-1,1];
-    this.yscale = d3.scaleLinear()
-      .domain(ydomain)
-      .range([this.H-this.R, this.R]);
     // TODO: enough reuse going on at this point to consider some kind of helper
     // base class/mixin. Lots of duplication with artists.js.
     this.xdat = (d) => (this.xscale(xkey(d)));
-    this.ydat = (d) => (this.yscale(ykey(d)));
     this.updateAxes();
 
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX(this.xdat).strength(1))
-      .force("y", d3.forceY(this.ydat))
+      .force("y", d3.forceY(this.yscale(0)))
       .force("collide", d3.forceCollide(this.R))
       .on("tick", ()=>{this.nudge()})
       .nodes(discog)
-    
-    // TODO: axes
 
     let pts = this.svg.selectAll('.song').data(discog);
     pts.exit().remove();
@@ -205,7 +182,7 @@ class DiscogWidget {
     // Some things we want to do both to new nodes and updated ones
     for (let sel of [newpts, pts]) {
       sel
-        .attr("transform", d=>("translate("+this.xdat(d)+" "+this.ydat(d)+")"))
+        .attr("transform", d=>("translate("+this.xdat(d)+" "+this.yscale(0)+")"))
     }
     let spans = this.svg.selectAll('.songlabel').data(discog)
       .selectAll('tspan').data(d=>this.linify(d.title));
@@ -280,14 +257,14 @@ class DiscogWidget {
           .ease(d3.easeLinear)
           .duration(500)
           .attr("x2", this.xdat(d))
-          .attr("y2", this.ydat(d))
+          .attr("y2", this.yscale(0))
         this.svg
           .append("circle")
           .classed("ghost", true)
           .attr("r", this.R)
           .attr("opacity", 0)
           .attr("cx", this.xdat(d))
-          .attr("cy", this.ydat(d))
+          .attr("cy", this.yscale(0))
           .attr("fill", "yellow")
           .style("mouse-events", "none")
           .transition()
