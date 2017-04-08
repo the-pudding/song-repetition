@@ -7,7 +7,7 @@ var linecolor = "steelblue";
 // to accomodate topsongs. Doesn't work very well.
 const MOVING_YAXIS = false;
 // Don't include topsongs when calculating ybounds.
-const SMALL_YAXIS = 0;
+const SMALL_YAXIS = 1;
 
 // Which year to stop at for each transition stage
 const TRANSITION_YEARS = [0, 1960, 1980, 2014, 2015];
@@ -65,10 +65,12 @@ class OverTimeGraphic {
       scene.on('enter', () => {
         console.log('Entered stage' + n);
         this.chart.step(n);
+        d3.select(sel).classed('active', true);
       })
       .on('leave', () => {
         console.log('Left stage' + n);
         this.chart.step(Math.max(0, n-1));
+        d3.select(sel).classed('active', false);
       });
 
       scene.addTo(this.controller);
@@ -88,7 +90,7 @@ class OverTimeChart {
   constructor() {
     this.root = d3.select('#rovertime');
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = 1200;
+    var totalW = 800;
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
