@@ -144,7 +144,10 @@ class OverTimeChart {
     // Y axis
     this.svg.append("g")
         .classed('yaxis', true)
-          .call(d3.axisLeft(this.yscale))
+        .call(
+            d3.axisLeft(this.yscale)
+            .tickFormat(c.runits === 'pct' && d3.format('.0%'))
+        )
         .append("text")
           .attr("transform", "rotate(-90)")
           .text("repetitiveness");

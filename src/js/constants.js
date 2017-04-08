@@ -3,7 +3,7 @@ const runits = 'pct';
 function rscore_to_pct(rscore) {
   // using rscore gives the raw size as % of compressed (generally > 100%),
   // using -rscore gives compressed size as % of raw (< 100)
-  return 100 * Math.pow(2, rscore);
+  return Math.pow(2, rscore);
 }
 
 const year_extent = [1960, 2015];
