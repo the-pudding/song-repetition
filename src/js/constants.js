@@ -24,4 +24,9 @@ for (let d=6; d<=11; d++) {
   decades.push(decade);
 }
 
-export {rscore_to_pct, runits, year_extent, minyear, maxyear, decades};
+const pseudo_decades = decades;
+pseudo_decades.push(
+    {earliest: minyear, latest: maxyear, name: 'All'}
+);
+
+export {rscore_to_pct, runits, year_extent, minyear, maxyear, pseudo_decades};

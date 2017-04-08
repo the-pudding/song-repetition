@@ -1,23 +1,10 @@
 import * as d3 from 'd3'
+import * as c from './constants.js';
 import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
   
 var data = artists;
-
-var decades = [];
-for (let d=8; d<=11; d++) {
-  let name;
-  if (d === 11) {
-    name = "10's";
-  } else if (d === 10) {
-    name = "00's";
-  } else {
-    name = d*10 + "'s";
-  }
-  let decade = {earliest: 1900+d*10, latest: 1900+d*10+9, name: name};
-  decades.push(decade);
-}
 
 function round(x) {
   return Math.round(x*100)/100;
@@ -47,7 +34,7 @@ class ArtChart extends BeeswarmChart {
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
     this.svg.call(this.tip)
 
-    this.decade = decades[decades.length-1];
+    this.decade = c.pseudo_decades[c.pseudo_decades.length-2];
     // TODO: redo on decade change?
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
@@ -76,23 +63,22 @@ class ArtChart extends BeeswarmChart {
   getx(d) { return d.rscore; }
 
   setupControls() {
-    this.controls = this.root.append('form');
-    this.inputs = this.controls.selectAll("input").data(decades)
+    this.controls = this.root.insert('div', ":first-child")
+      .classed('decade-controls', true);
+    this.inputs = this.controls.selectAll("a").data(c.pseudo_decades)
       .enter()
-      .append("label")
-      .text((d)=>(d.name))
-      .append("input")
-      .attr("name", "decade")
-      .attr("type", "radio")
-      .attr("checked", (d) => (this.decade === d || null))
-      .on("change", (datum) => {
+      .append("a")
+      .classed('decade', true)
+      .text(d=>d.name)
+      .on("click", (datum) => {
         this.decade = datum;
         this.rerender();
       });
+    this.updateDecadeControls();
   }
 
   updateDecadeControls() {
-    this.inputs.attr("checked", (d) => (this.decade === d || null));
+    this.inputs.classed("active", d => this.decade === d);
   }
 
   // Called on init and when data changes (e.g. by user selecting a new decade)

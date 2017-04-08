@@ -54,9 +54,7 @@ class TopSongsGraphic {
   setupControls() {
     this.controls = this.root.append('div');
     let decs = this.controls.append('div').classed('decade-controls', true);
-    let pseudo_decades = c.decades;
-    pseudo_decades.push({earliest:c.minyear, latest:c.maxyear, name: 'All'});
-    decs.selectAll('a').data(pseudo_decades)
+    decs.selectAll('a').data(c.pseudo_decades)
       .enter()
       .append('a')
       .classed('decade', true)
