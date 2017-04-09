@@ -9,11 +9,13 @@ var linecolor = "steelblue";
 const MOVING_YAXIS = false;
 // Don't include topsongs when calculating ybounds.
 const SMALL_YAXIS = 1;
+const INVERT_Y = 1;
 
 // scrollmagic transitions
 const STAGES = [
   {maxyear:0}, {maxyear:1960, focus:1960}, {maxyear:1980, focus:1980},
-  {maxyear:2014, focus:2014}, {maxyear:2015}
+  {maxyear:2014, focus:2014}, {maxyear:2015}, 
+  {maxyear: 2015, hits:true}
 ]
 
 /** Coordinates the OverTime chart and the associated bits of prose, and hitches
@@ -123,9 +125,10 @@ class OverTimeChart {
     if (c.runits === 'pct') {
       all_ys = all_ys.map(c.rscore_to_pct);
     }
+    let yrange = INVERT_Y ? [0, this.H] : [this.H, 0];
     this.yscale = d3.scaleLinear()
       .domain(d3.extent(all_ys))
-      .range([this.H, 0]);
+      .range(yrange);
     
     // helper functions mapping from data points to x/y coords
     this.datx = (yr) => (this.xscale(yr.year));
@@ -164,7 +167,9 @@ class OverTimeChart {
     // All years after this will be hidden
     this.maxyear = stage.maxyear;
     this.focalyear = stage.focus;
+    this.show_hits = stage.hits;
     this.redrawData();
+    this.drawHits();
     // TODO: highlight 'focal' year. May also want to show topsongs
     // for 1980 and 2014.
     // TODO: top 10 line
@@ -182,11 +187,10 @@ class OverTimeChart {
       if (!this.focalyear) return 1;
       return y.year === this.focalyear ? 1 : .5;
     }
-    let pts = this.svg.selectAll('.pt').data(currData);
+    let pts = this.svg.selectAll('.allpt').data(currData);
     let newpts = pts.enter().append('circle');
-    console.log(`${newpts.size()} new points appended`);
     newpts.merge(pts)
-      .classed('pt', true)
+      .classed('pt allpt', true)
       .attr('r', y => (y.year === this.focalyear ? this.R*1.8 : this.R))
       .attr('cx', this.datx)
       .attr('cy', this.daty)
@@ -194,12 +198,17 @@ class OverTimeChart {
       .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
       .attr('opacity', opacityFn)
       .attr('fill', y => (y.year === this.focalyear ? 'rgb(0, 111, 200)' : linecolor));
+    // TODO: this should probably be a function of the number of nodes being 
+    // added/removed, so that it happens at a consistent speed.
     let animation_duration = 2000;
     // Remove extra points (happens when scrolling up)
     // TODO: race condition-y bug with fast scrolling back and forth. When entering
     // a stage, points that are on their way out from having left earlier might be
     // caught in the selection. Then they get removed, and we don't have the right
     // number of points.
+    // Maybe the solution is to do something similar to how the path is handled. 
+    // Draw the whole thing at the beginning and never remove it, just selectively
+    // mask and unmask it.
     pts.exit()
       .transition()
       .duration(animation_duration)
@@ -233,6 +242,71 @@ class OverTimeChart {
     var newLength = lenscale(this.maxyear);
     this.path.transition()
       .delay(headstart)
+      .duration(animation_duration)
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', newLength);
+  }
+
+  drawHits() {
+    let dat = this.show_hits ? DATA : [];
+    console.log(`show_hits = ${this.show_hits}, dat.length = ${dat.length}`);
+    let pts = this.svg.selectAll('.hitpt').data(dat);
+    let animation_duration = 2000;
+    let hity = yr => {
+      if (c.runits === 'pct') {
+        return this.yscale(c.rscore_to_pct(yr.hitsRscore));
+      } else {
+        return this.yscale(yr.hitsRscore);
+      }
+    }
+    pts.exit().transition()
+      .duration(animation_duration)
+      .attr('opacity', 0)
+      .remove();
+    let newpts = pts.enter().append('circle');
+    newpts.merge(pts)
+      .classed('pt hitpt', true)
+      .attr('r', this.R)
+      .attr('cy', hity)
+      .attr('cx', this.datx)
+      .attr('fill', 'orange');
+    // How long to fade in an individual point
+    let pointAnimationDuration = 200;
+    let delay_scale = (d,i) => {
+      if (newpts.size() === 1) {
+        return animation_duration - pointAnimationDuration;
+      }
+      let scale = d3.scaleLinear().domain([0, newpts.size()-1])
+        .range([0, animation_duration-pointAnimationDuration])
+      return scale(i);
+    }
+    newpts.attr('opacity', 0)
+      .transition()
+      .delay(delay_scale)
+      .duration(pointAnimationDuration)
+      .attr('opacity', 1);
+    let hitline = d3.line().y(hity).x(this.datx);
+    let hitpath = this.svg.select('.hitpath');
+    if (hitpath.empty()) {
+      hitpath = this.svg.append('path')
+        .datum(DATA)
+        .classed('hitpath', true)
+        .attr('stroke', 'orange')
+        .attr('stroke-width', 1.5)
+        .attr('fill', 'none')
+        .attr('d', hitline);
+      var totalLength = hitpath.node().getTotalLength();
+      hitpath
+        .attr('stroke-dasharray', totalLength + ' ' +totalLength)
+        .attr('stroke-dashoffset', totalLength);
+    } 
+    var totalLength = hitpath.node().getTotalLength();
+    var lenscale = d3.scaleLinear()
+      .clamp(true)
+      .domain(c.year_extent)
+      .range([totalLength, 0]);
+    var newLength = lenscale(this.show_hits ? this.maxyear : c.minyear);
+    hitpath.transition()
       .duration(animation_duration)
       .ease(d3.easeLinear)
       .attr('stroke-dashoffset', newLength);
