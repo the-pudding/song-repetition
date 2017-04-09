@@ -12,8 +12,8 @@ class BeeswarmChart extends BaseChart {
   constructor(rootsel) {
     super(rootsel);
     let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    var totalW = 800;
-    var totalH = 500;
+    var totalW = 1000;
+    var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
     this.R = 25; // radius of circles
