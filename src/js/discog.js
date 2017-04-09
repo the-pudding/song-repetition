@@ -95,7 +95,7 @@ class DiscogWidget extends BeeswarmChart {
 
   updateAxes() {
     this.svg.select('.axis')
-        .call(d3.axisBottom(this.xscale).ticks(10));
+        .call(d3.axisBottom(this.xscale).ticks(0));
 
     this.svg.selectAll('.baseline').select('line')
       .transition()

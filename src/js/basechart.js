@@ -36,15 +36,26 @@ class BeeswarmChart extends BaseChart {
 
   addAxis() {
     let h = this.H/2;
+    let labelh = h + this.H*5/20;
     this.svg.append("g")
       .classed("axis", true)
       .attr("transform", "translate(0 "+h+")");
+    this.svg.append('text')
+      .text('Less repetitive')
+      .attr('font-size', '13px')
+      .attr('x', this.W*1/20)
+      .attr('y', labelh);
+    this.svg.append('text')
+      .text('More repetitive')
+      .attr('font-size', '13px')
+      .attr('x', this.W*9/10)
+      .attr('y', labelh);
     this.updateAxis();
   }
 
   updateAxis() {
     let axis_el = this.svg.select('.axis');
-    let axis = d3.axisBottom(this.xscale);
+    let axis = d3.axisBottom(this.xscale).ticks(0);
     axis_el.call(axis);
   }
 
