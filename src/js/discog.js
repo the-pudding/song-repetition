@@ -5,6 +5,7 @@ import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
 
 import ARTIST_LOOKUP from './starmap.js';
+import HIST from './histogram-data.js';
 
 const DEBUG_DISPLACEMENT = false;
 
@@ -12,13 +13,16 @@ const DEFAULT_ARTIST = 'Bruno Mars';
 
 // Quantiles of repetition score
 const pctiles = {
+  1 : 0.298361,
   10: 0.5388,
   50: 0.9733,
-  90: 1.467
+  90: 1.467,
+  99: 1.9997,
 };
 
 // Default limits for the rscore axis
-const RLIM = [pctiles[10], pctiles[90]];
+//const RLIM = [pctiles[10], pctiles[90]];
+const RLIM = [pctiles[1], pctiles[99]];
 
 function round(x) {
   return Math.round(x*100)/100;
@@ -73,7 +77,8 @@ class DiscogWidget extends BeeswarmChart {
   // and make it more d3 idiomatic
   setupAxes() {
     let offset = 100;
-    let marker_pctiles = [10, 50, 90];
+    //let marker_pctiles = [10, 50, 90];
+    let marker_pctiles = [50];
     let base = this.svg.selectAll(".baseline").data(marker_pctiles)
       .enter()
       .append("g")
@@ -107,6 +112,29 @@ class DiscogWidget extends BeeswarmChart {
       .duration(1000)
       .attr("x", (k)=>this.xscale(pctiles[k]));
 
+  }
+
+  updateHistogram() {
+    // map counts to height of bar
+    let hdomain = [0, d3.max(HIST, h=>h.count)];
+    let hscale = d3.scaleLinear()
+      .domain(hdomain)
+      .range([0, this.H/2]);
+    let bars = this.svg.selectAll('.bar').data(HIST);
+    bars.exit().remove();
+    let newbars = bars.enter()
+      .append('rect')
+      .classed('bar', true);
+    newbars.merge(bars)
+      .attr("x", h=> this.xscale(h.left))
+      // start at the midpoint, then move up half the height of the bar
+      // (the goal is for the bars to be symmetric about the x-axis, which 
+      // is located at the midpoint of the y-axis)
+      .attr("y", h=> this.H/2 - hscale(h.count)/2)
+      .attr("width", h=> this.xscale(h.right)-this.xscale(h.left))
+      .attr("height", h=> hscale(h.count))
+      .attr('fill', 'fuchsia')
+      .attr('opacity', 0.2);
   }
 
   // Called to adjust circle positions when force simulation ticks
@@ -150,6 +178,7 @@ class DiscogWidget extends BeeswarmChart {
     // base class/mixin. Lots of duplication with artists.js.
     this.xdat = (d) => (this.xscale(xkey(d)));
     this.updateAxes();
+    this.updateHistogram();
 
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX(this.xdat).strength(1))

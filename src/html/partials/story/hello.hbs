@@ -102,7 +102,9 @@ Applying this algorithm, turns out to shrink the average pop song to about <b>50
 - consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook)
     and talking through some observations, before unleashing the selection of all artists in the dataset.
 - use different signposts (specific songs/artists rather than percentiles)
-    - Another idea to try: add a histogram (symmetric about the x-axis) as a backdrop.
+- Alternative to above: add a histogram (symmetric about the x-axis) as a backdrop.
+    - I like how this looks. But it needs some smoothing. Could try to use a colormap as well, but that might
+    be redundant and overwhelming.
 - force text into bubbles (truncating if necessary)
 - bug fix: when changing artist, circles seem to fly in from the top (whereas they should start in the middle
   at their 'true' positions, then repel apart)
