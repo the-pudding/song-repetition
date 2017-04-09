@@ -9,7 +9,7 @@ import HIST from './histogram-data.js';
 
 const DEBUG_DISPLACEMENT = false;
 
-const DEFAULT_ARTIST = 'Bruno Mars';
+const DEFAULT_ARTIST = 'Gwen Stefani';
 
 // Quantiles of repetition score
 const pctiles = {
@@ -146,9 +146,16 @@ class DiscogWidget extends BeeswarmChart {
   // Use the given artist's discog. (Or, if none given, choose a random artist.)
   updateArtist(artist) {
     if (!artist) {
+      let tries = 4;
       let artists = Object.keys(ARTIST_LOOKUP);
-      let i = Math.floor(Math.random()*artists.length);
-      artist = artists[i];
+      while (tries && (!artist || artist === this.artist)) {
+        let i = Math.floor(Math.random()*artists.length);
+        artist = artists[i];
+        tries--;
+      }
+      if (tries === 0) {
+        console.warn("Couldn't reroll a different artist. That's pretty weird.");
+      }
     }
     this.root.select("h1")
       .text(artist + " discography");

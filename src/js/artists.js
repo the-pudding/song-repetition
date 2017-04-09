@@ -17,6 +17,8 @@ function artistTooltip(a) {
     let val = a[attr];
     if (attr === 'rscore') {
       val = round(val);
+      let pct = Math.pow(2, -val)*100;
+      s += `<div>pct: ${round(pct)}</div>`;
     }
     if (attr === 'mostrep') {
       val += ' (' + round(a['topscore']) + ')';
@@ -34,7 +36,7 @@ class ArtChart extends BeeswarmChart {
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
     this.svg.call(this.tip)
 
-    this.decade = c.pseudo_decades[c.pseudo_decades.length-2];
+    this.decade = c.pseudo_decades[c.pseudo_decades.length-3];
     // TODO: redo on decade change?
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
