@@ -25,8 +25,8 @@ const pctiles = {
 };
 
 // Default limits for the rscore axis
-//const RLIM = [pctiles[10], pctiles[90]];
-const RLIM = [pctiles[1], pctiles[99]];
+const RLIM = [pctiles[10], pctiles[90]];
+//const RLIM = [pctiles[1], pctiles[99]];
 
 function songToolTip(s) {
   return `<div class="d3-tip">
@@ -68,7 +68,7 @@ class DiscogWidget extends BeeswarmChart {
   // TODO: this is all kind of a mess right now. Need to structure it better
   // and make it more d3 idiomatic
   setupAxes() {
-    let offset = 100;
+    let offset = 50;
     //let marker_pctiles = [10, 50, 90];
     let marker_pctiles = [50];
     let base = this.svg.selectAll(".baseline").data(marker_pctiles)
@@ -111,22 +111,29 @@ class DiscogWidget extends BeeswarmChart {
     let hdomain = [0, d3.max(HIST, h=>h.count)];
     let hscale = d3.scaleLinear()
       .domain(hdomain)
-      .range([0, this.H/2]);
+      .range([0, this.H*8/10]);
     let bars = this.svg.selectAll('.bar').data(HIST);
     bars.exit().remove();
     let newbars = bars.enter()
       .append('rect')
       .classed('bar', true);
     newbars.merge(bars)
+      .attr('fill', 'fuchsia')
+      .attr('opacity', 0.2);
+    newbars
       .attr("x", h=> this.xscale(h.left))
       // start at the midpoint, then move up half the height of the bar
       // (the goal is for the bars to be symmetric about the x-axis, which 
       // is located at the midpoint of the y-axis)
       .attr("y", h=> this.H/2 - hscale(h.count)/2)
       .attr("width", h=> this.xscale(h.right)-this.xscale(h.left))
-      .attr("height", h=> hscale(h.count))
-      .attr('fill', 'fuchsia')
-      .attr('opacity', 0.2);
+      .attr("height", h=> hscale(h.count));
+    bars.transition()
+      .duration(300)
+      .attr("x", h=> this.xscale(h.left))
+      .attr("y", h=> this.H/2 - hscale(h.count)/2)
+      .attr("width", h=> this.xscale(h.right)-this.xscale(h.left))
+      .attr("height", h=> hscale(h.count));
   }
 
   // Called to adjust circle positions when force simulation ticks
