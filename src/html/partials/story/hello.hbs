@@ -66,33 +66,16 @@ As long as I can feel the beat{53,35}keep dancing</code>
 
 <p>I gathered a dataset of lyrics for 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017. The average song in the dataset is <b>50% compressible</b>. (For comparison, an average newswire article is X% compressible.)</p>
 
-<pre>TODO: some kind of animated illustration of the compression algorithm</pre>
-
 <p>There's considerable variation around that average - let's look at some of the most repetitive songs through the ages.</p>
-
-<pre>TODO:
-- probably not clear at a glance what the bars represent (even if there were column headings). Ideas for making this more intuitive:
-    - instead of stacked bars, put them sequentially with an arrow between them: [original size bar] --> [shrunk size]
-    - tooltips
-    - use the bar-style illustration above when talking about example song
-- excerpt a song's lyrics when hovering/focusing it?</pre>
 
 <h2>The most repetitive songs of all time</h2>
 <div id="topsongs"></div>
 
 <p>The current decade is pretty well-represented in the top 10, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). To figure out whether music is getting more repetitive, we'll need to look at a lot more data...</p>
 
-<pre>TODO:
-- try a subtle scatterplot underlay effect
-- figure out what units/scale to use ('rscore', big %, small %)</pre>
-
 {{> story/overtime }}
 
 <p>Who's responsible for this madness? Let's look at the average repetitiveness of some prolific artists (those that have at least 15 charting songs in the hot 100).</p>
-
-<pre>TODO:
-- color artists by genre?
-- take a constant number of artists per decade. Make the "All" view not so insanely packed.</pre>
 
 <br/>
 
@@ -104,29 +87,6 @@ As long as I can feel the beat{53,35}keep dancing</code>
 
 <p>The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 60%, to Brad Paisley's 38%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
 </p>
-
-<pre>TODO:
-- consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook)
-    and talking through some observations, before unleashing the selection of all artists in the dataset.
-- use different signposts (specific songs/artists rather than percentiles)
-- Alternative to above: add a histogram (symmetric about the x-axis) as a backdrop.
-    - I like how this looks. But it needs some smoothing. Could try to use a colormap as well, but that might
-    be redundant and overwhelming.
-    - animate translation of the histogram when changing the artist
-    - maybe scale up max height according to number of songs (would help contextualize a discography like TSwift's)
-- force text into bubbles (truncating if necessary)
-- bug fix: when changing artist, circles seem to fly in from the top (whereas they should start in the middle
-  at their 'true' positions, then repel apart)
-- figure out how much text/exposition to accompany this with. And whether that text should just precede the widget,
-  or if I should show a chart with artist fixed to X, then talk about what that says about X, and then have the
-  version of the widget where artist is a free variable.
-    - (maybe even go back to the Taylor Swift text, and use the version where x=year, y=repetition? that would
-    probably be confusing. But could maybe instead stick with beeswarm but color the songs by album, with a 
-    colormap that makes the direction of time clear.)
-- profile. Seems a bit laggy at times.
-- highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through
-  a specific example)
-- may want to limit number of songs per artist (Tswift's discog is v crowded right now)</pre>
 
 <p>Let's zoom in on a specific artist, say Gwen Stefani. Each circle below represents a song in her discography. The pink blob is a histogram of the repetitiveness of all the songs in the dataset, for reference.
 </p>
