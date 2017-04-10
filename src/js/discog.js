@@ -8,6 +8,9 @@ import { BeeswarmChart } from './basechart.js';
 import ARTIST_LOOKUP from './starmap.js';
 import HIST from './histogram-data.js';
 
+import $ from 'jquery';
+import 'select2';
+
 const DEBUG_DISPLACEMENT = false;
 
 const DEFAULT_ARTIST = 'Gwen Stefani';
@@ -41,29 +44,20 @@ class DiscogWidget extends BeeswarmChart {
     super(rootsel);
     this.tip = d3Tip().html((d) => (songToolTip(d)));
     let insert = elem => this.root.insert(elem, ":first-child");
+
     let controls = insert("div");
     insert('h1');
+    this.setupHeader();
     controls.append("button")
       .text("random artist")
       .on("click", ()=> {
         this.updateArtist();
+        this.updateHeader();
       });
     this.svg.call(this.tip);
     
     this.setupAxes();
     this.updateArtist(DEFAULT_ARTIST);
-
-    let fs = '10px';
-    this.root.append("div")
-      .style('line-height', fs*1.1)
-      .selectAll("a").data(Object.keys(ARTIST_LOOKUP).sort())
-      .enter()
-      .append("a")
-      .text((d)=>d)
-      .on("click", (d)=>{this.updateArtist(d)})
-      .attr("href", (d)=>"#"+d)
-      .style("font-size", fs)
-      .style("margin-right", "4px")
   }
 
   get extent() {
@@ -141,6 +135,29 @@ class DiscogWidget extends BeeswarmChart {
       .attr("transform", (d)=>("translate("+d.x+" "+d.y+")"));
   }
 
+  setupHeader() {
+    let hd = this.root.select('h1');
+    let dd = hd.append('select').classed('discog-artist-dd', true);
+    hd.append('span').text(' discography');
+    dd.selectAll('option').data(Object.keys(ARTIST_LOOKUP).sort())
+      .enter()
+      .append('option')
+      .attr('value', a=>a)
+      .attr('selected', a=> a===DEFAULT_ARTIST ? true : null)
+      .text(a=>a);
+    $('.discog-artist-dd').select2();
+    $('.discog-artist-dd').on("select2:select", e=> {
+      let artist = e.params.data.id;
+      this.updateArtist(artist);
+    });
+  }
+
+  // Called when the artist is changed by some means other than the dropdown
+  // (i.e. the randomize button)
+  updateHeader() {
+    $('.discog-artist-dd').val(this.artist).trigger('change');
+  }
+
   // Use the given artist's discog. (Or, if none given, choose a random artist.)
   updateArtist(artist) {
     if (!artist) {
@@ -155,8 +172,6 @@ class DiscogWidget extends BeeswarmChart {
         console.warn("Couldn't reroll a different artist. That's pretty weird.");
       }
     }
-    this.root.select("h1")
-      .text(artist + " discography");
     this.artist = artist;
     let url = 'assets/discogs/' + ARTIST_LOOKUP[this.artist];
     d3.json(url, (discog) => {
