@@ -45,7 +45,8 @@ One thing we might try is looking at the number of unique words in a song, as a 
 </div>
 <p>These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
 
-<p>What if we just zip each song and measure how much smaller it gets relative to the original size?</p>
+<p>What if we just <b>zip each song and measure how much smaller it gets</b> relative to the original size?</p>
+
 <p>It sounds cheeky, but it turns out that the family of <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithms</a>, used in many compressed formats, have a pretty natural correspondence between their performance and the "repetitiveness" of the input data.</p>
 <p>Lempel-Ziv works by exploiting repeated sequences, which is exactly what we're interested in. It's also pretty easy to understand. The compressed version of the Sia excerpt above would look like...</p>
 
@@ -54,17 +55,20 @@ I love cheap thrills<br/>
 {72,72}{139,13}no money<br/>
 As long as I can feel the beat{53,35}keep dancing</code>
 <br><br>
+
 <p>Where <code>{n,k}</code> tells the decompressor "go back n characters, and copy the substring of length k starting from there".</p>
+
 <p>This chorus shrunk down a lot! Notice that the compressor took advantage of repeated lines, but also repeated phrases within lines ("I don't need ", "As long as I "). But the best part is, the next time we see this chorus, we can replace all 242 characters of it with a single "ditto".</p>
 
+<p>I'll define the "compressibility" of a song as the % reduction in size when compressing it. By this definition, the chorus of <i>Cheap Thrills</i> is 46% compressible.</p>
 
-<p>
-Applying this algorithm, turns out to shrink the average pop song to about <b>50%</b> of its original size. Rihanna's "Work" is a perfectly average example: it shrinks from 2,800 letters to 1,400 after compression. For comparison, an average newswire article compresses Y%.
-</p>
+<img src="assets/cheap.png" class="center-block" style="width:40%;padding:10px 0;" />
+
+<p>I gathered a dataset of lyrics for 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017. The average song in the dataset is <b>50% compressible</b>. (For comparison, an average newswire article is X% compressible.)</p>
 
 <pre>TODO: some kind of animated illustration of the compression algorithm</pre>
 
-<p>There's considerable variation around that average - let's look at some of the outliers. I'm using songs from the Billboard Hot 100 between 1958 and 2017. (I was able to find lyrics for 15,000 of the ~27,000 songs charting in that period.)</p>
+<p>There's considerable variation around that average - let's look at some of the most repetitive songs through the ages.</p>
 
 <pre>TODO:
 - probably not clear at a glance what the bars represent (even if there were column headings). Ideas for making this more intuitive:
@@ -98,7 +102,7 @@ Applying this algorithm, turns out to shrink the average pop song to about <b>50
 <p>Genre seems like a significant factor. In the 00's, our artists actually separate pretty cleanly into two clusters, with country music and hip-hop (and whatever John Mayer does) on the left, and pop and rock on the right.
 </p>
 
-<p>The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 40%, to Brad Paisley's 62%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
+<p>The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 60%, to Brad Paisley's 38%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
 </p>
 
 <pre>TODO:
