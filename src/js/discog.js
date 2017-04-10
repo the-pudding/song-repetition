@@ -1,6 +1,7 @@
 /** Widget for showing repetitiveness of an individual artist's discography
  */
 import * as d3 from 'd3';
+import * as comm from './common.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
 
@@ -24,13 +25,10 @@ const pctiles = {
 //const RLIM = [pctiles[10], pctiles[90]];
 const RLIM = [pctiles[1], pctiles[99]];
 
-function round(x) {
-  return Math.round(x*100)/100;
-}
 function songToolTip(s) {
   return `<div class="d3-tip">
       <div>${s.title} (${Math.floor(s.yearf)})</div>
-      <div>${round(s.rscore)}</div>
+      <div style="text-align: center;">${comm.rscore_to_readable(s.rscore)}</div>
       </div>`;
 }
 

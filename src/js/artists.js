@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import * as c from './constants.js';
+import * as comm from './common.js';
 import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
@@ -10,7 +11,7 @@ function round(x) {
   return Math.round(x*100)/100;
 }
 
-function artistTooltip(a) {
+function debugartistTooltip(a) {
   var lines = [];
   let s = '<div class="artist-tooltip d3-tip n">'
   for (let attr of ["name", "rscore", "year", "nsongs", "mostrep"]) {
@@ -26,6 +27,19 @@ function artistTooltip(a) {
     let txt = attr + ' = ' + val;
     s += '<div>' + txt + '</div>';
   }
+  s += '</div>';
+  return s;
+}
+
+function artistTooltip(a) {
+  var lines = [];
+  let s = '<div class="artist-tooltip d3-tip n">';
+
+  lines.push(a.name);
+  //lines.push(`#songs: ${a.nsongs}`);
+  lines.push(`avg. repetition: ${comm.rscore_to_readable(a.rscore)}`);
+  lines.push(`Most repetitive song: ${a.mostrep} (${comm.rscore_to_readable(a.topscore)})`);
+  s += lines.map(t=>`<div>${t}</div>`).join('');
   s += '</div>';
   return s;
 }
