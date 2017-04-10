@@ -7,6 +7,8 @@ import { BeeswarmChart } from './basechart.js';
   
 var data = artists;
 
+const max_artists = 50;
+
 function round(x) {
   return Math.round(x*100)/100;
 }
@@ -69,6 +71,10 @@ class ArtChart extends BeeswarmChart {
     var curr = data.filter( (d) => 
         (d.year >= this.decade.earliest && d.year <= this.decade.latest)
     );
+    if (curr.length > max_artists) {
+      curr = curr.sort((a,b) => d3.descending(a.nsongs, b.nsongs));
+      curr = curr.slice(0, max_artists);
+    }
     // Set initial positions
     curr.forEach((d) => {
       d.x = this.xscale(d.rscore);

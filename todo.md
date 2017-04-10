@@ -16,7 +16,6 @@
 
 ## Artists beeswarm
 - color artists by genre?
-- take a constant number of artists per decade. Make the "All" view not so insanely packed.
 
 ## Discographies
 - consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook) and talking through some observations, before unleashing the selection of all artists in the dataset.
@@ -31,3 +30,4 @@
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
+- a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
