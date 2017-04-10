@@ -189,9 +189,8 @@ class DiscogWidget extends BeeswarmChart {
 
   renderSongs() {
     let discog = this.discog;
-    let rkey = (s) => (s.rscore);
-    let xkey = rkey;
-    let rextent = d3.extent(discog, rkey);
+    let xkey = (s) => (s.rscore);
+    let rextent = d3.extent(discog, xkey);
     rextent[0] = Math.min(rextent[0], RLIM[0]);
     rextent[1] = Math.max(rextent[1], RLIM[1]);
     this.rextent = rextent;
@@ -211,6 +210,12 @@ class DiscogWidget extends BeeswarmChart {
       .force("collide", d3.forceCollide(this.R))
       .on("tick", ()=>{this.nudge()})
       .nodes(discog)
+
+    // Set initial position data
+    discog.forEach(s=> {
+      s.x = this.xdat(s);
+      s.y = this.yscale(0);
+    });
 
     let pts = this.svg.selectAll('.song').data(discog);
     pts.exit().remove();
