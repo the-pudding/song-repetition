@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import DATA from './years.js';
 import ScrollMagic from 'scrollmagic';
 import * as c from './constants.js';
+import * as comm from './common.js';
 
 var linecolor = "steelblue";
 // Whether to dynamically adjust the yaxis bounds when hovering over a year,
@@ -9,7 +10,7 @@ var linecolor = "steelblue";
 const MOVING_YAXIS = false;
 // Don't include topsongs when calculating ybounds.
 const SMALL_YAXIS = 1;
-const INVERT_Y = 1;
+const INVERT_Y = 0;
 
 // scrollmagic transitions
 const STAGES = [
@@ -123,7 +124,7 @@ class OverTimeChart {
     this.ymin = yextent[0];
     this.ymax = yextent[1];
     if (c.runits === 'pct') {
-      all_ys = all_ys.map(c.rscore_to_pct);
+      all_ys = all_ys.map(comm.rscore_to_pct);
     }
     let yrange = INVERT_Y ? [0, this.H] : [this.H, 0];
     this.yscale = d3.scaleLinear()
@@ -133,7 +134,7 @@ class OverTimeChart {
     // helper functions mapping from data points to x/y coords
     this.datx = (yr) => (this.xscale(yr.year));
     if (c.runits === 'pct') {
-      this.daty = yr => this.yscale(c.rscore_to_pct(yr.rscore));
+      this.daty = yr => this.yscale(comm.rscore_to_pct(yr.rscore));
     } else {
       this.daty = (yr) => (this.yscale(yr.rscore));
     }
@@ -254,7 +255,7 @@ class OverTimeChart {
     let animation_duration = 2000;
     let hity = yr => {
       if (c.runits === 'pct') {
-        return this.yscale(c.rscore_to_pct(yr.hitsRscore));
+        return this.yscale(comm.rscore_to_pct(yr.hitsRscore));
       } else {
         return this.yscale(yr.hitsRscore);
       }

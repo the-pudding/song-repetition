@@ -169,13 +169,11 @@ class DiscogWidget extends BeeswarmChart {
 
   renderSongs() {
     let discog = this.discog;
-    let yrkey = (s) => (s.yearf);
     let rkey = (s) => (s.rscore);
     let xkey = rkey;
     let rextent = d3.extent(discog, rkey);
     rextent[0] = Math.min(rextent[0], RLIM[0]);
     rextent[1] = Math.max(rextent[1], RLIM[1]);
-    let yrextent = d3.extent(discog, yrkey);
     this.rextent = rextent;
 
     this.xscale = d3.scaleLinear()
@@ -208,65 +206,15 @@ class DiscogWidget extends BeeswarmChart {
       .attr("cx", 0) 
       .attr("cy", 0)
       .attr("fill", "lightseagreen");
-    let fontsize = 11;
+    let fontsize = 10;
     let newtext = newpts
       .append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", fontsize)
       .attr("font-family", "Tahoma, Verdana, sans-serif")
       .classed("songlabel", true);
-    // Some things we want to do both to new nodes and updated ones
-    for (let sel of [newpts, pts]) {
-      sel
-        .attr("transform", d=>("translate("+this.xdat(d)+" "+this.yscale(0)+")"))
-    }
-    let spans = this.svg.selectAll('.songlabel').data(discog)
-      .selectAll('tspan').data(d=>this.linify(d.title));
-    spans.exit().remove();
-    let newspans = spans
-      .enter()
-      .append("tspan");
-    let lineheight = fontsize*1.05;
-    for (let spansel of [spans, newspans]) {
-      spansel
-        .attr("x", 0)
-        .attr("y", (d,i,n) => {
-          let nlines = n.length;
-          let height = nlines * lineheight;
-          // -height/2 would make sense if text grew down from its y-coordinate,
-          // but actually, the base of each letter is aligned with the y-coord
-          let offset = -height/2 + lineheight/2;
-          return offset + i*lineheight;
-        })
-        .text((d)=>d)
-    }
-  }
-
-  /** Return a list of word-wrapped lines that sum to the given text.
-   * Given max length is treated as a soft constraint. */
-  linify(s, maxlen=5) {
-    let tokens = s.split(' ');
-    let lines = [];
-    let line = '';
-    console.assert(maxlen > 0);
-    let i = 0
-    for (let token of tokens) {
-      line += token + ' ';
-      if (line.length >= maxlen || 
-          // look ahead for icebergs
-          (line.length && (i+1) < tokens.length && 
-            (line.length + tokens[i+1].length) > maxlen * 1.75
-          )
-         ) {
-        lines.push(line.slice(0,-1));
-        line = '';
-      }
-      i++;
-    }
-    if (line) {
-      lines.push(line);
-    }
-    return lines;
+    pts = pts.merge(newpts);
+    this.bubbleText(pts.select('text'), d=>d.title);
   }
 
   // TODO: I miss being able to do arrow function methods. Should look into turning

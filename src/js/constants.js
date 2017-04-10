@@ -1,11 +1,5 @@
 const runits = 'pct';
 
-function rscore_to_pct(rscore) {
-  // using rscore gives the raw size as % of compressed (generally > 100%),
-  // using -rscore gives compressed size as % of raw (< 100)
-  return Math.pow(2, -rscore);
-}
-
 const year_extent = [1960, 2015];
 const minyear = year_extent[0];
 const maxyear = year_extent[1];
@@ -29,4 +23,4 @@ pseudo_decades.push(
     {earliest: minyear, latest: maxyear, name: 'All'}
 );
 
-export {rscore_to_pct, runits, year_extent, minyear, maxyear, pseudo_decades};
+export {runits, year_extent, minyear, maxyear, pseudo_decades};

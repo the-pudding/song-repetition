@@ -103,6 +103,7 @@ class ArtChart extends BeeswarmChart {
 
   renderArtists() {    
     var a = this.svg.selectAll(".artistNode").data(this.currData);
+    a.exit().remove();
     var containers = a.enter()
       .append("g")
       .attr("width", this.R*2) // TODO: not necessary?
@@ -126,11 +127,8 @@ class ArtChart extends BeeswarmChart {
       .attr("y", 0)
       .attr("width", this.R*2)
       .attr("height", this.R*2)
-      .text((a) => (a.name));
-    // update text labels
-    a.select("text")
-      .text((a) => (a.name));
-    a.exit().remove();
+    let textsel = a.merge(containers).select('text');
+    this.bubbleText(textsel, a=>a.name);
   }
 
   static init() {

@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as c from './constants.js';
+import * as comm from './common.js';
 import TOPS from './topsongs-data.js';
 
 const default_nsongs = 10;
@@ -99,7 +100,7 @@ class TopSongsGraphic {
     rows = this.body.selectAll('.row');
     rows.select('.rank').text( (s, i) => (i+1+"."));
     rows.select('.songlabel').text(s => `${s.title} - ${s.artist} (${s.year})`);
-    rows.select('.pct').text(s => Math.floor(100*s.icomp/s.raw) + '%');
+    rows.select('.pct').text(s => comm.rscore_to_readable(s.rscore));
     rows.select('.barcell')
       .attr('title', s=>(`${s.raw} -> ${s.icomp}`));
     let rawbar = rows.select('.barcell .raw');
