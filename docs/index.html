@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" data-version="1491875515754">
+<head>
+	<title>tk</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="tk">
+	<meta name="news_keywords" content="tk">
+	
+	<meta property="og:title" content="tk">
+	<meta property="og:site_name" content="The Pudding">
+	<meta property="og:url" content="tk">
+	<meta property="og:description" content="tk">
+	<meta property="og:type" content="article">
+	<meta property="og:locale" content="en_US">
+	
+	<meta property="og:image" content="tk">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="600">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="https://pudding.cool">
+	<meta name="twitter:creator" content="@puddingviz">
+	<meta name="twitter:title" content="tk">
+	<meta name="twitter:description" content="tk">
+	<meta name="twitter:image:src" content="tk">	
+    <!-- d3-tip default tooltip styles -->
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
+    <!-- TODO: gotta be a better way to do this. This file exists in node_modules. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<style>html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}body{font-feature-settings:'kern' 1,'onum' 1,'liga' 0;-webkit-tap-highlight-color:transparent}b,strong{font-weight:700}em,i{font-style:italic}ul{list-style-type:none}img,video{display:block;width:100%}button{cursor:pointer;border:none;outline:0;margin:0;padding:0;font-size:1rem}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}.hide-accessible{width:1px;height:1px;overflow:hidden;position:absolute}.hide-invisible{visibility:hidden}.hide-display{display:none}header{text-align:center;z-index:3000;width:10rem;margin:2.5rem auto}header a.logo{overflow:hidden;zoom:1;border-bottom:none;display:block}header a.logo .logo__text{text-transform:uppercase;color:#2a2a2a;display:inline-block;width:100%;margin:0;padding:0;line-height:48px;font-size:.9rem;font-weight:400;letter-spacing:.05em}header a.logo .logo__svg{width:48px;height:48px;fill:#2a2a2a;display:block;margin:0 auto}#overtime-graphic{position:relative}#overtime-graphic .spacer{height:300px}#overtime-graphic .graphic-prose{width:24rem}#overtime-graphic .scrolly-slide{background-color:#fff0dc;opacity:.5}#overtime-graphic .scrolly-slide.active{opacity:1}#overtime-graphic #scrollysticky{background-color:#ffffdc}#overtime-graphic .graphic-vis{position:absolute;top:0;margin-left:30rem;transform:translate3d(0,0,0);height:100vh}#overtime-graphic .graphic-vis.is-fixed{position:fixed}#overtime-graphic .graphic-vis.is-bottom{top:auto;bottom:0}#overtime-graphic .graphic{width:100%;position:relative}.tk-pt-serif{font-family:Georgia,Times,serif}.loaded-pt-serif .tk-pt-serif{font-family:'PT Serif',Georgia,Times,serif}.tk-roboto{font-family:Helvetica,Arial,sans-serif}.loaded-roboto .tk-roboto{font-family:Roboto,Helvetica,Arial,sans-serif}body,html{background-color:#fff;color:#2a2a2a;font-size:17px}p{line-height:1.6;margin-bottom:10px}h1{font-size:32px;margin-bottom:30px}h2{font-size:24px;margin-bottom:20px}footer{display:none}small{font-size:70%}button{padding:6px;margin:6px;border-radius:5px}.decade-controls a{cursor:pointer;margin-left:5px}.decade-controls a.active{border:1px solid #777;font-weight:700}#discog-widget .select2{max-width:13em}.spacer{height:300px}#topsongs{background-color:#e6f0ff;margin-bottom:20px}#topsongs .body{margin:0 auto}#topsongs .row{height:30px;position:relative;margin:0 auto;border-bottom:1px solid #777}#topsongs .row .cell{position:absolute;font-size:12px}#topsongs .row .rank{top:3px;left:1px}#topsongs .row .songlabel{left:18px;top:2px}#topsongs .row .barcell{height:100%;float:left;left:360px;width:350px}#topsongs .row .barcell .bar{height:80%;top:10%;opacity:70%;position:absolute}#topsongs .row .barcell .raw{background-color:teal}#topsongs .row .barcell .comp{background-color:#dc143c;z-index:1}#topsongs .row .pct{float:right;right:10px;font-size:16px}@media only screen and (min-width:25em){.hack{display:none}}@media only screen and (min-width:40em){.hack{display:none}}@media only screen and (min-width:50em){.hack{display:none}}@media only screen and (min-width:60em){.hack{display:none}}</style>
+		
+	<style>@font-face{font-family:'PT Serif';font-style:normal;font-weight:400;src:local('PT Serif'),local('PTSerif-Regular'),url(assets/fonts/pt-serif-v8-latin-regular.woff2) format('woff2'),url(assets/fonts/pt-serif-v8-latin-regular.woff) format('woff')}@font-face{font-family:'PT Serif';font-style:normal;font-weight:700;src:local('PT Serif Bold'),local('PTSerif-Bold'),url(assets/fonts/pt-serif-v8-latin-700.woff2) format('woff2'),url(assets/fonts/pt-serif-v8-latin-700.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:400;src:local('Roboto'),local('Roboto-Regular'),url(assets/fonts/roboto-v15-latin-regular.woff2) format('woff2'),url(assets/fonts/roboto-v15-latin-regular.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:700;src:local('Roboto Bold'),local('Roboto-Bold'),url(assets/fonts/roboto-v15-latin-700.woff2) format('woff2'),url(assets/fonts/roboto-v15-latin-700.woff) format('woff')}</style>	
+		<script>!function(e){e.$fuse$=e,e.pkg("default",{},function(e){e.file("critical.js",function(e,t,n,o,i){"use strict";var r=t("./utils/load-font"),a=[{family:"PT Serif",weight:400},{family:"PT Serif",weight:700}],s=[{family:"Roboto",weight:400},{family:"Roboto",weight:700}];(0,r.loadFontGroup)(a),(0,r.loadFontGroup)(s)}),e.file("utils/load-font.js",function(e,t,n,o,i){"use strict";function r(e){var t=e.toLowerCase().replace(/ /g,"-"),n="loaded-"+t;(0,l.addClass)(d,n)}function a(e){console.error(e)}function s(e){var t=e.family,n=e.weight;e.style;new f.default(t,{weight:n}).load(null,p).then(function(){return r(e)}).catch(a)}function u(e){var t=e.map(function(e){return new Promise(function(t,n){var o=e.family,i=e.weight,r=e.style,a=void 0===r?"normal":r;return new f.default(o,{weight:i,style:a}).load(null,p).then(function(){return t(o)}).catch(function(e){return n(e)})})});Promise.all(t).then(function(e){return r(e[0])}).catch(a)}Object.defineProperty(e,"__esModule",{value:!0}),e.loadFontGroup=e.loadFont=void 0,t("promis");var c=t("fontfaceobserver"),f=function(e){return e&&e.__esModule?e:{default:e}}(c),l=t("./dom"),d=document.documentElement,p=5e3;e.loadFont=s,e.loadFontGroup=u}),e.file("utils/dom.js",function(e,t,n,o,i){"use strict";function r(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}function a(e){return document.querySelector(e)}function s(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:document;return[].concat(r(t.querySelectorAll(e)))}function u(e,t){return[].concat(r(e.querySelectorAll(t)))}function c(e,t){e.classList?e.classList.remove(t):e.className=e.className.replace(new RegExp("(^|\\b)"+t.split(" ").join("|")+"(\\b|$)","gi")," ")}function f(e,t){e.classList?e.classList.add(t):e.className=e.className+" "+t}function l(e,t){return e.classList?e.classList.contains(t):new RegExp("(^| )"+t+"( |$)","gi").test(e.className)}function d(e,t){t=t||0;var n=e.getBoundingClientRect().top+t,o=window.pageYOffset||document.documentElement.scrollTop,i=o+n;window.scrollTo(0,i)}Object.defineProperty(e,"__esModule",{value:!0}),e.select=a,e.selectAll=s,e.find=u,e.removeClass=c,e.addClass=f,e.hasClass=l,e.jumpTo=d})}),e.pkg("promis",{},function(e){return e.file("promise.js",function(e,t,n,o,i){!function(){"use strict";function e(e){l.push(e),1==l.length&&f()}function t(){for(;l.length;)l[0](),l.shift()}function n(e){this.a=d,this.b=void 0,this.f=[];var t=this;try{e(function(e){r(t,e)},function(e){a(t,e)})}catch(e){a(t,e)}}function o(e){return new n(function(t,n){n(e)})}function i(e){return new n(function(t){t(e)})}function r(e,t){if(e.a==d){if(t==e)throw new TypeError;var n=!1;try{var o=t&&t.then;if(null!=t&&"object"==typeof t&&"function"==typeof o)return void o.call(t,function(t){n||r(e,t),n=!0},function(t){n||a(e,t),n=!0})}catch(t){return void(n||a(e,t))}e.a=0,e.b=t,s(e)}}function a(e,t){if(e.a==d){if(t==e)throw new TypeError;e.a=1,e.b=t,s(e)}}function s(t){e(function(){if(t.a!=d)for(;t.f.length;){var e=t.f.shift(),n=e[0],o=e[1],i=e[2],e=e[3];try{0==t.a?i("function"==typeof n?n.call(void 0,t.b):t.b):1==t.a&&("function"==typeof o?i(o.call(void 0,t.b)):e(t.b))}catch(t){e(t)}}})}function u(e){return new n(function(t,n){var o=0,r=[];0==e.length&&t(r);for(var a=0;a<e.length;a+=1)i(e[a]).c(function(n){return function(i){r[n]=i,(o+=1)==e.length&&t(r)}}(a),n)})}function c(e){return new n(function(t,n){for(var o=0;o<e.length;o+=1)i(e[o]).c(t,n)})}var f,l=[];f=function(){setTimeout(t)};var d=2;n.prototype.g=function(e){return this.c(void 0,e)},n.prototype.c=function(e,t){var o=this;return new n(function(n,i){o.f.push([e,t,n,i]),s(o)})},window.Promise||(window.Promise=n,window.Promise.resolve=i,window.Promise.reject=o,window.Promise.race=c,window.Promise.all=u,window.Promise.prototype.then=n.prototype.c,window.Promise.prototype.catch=n.prototype.g)}()}),e.entry="promise.js"}),e.pkg("fontfaceobserver",{},function(e){return e.file("fontfaceobserver.standalone.js",function(e,t,n,o,i){!function(){function e(e,t){document.addEventListener?e.addEventListener("scroll",t,!1):e.attachEvent("scroll",t)}function t(e){document.body?e():document.addEventListener?document.addEventListener("DOMContentLoaded",function t(){document.removeEventListener("DOMContentLoaded",t),e()}):document.attachEvent("onreadystatechange",function t(){"interactive"!=document.readyState&&"complete"!=document.readyState||(document.detachEvent("onreadystatechange",t),e())})}function o(e){this.a=document.createElement("div"),this.a.setAttribute("aria-hidden","true"),this.a.appendChild(document.createTextNode(e)),this.b=document.createElement("span"),this.c=document.createElement("span"),this.h=document.createElement("span"),this.f=document.createElement("span"),this.g=-1,this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;",this.b.appendChild(this.h),this.c.appendChild(this.f),this.a.appendChild(this.b),this.a.appendChild(this.c)}function i(e,t){e.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;left:-999px;white-space:nowrap;font-synthesis:none;font:"+t+";"}function r(e){var t=e.a.offsetWidth,n=t+100;return e.f.style.width=n+"px",e.c.scrollLeft=n,e.b.scrollLeft=e.b.scrollWidth+100,e.g!==t&&(e.g=t,!0)}function a(t,n){function o(){var e=i;r(e)&&e.a.parentNode&&n(e.g)}var i=t;e(t.b,o),e(t.c,o),r(t)}function s(e,t){var n=t||{};this.family=e,this.style=n.style||"normal",this.weight=n.weight||"normal",this.stretch=n.stretch||"normal"}function u(){if(null===p)if(c()&&/Apple/.test(window.navigator.vendor)){var e=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/.exec(window.navigator.userAgent);p=!!e&&603>parseInt(e[1],10)}else p=!1;return p}function c(){return null===m&&(m=!!document.fonts),m}function f(){if(null===h){var e=document.createElement("div");try{e.style.font="condensed 100px sans-serif"}catch(e){}h=""!==e.style.font}return h}function l(e,t){return[e.style,e.weight,f()?e.stretch:"","100px",t].join(" ")}var d=null,p=null,h=null,m=null;s.prototype.load=function(e,n){var r=this,s=e||"BESbswy",f=0,p=n||3e3,h=(new Date).getTime();return new Promise(function(e,n){if(c()&&!u()){var m=new Promise(function(e,t){function n(){(new Date).getTime()-h>=p?t():document.fonts.load(l(r,'"'+r.family+'"'),s).then(function(t){1<=t.length?e():setTimeout(n,25)},function(){t()})}n()}),v=new Promise(function(e,t){f=setTimeout(t,p)});Promise.race([v,m]).then(function(){clearTimeout(f),e(r)},function(){n(r)})}else t(function(){function t(){var t;(t=-1!=w&&-1!=g||-1!=w&&-1!=y||-1!=g&&-1!=y)&&((t=w!=g&&w!=y&&g!=y)||(null===d&&(t=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),d=!!t&&(536>parseInt(t[1],10)||536===parseInt(t[1],10)&&11>=parseInt(t[2],10))),t=d&&(w==b&&g==b&&y==b||w==x&&g==x&&y==x||w==_&&g==_&&y==_)),t=!t),t&&(j.parentNode&&j.parentNode.removeChild(j),clearTimeout(f),e(r))}function u(){if((new Date).getTime()-h>=p)j.parentNode&&j.parentNode.removeChild(j),n(r);else{var e=document.hidden;!0!==e&&void 0!==e||(w=c.a.offsetWidth,g=m.a.offsetWidth,y=v.a.offsetWidth,t()),f=setTimeout(u,50)}}var c=new o(s),m=new o(s),v=new o(s),w=-1,g=-1,y=-1,b=-1,x=-1,_=-1,j=document.createElement("div");j.dir="ltr",i(c,l(r,"sans-serif")),i(m,l(r,"serif")),i(v,l(r,"monospace")),j.appendChild(c.a),j.appendChild(m.a),j.appendChild(v.a),document.body.appendChild(j),b=c.a.offsetWidth,x=m.a.offsetWidth,_=v.a.offsetWidth,u(),a(c,function(e){w=e,t()}),i(c,l(r,'"'+r.family+'",sans-serif')),a(m,function(e){g=e,t()}),i(m,l(r,'"'+r.family+'",serif')),a(v,function(e){y=e,t()}),i(v,l(r,'"'+r.family+'",monospace'))})})},void 0!==n?n.exports=s:(window.FontFaceObserver=s,window.FontFaceObserver.prototype.load=s.prototype.load)}()}),e.entry="fontfaceobserver.standalone.js"}),e.import("default/critical.js"),e.main("default/critical.js")}(function(e){if(e.FuseBox)return e.FuseBox;var t="undefined"!=typeof window&&window.navigator;t&&(window.global=window),e=t&&"undefined"==typeof __fbx__dnm__?e:module.exports;var n=t?window.__fsbx__=window.__fsbx__||{}:global.$fsbx=global.$fsbx||{};t||(global.require=require);var o=n.p=n.p||{},i=n.e=n.e||{},r=function(e){var n=e.charCodeAt(0),o=e.charCodeAt(1);if((t||58!==o)&&(n>=97&&n<=122||64===n)){if(64===n){var i=e.split("/"),r=i.splice(2,i.length).join("/");return[i[0]+"/"+i[1],r||void 0]}var a=e.indexOf("/");if(a===-1)return[e];return[e.substring(0,a),e.substring(a+1)]}},a=function(e){return e.substring(0,e.lastIndexOf("/"))||"./"},s=function(){for(var e=[],t=0;t<arguments.length;t++)e[t]=arguments[t];for(var n=[],o=0,i=arguments.length;o<i;o++)n=n.concat(arguments[o].split("/"));for(var r=[],o=0,i=n.length;o<i;o++){var a=n[o];a&&"."!==a&&(".."===a?r.pop():r.push(a))}return""===n[0]&&r.unshift(""),r.join("/")||(r.length?"/":".")},u=function(e){var t=e.match(/\.(\w{1,})$/);if(t){return t[1]?e:e+".js"}return e+".js"},c=function(e){if(t){var n,o=document,i=o.getElementsByTagName("head")[0];/\.css$/.test(e)?(n=o.createElement("link"),n.rel="stylesheet",n.type="text/css",n.href=e):(n=o.createElement("script"),n.type="text/javascript",n.src=e,n.async=!0),i.insertBefore(n,i.firstChild)}},f=function(e,t){for(var n in e)e.hasOwnProperty(n)&&t(n,e[n])},l=function(e){return{server:require(e)}},d=function(e,n){var i=n.path||"./",a=n.pkg||"default",c=r(e);if(c&&(i="./",a=c[0],n.v&&n.v[a]&&(a=a+"@"+n.v[a]),e=c[1]),e)if(126===e.charCodeAt(0))e=e.slice(2,e.length),i="./";else if(!t&&(47===e.charCodeAt(0)||58===e.charCodeAt(1)))return l(e);var f=o[a];if(!f){if(t)throw'Package was not found "'+a+'"';return l(a+(e?"/"+e:""))}e||(e="./"+f.s.entry);var d,p=s(i,e),h=u(p),m=f.f[h];return!m&&h.indexOf("*")>-1&&(d=h),m||d||(h=s(p,"/","index.js"),m=f.f[h],m||(h=p+".js",m=f.f[h]),m||(m=f.f[p+".jsx"]),m||(h=p+"/index.jsx",m=f.f[h])),{file:m,wildcard:d,pkgName:a,versions:f.v,filePath:p,validPath:h}},p=function(e,n){if(!t)return n(/\.(js|json)$/.test(e)?global.require(e):"");var o;o=new XMLHttpRequest,o.onreadystatechange=function(){if(4==o.readyState)if(200==o.status){var t=o.getResponseHeader("Content-Type"),i=o.responseText;/json/.test(t)?i="module.exports = "+i:/javascript/.test(t)||(i="module.exports = "+JSON.stringify(i));var r=s("./",e);v.dynamic(r,i),n(v.import(e,{}))}else console.error(e+" was not found upon request"),n(void 0)},o.open("GET",e,!0),o.send()},h=function(e,t){var n=i[e];if(n)for(var o in n){var r=n[o].apply(null,t);if(r===!1)return!1}},m=function(e,n){if(void 0===n&&(n={}),58===e.charCodeAt(4)||58===e.charCodeAt(5))return c(e);var i=d(e,n);if(i.server)return i.server;var r=i.file;if(i.wildcard){var s=new RegExp(i.wildcard.replace(/\*/g,"@").replace(/[.?*+^$[\]\\(){}|-]/g,"\\$&").replace(/@/g,"[a-z0-9$_-]+"),"i"),u=o[i.pkgName];if(u){var f={};for(var l in u.f)s.test(l)&&(f[l]=m(i.pkgName+"/"+l));return f}}if(!r){var v="function"==typeof n;if(h("async",[e,n])===!1)return;return p(e,function(e){if(v)return n(e)})}var w=i.validPath,g=i.pkgName;if(r.locals&&r.locals.module)return r.locals.module.exports;var y=r.locals={},b=a(w);y.exports={},y.module={exports:y.exports},y.require=function(e,t){return m(e,{pkg:g,path:b,v:i.versions})},y.require.main={filename:t?"./":global.require.main.filename,paths:t?[]:global.require.main.paths};var x=[y.module.exports,y.require,y.module,w,b,g];return h("before-import",x),r.fn.apply(0,x),h("after-import",x),y.module.exports},v=function(){function n(){}return n.global=function(e,n){var o=t?window:global;return void 0===n?o[e]:void(o[e]=n)},n.import=function(e,t){return m(e,t)},n.on=function(e,t){i[e]=i[e]||[],i[e].push(t)},n.exists=function(e){try{return void 0!==d(e,{}).file}catch(e){return!1}},n.remove=function(e){var t=d(e,{}),n=o[t.pkgName];n&&n.f[t.validPath]&&delete n.f[t.validPath]},n.main=function(e){return this.mainFile=e,n.import(e,{})},n.expose=function(t){for(var n in t)!function(n){var o=t[n],i=o.alias,r=m(o.pkg);"*"===i?f(r,function(t,n){return e[t]=n}):"object"==typeof i?f(i,function(t,n){return e[n]=r[t]}):e[i]=r}(n)},n.dynamic=function(t,n,o){var i=o&&o.pkg||"default";this.pkg(i,{},function(o){o.file(t,function(t,o,i,r,a){new Function("__fbx__dnm__","exports","require","module","__filename","__dirname","__root__",n)(!0,t,o,i,r,a,e)})})},n.flush=function(e){var t=o.default;for(var n in t.f){if(!e||e(n)){delete t.f[n].locals}}},n.pkg=function(e,t,n){if(o[e])return n(o[e].s);var i=o[e]={},r=i.f={};return i.v=t,n(i.s={file:function(e,t){r[e]={fn:t}}})},n.addPlugin=function(e){this.plugins.push(e)},n}();return v.packages=o,v.isBrowser=void 0!==t,v.isServer=!t,v.plugins=[],e.FuseBox=v}(this));</script>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+		ga('create', 'UA-90567923-1', 'auto');
+		ga('send', 'pageview');
+	</script></head>
+<body class="tk-pt-serif">
+	
+	<header class="tk-roboto">
+		<a href="https://pudding.cool" target="_blank" class="logo">
+			<svg version="1.1" class="logo__svg" x="0" y="0" viewBox="0 0 165 153.8" enable-background="new 0 0 165 153.8" xml:space="preserve">
+  <path d="M16.6 75.3c0-22.6 0-45.3 0-67.9 0-4.2-5.5-6.2-10.7-4 -0.6 0.3-1 0.9-1.6 1.1 -1.2 0.5-2.6 1.1-3.7 0 -0.9-0.8-0.5-1.9-0.3-2.8C0.5-0.1 2-0.1 3.3 0c8.1 0.8 16.3 0.1 24.5 0.2 29.5 0.2 58.9 0.3 88.4 0.6 16.1 0.2 30.1 5.2 40.6 18.5 11.3 14.4 10 37.7 1.6 48.9 -9.2 12.2-21.5 18.6-36.7 19.1 -12 0.4-24 0.3-36 0.2 -4.5-0.1-5.9 1.4-5.7 6 0.4 16.3 0.5 32.7 0.3 49 0 4.7 1.7 6.3 6.1 6.1 2.8-0.2 5.7-0.2 8.5-0.1 1.6 0.1 4-0.1 3.9 2.1 -0.1 2.1-2.2 3.4-4.5 3 -21.3-3.6-42.8-1.2-64.2-2 -8.1-0.3-16.3 0-24.4 1.1 -2 0.3-4.8 0.9-4.9-2.5 0-3.4 2.7-3.2 5.1-3 11.3 0.9 11.3 0.9 11.3-10.5 0-20.5 0-41 0-61.5C16.9 75.3 16.8 75.3 16.6 75.3zM66.1 23.4L66 23.3 66.1 23.4c0.9 1.7 1.6 3.8 3.8 4.5 0.1 0 0.8-0.7 0.8-1C70.4 24.1 67.9 24.2 66.1 23.4zM43 8.6C43 8.5 43 8.5 43 8.6c0.3 0.3 0.5 0.8 0.8 1.1 1.1 1.3 1.3 3.5 3.7 3.2 0.3 0 0.7-1.1 0.6-1.6 -0.3-2.4-2.5-2.1-4.1-2.5C43.6 8.6 43.3 8.6 43 8.6zM123.2 72.3c-0.3 0-0.5-0.9-0.8 0C122.6 72.2 122.9 72.2 123.2 72.3c-0.7 3.2 2.1 4.4 3.8 6.2 0.7 0.7 1.8 2 2.8 0.6 0.8-1.1 0.6-2.6-0.7-3.4C127.3 74.3 125.5 72.9 123.2 72.3zM44.2 63.3c-0.3 0-0.4-0.8-0.8-0.1C43.7 63.2 44 63.2 44.2 63.3c-0.4 3.2 2.5 4.6 3.9 6.9 0.4 0.7 1.2 1.3 2.1 0.8 1.1-0.5 0.9-1.6 0.7-2.6C50 65.1 46.7 64.7 44.2 63.3zM38.1 28.3l-0.1 0L38.1 28.3c0.2 4.3 3.3 7.2 5 10.7 0.4 0.9 1 2.6 2.4 1.7 1-0.6 0.8-2.2 0.1-3.2C43.2 34.4 40.6 31.4 38.1 28.3zM42.1 80.3l-0.1 0L42.1 80.3c0.6 3.2 3.1 5.1 4.7 7.5 0.7 1 1.4 2.4 3 2.1 0.5-0.1 0.9-0.9 1.1-1.5 0.4-1.6-0.2-2.9-1.6-3.7C46.8 83.2 44.5 81.7 42.1 80.3zM123.2 58.2l-0.2 0.1L123.2 58.2c0 3.7 3 5.8 4.7 8.5 0.7 1.1 1.7 2.6 3.1 1.4 1.3-1.1 1-3-0.1-4C128.5 61.9 126.6 59 123.2 58.2zM130.1 55.4l-0.1-0.2L130.1 55.4c1.5 2.5 3.1 5 5.6 6.7 1 0.6 1.8 2.7 3.2 1.1 1.2-1.3 0.4-2.9-0.9-3.9C135.7 57.4 133 56.1 130.1 55.4zM38.1 65.3l-0.2 0L38.1 65.3c0.6 5 3.4 8.9 6.5 12.5 0.6 0.8 1.5 1.3 2.6 0.6 0.7-0.4 1.1-1.1 0.7-1.6C44.8 72.7 43 67.6 38.1 65.3zM79.9 43.7c0 0 0.1 0 0.1 0 0 12.1 0.1 24.3-0.1 36.4 0 3.6 0.9 5.1 4.8 4.9 4.6-0.3 9.3-0.1 14 0 3.2 0.1 4.6-1.1 4.5-4.3 -0.1-4.5-0.1-9-0.1-13.5 0-19.9 0-39.8 0.1-59.8 0-2.9-1-4.2-4.1-4.2 -5 0.1-10 0-15-0.4 -3.4-0.2-4.4 1.3-4.4 4.3C79.9 19.4 79.9 31.5 79.9 43.7zM26.4 8.1c-0.2 2.6-0.3 4.2-0.3 5.8 0 38.9 0.1 77.9 0.1 116.8 0 3.5 0.1 7 0.1 10.5 0 1.3 0.5 2.2 1.9 2.4 1.9 0.2 3.7 0.2 5.3-0.9 1.4-0.9 0.2-2.1-0.2-3.1 -1.3-2.9-2.7-5.7-3.9-8.6 -0.6-1.5-0.7-3.5 1.2-3.6 6.6-0.3 3.8-3.2 2.1-6.3 -1.4-2.5-2.3-5.2-3.4-7.8 -1-2.4-1.2-4.2 2.3-4.4 3.9-0.3 3.8-2.5 2-5.1 -1.9-2.8-3.1-5.8-4.1-8.9 -0.5-1.6-0.9-3.3 1-3.7 5.2-0.9 3.3-3.4 1.8-6.2 -1.3-2.5-2.2-5.2-3.6-7.7 -1.1-2-0.3-3.7 1.4-4 4.9-1 3.4-3.7 2.1-6.5 -1-2.1-1.9-4.2-3.1-6.2 -1.8-3-1.3-4.7 2.4-5 4-0.3 3.6-2.3 2-5 -1.7-2.8-3.3-5.8-4.8-8.7 -1-1.9-1-3.8 1.6-4.2 5.7-0.8 4.2-3.5 2-6.6 -1-1.5-1.7-3.2-2.7-4.8 -2-3.1-2.2-5.2 2.4-5.6 1.5-0.1 4-0.7 2-3C31.4 15 30.2 11.2 26.4 8.1zM112.4 9.5c-0.5 1.2-0.9 1.6-0.9 2.1 -1.5 21.4-1 42.8-0.7 64.2 0 1.6 0.2 3.3 2.1 3.4 1.9 0.2 4.3 0.4 5.6-1.4 1-1.4-0.7-2.7-1.5-3.8 -2.3-3-4.3-5.7 1.6-6.8 2.9-0.5 2.3-2.2 1-4 -1.7-2.4-3.5-4.8-4.9-7.4 -0.8-1.3-1.6-3.4 1.2-3.7 5.6-0.6 4.6-3.3 2.1-6.5 -1.1-1.4-2.2-2.9-3.1-4.4 -1.7-2.6-2.2-4.9 2-5.6 3.4-0.6 3.6-2.1 1.4-4.7 -0.7-0.8-1.2-1.9-2-2.7 -3.9-4.4-3.8-5.2 1.8-7.1 3-1 4-2.2 1.4-4.7C117.1 14.3 114.9 12.1 112.4 9.5zM35.4 115.5c2 4.8 3.5 8.6 5.3 12.3 0.5 1.1 2 1.8 3 2.6 0.6-1.5 2.2-2.6 1.6-4.5 -0.3-0.9-0.8-1.8-1.5-2.5C41.5 120.8 39.3 118.1 35.4 115.5zM37.8 46.4c2.2 5.6 4.7 11 9.4 15.2C47.9 54.3 41.5 51.1 37.8 46.4zM46 21.4c-1.4-5.6-5.5-9.5-9.1-13.7C40.1 12.2 40.5 18.5 46 21.4zM122 27.9c1 3 2.4 5 4.4 6.8 1.2 1 2.3 2.3 3.6 0.6 1.1-1.4 0.4-2.9-0.9-3.9C127.2 29.8 125.1 28.5 122 27.9zM36.1 83.1c1.8 3.3 3.5 6.7 5.4 9.9 0.6 1.1 1.5 2.6 3.1 1.4 1.3-1 0.7-2.4-0.1-3.6C42.5 87.6 39.8 84.8 36.1 83.1zM122.2 41.8c-0.3 0.3-0.7 0.6-1 0.9 1.8 2.3 3.4 4.7 5.3 6.8 0.9 1 1.6 3.6 3.5 1.7 1.5-1.5 0.5-3.6-1-4.7C126.9 44.6 124.5 43.3 122.2 41.8zM37.6 98.8c-0.3 0.3-0.7 0.6-1 0.8 1.6 3.1 3.1 6.2 4.8 9.2 0.6 1 1.2 2.9 2.9 1.8 1.3-0.8 0.9-2.3 0.3-3.6C42.9 103.6 39.5 101.9 37.6 98.8zM43.8 115.6c1.8 2.5 3.5 5.1 5.3 7.6 0.8 1 2 2.1 3.3 0.8 1.2-1.1 0.5-2.4-0.4-3.5C49.9 118.1 46.9 116.9 43.8 115.6zM36.4 135c2.3 3.9 3.9 6.7 5.7 9.4 0.6 0.9 1.3 2.3 2.7 1.2 1.3-1 1.2-2.3 0-3.4C42.5 140 40.6 137.3 36.4 135zM128.8 23c1.1 2.8 3.3 4.2 5.2 6 1 0.9 2.2 2.1 3.2 0.6 0.9-1.3 0.4-2.9-1.2-3.7C133.8 24.7 131.7 23.1 128.8 23zM127.7 39.9c2.5 2.6 4.4 4.7 6.4 6.7 0.8 0.8 1.8 1.9 2.9 0.8 1.3-1.3 0.7-3-0.7-3.8C133.8 42.2 131.7 40 127.7 39.9zM50.9 142.1c1-0.4 1.9-0.8 1.8-2.1 -0.1-3.9-3.8-3.9-6.1-5.4 -0.7-0.5-1.7 0.5-1.3 1.4C46.3 138.7 48.4 140.5 50.9 142.1zM44.1 27c1.1 2.7 2.1 5.6 5.1 6.8 1 0.4 0.9-0.9 0.9-1.7C50.2 28.1 46.6 28.3 44.1 27zM44.3 97.6c-0.2 0.2-0.5 0.5-0.7 0.7 1.6 2.1 3.1 4.3 4.7 6.4 0.8 1 1.9 2.3 3.2 0.8 1-1.1 0.5-2.6-0.7-3.5C48.7 100.5 46.5 99.1 44.3 97.6zM118.9 9c2.1 2.5 3.4 4.2 4.8 5.7 0.8 0.9 1.9 1.7 2.9 0.4 0.7-1 0.5-2.3-0.6-3.1C124.3 10.7 122.5 9.6 118.9 9zM62.6 38.7c1.2 3.4 3.2 5.2 6.1 6.1 0.1 0 0.8-0.7 0.7-1.1C68.8 40.5 66.3 39.5 62.6 38.7zM56.2 134.7c1.8 2.4 3 4.1 4.4 5.7 0.7 0.8 1.6 1.2 2.6 0.4 1-0.8 0.5-1.8-0.1-2.6C61.5 136.5 59.4 135.6 56.2 134.7zM54 97.7c0.6 0.9 0.8 1.5 1.3 1.9 1.1 1.1 1.7 2.9 3.6 3 0.7 0 1-0.7 0.9-1.5 -0.2-2-1.8-2.6-3.3-3.2C55.9 97.7 55.2 96.9 54 97.7zM65.9 95.9c1.7 1.5 1.6 4.4 4.2 5 0.7 0.1 1.3-0.6 1.1-1.3C70.7 97 68.1 96.7 65.9 95.9zM43.5 44.8c1 3 2.3 4.8 4 6.2 0.6 0.5 1.3 1.1 2.1 0.4 0.7-0.6 0.5-1.6 0.1-2.3C48.6 47.1 46.4 46.2 43.5 44.8zM54 22.6c1 3.3 2.2 5 4.4 5.7 0.2 0.1 1.2-1.1 1.1-1.4C58.8 24.7 56.8 23.9 54 22.6zM65.5 76.6c1 2 1.5 4.4 4.1 5 0.3 0.1 1-0.6 1-0.8C70.2 78 67.2 78.1 65.5 76.6zM54.8 43.9c1.1 1.9 1.9 4.2 4.4 4.8 0.3 0.1 1.2-0.9 1.2-1.2 -0.6-2.7-3.3-2.8-5.1-3.9C55.2 43.6 55 43.8 54.8 43.9zM131.7 72.4c1.6 1.6 2.1 4.4 5 4.6 0.2 0 0.7-0.9 0.6-1.1C136.4 73.6 134.6 72.3 131.7 72.4zM56.8 117.9c0.6 2.3 1.6 4.4 4.1 4.9 0.2 0 0.8-0.7 0.8-1C61.7 118.6 58.9 118.8 56.8 117.9zM65.8 60.5c1.2 1.6 1.6 3.9 3.9 4.4 0.2 0 0.8-0.7 0.8-1.1C70.2 61.2 68.1 60.8 65.8 60.5zM67.9 134.3c0.8 1.6 1.4 3.4 3.8 3.9C71.9 135.4 70.1 134.7 67.9 134.3zM54.6 79.5c0.7 1.9 1.4 3.7 3.4 4.3 0.1 0 0.8-0.7 0.7-1C58.7 80.3 56.7 79.9 54.6 79.5zM56.3 63c1.2 1.5 1.7 3.7 4 3.8 0.2 0 0.7-0.8 0.6-1.2C60.2 63.5 58.5 62.8 56.3 63zM131.6 10.7c0.4 2.4 1.6 3.6 3.4 4.1 0.9 0.3 1.2-0.7 1-1.3C135.2 11.8 133.6 11.3 131.6 10.7z"></path>
+</svg>
+			<span class="logo__text">The Pudding</span>
+		</a>
+	</header>	<div class="container">
+	<h1>La la la - title TK</h1>
+	
+	<p>In 1977, the great computer scientist Donald Knuth published a facetious paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, in which he used the language of complexity theory to analyze the space complexity of popular songs - i.e. for some family of songs, how much space do you need to describe one of those songs, and how does that number change as the song's length goes to infinity?
+	</p>
+	
+	<p>The running joke is that, over time, songwriters have worked to invent increasingly repetitive song structures ("the advent of modern drugs has led to demands for still less memory"). The paper ends with a proof, due to "Casey[sic] and the Sunshine Band", that some songs belong to the smallest possible complexity class, O(1).
+	</p>
+	
+	<p>Nerdy computer science jokes aside, it's actually an interesting question whether the lyrics of popular songs have become more repetitive over time. Let's put it to the test.</p>
+	
+	<h2>Measuring repetitiveness</h2>
+	
+	<p>
+	I know a repetitive song when I hear one, but translating that intuition into a number isn't easy.
+	One thing we might try is looking at the number of unique words in a song, as a fraction of the total number of words. But this metric would call the following lyric excerpts equally repetitive:</p>
+	
+	<div class="row">
+	    <div class="col-xs-5">
+	        <blockquote><p>Baby I don't need dollar bills to have fun tonight<br>
+	        I love cheap thrills<br>
+	        Baby I don't need dollar bills to have fun tonight<br>
+	        I love cheap thrills<br>
+	        I don't need no money<br>
+	        As long as I can feel the beat<br>
+	        I don't need no money<br>
+	        As long as I keep dancing</p>
+	        <p><cite>~ Sia, Cheap Thrills</cite></p>
+	        </blockquote>
+	    </div>
+	    
+	    <div class="col-xs-5">
+	        <blockquote><p>tonight I need dollar bills<br>
+	        I don't keep fun<br>
+	        cheap thrills long to feel money<br>
+	        the bills don't need the dancing baby<br>
+	        fun dollar dancing thrills the baby I need<br>
+	        don't have fun<br>
+	        no no don't have dancing fun tonight<br>
+	        beat the can as I don't feel thrills<br>
+	        love the dancing money</p>
+	        <p><cite>~ Colin Morris, Original composition</cite></p>
+	        </blockquote>
+	    </div>
+	</div>
+	<p>These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
+	
+	<p>What if we just <b>zip each song and measure how much smaller it gets</b> relative to the original size?</p>
+	
+	<p>It sounds cheeky, but it turns out that the family of <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithms</a>, used in many compressed formats, have a pretty natural correspondence between their performance and the "repetitiveness" of the input data.</p>
+	<p>Lempel-Ziv works by exploiting repeated sequences, which is exactly what we're interested in. It's also pretty easy to understand. The compressed version of the Sia excerpt above would look like...</p>
+	
+	<code id="lzexample">Baby I don't need dollar bills to have fun tonight<br>
+	I love cheap thrills<br>
+	{72,72}{139,13}no money<br>
+	As long as I can feel the beat{53,35}keep dancing</code>
+	<br><br>
+	
+	<p>Where <code>{n,k}</code> tells the decompressor "go back n characters, and copy the substring of length k starting from there".</p>
+	
+	<p>This chorus shrunk down a lot! Notice that the compressor took advantage of repeated lines, but also repeated phrases within lines ("I don't need ", "As long as I "). But the best part is, the next time we see this chorus, we can replace all 242 characters of it with a single "ditto".</p>
+	
+	<p>I'll define the "compressibility" of a song as the % reduction in size when compressing it. By this definition, the chorus of <i>Cheap Thrills</i> is 46% compressible.</p>
+	
+	<img src="assets/cheap.png" class="center-block" style="width:40%;padding:10px 0">
+	
+	<p>I gathered a dataset of lyrics for 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017. The average song in the dataset is <b>50% compressible</b>. (For comparison, an average newswire article is X% compressible.)</p>
+	
+	<p>There's considerable variation around that average - let's look at some of the most repetitive songs through the ages.</p>
+	
+	<h2>The most repetitive songs of all time</h2>
+	<div id="topsongs"></div>
+	
+	<p>The current decade is pretty well-represented in the top 10, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). To figure out whether music is getting more repetitive, we'll need to look at a lot more data...</p>
+	
+	<h2>Repetition through the ages</h2>
+	<p>
+	</p>
+	
+	</div> <!-- /container -->
+	<div class="container-fluid">
+	
+	<div class="graphic" id="overtime-graphic">
+	    <div id="rovertime" class="graphic-vis"></div>
+	    <div class="graphic-prose">
+	        <div class="stage0"></div>
+	        <div class="spacer"></div>
+	        <div class="scrolly-slide stage1">
+	            <p>In 1960, the average song is 45.7% compressible. The most repetitive song of the year is Dee Clark's <i>At My Front Door</i> (78% compressible). Sample:</p>
+	            <blockquote>
+	                Knock, knock, knock, knock<br>
+	                Knock, knock, knock, knock<br><br>
+	
+	                Crazy little mama come knocking<br>
+	                Knocking at my front door<br>
+	                Crazy little mama come knocking<br>
+	                Knocking at my front door
+	            </blockquote>
+	        </div>
+	        <div class="spacer"></div>
+	        <div class="scrolly-slide stage2">
+	            <p>By 1980, disco has reached the peak of its popularity. The year's most repetitive song is <i>Funkytown</i> (85% compressible), which spends 4 weeks at #1.</p>
+	        </div>
+	        <div class="spacer"></div>
+	        <div class="scrolly-slide stage3">
+	            <p>2014 is the most repetitive year on record. An average song from this year compresses 22% more efficiently than one from 1960.</p>
+	            <p><small>* Each point actually represents a 3-year rolling average. 2015 is the last year having a full year of data on either side of it.</small></p>
+	            <p><small>** 22% is the relative difference. i.e. if we took random songs from 2014 and 1960 having the same length, we'd expect the compressed 2014 song to be 22% smaller than the compressed 1960 songs.</small></p>
+	        </div>
+	        <div class="scrolly-slide stage4">...</div>
+	        <div class="spacer"></div>
+	        <div class="scrolly-slide stage5">
+	            <p>The songs that reached the top 10 were, on average, more repetitive than the rest in <i>every year</i> from 1960 to 2015!</p>
+	        </div>
+	        <div class="spacer"></div>
+	    </div>
+	</div>
+	
+	</div> <!-- /container-fluid -->
+	<div class="container">
+	
+	<p>Who's responsible for this madness? Let's look at the average repetitiveness of some prolific artists (those that have at least 15 charting songs in the hot 100).</p>
+	
+	<br>
+	
+	
+	<div id="artist-circles"></div>
+	
+	<p>Genre seems like a significant factor. In the 00's, our artists actually separate pretty cleanly into two clusters, with country music and hip-hop (and whatever John Mayer does) on the left, and pop and rock on the right.
+	</p>
+	
+	<p>The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 60%, to Brad Paisley's 38%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
+	</p>
+	
+	<p>Let's zoom in on a specific artist, say Gwen Stefani. Each circle below represents a song in her discography. The pink blob is a histogram of the repetitiveness of all the songs in the dataset, for reference.
+	</p>
+	
+	<p>Gwen's music is highly repetitive (her average score beats Britney, Beyonce, and Lady Gaga), but there's quite a spread. Four hugely repetitive songs contrast with the hugely non-repetitive ballad "Cool". The only repeated hook in the latter is the line "I know we're cool", repeated 9 times. "Hollaback Girl", on the other hand, has a 26-word refrain ("Few times I've been around that track... ain't no hollaback girl") that repeats 8 times, along with 33 repetitions of "this my shit", and a memorably repetitive speak-and-spell bridge. Gwen has range!</p>
+	
+	<div id="discog-widget"></div>
+	
+	<div class="spacer"></div>
+	
+	</div>
+
+	<main>
+
+	</main>
+
+	<script src="bundle.js?version=1491875515754"></script>
+	<script src="https://pudding.cool/assets/scripts/pudding-footer.js" async></script>
+</body>
+</html>
