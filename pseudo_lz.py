@@ -16,7 +16,7 @@ def preprocess(line):
         return []
     line = line.replace('-', ' ')
     words = line.split()
-    words = [word.lower() for word in words if word not in ['I', "I'm"]]
+    words = [(word.lower() if word not in ['I', "I'm"] else word) for word in words]
     return words
     
 def dict_to_js(d, fname, varname="DATA", pprint=1):
