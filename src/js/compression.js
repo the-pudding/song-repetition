@@ -2,32 +2,6 @@ import * as d3 from 'd3';
 import LINES from './lines.js';
 import DITTOS from './dittos.js';
 
-
-/** Implementation brainstroming
- *
- * - Maybe the final processed data we're working with/binding to here is 
- *   just a collection of text 'spans'. Yah, could work.
- *
- * Main idea:
- * - for each ditto:
- *      - highlight it, highlight src, shrink ditto to a dot
- * - when hovering a ditto, show an arrow back (and simulate decompress?)
- * - defragmenting
- *     - could do as we go, or once at the very end
- *
- * - limit to word matches?
- *      - otherwise might need element per character. Crazy?
- *
- * Maybe as part of the preprocessing step, chunk the text into pieces that are
- * significant for compression/decomp?
- *      But might these be overlapping? Yeah.
- *
- * Another animation idea:
- *      - start with full lyrics
- *      - go through dittos, and make them pale, doing the highlight thing
- *      - ...?
- */
-
 const ravel_stages = [
   {upto: 0},
   {upto: -1}
@@ -38,13 +12,12 @@ const dest_color = 'darkgreen';
 
 class CompressionGraphic {
   constructor() {
-    // TODO: use a monospace font so we can use something like an x/y scale
     this.dittos = DITTOS;
     this.fontsize = 16;
     // pretty close
     this.glyphwidth = 9.6;
     this.lineheight = this.fontsize*1.05;
-    // scaling for circle markers
+    // scaling for various pieces of the graphic 
     this.x = {
       underline: x => (this.glyphwidth * x),
       marker: x => (this.glyphwidth * x) + this.glyphwidth/2
@@ -54,7 +27,6 @@ class CompressionGraphic {
       text: y => (this.lineheight * y)
     };
     this.root = d3.select('#compression');
-
     let butcon = this.root.append('div');
     butcon
       .append('button')
@@ -77,7 +49,6 @@ class CompressionGraphic {
       .text('fast-forward')
       .on('click', ()=>{this.step(null, 1000)});
 
-
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
     var totalW = 800;
     var totalH = 600;
@@ -90,38 +61,18 @@ class CompressionGraphic {
       .append("g")
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
 
-    let defs = this.svg.append('defs');
-    for (let color of ['yellow', 'khaki', 'lavender']) {
-      let filter  = defs
-        .append('filter')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', 1)
-        .attr('height', 1)
-        .attr('id', 'filter'+color);
-      filter.append('feFlood')
-        .attr('flood-color', color);
-      filter.append('feComposite')
-        .attr('in', 'SourceGraphic');
-    }
-
-    this.raveled_to = undefined;
-    this.renderText();
     this.lastditto = -1;
+    this.renderText();
   }
 
   renderText() {
-    // ZZZ. Store a global index per word.
     let linedat = [];
-    let offset = 0;
     let y = 0;
     for (let line of LINES) {
       line = line.map((word,i)=> ({word:word, x:i, y:y}));
-      offset += line.length;
       y += 1;
       linedat.push(line);
     }
-
     let lines = this.svg.selectAll('.line').data(linedat);
     let newlines = lines.enter()
       .append('text')
@@ -140,7 +91,6 @@ class CompressionGraphic {
       .text(w=>w.word + ' ');
     newwords
       .datum(d=>({...d, visible:true}) );
-      //.each(d=>{d.visible=true});
   }
 
   get activeDittos() {
@@ -167,27 +117,6 @@ class CompressionGraphic {
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
-  }
-
-  // Return an x-y coord corresponding to this word range
-  locateRange(start, len) {
-    // TODO: lazy implementation
-    // For now, just approximate the x,y coord of the first word in the range
-    let y = 0;
-    let seen = 0;
-    for (let line of LINES) {
-      let width = 0;
-      for (let word of line) {
-        if (seen === start) {
-          // TODO: this way of calculating x doesn't really work
-          return {y:y*this.lineheight, x: width*this.glyphwidth};
-        }
-        seen += 1;
-        width += word.length + 1;
-      }
-      y += 1;
-    }
-    console.error("Couldn't find range");
   }
 
   unravel(d) {
@@ -218,7 +147,6 @@ class CompressionGraphic {
     dest
       .attr('opacity', 1)
       .datum(d=>({...d, visible:false}) )
-      //.each(d=>{d.visible=false})
       .transition()
       .delay(wait)
       .duration(durs.fadeout)
@@ -235,12 +163,14 @@ class CompressionGraphic {
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
       .attr('fill', src_color);
+    // Fade in marker
     marker
       .attr('opacity', 0)
       .transition()
       .delay(wait)
       .duration(durs.fadein)
       .attr('opacity', 1);
+    // Fade out underline
     this.svg.selectAll('.underline')
       .attr('opacity', 1)
       .transition()
@@ -293,12 +223,14 @@ class CompressionGraphic {
     // TODO: should start from underline position, not where a marker would be
     let start = this.rangeCentroid(d.src);
     let end = this.rangeCentroid(d.dest);
+    // TODO: this line-drawing algo can lead to some really wonky results for
+    // points with similar x coords
     let inflection_x = (start.x + end.x)/2;
     let inflection_y = Math.max(start.y, end.y) + 
       Math.abs(start.x-start.y) * .3;
     let pts = [start, {x:inflection_x, y:inflection_y}, end];
     let line = d3.line()
-      .curve(d3.curveNatural)
+      .curve(d3.curveNatural) // chosen arbitrarily
       .x(d=>this.x.marker(d.x))
       .y(d=>this.y.marker(d.y));
     let path = root.append('path')
@@ -310,8 +242,10 @@ class CompressionGraphic {
       .call(this.animatePath, duration);
   }
 
+  // Return the length of the given line in characters.
   linewidth(y) {
-    return d3.sum(LINES[y], s=>s.length);
+    return d3.sum(LINES[y], s=>s.length) 
+      + (LINES[y].length-1) // account for spaces between words
   }
 
   // Return centroid of given range of text, in natural units
@@ -349,6 +283,7 @@ class CompressionGraphic {
     return this.addTextLine(range, dest_color, duration, root);
   }
 
+  // Add underline to a given range of text (using paths, not text-decoration)
   addTextLine(range, color, duration, root) {
     if (!root) {
       root = this.svg;
@@ -370,6 +305,7 @@ class CompressionGraphic {
     }
   }
 
+  // Make the path grow to its full length over the given duration
   animatePath(path, duration) {
     let totalLength = path.node().getTotalLength();
     path
