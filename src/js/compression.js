@@ -141,15 +141,18 @@ class CompressionGraphic {
     console.log('steppin\'');
     let nexti = this.lastditto+by;
     console.log('nexti = ' + nexti);
-    if (nexti >= this.dittos.length || nexti < 0) {
+    if (nexti >= this.dittos.length || nexti < -1) {
       console.warn('no dittos left');
       return;
     }
-    this.dittos[nexti].active = true;    
-    console.log(this.dittos[nexti]);
+    this.lastditto = nexti;
+    // TODO: could probably do this in one less step...
+    this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
     dittos.enter().each( (d,i,n) => this.ravel(d) );
-    this.lastditto = nexti;
+    dittos.exit()
+      .each( (d,i,n) => this.unravel(d,n[i]) )
+      .remove();
   }
 
   // Return an x-y coord corresponding to this word range
@@ -173,12 +176,21 @@ class CompressionGraphic {
     console.error("Couldn't find range");
   }
 
+  unravel(d) {
+    this.clearHighlights(3000);
+    let dest = this.selectRange(d.dest);
+    // cancel any ongoing transitions
+    dest.transition();
+    // Unhide the corresponding dest text
+    dest.attr('opacity', 1);
+  }
+
   ravel(d) { // ravel a ditto
-    console.log(d);
-    // src and dest may overlap. Do src first so dest has precedence.
     // highlight src section we're copying
     let src = this.selectRange(d.src);
     let dest = this.selectRange(d.dest);
+    // clear prev highlights
+    this.clearHighlights(3000);
     this.highlightSrc(d.src);
     this.highlightDest(d.dest);
     if (0) {
@@ -192,12 +204,11 @@ class CompressionGraphic {
       .attr('text-decoration', 'overline')
       .attr('stroke', dest_color);
     }
-    // make compressed section disappear
     dest
       .attr('opacity', 1)
       .transition()
       .duration(3000)
-      .attr('opacity', 1);
+      .attr('opacity', .1);
     // add a marker in place of dest
     // XXX: replace me
     //let where = this.locateRange(d.dest, d.length);
@@ -222,8 +233,6 @@ class CompressionGraphic {
       .attr('cy', this.y.marker(where.y))
       .attr('r', 5)
       .attr('fill', 'red');
-    // clear highlights
-    this.clearHighlights(3000);
   }
 
   linewidth(y) {
@@ -255,10 +264,7 @@ class CompressionGraphic {
   }
 
   clearHighlights(delay) {
-    this.svg.selectAll('.word')
-      .transition()
-      .delay(delay)
-      .attr('fill', 'black');
+    this.svg.selectAll('.underline').remove();
   }
 
   highlightSrc(range) {
@@ -278,6 +284,7 @@ class CompressionGraphic {
       let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
       let linedat = [ [x1, y], [x2, y] ];
       this.svg.append('path')
+        .classed('underline', true)
         .attr('stroke', color)
         .attr('stroke-width', 3)
         .attr('d', line(linedat));
@@ -285,8 +292,8 @@ class CompressionGraphic {
   }
 
   rangeContains(range, dat) {
-    let gt = dat.y > range.y1 || (dat.y==range.y1 && dat.x >= range.x1);
-    let lt = dat.y < range.y2 || (dat.y==range.y2 && dat.x <= range.x2);
+    let gt = dat.y > range.y1 || (dat.y==range.y1 && dat.x >= range.x1word);
+    let lt = dat.y < range.y2 || (dat.y==range.y2 && dat.x <= range.x2word);
     return gt && lt;
   }
 

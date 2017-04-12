@@ -144,6 +144,8 @@ def to_char_indices(ditto, lines):
         for xk,yk in [ ('x1','y1'), ('x2','y2') ]:
             x = r[xk]
             y = r[yk]
+            # Keep a backup of the word index, cause it's useful in some contexts
+            r[xk+'word'] = x 
             line = lines[y]
             newx = sum(len(word)+1 for word in line[:x])
             newx = max(0, newx)
