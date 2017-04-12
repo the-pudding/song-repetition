@@ -71,6 +71,11 @@ class CompressionGraphic {
       .classed('btn', true)
       .text('reset')
       .on('click', ()=>{this.step(null, -1000)});
+    butcon
+      .append('button')
+      .classed('btn', true)
+      .text('fast-forward')
+      .on('click', ()=>{this.step(null, 1000)});
 
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
@@ -129,10 +134,13 @@ class CompressionGraphic {
     let words  = lines.merge(newlines)
       .selectAll('.word')
       .data(words=>words);
-    words.enter()
+    let newwords = words.enter()
       .append('tspan')
       .classed('word', true)
       .text(w=>w.word + ' ');
+    newwords
+      .datum(d=>({...d, visible:true}) );
+      //.each(d=>{d.visible=true});
   }
 
   get activeDittos() {
@@ -209,6 +217,8 @@ class CompressionGraphic {
     let wait = durs.highlight;
     dest
       .attr('opacity', 1)
+      .datum(d=>({...d, visible:false}) )
+      //.each(d=>{d.visible=false})
       .transition()
       .delay(wait)
       .duration(durs.fadeout)
@@ -223,6 +233,7 @@ class CompressionGraphic {
       .attr('cy', this.y.marker(where.y))
       .attr('r', 5)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
+      .on('mouseout', ()=>this.clearHover())
       .attr('fill', src_color);
     marker
       .attr('opacity', 0)
@@ -240,7 +251,63 @@ class CompressionGraphic {
   }
 
   onMarkerHover(d, node) {
-    // TODO
+    let dur = 200;
+    let hoverbox = this.svg.append('g')
+      .classed('hoverbox', true);
+    this.highlightSrc(d.src, dur, hoverbox);
+    let srctext = this.selectRange(d.src)
+      .filter(d=>!d.visible);
+    this.marked = [srctext];
+    srctext
+      .transition()
+      .duration(dur)
+      .attr('stroke', 'orange')
+      .attr('opacity', .6);
+
+    let arrowdur = 1000;
+    this.animateArrow(d, node, hoverbox, arrowdur);
+
+    let desttext = this.selectRange(d.dest);
+    this.marked.push(desttext);
+    desttext
+      .transition()
+      .delay(dur+arrowdur)
+      .duration(dur*2)
+      .attr('stroke', 'orange')
+      .attr('opacity', .4);
+  }
+
+  clearHover() {
+    for (let marked of this.marked) {
+      marked
+        .interrupt()
+        .attr('stroke', 'black')
+        .attr('opacity', .1);
+    }
+    this.marked = [];
+    this.svg.selectAll('.hoverbox').remove();
+  }
+
+  animateArrow(d, node, root, duration) {
+    // TODO: give this arrow a pointy end
+    // TODO: should start from underline position, not where a marker would be
+    let start = this.rangeCentroid(d.src);
+    let end = this.rangeCentroid(d.dest);
+    let inflection_x = (start.x + end.x)/2;
+    let inflection_y = Math.max(start.y, end.y) + 
+      Math.abs(start.x-start.y) * .3;
+    let pts = [start, {x:inflection_x, y:inflection_y}, end];
+    let line = d3.line()
+      .curve(d3.curveNatural)
+      .x(d=>this.x.marker(d.x))
+      .y(d=>this.y.marker(d.y));
+    let path = root.append('path')
+      .classed('arrow', true)
+      .attr('stroke', 'black')
+      .attr('stroke-width', 3)
+      .attr('fill', 'none')
+      .attr('d', line(pts))
+      .call(this.animatePath, duration);
   }
 
   linewidth(y) {
@@ -275,14 +342,17 @@ class CompressionGraphic {
     this.svg.selectAll('.underline').remove();
   }
 
-  highlightSrc(range, duration) {
-    return this.addTextLine(range, src_color, duration);
+  highlightSrc(range, duration, root) {
+    return this.addTextLine(range, src_color, duration, root);
   }
-  highlightDest(range, duration) {
-    return this.addTextLine(range, dest_color, duration);
+  highlightDest(range, duration, root) {
+    return this.addTextLine(range, dest_color, duration, root);
   }
 
-  addTextLine(range, color, duration) {
+  addTextLine(range, color, duration, root) {
+    if (!root) {
+      root = this.svg;
+    }
     let line = d3.line()
       .x( ([x,y]) => this.x.underline(x) )
       .y( ([x,y]) => this.y.text(y) );
@@ -291,7 +361,7 @@ class CompressionGraphic {
       let x1 = y === range.y1 ? range.x1 : 0;
       let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
       let linedat = [ [x1, y], [x2, y] ];
-      let path = this.svg.append('path')
+      let path = root.append('path')
         .classed('underline', true)
         .attr('stroke', color)
         .attr('stroke-width', 3)
