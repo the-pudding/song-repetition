@@ -66,6 +66,12 @@ class CompressionGraphic {
       .classed('btn', true)
       .text('unstep')
       .on('click', ()=>{this.unstep()});
+    butcon
+      .append('button')
+      .classed('btn', true)
+      .text('reset')
+      .on('click', ()=>{this.step(null, -1000)});
+
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
     var totalW = 800;
@@ -138,10 +144,10 @@ class CompressionGraphic {
   }
 
   step(stage, by=1) {
-    console.log('steppin\'');
     let nexti = this.lastditto+by;
-    console.log('nexti = ' + nexti);
-    if (nexti >= this.dittos.length || nexti < -1) {
+    nexti = Math.min(this.dittos.length-1, nexti);
+    nexti = Math.max(-1, nexti);
+    if (nexti === this.lastditto) {
       console.warn('no dittos left');
       return;
     }
@@ -177,54 +183,38 @@ class CompressionGraphic {
   }
 
   unravel(d) {
-    this.clearHighlights(3000);
+    console.log('Watch me unravel');
+    this.clearHighlights();
     let dest = this.selectRange(d.dest);
     // cancel any ongoing transitions
-    dest.transition();
+    dest.interrupt();
     // Unhide the corresponding dest text
     dest.attr('opacity', 1);
   }
 
-  ravel(d) { // ravel a ditto
+  ravel(d, duration=3000) { // ravel a ditto
+    // allocation of duration per phase
+    const durs = {
+      highlight: .5 * duration,
+      fadeout: .3 * duration,
+      fadein: .2 * duration,
+    };
+    // clear prev highlights
+    this.clearHighlights();
     // highlight src section we're copying
     let src = this.selectRange(d.src);
     let dest = this.selectRange(d.dest);
-    // clear prev highlights
-    this.clearHighlights(3000);
-    this.highlightSrc(d.src);
-    this.highlightDest(d.dest);
-    if (0) {
-    src
-      .attr('text-decoration', 'underline')
-      .attr('stroke', src_color);
-    // highlight section to be compressed
-    //TODO: need to do like nested tspans to set line color different from
-    //text color (http://tavmjong.free.fr/SVG/TEXT_DECORATION/)
-    dest
-      .attr('text-decoration', 'overline')
-      .attr('stroke', dest_color);
-    }
+    this.highlightSrc(d.src, durs.highlight)
+    this.highlightDest(d.dest, durs.highlight);
+    let wait = durs.highlight;
     dest
       .attr('opacity', 1)
       .transition()
-      .duration(3000)
+      .delay(wait)
+      .duration(durs.fadeout)
       .attr('opacity', .1);
-    // add a marker in place of dest
-    // XXX: replace me
-    //let where = this.locateRange(d.dest, d.length);
-    //let node = dest.node();
-    //let where = dest.node().getBBox();
-    // XXX 2: Maybe solution is to use (row, col) indices, rather than 
-    // flattened indices. Yeah, probably.
-    // XXX 2: Maybe just build a lookup table from flattened indices to 
-    // coords? I guess that's basically what you had before.
-    //debugger;
-    // YOUAREHERE XXX ZZZZZZZZ
-    // Okay, so I think insisting on word breaks and putting words in tspans
-    // is doing you basically no good? 
-    // Definitely need to figure out how to do math on text positioning, to
-    // be able to adroidtly insert shapes over/around text, and do the compactification
-    // stuff. Blurgh.
+    // TODO: I think there's a more elegant way to chain transitions
+    wait += durs.fadeout;
     let where = this.rangeCentroid(d.dest);
     let marker = this.svg.append('circle')
       .classed('ditto wordlike', true)
@@ -232,7 +222,25 @@ class CompressionGraphic {
       .attr('cx', this.x.marker(where.x))
       .attr('cy', this.y.marker(where.y))
       .attr('r', 5)
-      .attr('fill', 'red');
+      .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
+      .attr('fill', src_color);
+    marker
+      .attr('opacity', 0)
+      .transition()
+      .delay(wait)
+      .duration(durs.fadein)
+      .attr('opacity', 1);
+    this.svg.selectAll('.underline')
+      .attr('opacity', 1)
+      .transition()
+      .delay(wait+durs.fadein/2) // TODO: just hacking around
+      .duration(durs.fadein)
+      .attr('opacity', 0)
+      .remove();
+  }
+
+  onMarkerHover(d, node) {
+    // TODO
   }
 
   linewidth(y) {
@@ -267,28 +275,40 @@ class CompressionGraphic {
     this.svg.selectAll('.underline').remove();
   }
 
-  highlightSrc(range) {
-    this.addTextLine(range, src_color);
+  highlightSrc(range, duration) {
+    return this.addTextLine(range, src_color, duration);
   }
-  highlightDest(range) {
-    this.addTextLine(range, dest_color, this.lineheight * .3 );
+  highlightDest(range, duration) {
+    return this.addTextLine(range, dest_color, duration);
   }
 
-  addTextLine(range, color, yoffset=0) {
+  addTextLine(range, color, duration) {
     let line = d3.line()
       .x( ([x,y]) => this.x.underline(x) )
-      .y( ([x,y]) => this.y.text(y)+yoffset );
+      .y( ([x,y]) => this.y.text(y) );
     // non-d3-idiomatic way of doing it
     for (let y=range.y1; y<=range.y2; y++) {
       let x1 = y === range.y1 ? range.x1 : 0;
       let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
       let linedat = [ [x1, y], [x2, y] ];
-      this.svg.append('path')
+      let path = this.svg.append('path')
         .classed('underline', true)
         .attr('stroke', color)
         .attr('stroke-width', 3)
-        .attr('d', line(linedat));
+        .attr('d', line(linedat))
+        .call(this.animatePath, duration);
     }
+  }
+
+  animatePath(path, duration) {
+    let totalLength = path.node().getTotalLength();
+    path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(duration)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
   }
 
   rangeContains(range, dat) {

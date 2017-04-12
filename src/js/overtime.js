@@ -41,6 +41,9 @@ class OverTimeGraphic {
       triggerHook: '0', // TODO: meaning?
       duration: Math.max(1, this.root.node().offsetHeight - viewportHeight),
     });
+    // TODO: is there maybe an easier way to do this with scrollmagic's API?
+    // look into emulating this example? 
+    // http://scrollmagic.io/examples/basic/simple_pinning.html
     enterExitScene
       .on('enter', () => {
         this.toggleFixed(true, false);
