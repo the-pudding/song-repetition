@@ -1,0 +1,43 @@
+var DATA = [
+  [
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh!", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh!"
+  ], 
+  [
+    "caught", 
+    "in", 
+    "a", 
+    "bad", 
+    "romance"
+  ], 
+  [
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh!", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh", 
+    "oh!"
+  ], 
+  [
+    "caught", 
+    "in", 
+    "a", 
+    "bad", 
+    "romance"
+  ]
+];
+export default DATA;
