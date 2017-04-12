@@ -33,13 +33,26 @@ const ravel_stages = [
   {upto: -1}
 ];
 
+const src_color = 'purple';
+const dest_color = 'darkgreen';
+
 class CompressionGraphic {
   constructor() {
     // TODO: use a monospace font so we can use something like an x/y scale
     this.dittos = DITTOS;
     this.fontsize = 16;
-    this.glyphwidth = 10;
+    // pretty close
+    this.glyphwidth = 9.6;
     this.lineheight = this.fontsize*1.05;
+    // scaling for circle markers
+    this.x = {
+      underline: x => (this.glyphwidth * x),
+      marker: x => (this.glyphwidth * x) + this.glyphwidth/2
+    }
+    this.y = {
+      marker: y => (this.lineheight * y) - this.lineheight * .25,
+      text: y => (this.lineheight * y)
+    };
     this.root = d3.select('#compression');
 
     let butcon = this.root.append('div');
@@ -90,9 +103,11 @@ class CompressionGraphic {
     // ZZZ. Store a global index per word.
     let linedat = [];
     let offset = 0;
+    let y = 0;
     for (let line of LINES) {
-      line = line.map((word,i)=> ({word:word, i:i+offset}));
+      line = line.map((word,i)=> ({word:word, x:i, y:y}));
       offset += line.length;
+      y += 1;
       linedat.push(line);
     }
 
@@ -102,8 +117,9 @@ class CompressionGraphic {
       .classed('line', true)
       .attr('font-size', this.fontsize)
       .attr('font-family', 'courier,monospace')
+      .attr('alignment-baseline', 'middle') // seems not to do anything?
       .attr('x', 0)
-      .attr('y', (d,i) => i*this.lineheight);
+      .attr('y', (d,i) => this.y.text(i));
     let words  = lines.merge(newlines)
       .selectAll('.word')
       .data(words=>words);
@@ -161,20 +177,31 @@ class CompressionGraphic {
     console.log(d);
     // src and dest may overlap. Do src first so dest has precedence.
     // highlight src section we're copying
-    let src = this.selectRange(d.src, d.length);
-    this.highlight(src, 'purple');
+    let src = this.selectRange(d.src);
+    let dest = this.selectRange(d.dest);
+    this.highlightSrc(d.src);
+    this.highlightDest(d.dest);
+    if (0) {
+    src
+      .attr('text-decoration', 'underline')
+      .attr('stroke', src_color);
     // highlight section to be compressed
-    let dest = this.selectRange(d.dest, d.length);
-    this.highlight(dest, 'crimson');
+    //TODO: need to do like nested tspans to set line color different from
+    //text color (http://tavmjong.free.fr/SVG/TEXT_DECORATION/)
+    dest
+      .attr('text-decoration', 'overline')
+      .attr('stroke', dest_color);
+    }
     // make compressed section disappear
     dest
       .attr('opacity', 1)
       .transition()
       .duration(3000)
-      .attr('opacity', .5);
+      .attr('opacity', 1);
     // add a marker in place of dest
-    let where = this.locateRange(d.dest, d.length);
-    let node = dest.node();
+    // XXX: replace me
+    //let where = this.locateRange(d.dest, d.length);
+    //let node = dest.node();
     //let where = dest.node().getBBox();
     // XXX 2: Maybe solution is to use (row, col) indices, rather than 
     // flattened indices. Yeah, probably.
@@ -187,16 +214,44 @@ class CompressionGraphic {
     // Definitely need to figure out how to do math on text positioning, to
     // be able to adroidtly insert shapes over/around text, and do the compactification
     // stuff. Blurgh.
-    console.log(where);
+    let where = this.rangeCentroid(d.dest);
     let marker = this.svg.append('circle')
       .classed('ditto wordlike', true)
       .datum(d)
-      .attr('cx', where.x)
-      .attr('cy', where.y)
+      .attr('cx', this.x.marker(where.x))
+      .attr('cy', this.y.marker(where.y))
       .attr('r', 5)
       .attr('fill', 'red');
     // clear highlights
     this.clearHighlights(3000);
+  }
+
+  linewidth(y) {
+    return d3.sum(LINES[y], s=>s.length);
+  }
+
+  // Return centroid of given range of text, in natural units
+  rangeCentroid(range) {
+    let yspan = range.y2 - range.y1;
+    let x,y;
+    // if it's all on the same line, this is easy
+    if (yspan === 0) {
+      y = range.y1;
+      x = (range.x1+range.x2)/2;
+    }
+    // Goes on for many lines? Take the middle of the middle line
+    else if (yspan > 1) {
+      y = Math.floor( (range.y1+range.y2)/2 );
+      x = this.linewidth(y)/2;
+    }
+    // Two lines? Put it on the middle of the occupied part of the first line
+    else if (yspan === 1) {
+      y = range.y1;
+      x = (range.x1 + this.linewidth(y))/2;
+    } else {
+      console.error('Should not be reachable');
+    }
+    return {x,y};
   }
 
   clearHighlights(delay) {
@@ -206,22 +261,39 @@ class CompressionGraphic {
       .attr('fill', 'black');
   }
 
-  highlight(sel, color='yellow') {
-    // not transitionable :/
-    if (false) {
-    sel
-      .attr('filter', `url(#filter${filter})`);
-    return;
-    }
-    sel.transition()
-      .duration(2000)
-      .attr('fill', color);
+  highlightSrc(range) {
+    this.addTextLine(range, src_color);
+  }
+  highlightDest(range) {
+    this.addTextLine(range, dest_color, this.lineheight * .3 );
   }
 
-  selectRange(start, len) {
+  addTextLine(range, color, yoffset=0) {
+    let line = d3.line()
+      .x( ([x,y]) => this.x.underline(x) )
+      .y( ([x,y]) => this.y.text(y)+yoffset );
+    // non-d3-idiomatic way of doing it
+    for (let y=range.y1; y<=range.y2; y++) {
+      let x1 = y === range.y1 ? range.x1 : 0;
+      let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
+      let linedat = [ [x1, y], [x2, y] ];
+      this.svg.append('path')
+        .attr('stroke', color)
+        .attr('stroke-width', 3)
+        .attr('d', line(linedat));
+    }
+  }
+
+  rangeContains(range, dat) {
+    let gt = dat.y > range.y1 || (dat.y==range.y1 && dat.x >= range.x1);
+    let lt = dat.y < range.y2 || (dat.y==range.y2 && dat.x <= range.x2);
+    return gt && lt;
+  }
+
+  selectRange(range) {
     return this.svg.selectAll('.word')
       .filter( 
-          d => (d.i >= start && d.i < (start+len))
+          d => this.rangeContains(range, d)
       );
   }
 
