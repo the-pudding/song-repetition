@@ -1,17 +1,59 @@
 import * as d3 from 'd3';
 import LINES from './lines.js';
 import DITTOS from './dittos.js';
+import scroll_controller from './scroll.js';
+import ScrollMagic from 'scrollmagic';
+
+// TODO: think about ways of doing the animation that look better/are clearer
+// in motion when scrolling.
 
 const ravel_stages = [
   {upto: 0},
   {upto: -1}
 ];
 
+const stages = [
+  {start: 0, dur: 1},
+  {start: 1, dur: 3, text: "hello"},
+  {start: 4, dur: 3, text: "hello2"},
+  {start: 7, dur: 85, free:true},
+  {start: 95, dur: 5, final: true},
+];
+
 const src_color = 'purple';
 const dest_color = 'darkgreen';
 
 class CompressionGraphic {
+
+  setScene() {
+    let scene = new ScrollMagic.Scene({
+        triggerElement: this.rootsel,
+        triggerHook: 0,
+        duration: 3200,
+    })
+    scene
+      .setPin(this.rootsel)
+      .addTo(this.controller)
+      .on('progress', e=> this.onScroll(e.progress));
+  }
+
+  onScroll(progress, direction) {
+    // TODO: progress should probably accelerate
+    // TODO: maybe progress should scale with height rather than 
+    // ditto #. And maybe have a cursor that slides down the text to
+    // indicate where we've compressed up to?
+    let slack = .1;
+    let prog_per_ditto = (1-slack)/DITTOS.length;
+    let i = Math.floor(progress/prog_per_ditto);
+    this.setLastDitto(i);
+
+    // TODO YOUAREHERE
+    // see if progress is outside bounds of current stage. if so, change stage.
+  }
+
   constructor() {
+    this.stage = stages[0];
+    this.controller = scroll_controller;
     this.dittos = DITTOS;
     this.fontsize = 16;
     // pretty close
@@ -26,7 +68,9 @@ class CompressionGraphic {
       marker: y => (this.lineheight * y) - this.lineheight * .25,
       text: y => (this.lineheight * y)
     };
-    this.root = d3.select('#compression');
+    this.rootsel = '#compression';
+    this.setScene();
+    this.root = d3.select(this.rootsel);
     let butcon = this.root.append('div');
     butcon
       .append('button')
@@ -50,7 +94,7 @@ class CompressionGraphic {
       .on('click', ()=>{this.step(null, 1000)});
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = 800;
+    var totalW = 600;
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
@@ -119,6 +163,23 @@ class CompressionGraphic {
       .remove();
   }
 
+  setLastDitto(nexti) {
+    nexti = Math.min(this.dittos.length-1, nexti);
+    nexti = Math.max(-1, nexti);
+    if (nexti === this.lastditto) {
+      console.warn('no dittos left');
+      return;
+    }
+    this.lastditto = nexti;
+    // TODO: could probably do this in one less step...
+    this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
+    let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
+    dittos.enter().each( (d,i,n) => this.ravel(d, 500) );
+    dittos.exit()
+      .each( (d,i,n) => this.unravel(d,n[i]) )
+      .remove();
+  }
+
   unravel(d) {
     console.log('Watch me unravel');
     this.clearHighlights();
@@ -132,17 +193,17 @@ class CompressionGraphic {
   ravel(d, duration=3000) { // ravel a ditto
     // allocation of duration per phase
     const durs = {
-      highlight: .5 * duration,
-      fadeout: .3 * duration,
-      fadein: .2 * duration,
+      highlight: .1 * duration,
+      fadeout: .6 * duration,
+      fadein: .3 * duration,
     };
     // clear prev highlights
     this.clearHighlights();
     // highlight src section we're copying
     let src = this.selectRange(d.src);
     let dest = this.selectRange(d.dest);
-    this.highlightSrc(d.src, durs.highlight)
-    this.highlightDest(d.dest, durs.highlight);
+    //this.highlightSrc(d.src, durs.highlight)
+    //this.highlightDest(d.dest, durs.highlight);
     let wait = durs.highlight;
     dest
       .attr('opacity', 1)
@@ -181,6 +242,7 @@ class CompressionGraphic {
   }
 
   onMarkerHover(d, node) {
+    // TODO: disable mouse events on arrow to prevent hijacking
     let dur = 200;
     let hoverbox = this.svg.append('g')
       .classed('hoverbox', true);
@@ -211,7 +273,7 @@ class CompressionGraphic {
     for (let marked of this.marked) {
       marked
         .interrupt()
-        .attr('stroke', 'black')
+        .attr('stroke', 'none')
         .attr('opacity', .1);
     }
     this.marked = [];

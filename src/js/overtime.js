@@ -1,8 +1,9 @@
 import * as d3 from 'd3';
 import DATA from './years.js';
-import ScrollMagic from 'scrollmagic';
 import * as c from './constants.js';
 import * as comm from './common.js';
+import scroll_controller from './scroll.js';
+import ScrollMagic from 'scrollmagic';
 
 var linecolor = "steelblue";
 // Whether to dynamically adjust the yaxis bounds when hovering over a year,
@@ -28,8 +29,7 @@ const STAGES = [
 class OverTimeGraphic {
   constructor(chart) {
     this.chart = chart;
-    // TODO: controller per scene, or one global controller?
-    this.controller = new ScrollMagic.Controller();
+    this.controller = scroll_controller; 
     let rootsel = '#overtime-graphic';
     this.root = d3.select(rootsel);
     this.vis = this.root.select('.graphic-vis');
