@@ -62,6 +62,8 @@ def find_dittos(lines):
             break
         word = lines[y][x]
         lessthan = lambda x1,y1,x2,y2: y1 < y2 or (y1==y2 and x1 < x2)
+        # TODO: set a minimum length in terms of characters (i.e. don't
+        # include short single-word matches like "I", or "it")
         match_indices = [xy for xy, w in coords_to_words.iteritems() 
                 if w==word and lessthan(xy[0],xy[1],x,y)
                 ]

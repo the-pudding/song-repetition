@@ -174,7 +174,7 @@ class CompressionGraphic {
     // TODO: could probably do this in one less step...
     this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
-    dittos.enter().each( (d,i,n) => this.ravel(d, 500) );
+    dittos.enter().each( (d,i,n) => this.ravel(d, 800) );
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
@@ -193,8 +193,8 @@ class CompressionGraphic {
   ravel(d, duration=3000) { // ravel a ditto
     // allocation of duration per phase
     const durs = {
-      highlight: .1 * duration,
-      fadeout: .6 * duration,
+      highlight: .3 * duration,
+      fadeout: .4 * duration,
       fadein: .3 * duration,
     };
     // clear prev highlights
@@ -202,8 +202,8 @@ class CompressionGraphic {
     // highlight src section we're copying
     let src = this.selectRange(d.src);
     let dest = this.selectRange(d.dest);
-    //this.highlightSrc(d.src, durs.highlight)
-    //this.highlightDest(d.dest, durs.highlight);
+    this.highlightSrc(d.src, durs.highlight)
+    this.highlightDest(d.dest, durs.highlight);
     let wait = durs.highlight;
     dest
       .attr('opacity', 1)
@@ -211,6 +211,7 @@ class CompressionGraphic {
       .transition()
       .delay(wait)
       .duration(durs.fadeout)
+      .ease(d3.easeLinear)
       .attr('opacity', .1);
     // TODO: I think there's a more elegant way to chain transitions
     wait += durs.fadeout;
@@ -230,6 +231,7 @@ class CompressionGraphic {
       .transition()
       .delay(wait)
       .duration(durs.fadein)
+      .ease(d3.easeLinear)
       .attr('opacity', 1);
     // Fade out underline
     this.svg.selectAll('.underline')
@@ -237,6 +239,7 @@ class CompressionGraphic {
       .transition()
       .delay(wait+durs.fadein/2) // TODO: just hacking around
       .duration(durs.fadein)
+      .ease(d3.easeLinear)
       .attr('opacity', 0)
       .remove();
   }
@@ -253,6 +256,7 @@ class CompressionGraphic {
     srctext
       .transition()
       .duration(dur)
+      .ease(d3.easeLinear)
       .attr('stroke', 'orange')
       .attr('opacity', .6);
 
@@ -265,6 +269,7 @@ class CompressionGraphic {
       .transition()
       .delay(dur+arrowdur)
       .duration(dur*2)
+      .ease(d3.easeLinear)
       .attr('stroke', 'orange')
       .attr('opacity', .4);
   }
