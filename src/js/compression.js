@@ -167,7 +167,7 @@ class CompressionGraphic {
     nexti = Math.min(this.dittos.length-1, nexti);
     nexti = Math.max(-1, nexti);
     if (nexti === this.lastditto) {
-      console.warn('no dittos left');
+      //console.warn('no dittos left');
       return;
     }
     this.lastditto = nexti;
@@ -182,7 +182,7 @@ class CompressionGraphic {
 
   unravel(d) {
     console.log('Watch me unravel');
-    this.clearHighlights();
+    //this.clearHighlights();
     let dest = this.selectRange(d.dest);
     // cancel any ongoing transitions
     dest.interrupt();
@@ -198,7 +198,7 @@ class CompressionGraphic {
       fadein: .3 * duration,
     };
     // clear prev highlights
-    this.clearHighlights();
+    //this.clearHighlights();
     // highlight src section we're copying
     let src = this.selectRange(d.src);
     let dest = this.selectRange(d.dest);
@@ -235,7 +235,6 @@ class CompressionGraphic {
       .attr('opacity', 1);
     // Fade out underline
     this.svg.selectAll('.underline')
-      .attr('opacity', 1)
       .transition()
       .delay(wait+durs.fadein/2) // TODO: just hacking around
       .duration(durs.fadein)
@@ -368,6 +367,7 @@ class CompressionGraphic {
         .attr('stroke', color)
         .attr('stroke-width', 3)
         .attr('d', line(linedat))
+        .attr('opacity', 1)
         .call(this.animatePath, duration);
     }
   }
