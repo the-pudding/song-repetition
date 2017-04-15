@@ -20,6 +20,7 @@ const stages = [
   {start: 95, dur: 5, final: true},
 ];
 
+const text_scale = 4/5;
 
 const src_color = 'purple';
 const dest_color = 'darkgreen';
@@ -59,16 +60,36 @@ class CompressionGraphic {
   }
 
   defrag() {
-    // TODO
+    let invis = this.svg.selectAll('.word')
+      .filter(d => !d.visible);
+    invis
+      .attr('font-size', this.fontsize)
+      .transition()
+      .duration(5000)
+      .attr('font-size', 0.1)
+      // XXX: for some reason transitioning to 0 and/or remove()ing
+      // causes a noticeable jitter at the end
+      //.remove()
+    this.crunch();
+  }
+
+  crunch() {
+    let lines = this.svg.selectAll('.line')
+      .filter(line => line.some(w=>w.visible));
+    lines.exit().remove();
+    lines
+      .transition()
+      .duration(5000)
+      .attr('y', (d,i) => this.y.text(i));
   }
 
   constructor() {
     this.stage = stages[0];
     this.controller = scroll_controller;
     this.dittos = DITTOS;
-    this.fontsize = 16/2;
+    this.fontsize = 16 * text_scale;
     // pretty close
-    this.glyphwidth = 9.6/2;
+    this.glyphwidth = 9.6 * text_scale;
     this.lineheight = this.fontsize*1.05;
     // scaling for various pieces of the graphic 
     this.x = {
@@ -86,7 +107,7 @@ class CompressionGraphic {
     const buttons = [
       {name: 'step', cb: ()=>this.step()},
       {name: 'unstep', cb: ()=>this.unstep()},
-      {name: 'reset', cb: ()=>this.step(null, -1000)},
+      {name: 'reset', cb: ()=>this.reset()},
       {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
       {name: 'defrag', cb: ()=>this.defrag()},
     ];
@@ -113,14 +134,20 @@ class CompressionGraphic {
     this.renderText();
   }
 
+  reset() {
+    this.svg.text('');
+    this.renderText();
+  }
+
   renderText() {
     let linedat = [];
     let y = 0;
     for (let line of LINES) {
-      line = line.map((word,i)=> ({word:word, x:i, y:y}));
+      line = line.map((word,i)=> ({word:word, x:i, y:y, visible:true}));
       y += 1;
       linedat.push(line);
     }
+    this.linedat = linedat;
     let lines = this.svg.selectAll('.line').data(linedat);
     let newlines = lines.enter()
       .append('text')
@@ -137,8 +164,6 @@ class CompressionGraphic {
       .append('tspan')
       .classed('word', true)
       .text(w=>w.word + ' ');
-    newwords
-      .datum(d=>({...d, visible:true}) );
   }
 
   get activeDittos() {
@@ -221,9 +246,13 @@ class CompressionGraphic {
       {dur: 1, desc: 'erase dest',
         fn: () => {
           let dest = this.selectRange(d.dest);
+          // XXX hack
+          dest.each(d=> {
+            this.linedat[d.y][d.x].visible = false;
+          });
           let erase = dest
             .attr('opacity', 1)
-            .datum(d=>({...d, visible:false}) )
+            //.datum(d=>({...d, visible:false}) )
             .transition()
             .delay(wait)
             .duration(dur)
