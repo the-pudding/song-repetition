@@ -20,8 +20,15 @@ const stages = [
   {start: 95, dur: 5, final: true},
 ];
 
+
 const src_color = 'purple';
 const dest_color = 'darkgreen';
+
+const ravel_duration = 2000;
+
+// When animating underlining of some text, the given duration will be
+// interpreted as ms required to traverse this many pixels of text.
+const text_reference_length = 200;
 
 class CompressionGraphic {
 
@@ -47,17 +54,21 @@ class CompressionGraphic {
     let i = Math.floor(progress/prog_per_ditto);
     this.setLastDitto(i);
 
-    // TODO YOUAREHERE
+    // TODO 
     // see if progress is outside bounds of current stage. if so, change stage.
+  }
+
+  defrag() {
+    // TODO
   }
 
   constructor() {
     this.stage = stages[0];
     this.controller = scroll_controller;
     this.dittos = DITTOS;
-    this.fontsize = 16;
+    this.fontsize = 16/2;
     // pretty close
-    this.glyphwidth = 9.6;
+    this.glyphwidth = 9.6/2;
     this.lineheight = this.fontsize*1.05;
     // scaling for various pieces of the graphic 
     this.x = {
@@ -72,26 +83,19 @@ class CompressionGraphic {
     this.setScene();
     this.root = d3.select(this.rootsel);
     let butcon = this.root.append('div');
-    butcon
+    const buttons = [
+      {name: 'step', cb: ()=>this.step()},
+      {name: 'unstep', cb: ()=>this.unstep()},
+      {name: 'reset', cb: ()=>this.step(null, -1000)},
+      {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
+      {name: 'defrag', cb: ()=>this.defrag()},
+    ];
+    butcon.selectAll('button').data(buttons)
+      .enter()
       .append('button')
       .classed('btn', true)
-      .text('step')
-      .on('click', ()=>{this.step()});
-    butcon
-      .append('button')
-      .classed('btn', true)
-      .text('unstep')
-      .on('click', ()=>{this.unstep()});
-    butcon
-      .append('button')
-      .classed('btn', true)
-      .text('reset')
-      .on('click', ()=>{this.step(null, -1000)});
-    butcon
-      .append('button')
-      .classed('btn', true)
-      .text('fast-forward')
-      .on('click', ()=>{this.step(null, 1000)});
+      .text(d=>d.name)
+      .on('click', d=>d.cb());
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
     var totalW = 600;
@@ -156,7 +160,7 @@ class CompressionGraphic {
     // TODO: could probably do this in one less step...
     this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
-    dittos.enter().each( (d,i,n) => this.ravel(d) );
+    dittos.enter().each( (d,i,n) => this.ravel(d, ravel_duration) );
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
@@ -173,23 +177,109 @@ class CompressionGraphic {
     // TODO: could probably do this in one less step...
     this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
-    dittos.enter().each( (d,i,n) => this.ravel(d, 2800) );
+    dittos.enter().each( (d,i,n) => this.ravel(d, ravel_duration) );
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
   }
 
   unravel(d) {
-    console.log('Watch me unravel');
     //this.clearHighlights();
     let dest = this.selectRange(d.dest);
     // cancel any ongoing transitions
     dest.interrupt();
     // Unhide the corresponding dest text
-    dest.attr('opacity', 1);
+    dest
+      .transition()
+      .duration(ravel_duration/4)
+      .attr('opacity', 1);
+  }
+  
+  ravel(d, duration) {
+    var dur, delay, root, wait;
+    // TODO: would like to give the underline/arrow animations a
+    // consistent velocity, which is not compatible with current 
+    // approach of fixed durations per segement. For those animations,
+    // should maybe treat the duration as a suggestion/scaling factor.
+    const steps = [
+      {dur: 1, desc: 'underline dest', 
+        fn: () => {
+          //console.log(`step 1. wait=${wait}, dur=${dur}`);
+          return this.addTextLine(d.dest, dest_color, dur, root, wait);
+        }
+      },
+      {dur: 2, desc: 'arrow',
+        fn: () => {
+          this.animateArrow(d, root, dur, wait, 'src');
+        }
+      },
+      {dur: .66, desc: 'underline src',
+        fn: () => {
+          return this.addTextLine(d.src, src_color, dur, root, wait);
+        }
+      },
+      {dur: 1, desc: 'erase dest',
+        fn: () => {
+          let dest = this.selectRange(d.dest);
+          let erase = dest
+            .attr('opacity', 1)
+            .datum(d=>({...d, visible:false}) )
+            .transition()
+            .delay(wait)
+            .duration(dur)
+            .ease(d3.easeLinear)
+            .attr('opacity', .1);
+          let where = this.rangeCentroid(d.dest);
+          let marker = root.append('circle')
+            .classed('ditto wordlike', true)
+            .datum(d)
+            .attr('cx', this.x.marker(where.x))
+            .attr('cy', this.y.marker(where.y))
+            .attr('r', 5)
+            .attr('opacity', 0);
+          /*
+            .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
+            .on('mouseout', ()=>this.clearHover())
+            .attr('fill', src_color);
+            */
+        }
+      },
+      {dur: .3, desc: 'erase underlines/arrow',
+        fn: () => {
+          for (let sel of ['.underline', '.arrow']) {
+            root.selectAll(sel)
+              .transition()
+              .delay(wait)
+              .duration(dur)
+              .ease(d3.easeLinear)
+              .attr('opacity', 0)
+              .remove();
+          }
+        }
+      },
+    ];
+    let clock = 0;
+    let total_durs = d3.sum(steps, s=>s.dur);
+    let durscale = dur => dur * (duration/total_durs);
+    root = this.svg
+      .append('g')
+      .classed('dittocontainer', true);
+    for (let step of steps) {
+      dur = durscale(step.dur);
+      wait = clock;
+      let res = step.fn();
+      // Step functions may optionally return a duration, if they need 
+      // flexibility in taking more or less time than the suggested
+      // duration.
+      if (res) {
+        clock += res;
+      } else {
+        clock += dur;
+      }
+    }
   }
 
-  ravel(d, duration=3000) {
+  a__ravel(d, duration=3000) {
     // XXX YOUAREHERE
     // Okay, my attempts at chaining transitions have been disastrous, so
     // need to just handle the bookkeeping myself in terms of durations and delays.
@@ -255,7 +345,7 @@ class CompressionGraphic {
   }
 
 
-  _ravel(d, duration=3000) { // ravel a ditto
+  a_ravel(d, duration=3000) { // ravel a ditto
     // allocation of duration per phase
     const durs = {
       highlight: .3 * duration,
@@ -351,11 +441,15 @@ class CompressionGraphic {
     this.svg.selectAll('.hoverbox').remove();
   }
 
-  animateArrow(d, root, duration) {
+  animateArrow(d, root, duration, delay, to='dest') {
     // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
+    
     let start = this.rangeCentroid(d.src);
     let end = this.rangeCentroid(d.dest);
+    if (to === 'src') {
+      [start, end] = [end, start];
+    }
     // TODO: this line-drawing algo can lead to some really wonky results for
     // points with similar x coords
     let inflection_x = (start.x + end.x)/2;
@@ -371,8 +465,9 @@ class CompressionGraphic {
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
       .attr('fill', 'none')
+      .attr('opacity', 1)
       .attr('d', line(pts));
-    return this.animatePath(path, duration);
+    return this.animatePath(path, duration, delay);
   }
 
   // Return the length of the given line in characters.
@@ -417,7 +512,7 @@ class CompressionGraphic {
   }
 
   // Add underline to a given range of text (using paths, not text-decoration)
-  addTextLine(range, color, duration, root, transition_name) {
+  addTextLine(range, color, ref_duration, root, delay) {
     if (!root) {
       root = this.svg;
     }
@@ -442,11 +537,21 @@ class CompressionGraphic {
       .attr('stroke', color)
       .attr('stroke-width', 3)
       .attr('d', y => line(get_linedat(y)))
-      .attr('opacity', 1);
-    return this._animatePath(paths, duration, transition_name);
+      .attr('opacity', .4);
+    // px/ms
+    let velocity = text_reference_length / ref_duration;
+    let actual_dur = 0;
+    paths.each( (d,i,n) => {
+      let node = n[i];
+      let len = node.getTotalLength();
+      let dur = len / velocity;
+      this.animatePath(d3.select(node), dur, delay+actual_dur);
+      actual_dur += dur;
+    });
+    return actual_dur;
   }
 
-  _animatePath(pathsel, duration, transname) {
+  _animatePath(pathsel, dur, delay) {
     let getLen = (d,i,nodes) => nodes[i].getTotalLength();
     return pathsel
       .attr("stroke-dasharray", (d,i,n) => {
@@ -454,19 +559,21 @@ class CompressionGraphic {
         return l + " " + l;
       })
       .attr("stroke-dashoffset", getLen)
-      .transition(transname)
-        .duration(duration)
+      .transition()
+        .delay(delay)
+        .duration(dur)
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
   }
 
   // Make the path grow to its full length over the given duration
-  animatePath(path, duration) {
+  animatePath(path, duration, delay) {
     let totalLength = path.node().getTotalLength();
     return path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()
+        .delay(delay)
         .duration(duration)
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
