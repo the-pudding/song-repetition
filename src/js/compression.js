@@ -144,7 +144,6 @@ class CompressionGraphic {
   unstep(stage) {
     this.step(stage, -1);
   }
-
   step(stage, by=1) {
     let nexti = this.lastditto+by;
     nexti = Math.min(this.dittos.length-1, nexti);
@@ -174,7 +173,7 @@ class CompressionGraphic {
     // TODO: could probably do this in one less step...
     this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
-    dittos.enter().each( (d,i,n) => this.ravel(d, 800) );
+    dittos.enter().each( (d,i,n) => this.ravel(d, 2800) );
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
@@ -190,7 +189,73 @@ class CompressionGraphic {
     dest.attr('opacity', 1);
   }
 
-  ravel(d, duration=3000) { // ravel a ditto
+  ravel(d, duration=3000) {
+    // XXX YOUAREHERE
+    // Okay, my attempts at chaining transitions have been disastrous, so
+    // need to just handle the bookkeeping myself in terms of durations and delays.
+    const durs = {
+      destline: .2 * duration,
+      arrow: .2 * duration,
+      srcline: .2 * duration,
+      erase: .4 * duration,
+    };
+    // underline src
+    this.highlightSrc(d.src, durs.srcline);
+    // arrow from src to dst
+    let arrow = this.animateArrow(d, this.svg, durs.arrow);
+    // underline dest
+    arrow.on('end', () => {
+      this.highlightDest(d.dest, durs.destline);
+    });
+    let dest = this.selectRange(d.dest);
+    let wait = durs.destline+durs.arrow+durs.srcline;
+    let erase = dest
+      .attr('opacity', 1)
+      .datum(d=>({...d, visible:false}) )
+      .transition()
+      .delay(wait)
+      .duration(durs.erase)
+      .ease(d3.easeLinear)
+      .attr('opacity', .1);
+    
+    let where = this.rangeCentroid(d.dest);
+    let marker = this.svg.append('circle')
+      .classed('ditto wordlike', true)
+      .datum(d)
+      .attr('cx', this.x.marker(where.x))
+      .attr('cy', this.y.marker(where.y))
+      .attr('r', 5)
+      .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
+      .on('mouseout', ()=>this.clearHover())
+      .attr('fill', src_color);
+    // Fade in marker
+    marker
+      .attr('opacity', 0)
+      .transition()
+      .delay(wait)
+      .duration(durs.arrow)
+      .ease(d3.easeLinear)
+      .attr('opacity', 0); // XXX JK
+
+    // Fade out arrow
+    arrow
+      .attr('opacity', 1)
+      .transition()
+      .delay(wait)
+      .duration(duration)
+      .attr('opacity', 0);
+    // Fade out underline
+    this.svg.selectAll('.underline')
+      .transition()
+      .delay(wait) // TODO: just hacking around
+      .duration(duration)
+      .ease(d3.easeLinear)
+      .attr('opacity', 0)
+      .remove();
+  }
+
+
+  _ravel(d, duration=3000) { // ravel a ditto
     // allocation of duration per phase
     const durs = {
       highlight: .3 * duration,
@@ -252,6 +317,7 @@ class CompressionGraphic {
     let srctext = this.selectRange(d.src)
       .filter(d=>!d.visible);
     this.marked = [srctext];
+    // Un-hide any invisible text in the source text
     srctext
       .transition()
       .duration(dur)
@@ -259,8 +325,9 @@ class CompressionGraphic {
       .attr('stroke', 'orange')
       .attr('opacity', .6);
 
+    // Draw an arrow from src to dest
     let arrowdur = 1000;
-    this.animateArrow(d, node, hoverbox, arrowdur);
+    this.animateArrow(d, hoverbox, arrowdur);
 
     let desttext = this.selectRange(d.dest);
     this.marked.push(desttext);
@@ -284,7 +351,7 @@ class CompressionGraphic {
     this.svg.selectAll('.hoverbox').remove();
   }
 
-  animateArrow(d, node, root, duration) {
+  animateArrow(d, root, duration) {
     // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
     let start = this.rangeCentroid(d.src);
@@ -302,10 +369,10 @@ class CompressionGraphic {
     let path = root.append('path')
       .classed('arrow', true)
       .attr('stroke', 'black')
-      .attr('stroke-width', 3)
+      .attr('stroke-width', 1)
       .attr('fill', 'none')
-      .attr('d', line(pts))
-      .call(this.animatePath, duration);
+      .attr('d', line(pts));
+    return this.animatePath(path, duration);
   }
 
   // Return the length of the given line in characters.
@@ -342,40 +409,61 @@ class CompressionGraphic {
     this.svg.selectAll('.underline').remove();
   }
 
-  highlightSrc(range, duration, root) {
-    return this.addTextLine(range, src_color, duration, root);
+  highlightSrc(range, duration, root, transition_name=null) {
+    return this.addTextLine(range, src_color, duration, root, transition_name);
   }
-  highlightDest(range, duration, root) {
-    return this.addTextLine(range, dest_color, duration, root);
+  highlightDest(range, duration, root, transition_name=null) {
+    return this.addTextLine(range, dest_color, duration, root, transition_name);
   }
 
   // Add underline to a given range of text (using paths, not text-decoration)
-  addTextLine(range, color, duration, root) {
+  addTextLine(range, color, duration, root, transition_name) {
     if (!root) {
       root = this.svg;
     }
+    let yrange = d3.range(range.y1, range.y2+1);
+    // For each y, need two x-coords: start and end
+    let xpairs = y => {
+      let x1 = y === range.y1 ? range.x1 : 0;
+      let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
+      return [x1, x2];
+    };
+    let get_linedat = y => {
+      let [x1, x2] = xpairs(y);
+      return [ [x1, y], [x2, y] ];
+    };
     let line = d3.line()
       .x( ([x,y]) => this.x.underline(x) )
       .y( ([x,y]) => this.y.text(y) );
-    // non-d3-idiomatic way of doing it
-    for (let y=range.y1; y<=range.y2; y++) {
-      let x1 = y === range.y1 ? range.x1 : 0;
-      let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
-      let linedat = [ [x1, y], [x2, y] ];
-      let path = root.append('path')
-        .classed('underline', true)
-        .attr('stroke', color)
-        .attr('stroke-width', 3)
-        .attr('d', line(linedat))
-        .attr('opacity', 1)
-        .call(this.animatePath, duration);
-    }
+    let paths = root.selectAll().data(yrange)
+      .enter()
+      .append('path')
+      .classed('underline', true)
+      .attr('stroke', color)
+      .attr('stroke-width', 3)
+      .attr('d', y => line(get_linedat(y)))
+      .attr('opacity', 1);
+    return this._animatePath(paths, duration, transition_name);
+  }
+
+  _animatePath(pathsel, duration, transname) {
+    let getLen = (d,i,nodes) => nodes[i].getTotalLength();
+    return pathsel
+      .attr("stroke-dasharray", (d,i,n) => {
+        let l = getLen(d,i,n);
+        return l + " " + l;
+      })
+      .attr("stroke-dashoffset", getLen)
+      .transition(transname)
+        .duration(duration)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
   }
 
   // Make the path grow to its full length over the given duration
   animatePath(path, duration) {
     let totalLength = path.node().getTotalLength();
-    path
+    return path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()
