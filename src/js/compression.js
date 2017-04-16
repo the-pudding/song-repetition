@@ -41,14 +41,6 @@ class CompressionGraphic {
   }
 
   defrag() {
-    // TODO: deal with markers
-    // Maybe blow up odometer, show original size/compressed size
-    // when showing compressed size, give number of words/letters in
-    // compressed text + number of markers, and coalesce the markers
-    // into a bundle at that point
-    // 
-    // Orrr, maybe keep the text flying to the top-left, and have
-    // the markers fly to the top-right (or bot-right)
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -58,6 +50,25 @@ class CompressionGraphic {
       .attr('font-size', 0.1)
       // XXX: for some reason transitioning to 0 and/or remove()ing
       // causes a noticeable jitter at the end
+
+    // Sweep dittos into a few lines in top-right
+    let dittos_per_line = Math.floor(this.colwidth/(2*2*this.ditto_radius));
+    let dittowhere = i => {
+      let row = Math.floor(i/dittos_per_line);
+      let col = i % dittos_per_line;
+      return {x: this.W - this.ditto_radius - (col*this.ditto_radius*2),
+        y: this.ditto_radius + (row*this.ditto_radius*2)
+      };
+    }
+
+    this.svg.selectAll('.ditto')
+      .on('mouseover', null)
+      .on('mouseout', null)
+      .transition()
+      .duration(5000)
+      .attr('cx', (d,i) => dittowhere(i).x)
+      .attr('cy', (d,i) => dittowhere(i).y)
+      
     this.crunch();
   }
 
@@ -123,6 +134,7 @@ class CompressionGraphic {
     this.ncols = 3;
     this.maxlines = 44;
     this.colwidth = this.W/this.ncols;
+    this.ditto_radius = this.fontsize/4;
     
     this.lastditto = -1;
     this.renderText();
@@ -267,7 +279,7 @@ class CompressionGraphic {
             .attr('cx', where.x)
             .attr('cy', where.y)
             // TODO: maybe radius should scale with the size of the ditto?
-            .attr('r', this.fontsize/4)
+            .attr('r', this.ditto_radius)
             .attr('opacity', .4);
           /*
             .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
