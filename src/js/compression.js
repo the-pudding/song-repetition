@@ -23,6 +23,7 @@ class CompressionGraphic {
         triggerHook: 0,
         duration: 3200*3,
     })
+    this.scene = scene;
     scene
       .setPin(this.rootsel)
       .addTo(this.controller)
@@ -70,6 +71,39 @@ class CompressionGraphic {
       .attr('cy', (d,i) => dittowhere(i).y)
       
     this.crunch();
+
+    // show size reduction info
+    let [bannerx, bannery] = [this.W/3, this.H/3];
+    let banner = this.svg
+      .append('g')
+      .attr('transform', `translate(${bannerx}, ${bannery})`)
+      .attr('opacity', 0);
+    let line = banner
+      .append('text')
+      .text(`Original size: ${this.totalchars} characters`);
+    let lineheight = this.lineheight*2;
+    let stats = this.compressionStats();
+    let compchars = this.totalchars - stats.chars_saved;
+    let compline = `Compressed size: ${compchars} characters/bytes`;
+    compline += ` + ${stats.ndittos} dittos`;
+    compline += ` = ${compchars+stats.ndittos*3} bytes`;
+    banner
+      .append('text')
+      .attr('dy', lineheight)
+      .text(compline);
+    
+    let banner_trans = banner
+      .transition()
+      .delay(5000*2)
+      .duration(5000)
+      .attr('opacity', 1)
+    // translate and scale odometer
+    this.odometer
+      .transition()
+      .delay(5000*3)
+      .duration(5000)
+      .attr('transform', `translate(${bannerx}, ${bannery+lineheight*2.5})`)
+      .attr('font-size', 24);
   }
 
   // Vertically compactify
@@ -120,7 +154,7 @@ class CompressionGraphic {
       .on('click', d=>d.cb());
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = 1200;
+    var totalW = 1300;
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
@@ -138,11 +172,14 @@ class CompressionGraphic {
     
     this.lastditto = -1;
     this.renderText();
+    this.renderOdometer();
   }
 
   reset() {
     this.svg.text('');
+    this.renderOdometer();
     this.renderText();
+    this.controller.scrollTo(this.scene);
   }
 
   basey(y) {
@@ -184,6 +221,55 @@ class CompressionGraphic {
       .text(w=>w.word + ' ');
   }
 
+  renderOdometer() {
+    let x = (.5 + this.ncols-1)*this.colwidth
+    //let y = (this.maxlines-2)*this.lineheight;
+    let y = this.lineheight;
+    this.odometer = this.svg.append('g')
+      .classed('odometer', true)
+      .attr('transform', `translate(${x}, ${y})`);
+    this.odometer
+      .append('text')
+      .classed('reduction', true)
+      .text('Size reduction: 0%');
+    // Lots of simplifications. Ignoring newlines.
+    this.totalchars = d3.sum(LINES, 
+        l => Math.max(0, d3.sum(l, w=>w.length+1)-1)
+    );
+    return;
+    let lineno = 0;
+    for (let classname of ['orig', 'comp', 'reduction']) {
+      this.odometer
+        .append('text')
+        .attr('dy', this.lineheight*lineno++)
+        .classed(classname, true);
+    }
+    this.odometer.select('.orig')
+      .text(`Original size: ${this.totalchars} characters`);
+  }
+
+  compressionStats() {
+    let ndittos = this.lastditto+1;
+    // TODO: XXX: store ditto size in chars
+    // Orrrr... could just select visible tspans and look at their words.
+    let chars_saved = d3.sum(this.svg.selectAll('.word')
+      .filter(d=>!d.visible)
+      .data(), d=> d.word.length+1);
+    return {ndittos: ndittos, chars_saved: chars_saved,
+      reduction: ((chars_saved-(ndittos*3))/this.totalchars),
+    };
+  }
+
+  updateOdometer() {
+    // XXX: May want to be a bit more efficient, keeping a running
+    // total rather than recalculating the whole thing each time.
+    let stats = this.compressionStats();
+    let reduc_pct = d3.format('.1%')(stats.reduction);
+    // TODO: colormap?
+    this.odometer.select('.reduction')
+      .text(`Size reduction: ${reduc_pct}`);
+  }
+
   get activeDittos() {
     return this.dittos.filter(d=>d.active);
   }
@@ -191,6 +277,7 @@ class CompressionGraphic {
   unstep(stage) {
     this.step(stage, -1);
   }
+  // TODO: reconcile these methods
   step(stage, by=1) {
     let nexti = this.lastditto+by;
     nexti = Math.min(this.dittos.length-1, nexti);
@@ -207,6 +294,7 @@ class CompressionGraphic {
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
+    this.updateOdometer();
   }
 
   setLastDitto(nexti) {
@@ -224,6 +312,7 @@ class CompressionGraphic {
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
+    this.updateOdometer();
   }
 
   unravel(d) {
