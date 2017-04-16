@@ -4,22 +4,6 @@ import DITTOS from './dittos.js';
 import scroll_controller from './scroll.js';
 import ScrollMagic from 'scrollmagic';
 
-// TODO: think about ways of doing the animation that look better/are clearer
-// in motion when scrolling.
-
-const ravel_stages = [
-  {upto: 0},
-  {upto: -1}
-];
-
-const stages = [
-  {start: 0, dur: 1},
-  {start: 1, dur: 3, text: "hello"},
-  {start: 4, dur: 3, text: "hello2"},
-  {start: 7, dur: 85, free:true},
-  {start: 95, dur: 5, final: true},
-];
-
 const text_scale = 4/5;
 
 const src_color = 'purple';
@@ -54,9 +38,6 @@ class CompressionGraphic {
     let prog_per_ditto = (1-slack)/DITTOS.length;
     let i = Math.floor(progress/prog_per_ditto);
     this.setLastDitto(i);
-
-    // TODO 
-    // see if progress is outside bounds of current stage. if so, change stage.
   }
 
   defrag() {
@@ -77,10 +58,10 @@ class CompressionGraphic {
       .attr('font-size', 0.1)
       // XXX: for some reason transitioning to 0 and/or remove()ing
       // causes a noticeable jitter at the end
-      //.remove()
     this.crunch();
   }
 
+  // Vertically compactify
   crunch() {
     let lines = this.svg.selectAll('.line')
       .filter(line => line.some(w=>w.visible));
@@ -94,7 +75,6 @@ class CompressionGraphic {
   }
 
   constructor() {
-    this.stage = stages[0];
     this.controller = scroll_controller;
     this.dittos = DITTOS;
     this.fontsize = 16 * text_scale;
@@ -143,7 +123,7 @@ class CompressionGraphic {
     this.ncols = 3;
     this.maxlines = 44;
     this.colwidth = this.W/this.ncols;
-
+    
     this.lastditto = -1;
     this.renderText();
   }
@@ -235,7 +215,6 @@ class CompressionGraphic {
   }
 
   unravel(d) {
-    //this.clearHighlights();
     let dest = this.selectRange(d.dest);
     // cancel any ongoing transitions
     dest.interrupt();
@@ -248,10 +227,6 @@ class CompressionGraphic {
   
   ravel(d, duration) {
     var dur, delay, root, wait;
-    // TODO: would like to give the underline/arrow animations a
-    // consistent velocity, which is not compatible with current 
-    // approach of fixed durations per segement. For those animations,
-    // should maybe treat the duration as a suggestion/scaling factor.
     const steps = [
       {dur: 1, desc: 'underline dest', 
         fn: () => {
@@ -278,6 +253,7 @@ class CompressionGraphic {
           });
           let erase = dest
             .attr('opacity', 1)
+            // TODO: is this redundant now?
             //.datum(d=>({...d, visible:false}) )
             .transition()
             .delay(wait)
@@ -335,125 +311,6 @@ class CompressionGraphic {
     }
   }
 
-  a__ravel(d, duration=3000) {
-    // XXX YOUAREHERE
-    // Okay, my attempts at chaining transitions have been disastrous, so
-    // need to just handle the bookkeeping myself in terms of durations and delays.
-    const durs = {
-      destline: .2 * duration,
-      arrow: .2 * duration,
-      srcline: .2 * duration,
-      erase: .4 * duration,
-    };
-    // underline src
-    this.highlightSrc(d.src, durs.srcline);
-    // arrow from src to dst
-    let arrow = this.animateArrow(d, this.svg, durs.arrow);
-    // underline dest
-    arrow.on('end', () => {
-      this.highlightDest(d.dest, durs.destline);
-    });
-    let dest = this.selectRange(d.dest);
-    let wait = durs.destline+durs.arrow+durs.srcline;
-    let erase = dest
-      .attr('opacity', 1)
-      .datum(d=>({...d, visible:false}) )
-      .transition()
-      .delay(wait)
-      .duration(durs.erase)
-      .ease(d3.easeLinear)
-      .attr('opacity', .1);
-    
-    let where = this.rangeCentroid(d.dest);
-    let marker = this.svg.append('circle')
-      .classed('ditto wordlike', true)
-      .datum(d)
-      .attr('cx', this.locate(where).x)
-      .attr('cy', this.locate(where).y)
-      .attr('r', 5)
-      .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
-      .on('mouseout', ()=>this.clearHover())
-      .attr('fill', src_color);
-    // Fade in marker
-    marker
-      .attr('opacity', 0)
-      .transition()
-      .delay(wait)
-      .duration(durs.arrow)
-      .ease(d3.easeLinear)
-      .attr('opacity', 0); // XXX JK
-
-    // Fade out arrow
-    arrow
-      .attr('opacity', 1)
-      .transition()
-      .delay(wait)
-      .duration(duration)
-      .attr('opacity', 0);
-    // Fade out underline
-    this.svg.selectAll('.underline')
-      .transition()
-      .delay(wait) // TODO: just hacking around
-      .duration(duration)
-      .ease(d3.easeLinear)
-      .attr('opacity', 0)
-      .remove();
-  }
-
-
-  a_ravel(d, duration=3000) { // ravel a ditto
-    // allocation of duration per phase
-    const durs = {
-      highlight: .3 * duration,
-      fadeout: .4 * duration,
-      fadein: .3 * duration,
-    };
-    // clear prev highlights
-    //this.clearHighlights();
-    // highlight src section we're copying
-    let src = this.selectRange(d.src);
-    let dest = this.selectRange(d.dest);
-    this.highlightSrc(d.src, durs.highlight)
-    this.highlightDest(d.dest, durs.highlight);
-    let wait = durs.highlight;
-    dest
-      .attr('opacity', 1)
-      .datum(d=>({...d, visible:false}) )
-      .transition()
-      .delay(wait)
-      .duration(durs.fadeout)
-      .ease(d3.easeLinear)
-      .attr('opacity', .1);
-    // TODO: I think there's a more elegant way to chain transitions
-    wait += durs.fadeout;
-    let where = this.rangeCentroid(d.dest);
-    let marker = this.svg.append('circle')
-      .classed('ditto wordlike', true)
-      .datum(d)
-      .attr('cx', this.x.marker(where.x))
-      .attr('cy', this.y.marker(where.y))
-      .attr('r', 5)
-      .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
-      .on('mouseout', ()=>this.clearHover())
-      .attr('fill', src_color);
-    // Fade in marker
-    marker
-      .attr('opacity', 0)
-      .transition()
-      .delay(wait)
-      .duration(durs.fadein)
-      .ease(d3.easeLinear)
-      .attr('opacity', 1);
-    // Fade out underline
-    this.svg.selectAll('.underline')
-      .transition()
-      .delay(wait+durs.fadein/2) // TODO: just hacking around
-      .duration(durs.fadein)
-      .ease(d3.easeLinear)
-      .attr('opacity', 0)
-      .remove();
-  }
-
   onMarkerHover(d, node) {
     // TODO: disable mouse events on arrow to prevent hijacking
     let dur = 200;
@@ -500,17 +357,11 @@ class CompressionGraphic {
   animateArrow(d, root, duration, delay, to='dest') {
     // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
-    
     let start = this.locate(this.rangeCentroid(d.src));
     let end = this.locate(this.rangeCentroid(d.dest));
     if (to === 'src') {
       [start, end] = [end, start];
     }
-    // TODO: this line-drawing algo can lead to some really wonky results for
-    // points with similar x coords
-    let inflection_x = (start.x + end.x)/2;
-    let inflection_y = Math.max(start.y, end.y) + 
-      Math.abs(start.x-start.y) * .3;
     let pts = [start, this.getInflection(start, end), end];
     let line = d3.line()
       .curve(d3.curveNatural) // chosen arbitrarily
@@ -562,6 +413,8 @@ class CompressionGraphic {
   }
 
   // Return centroid of given range of text, in natural units
+  // TODO: any good reason to output natural units rather than px?
+  // I guess differing scales?
   rangeCentroid(range) {
     let yspan = range.y2 - range.y1;
     let x,y;
