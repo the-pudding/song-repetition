@@ -37,7 +37,7 @@ class CompressionGraphic {
     let scene = new ScrollMagic.Scene({
         triggerElement: this.rootsel,
         triggerHook: 0,
-        duration: 3200,
+        duration: 3200*3,
     })
     scene
       .setPin(this.rootsel)
@@ -79,7 +79,9 @@ class CompressionGraphic {
     lines.exit().remove();
     lines
       .transition()
+      .delay(5000)
       .duration(5000)
+      .attr('x', (d,i) => this.linex(i))
       .attr('y', (d,i) => this.y.text(i));
   }
 
@@ -93,12 +95,12 @@ class CompressionGraphic {
     this.lineheight = this.fontsize*1.05;
     // scaling for various pieces of the graphic 
     this.x = {
-      underline: x => (this.glyphwidth * x),
+      underline: x=>this.glyphwidth * x,
       marker: x => (this.glyphwidth * x) + this.glyphwidth/2
     }
     this.y = {
       marker: y => (this.lineheight * y) - this.lineheight * .25,
-      text: y => (this.lineheight * y)
+      text: y=>this.basey(y),
     };
     this.rootsel = '#compression';
     this.setScene();
@@ -119,7 +121,7 @@ class CompressionGraphic {
       .on('click', d=>d.cb());
 
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = 600;
+    var totalW = 1200;
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
@@ -129,6 +131,10 @@ class CompressionGraphic {
       .style('background-color', 'rgba(255,240,255,1)')
       .append("g")
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
+    
+    this.ncols = 3;
+    this.maxlines = 44;
+    this.colwidth = this.W/this.ncols;
 
     this.lastditto = -1;
     this.renderText();
@@ -137,6 +143,18 @@ class CompressionGraphic {
   reset() {
     this.svg.text('');
     this.renderText();
+  }
+
+  basey(y) {
+    y = y % this.maxlines;
+    return this.lineheight * y;
+  }
+  linex(y) {
+    let col = Math.floor(y/this.maxlines);
+    return (col*this.colwidth);
+  }
+  getcol(y) {
+    return Math.floor(y/this.maxlines);
   }
 
   renderText() {
@@ -155,7 +173,7 @@ class CompressionGraphic {
       .attr('font-size', this.fontsize)
       .attr('font-family', 'courier,monospace')
       .attr('alignment-baseline', 'middle') // seems not to do anything?
-      .attr('x', 0)
+      .attr('x', (d,i) => this.linex(i))
       .attr('y', (d,i) => this.y.text(i));
     let words  = lines.merge(newlines)
       .selectAll('.word')
@@ -258,12 +276,12 @@ class CompressionGraphic {
             .duration(dur)
             .ease(d3.easeLinear)
             .attr('opacity', .1);
-          let where = this.rangeCentroid(d.dest);
+          let where = this.locate(this.rangeCentroid(d.dest));
           let marker = root.append('circle')
             .classed('ditto wordlike', true)
             .datum(d)
-            .attr('cx', this.x.marker(where.x))
-            .attr('cy', this.y.marker(where.y))
+            .attr('cx', where.x)
+            .attr('cy', where.y)
             .attr('r', 5)
             .attr('opacity', 0);
           /*
@@ -341,8 +359,8 @@ class CompressionGraphic {
     let marker = this.svg.append('circle')
       .classed('ditto wordlike', true)
       .datum(d)
-      .attr('cx', this.x.marker(where.x))
-      .attr('cy', this.y.marker(where.y))
+      .attr('cx', this.locate(where).x)
+      .attr('cy', this.locate(where).y)
       .attr('r', 5)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
@@ -474,8 +492,8 @@ class CompressionGraphic {
     // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
     
-    let start = this.rangeCentroid(d.src);
-    let end = this.rangeCentroid(d.dest);
+    let start = this.locate(this.rangeCentroid(d.src));
+    let end = this.locate(this.rangeCentroid(d.dest));
     if (to === 'src') {
       [start, end] = [end, start];
     }
@@ -487,8 +505,8 @@ class CompressionGraphic {
     let pts = [start, {x:inflection_x, y:inflection_y}, end];
     let line = d3.line()
       .curve(d3.curveNatural) // chosen arbitrarily
-      .x(d=>this.x.marker(d.x))
-      .y(d=>this.y.marker(d.y));
+      .x(d=>d.x)
+      .y(d=>d.y);
     let path = root.append('path')
       .classed('arrow', true)
       .attr('stroke', 'black')
@@ -503,6 +521,13 @@ class CompressionGraphic {
   linewidth(y) {
     return d3.sum(LINES[y], s=>s.length) 
       + (LINES[y].length-1) // account for spaces between words
+  }
+
+  locate(where) {
+    let col = this.getcol(where.y);
+    return {x: this.glyphwidth*where.x+(col*this.colwidth),
+      y: this.lineheight*(where.y%this.maxlines)
+    };
   }
 
   // Return centroid of given range of text, in natural units
@@ -526,7 +551,7 @@ class CompressionGraphic {
     } else {
       console.error('Should not be reachable');
     }
-    return {x,y};
+    return {x, y};
   }
 
   clearHighlights(delay) {
@@ -557,7 +582,7 @@ class CompressionGraphic {
       return [ [x1, y], [x2, y] ];
     };
     let line = d3.line()
-      .x( ([x,y]) => this.x.underline(x) )
+      .x( ([x,y]) => this.linex(y) + this.x.underline(x) )
       .y( ([x,y]) => this.y.text(y) );
     let paths = root.selectAll().data(yrange)
       .enter()
