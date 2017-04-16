@@ -280,12 +280,10 @@ class CompressionGraphic {
             .attr('cy', where.y)
             // TODO: maybe radius should scale with the size of the ditto?
             .attr('r', this.ditto_radius)
-            .attr('opacity', .4);
-          /*
+            .attr('opacity', .4)
             .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
             .on('mouseout', ()=>this.clearHover())
             .attr('fill', src_color);
-            */
         }
       },
       {dur: .3, desc: 'erase underlines/arrow',
@@ -337,7 +335,7 @@ class CompressionGraphic {
       .transition()
       .duration(dur)
       .ease(d3.easeLinear)
-      .attr('stroke', 'orange')
+      //.attr('stroke', 'orange')
       .attr('opacity', .6);
 
     // Draw an arrow from src to dest
@@ -351,7 +349,7 @@ class CompressionGraphic {
       .delay(dur+arrowdur)
       .duration(dur*2)
       .ease(d3.easeLinear)
-      .attr('stroke', 'orange')
+      //.attr('stroke', 'orange')
       .attr('opacity', .4);
   }
 
@@ -366,7 +364,7 @@ class CompressionGraphic {
     this.svg.selectAll('.hoverbox').remove();
   }
 
-  animateArrow(d, root, duration, delay, to='dest') {
+  animateArrow(d, root, duration, delay=0, to='dest') {
     // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
     let start = this.locate(this.rangeCentroid(d.src));
@@ -385,11 +383,14 @@ class CompressionGraphic {
       .attr('stroke-width', 1)
       .attr('fill', 'none')
       .attr('opacity', 1)
+      .style('pointer-events', 'none')
       .attr('d', line(pts));
     return this.animatePath(path, duration, delay);
   }
 
   getInflection(start, end) {
+    // TODO: should choose swoop direction based on which dimension
+    // has greater delta
     let x,y;
     const tooclose = 40;
     let xmean = (start.x+end.x)/2;
