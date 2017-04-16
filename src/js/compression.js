@@ -502,7 +502,7 @@ class CompressionGraphic {
     let inflection_x = (start.x + end.x)/2;
     let inflection_y = Math.max(start.y, end.y) + 
       Math.abs(start.x-start.y) * .3;
-    let pts = [start, {x:inflection_x, y:inflection_y}, end];
+    let pts = [start, this.getInflection(start, end), end];
     let line = d3.line()
       .curve(d3.curveNatural) // chosen arbitrarily
       .x(d=>d.x)
@@ -515,6 +515,28 @@ class CompressionGraphic {
       .attr('opacity', 1)
       .attr('d', line(pts));
     return this.animatePath(path, duration, delay);
+  }
+
+  getInflection(start, end) {
+    let x,y;
+    const tooclose = 40;
+    let xmean = (start.x+end.x)/2;
+    let xspan = Math.abs(start.x-end.x);
+    let ymean = (start.y+end.y)/2;
+    let yspan = Math.abs(start.y-end.y);
+    let swoopscale = .3;
+    if (xspan <= tooclose) {
+      // If too close x-wise, swoop to the side.
+      let sgn = (start.x < this.colwidth) ? 1 : -1;
+      x = xmean + Math.max(30, yspan * swoopscale) * sgn;
+      y = ymean;
+    } else { // otherwise, swoop down (or up)
+      let maxy = Math.max(start.y, end.y);
+      let sgn = maxy >= this.H*.8 ? -1 : 1;
+      y = ymean + Math.max(30, xspan * swoopscale) * sgn;
+      x = xmean;
+    }
+    return {x,y};
   }
 
   // Return the length of the given line in characters.
