@@ -60,6 +60,14 @@ class CompressionGraphic {
   }
 
   defrag() {
+    // TODO: deal with markers
+    // Maybe blow up odometer, show original size/compressed size
+    // when showing compressed size, give number of words/letters in
+    // compressed text + number of markers, and coalesce the markers
+    // into a bundle at that point
+    // 
+    // Orrr, maybe keep the text flying to the top-left, and have
+    // the markers fly to the top-right (or bot-right)
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -282,8 +290,9 @@ class CompressionGraphic {
             .datum(d)
             .attr('cx', where.x)
             .attr('cy', where.y)
-            .attr('r', 5)
-            .attr('opacity', 0);
+            // TODO: maybe radius should scale with the size of the ditto?
+            .attr('r', this.fontsize/4)
+            .attr('opacity', .4);
           /*
             .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
             .on('mouseout', ()=>this.clearHover())
