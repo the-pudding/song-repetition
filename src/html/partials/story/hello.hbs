@@ -1,15 +1,19 @@
 <div class="container">
 <h1>La la la - title TK</h1>
 
-<p>In 1977, the great computer scientist Donald Knuth published a facetious paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, in which he used the language of complexity theory to analyze the space complexity of popular songs - i.e. for some family of songs, how much space do you need to describe one of those songs, and how does that number change as the song's length goes to infinity?
+<img id="girls" src="assets/img/girls_rhapsody.jpg" />
+
+<p>Is popular music getting more repetitive?</p>
+
+<p>This meme that's been floating around the internet seems to suggest that that's the case.</p>
+
+<p>It's not a new idea. In 1977, the great computer scientist Donald Knuth published a paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, which is basically one long joke about the repetitive lyrics of newfangled music (example quote: "the advent of modern drugs has led to demands for still less memory, and the ultimate improvement of Theorem 1 has consequently just been announced").
 </p>
 
-<p>The running joke is that, over time, songwriters have worked to invent increasingly repetitive song structures ("the advent of modern drugs has led to demands for still less memory"). The paper ends with a proof, due to "Casey[sic] and the Sunshine Band", that some songs belong to the smallest possible complexity class, O(1).
+<p>I'm going to try to test this hypothesis with data. I'll be analyzing the repetitiveness of a dataset of 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017.
 </p>
 
-<p>Nerdy computer science jokes aside, it's actually an interesting question whether the lyrics of popular songs have become more repetitive over time. Let's put it to the test.</p>
-
-<h2>Measuring repetitiveness</h2>
+<h2>Measuring repetitiveness?</h2>
 
 <p>
 I know a repetitive song when I hear one, but translating that intuition into a number isn't easy.
@@ -45,38 +49,47 @@ One thing we might try is looking at the number of unique words in a song, as a 
 </div>
 <p>These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
 
-<p>What if we just <b>zip each song and measure how much smaller it gets</b> relative to the original size?</p>
 
-<p>It sounds cheeky, but it turns out that the family of <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithms</a>, used in many compressed formats, have a pretty natural correspondence between their performance and the "repetitiveness" of the input data.</p>
-<p>Lempel-Ziv works by exploiting repeated sequences, which is exactly what we're interested in. It's also pretty easy to understand. The compressed version of the Sia excerpt above would look like...</p>
 
-<code id="lzexample">Baby I don't need dollar bills to have fun tonight<br/>
-I love cheap thrills<br/>
-{72,72}{139,13}no money<br/>
-As long as I can feel the beat{53,35}keep dancing</code>
-<br><br>
+<h2>Repetitiveness ≈ compressibility?</h2>
 
-<p>Where <code>{n,k}</code> tells the decompressor "go back n characters, and copy the substring of length k starting from there".</p>
+<p>
+You may not have heard of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithm</a>, but you probably use it every day. It's a lossless compression algorithm that powers gifs, pngs, and most archive formats (zip, gzip, rar...).
+</p>
 
-<p>This chorus shrunk down a lot! Notice that the compressor took advantage of repeated lines, but also repeated phrases within lines ("I don't need ", "As long as I "). But the best part is, the next time we see this chorus, we can replace all 242 characters of it with a single "ditto".</p>
+<p>
+What does this have to do with pop music? The Lempel-Ziv algorithm works by exploiting repeated sequences. How efficiently LZ can compress a text is directly correlated with the number and length of the repeated sections in that text.
+</p>
+
+<p>In short, the LZ algorithm scans the input from start to end looking for sections that match an earlier part of the text. If it finds one then, in the output, it replaces that repeated text with a signpost that says "go back X letters, and copy Y characters".
+</p>
+
+<p>It's probably easier to understand when seen in action. Let's see what the LZ algorithm does to Lady Gaga's <i>Bad Romance</i>...
+</p>
 
 </div><div class="container-fluid">
 <div id="compression">
 </div>
 </div><div class="container">
 
-<p>I'll define the "compressibility" of a song as the % reduction in size when compressing it. By this definition, the chorus of <i>Cheap Thrills</i> is 46% compressible.</p>
+<p>
+After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (or bytes) to 717, a 75% reduction in size. 
+In my dataset of 15,000 songs, the average song is reduced by 50% after compression. For comparison, an average newswire article is X% compressible.
+</p>
 
-<img src="assets/cheap.png" class="center-block" style="width:40%;padding:10px 0;" />
+<p>Using this size reduction metric, what are <b>the most repetitive songs of all time</b>?
+</p>
 
-<p>I gathered a dataset of lyrics for 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017. The average song in the dataset is <b>50% compressible</b>. (For comparison, an average newswire article is X% compressible.)</p>
-
-<p>There's considerable variation around that average - let's look at some of the most repetitive songs through the ages.</p>
-
-<h2>The most repetitive songs of all time</h2>
 <div id="topsongs"></div>
 
-<p>The current decade is pretty well-represented in the top 10, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). To figure out whether music is getting more repetitive, we'll need to look at a lot more data...</p>
+<p>
+<i>Around The World</i> by Daft Punk gets reduced a whopping <b>98%</b>. It goes from 2,610 characters to 61. Small enough to fit in a tweet - twice! (<a href="http://www.azlyrics.com/lyrics/daftpunk/aroundtheworld.html">Here are the lyrics</a>, if you're not familiar with the song.)
+</p>
+
+<p>Intuitively, <i>Around The World</i> definitely <i>feels</i> like a very repetitive song. In fact, many of the familiar songs on this list are comically repetitive (Macarena, Duck Sauce, The Thong Song, Cotton Eye Joe...). This inspires some confidence in the metric I'm using.
+</p>
+
+<p>So, is music getting more repetitive? The current decade is pretty well-represented in the top 10 above, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). We'll need to look at a lot more data to be sure...</p>
 
 {{> story/overtime }}
 

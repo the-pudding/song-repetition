@@ -47,6 +47,10 @@
     - lowercase everything
     - strip newlines
     - strip punctuation
+    
+## Prose
+- Be consistent with example songs. Replace Cheap Thrills example with Bad Romance, or vice versa.
+- Link to Around The World lyrics. Probably not possible to find a non-scummy/ad-bloated lyrics site. Maybe just host text file in assets, or pointer to file in github repo.
 
 ## Misc thoughts
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
