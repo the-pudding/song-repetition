@@ -145,6 +145,7 @@ class CompressionGraphic {
       {name: 'reset', cb: ()=>this.reset()},
       {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
       {name: 'defrag', cb: ()=>this.defrag()},
+      {name: 'debug', cb: ()=>this.thing()},
     ];
     butcon.selectAll('button').data(buttons)
       .enter()
@@ -173,6 +174,13 @@ class CompressionGraphic {
     this.lastditto = -1;
     this.renderText();
     this.renderOdometer();
+  }
+
+  thing() {
+    let x = 12;
+    let y = this.ncols;
+    debugger;
+    let z = 1;
   }
 
   reset() {
@@ -212,13 +220,13 @@ class CompressionGraphic {
       .attr('alignment-baseline', 'middle') // seems not to do anything?
       .attr('x', (d,i) => this.linex(i))
       .attr('y', (d,i) => this.y.text(i));
-    let words  = lines.merge(newlines)
+    let words = lines.merge(newlines)
       .selectAll('.word')
-      .data(words=>words);
+      .data(_words=>_words);
     let newwords = words.enter()
       .append('tspan')
       .classed('word', true)
-      .text(w=>w.word + ' ');
+      .text(w=>w.word);
   }
 
   renderOdometer() {
@@ -232,9 +240,8 @@ class CompressionGraphic {
       .append('text')
       .classed('reduction', true)
       .text('Size reduction: 0%');
-    // Lots of simplifications. Ignoring newlines.
     this.totalchars = d3.sum(LINES, 
-        l => Math.max(0, d3.sum(l, w=>w.length+1)-1)
+        l => Math.max(0, d3.sum(l, w=>w.length))
     );
     return;
     let lineno = 0;
@@ -254,7 +261,7 @@ class CompressionGraphic {
     // Orrrr... could just select visible tspans and look at their words.
     let chars_saved = d3.sum(this.svg.selectAll('.word')
       .filter(d=>!d.visible)
-      .data(), d=> d.word.length+1);
+      .data(), d=> d.word.length);
     return {ndittos: ndittos, chars_saved: chars_saved,
       reduction: ((chars_saved-(ndittos*3))/this.totalchars),
     };
@@ -352,6 +359,13 @@ class CompressionGraphic {
           dest.each(d=> {
             this.linedat[d.y][d.x].visible = false;
           });
+          let n = dest.size();
+          let expected_nodes = d.dest.nwords;
+          //let expected_nodes = 1+(d.dest.x2word-d.dest.x1word);
+          console.assert(expected_nodes === n,
+              `Got ${n} nodes, expected ${expected_nodes}`);
+          // TODO: There's a heisenbug where sometimes part of the
+          // dest text doesn't get faded.
           let erase = dest
             .attr('opacity', 1)
             // TODO: is this redundant now?
@@ -411,7 +425,6 @@ class CompressionGraphic {
   }
 
   onMarkerHover(d, node) {
-    // TODO: disable mouse events on arrow to prevent hijacking
     let dur = 200;
     let hoverbox = this.svg.append('g')
       .classed('hoverbox', true);
@@ -433,6 +446,7 @@ class CompressionGraphic {
 
     let desttext = this.selectRange(d.dest);
     this.marked.push(desttext);
+    this.highlightDest(d.dest, dur, hoverbox, dur+arrowdur);
     desttext
       .transition()
       .delay(dur+arrowdur)
@@ -503,8 +517,7 @@ class CompressionGraphic {
 
   // Return the length of the given line in characters.
   linewidth(y) {
-    return d3.sum(LINES[y], s=>s.length) 
-      + (LINES[y].length-1) // account for spaces between words
+    return d3.sum(LINES[y], s=>s.length);
   }
 
   locate(where) {
@@ -544,11 +557,11 @@ class CompressionGraphic {
     this.svg.selectAll('.underline').remove();
   }
 
-  highlightSrc(range, duration, root, transition_name=null) {
-    return this.addTextLine(range, src_color, duration, root, transition_name);
+  highlightSrc(range, duration, root, delay=0) {
+    return this.addTextLine(range, src_color, duration, root, delay);
   }
-  highlightDest(range, duration, root, transition_name=null) {
-    return this.addTextLine(range, dest_color, duration, root, transition_name);
+  highlightDest(range, duration, root, delay=0) {
+    return this.addTextLine(range, dest_color, duration, root, delay);
   }
 
   // Add underline to a given range of text (using paths, not text-decoration)
@@ -560,7 +573,7 @@ class CompressionGraphic {
     // For each y, need two x-coords: start and end
     let xpairs = y => {
       let x1 = y === range.y1 ? range.x1 : 0;
-      let x2 = y === range.y2 ? range.x2 : d3.sum(LINES[y], s=>s.length+1)-1;
+      let x2 = y === range.y2 ? range.x2 : this.linewidth(y);
       return [x1, x2];
     };
     let get_linedat = y => {
