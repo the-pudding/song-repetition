@@ -1,5 +1,5 @@
 ## Compression animation
-
+- maybe start by continuing with the example of the "Cheap Thrills" chorus, slowly and with explanatory text, then give the full song example.
 - figure out how to scale to different viewport sizes (currently uses fixed width of 1350px, which won't fly for mobile)
     - try slow scrolling thing. Example: map in this article: https://pudding.cool/2017/03/labels/index.html
 - try scaling ditto radius with size
@@ -15,10 +15,6 @@
 
 
 ## Most repetitive songs
-- make bars more intuitively clear
-    - large -> small?
-    - tooltips
-- or just do bars based on compression %, not showing original size info
 - headings
 - NTH: show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
@@ -30,6 +26,8 @@
 
 ## Artists beeswarm
 - color artists by genre?
+- artist faces
+- label axes (maybe in a way that's consistent with whatever's done in discog)
 
 ## Discographies
 - consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook) and talking through some observations, before unleashing the selection of all artists in the dataset.
@@ -49,6 +47,7 @@
     - lowercase everything
     - strip newlines
     - strip punctuation
+    - asciify
     
 ## Prose
 - Be consistent with example songs. Replace Cheap Thrills example with Bad Romance, or vice versa.
@@ -57,7 +56,13 @@
 - speculating on the 'why' of the trends
     - worth mentioning possible experimental biases? Might be too technical/uninteresting.
     - my claim about golden age of hip hop is pretty wild speculation. I don't know if this period actually coincided with extraordinary success in the hot 100.
+- conclusion
+    - story sort of starts with Q of whether music is getting more repetitive
+    - which is basically answered after the trend-over-time graphic
+    - the stuff after that is just gravy. Like, "oh, and here's some other neat stuff for exploring the data at a more granular level"
+    - So not clear how the piece should end. Just reiterating the conclusion that "yeah, it does seem like music is getting more repetitive after all" seems kind of lame.
 
 ## Misc thoughts
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
 - Would be nice to define some common design element to use for 'small print' stuff, like explaining logarithmic scale in topsongs, rolling average in overtime, etc.
+- If the intro is going to use the Beyonce vs. Queen meme, it seems appropriate to use 'Girls'/Bohemian Rhapsody at some point as examples.
