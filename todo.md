@@ -1,6 +1,7 @@
 ## Compression animation
 
 - figure out how to scale to different viewport sizes (currently uses fixed width of 1350px, which won't fly for mobile)
+    - try slow scrolling thing. Example: map in this article: https://pudding.cool/2017/03/labels/index.html
 - try scaling ditto radius with size
 - arrow stuff...
     - pointy ends
@@ -8,7 +9,7 @@
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - integrate hand-holding prose. (Could mayyybe get away with putting it before the animation?)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
-- integrate into main flow
+- need something moving from bottom to top
 - NTH: start with single col layout with large font size (and enough room on right for prose sidebar), then zoom out when necessary
 - NTH: other songs (selectable via dropdown or something)
 
@@ -20,6 +21,7 @@
 - or just do bars based on compression %, not showing original size info
 - headings
 - NTH: show something like an excerpt of a song's lyrics when hovering/selecting it
+    - mini gif version of compression, inline
 
 ## Repetition through the ages
 - try a subtle scatterplot underlay effect

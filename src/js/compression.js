@@ -59,6 +59,7 @@ class CompressionGraphic {
     }
     // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
     this.defragged = true;
+    this.scene.enabled(false);
     // TODO: after defragging, should probably kill the scrollmagic
     // scene somehow to revert to normal scroll speed?
     let invis = this.svg.selectAll('.word')
@@ -213,6 +214,7 @@ class CompressionGraphic {
 
   reset() {
     this.defragged = false;
+    this.scene.enabled(true);
     this.svg.text('');
     this.renderOdometer();
     this.renderText();
