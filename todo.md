@@ -16,10 +16,13 @@
 
 ## Most repetitive songs
 - headings
+- search
 - NTH: show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
 
 ## Repetition through the ages
+- ylabel
+- drop points (except when talking about specific years)
 - try a subtle scatterplot underlay effect
 - fix animation bugs
 - add a legend after adding orange line? or maybe just a label pointing to the new line.
@@ -30,6 +33,8 @@
 - label axes (maybe in a way that's consistent with whatever's done in discog)
 
 ## Discographies
+- nicer artist-picker
+    - one reader suggested arranging from most-to-least repetitive?
 - consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook) and talking through some observations, before unleashing the selection of all artists in the dataset.
 - histogram backdrop
     - is this comprehensible?
@@ -41,6 +46,10 @@
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
+
+## Multi-chart todos
+- Some kind of search widget shared across topsongs/artists/discog graphics?
+- "I wanted a visual signal of repetitiveness across the article. Maybe consistent coloring of repetitiveness (red is higher than X (e.g., “Tequila by the Champs would be here.”, “0 is Bohemian Rhapsody which would be here”)"
 
 ## Data
 - Consider doing more normalization before compressing. As a way of removing non-meaningful variations in how lyrics are transcribed that could lead to different compression ratios.
