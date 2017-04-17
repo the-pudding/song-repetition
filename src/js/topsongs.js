@@ -5,11 +5,12 @@ import TOPS from './topsongs-data.js';
 
 const default_nsongs = 10;
 const more_songs = 30;
+const rscore_axis_min = 1;
 
 // TODO:
 // - try colormap for bars
 // - search bar?
-// - decade controls
+// - animate expand/contract
 class TopSongsGraphic {
   constructor() {
     this.root = d3.select('#topsongs');
@@ -22,10 +23,11 @@ class TopSongsGraphic {
     this.maxbar = 350; // TODO: DRY
     this.root.style('width', this.W+'px');
 
+    // How many songs are visible right now
+    // (Actually, this is more like the current song limit)
     this.nsongs = default_nsongs;
-    let sizes = TOPS.map(s=>s.raw).concat(TOPS.map(s=>s.icomp));
     this.barscale = d3.scaleLinear()
-      .domain(d3.extent(sizes))
+      .domain([rscore_axis_min, d3.max(TOPS, s=>s.rscore)])
       .range([0, this.maxbar]);
 
     this.expanded = false;
@@ -81,8 +83,6 @@ class TopSongsGraphic {
   }
 
   renderSongs() {
-    // NB: the full list is sorted descending on rscore. Since filter
-    // preserves order, we know songdat will be sorted.
     let songdat = TOPS.filter(s => 
         (s.year >= this.minyear && s.year <= this.maxyear)
     ).slice(0, this.nsongs);
@@ -90,23 +90,21 @@ class TopSongsGraphic {
     rows.exit().remove();
     let newrows = rows.enter().append('div')
       .classed('row', true);
-    for (let cellClass of ['rank', 'songlabel', 'pct']) {
+    for (let cellClass of ['rank', 'songlabel', 'barcell', 'pct']) {
       newrows.append('div').classed("cell " + cellClass, true);
     }
-    let barcells = newrows.append('div').classed('cell barcell', true);
-    barcells.append('div').classed('bar raw', true);
-    barcells.append('div').classed('bar comp', true);
+    newrows.select('.barcell')
+      .append('div')
+      .classed('bar', true);
     // Need to re-select to grab newly created rows. (Could also do this op twice, for rows and newrows)
-    rows = this.body.selectAll('.row');
+    rows = rows.merge(newrows)
     rows.select('.rank').text( (s, i) => (i+1+"."));
     rows.select('.songlabel').text(s => `${s.title} - ${s.artist} (${s.year})`);
     rows.select('.pct').text(s => comm.rscore_to_readable(s.rscore));
-    rows.select('.barcell')
+    let barcells = rows.select('.barcell')
       .attr('title', s=>(`${s.raw} -> ${s.icomp}`));
-    let rawbar = rows.select('.barcell .raw');
-    rawbar.style('width', s => (this.barscale(s.raw)+'px'));
-    let compbar = rows.select('.barcell .comp');
-    compbar.style('width', s => (this.barscale(s.icomp)+'px'));
+    barcells.select('.bar')
+      .style('width', s => (this.barscale(s.rscore)+'px'));
   }
 
 

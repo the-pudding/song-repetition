@@ -59,9 +59,14 @@ class CompressionGraphic {
     }
     // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
     this.defragged = true;
-    this.scene.enabled(false);
-    // TODO: after defragging, should probably kill the scrollmagic
-    // scene somehow to revert to normal scroll speed?
+    // TODO: whether I disable or destroy, this leads to some annoying
+    // behaviour when refreshing the page while scrolled down. Probably
+    // not a huge deal for an average reader who won't be refreshing as
+    // much as me, but may want to fix it. Need to detect whether scroll
+    // on load is greater than where this element would be if it weren't
+    // pinned, and if so, go straight to our dormant state.
+    //this.scene.enabled(false);
+    this.scene.destroy(true);
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -214,7 +219,8 @@ class CompressionGraphic {
 
   reset() {
     this.defragged = false;
-    this.scene.enabled(true);
+    this.setScene();
+    //this.scene.enabled(true);
     this.svg.text('');
     this.renderOdometer();
     this.renderText();
