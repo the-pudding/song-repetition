@@ -11,6 +11,10 @@ const dest_color = 'darkgreen';
 
 const ravel_duration = 2000;
 
+const scroll_acceleration = 2;
+
+const scroll_duration = 6400/3;
+
 // When animating underlining of some text, the given duration will be
 // interpreted as ms required to traverse this many pixels of text.
 const text_reference_length = 200;
@@ -21,20 +25,28 @@ class CompressionGraphic {
     let scene = new ScrollMagic.Scene({
         triggerElement: this.rootsel,
         triggerHook: 0,
-        duration: 3200*3,
+        duration: scroll_duration,
     })
     this.scene = scene;
     scene
       .setPin(this.rootsel)
       .addTo(this.controller)
+      .on('end', e=> {
+        if (e.scrollDirection === 'FORWARD') {
+          this.defrag();
+        }
+      })
       .on('progress', e=> this.onScroll(e.progress));
   }
 
   onScroll(progress, direction) {
-    // TODO: progress should probably accelerate
     // TODO: maybe progress should scale with height rather than 
     // ditto #. And maybe have a cursor that slides down the text to
     // indicate where we've compressed up to?
+    if (this.defragged) {
+      return;
+    }
+    progress = Math.pow(progress, scroll_acceleration);
     let slack = .1;
     let prog_per_ditto = (1-slack)/DITTOS.length;
     let i = Math.floor(progress/prog_per_ditto);
@@ -42,6 +54,13 @@ class CompressionGraphic {
   }
 
   defrag() {
+    if (this.defragged) {
+      return;
+    }
+    // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
+    this.defragged = true;
+    // TODO: after defragging, should probably kill the scrollmagic
+    // scene somehow to revert to normal scroll speed?
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -104,6 +123,14 @@ class CompressionGraphic {
       .duration(5000)
       .attr('transform', `translate(${bannerx}, ${bannery+lineheight*2.5})`)
       .attr('font-size', 24);
+
+    let butt = banner.append('text')
+      .text('Start Again?')
+      .on('click', ()=>this.reset())
+      .attr('dy', lineheight*5)
+      .style('cursor', 'pointer')
+      .attr('fill', 'blue');
+
   }
 
   // Vertically compactify
@@ -120,6 +147,7 @@ class CompressionGraphic {
   }
 
   constructor() {
+    this.defragged = false;
     this.controller = scroll_controller;
     this.dittos = DITTOS;
     this.fontsize = 16 * text_scale;
@@ -184,6 +212,7 @@ class CompressionGraphic {
   }
 
   reset() {
+    this.defragged = false;
     this.svg.text('');
     this.renderOdometer();
     this.renderText();
@@ -235,6 +264,7 @@ class CompressionGraphic {
     let y = this.lineheight;
     this.odometer = this.svg.append('g')
       .classed('odometer', true)
+      .attr('font-size', 18)
       .attr('transform', `translate(${x}, ${y})`);
     this.odometer
       .append('text')
@@ -323,6 +353,9 @@ class CompressionGraphic {
   }
 
   unravel(d) {
+    // TODO: Keep data consistent (visibility attr)
+    // Those changes should probably be happening further
+    // upstream.
     let dest = this.selectRange(d.dest);
     // cancel any ongoing transitions
     dest.interrupt();
@@ -347,7 +380,7 @@ class CompressionGraphic {
           this.animateArrow(d, root, dur, wait, 'src');
         }
       },
-      {dur: .66, desc: 'underline src',
+      {dur: .5, desc: 'underline src',
         fn: () => {
           return this.addTextLine(d.src, src_color, dur, root, wait);
         }
@@ -574,7 +607,8 @@ class CompressionGraphic {
     let xpairs = y => {
       let x1 = y === range.y1 ? range.x1 : 0;
       let x2 = y === range.y2 ? range.x2 : this.linewidth(y);
-      return [x1, x2];
+      // I have measured out my life in off-by-one errors.
+      return [x1, x2+1];
     };
     let get_linedat = y => {
       let [x1, x2] = xpairs(y);
