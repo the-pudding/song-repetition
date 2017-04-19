@@ -19,12 +19,16 @@
     - Newswire article
     - Median/Mean
 - Do a scrollytelling transition between first and second version of histogram (without and with outliers)
+- Color by quantile?
 
 ## Most repetitive songs
 - headings
 - search
 - NTH: show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
+- Should the bars be colormapped? Problematic because either:
+    - the bars will be mostly hard to distinguish, because they all fall in the same relatively small region of the overall distribution and therefore all get pretty similar colors, or...
+    - I use a version of the colormap rescaled to the domain of the top songs. Which could be confusing. i.e. the same shade of green corresponds to a different amount of repetition depending on which chart you're looking at.
 
 ## Repetition through the ages
 - fix line animation length bug
@@ -80,6 +84,7 @@
     - which is basically answered after the trend-over-time graphic
     - the stuff after that is just gravy. Like, "oh, and here's some other neat stuff for exploring the data at a more granular level"
     - So not clear how the piece should end. Just reiterating the conclusion that "yeah, it does seem like music is getting more repetitive after all" seems kind of lame.
+    - Maybe just move the repetition-over-time graphic to the end?
 
 ## Misc thoughts
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.

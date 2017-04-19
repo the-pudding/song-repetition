@@ -66,6 +66,7 @@ class BeeswarmChart extends BaseChart {
     let newspans = spans.enter().append('tspan');
     let lineheight = fontsize*1.05;
     spans.merge(newspans)
+      .attr('fill', 'black')
       .attr("x", 0)
       .attr("y", (d,i,n) => {
         let nlines = n.length;

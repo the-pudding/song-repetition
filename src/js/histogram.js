@@ -6,6 +6,13 @@ import HIST from './histogram-data.js';
 var RSCORE_SCALE = 1;
 const debug = 0;
 
+// TODO
+const vlines = [
+  {text: 'Bad Romance', rscore: 2.028},
+  {text: 'Newswire article', rscore: .7}, // TODO: idk
+  {text: 'Avg. song', rscore:.995},
+];
+
 class HistogramGraphic extends BaseChart {
   constructor(rootsel, to_drop) {
     super(rootsel, {H: 300});
@@ -88,7 +95,7 @@ class HistogramGraphic extends BaseChart {
       .append('rect')
       .classed('bar', true);
     bars.merge(newbars)
-      .attr('fill', 'fuchsia')
+      .attr('fill', h => comm.rscore_cmap((h.left+h.right)/2) )
       .attr('x', h=> this.xscale(h.left))
       .attr('y', h=> this.yscale(h.count))
       .attr('width', h=> this.xscale(h.right) - this.xscale(h.left))

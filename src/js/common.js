@@ -1,5 +1,21 @@
 import * as d3 from 'd3';
 
+// Quantiles of repetition score
+const pctiles = {
+  .1: 0.181736,
+  .5: 0.258959,
+  1 : 0.298361,
+  10: 0.5388,
+  50: 0.9733,
+  90: 1.467,
+  99: 1.9997,
+  99.5: 2.147265,
+  99.9: 2.695442,
+};
+
+const rscore_cmap = d3.scaleSequential(d3.interpolateViridis)
+  .domain([pctiles[.5], pctiles[99.5]])
+
 function round(x, places=2) {
   let n = Math.pow(10, places);
   return Math.round(x*n)/n;
@@ -23,4 +39,5 @@ function rscore_to_readable(rscore, places=0) {
 }
 
 
-export {rscore_to_readable, rscore_to_pct, pct_to_rscore};
+export {rscore_to_readable, rscore_to_pct, pct_to_rscore, pctiles, rscore_cmap,
+};

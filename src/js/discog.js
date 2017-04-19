@@ -15,23 +15,15 @@ const DEBUG_DISPLACEMENT = false;
 
 const DEFAULT_ARTIST = 'Gwen Stefani';
 
-// Quantiles of repetition score
-const pctiles = {
-  1 : 0.298361,
-  10: 0.5388,
-  50: 0.9733,
-  90: 1.467,
-  99: 1.9997,
-};
 
 // Default limits for the rscore axis
-const RLIM = [pctiles[10], pctiles[90]];
-//const RLIM = [pctiles[1], pctiles[99]];
+const RLIM = [comm.pctiles[10], comm.pctiles[90]];
+//const RLIM = [comm.pctiles[1], comm.pctiles[99]];
 
 function songToolTip(s) {
   return `<div class="d3-tip">
       <div>${s.title} (${Math.floor(s.yearf)})</div>
-      <div style="text-align: center;">${comm.rscore_to_readable(s.rscore)}</div>
+      <div style="text-align: center;">${comm.rscore_to_readable(s.rscore)} compressed</div>
       </div>`;
 }
 
@@ -76,33 +68,34 @@ class DiscogWidget extends BeeswarmChart {
       .append("g")
       .classed("baseline", true);
     base.append("line")
-      .attr("x1", (k)=>this.xscale(pctiles[k]))
+      .attr("x1", (k)=>this.xscale(comm.pctiles[k]))
       .attr("y1", this.H-offset)
-      .attr("x2", (k)=>this.xscale(pctiles[k]))
+      .attr("x2", (k)=>this.xscale(comm.pctiles[k]))
       .attr("y2", offset)
       .attr("stroke", "black")
       .attr("stroke-width", 1);
     base.append("text")
       .attr("text-anchor", "middle")
-      .attr("x", (k)=>this.xscale(pctiles[k]))
+      .attr("x", (k)=>this.xscale(comm.pctiles[k]))
       .attr("y", offset-5)
       .attr("font-size", 12)
       .text((k) => (k === 50 ? "median" : k+"%"));
   }
 
   updateAxes() {
+    // TODO: I think this is redundant wrt parent class's updateAxis method?
     this.svg.select('.axis')
         .call(d3.axisBottom(this.xscale).ticks(0));
 
     this.svg.selectAll('.baseline').select('line')
       .transition()
       .duration(1000)
-      .attr("x1", (k)=>this.xscale(pctiles[k]))
-      .attr("x2", (k)=>this.xscale(pctiles[k]));
+      .attr("x1", (k)=>this.xscale(comm.pctiles[k]))
+      .attr("x2", (k)=>this.xscale(comm.pctiles[k]));
     this.svg.selectAll('.baseline').select('text')
       .transition()
       .duration(1000)
-      .attr("x", (k)=>this.xscale(pctiles[k]));
+      .attr("x", (k)=>this.xscale(comm.pctiles[k]));
 
   }
 
@@ -118,7 +111,7 @@ class DiscogWidget extends BeeswarmChart {
       .append('rect')
       .classed('bar', true);
     newbars.merge(bars)
-      .attr('fill', 'fuchsia')
+      .attr('fill', h => comm.rscore_cmap((h.left+h.right)/2) )
       .attr('opacity', 0.2);
     newbars
       .attr("x", h=> this.xscale(h.left))
@@ -230,7 +223,6 @@ class DiscogWidget extends BeeswarmChart {
       .attr("r", this.R) 
       .attr("cx", 0) 
       .attr("cy", 0)
-      .attr("fill", "lightseagreen");
     let fontsize = 10;
     let newtext = newpts
       .append("text")
@@ -239,6 +231,8 @@ class DiscogWidget extends BeeswarmChart {
       .attr("font-family", "Tahoma, Verdana, sans-serif")
       .classed("songlabel", true);
     pts = pts.merge(newpts);
+    pts
+      .attr("fill", s => comm.rscore_cmap(s.rscore));
     this.bubbleText(pts.select('text'), d=>d.title);
   }
 
