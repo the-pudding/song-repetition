@@ -73,7 +73,7 @@ What does this have to do with pop music? The Lempel-Ziv algorithm works by expl
 </div><div class="container">
 
 <p>
-After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (or bytes) to 717, a 75% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across all 15,000 songs in my dataset:
+After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (or bytes) to 717, a 75% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across (almost) all 15,000 songs in my dataset:
 </p>
 
 <div id="histogram">
@@ -83,8 +83,16 @@ After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (
 You may have noticed the percentages on the x-axis are not evenly spaced. I'm using a logarithmic scale with the property that, for any given song, a song that compresses half as small is a fixed distance away. For example, the distance between 20% and 60% is the same as between 98% and 99%. I'll be using this kind of scale throughout.
 </small></p>
 
-<p>Using this size reduction metric, what are <b>the most repetitive songs of all time</b>?
+<p>I excluded the 20 most repetitive songs in the dataset from the above chart. When you see what it looks like with them, you'll understand why:
 </p>
+
+<div id="histogram-full">
+</div>
+
+<p>What are these uber-repetitive outliers?
+</p>
+
+<h2>The most repetitive songs of all time</h2>
 
 <div id="topsongs"></div>
 

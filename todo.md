@@ -14,13 +14,11 @@
 - NTH: other songs (selectable via dropdown or something)
 
 ## Histogram
-- Add note on right-hand side: "+15 more", or however many got cut off.
-    - And make it clickable, to expand the xscale to incorporate the outliers
-    - (Or just do it scrollytell style?)
 - Add some dotted lines for context
     - Bad Romance
     - Newswire article
     - Median/Mean
+- Do a scrollytelling transition between first and second version of histogram (without and with outliers)
 
 ## Most repetitive songs
 - headings

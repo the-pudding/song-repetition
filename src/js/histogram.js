@@ -4,15 +4,54 @@ import { BaseChart } from './basechart.js';
 import HIST from './histogram-data.js';
 
 var RSCORE_SCALE = 1;
+const debug = 0;
 
 class HistogramGraphic extends BaseChart {
-  constructor() {
-    let rootsel = '#histogram';
+  constructor(rootsel, to_drop) {
     super(rootsel, {H: 300});
 
-    let dat = HIST;
-
     this.xaxis_y = this.H;
+    // X-axis
+    this.xaxis = this.svg.append('g')
+      .attr('transform', 'translate(0,' + this.xaxis_y + ')');
+
+    this.to_drop = to_drop;
+    this.updateData();
+
+    if (debug) {
+      this.root.append('button')
+        .classed('btn', true)
+        .text('flip scale')
+        .on('click', () => {
+          // zzz hack
+          RSCORE_SCALE = !RSCORE_SCALE;
+          this.root.text('');
+          new HistogramGraphic();
+        })
+      this.root.append('button')
+        .classed('btn', true)
+        .text(`Show ${this.dropped} more`)
+        .on('click', () => {
+          this.to_drop = 0;
+          this.updateData();
+          this.renderData();
+        })
+    }
+    this.renderData();
+  }
+
+  updateData() {
+    let dropped = 0;
+    for (var i=1; i <= HIST.length; i++) {
+      if (dropped >= this.to_drop) {
+        break;
+      }
+      let bucket = HIST[HIST.length-i];
+      dropped += bucket.count;
+    }
+    this.dropped= dropped;
+    let dat = HIST.slice(0, HIST.length-i);
+    this.dat = dat;
     let ydom = [0, d3.max(dat, h=>h.count)];
     this.yscale = d3.scaleLinear()
       .domain(ydom)
@@ -35,29 +74,14 @@ class HistogramGraphic extends BaseChart {
       tickFormat = d3.format('.0%');
     }
 
-    // X-axis
-    this.svg.append('g')
-      .attr('transform', 'translate(0,' + this.xaxis_y + ')')
-      .call(
+      this.xaxis.call(
         d3.axisBottom(_xscale)
         .tickFormat(tickFormat)
       )
-
-    this.renderData();
-
-    this.root.append('button')
-      .classed('btn', true)
-      .text('flip scale')
-      .on('click', () => {
-        // zzz hack
-        RSCORE_SCALE = !RSCORE_SCALE;
-        this.root.text('');
-        new HistogramGraphic();
-      })
   }
 
   renderData() {
-    let dat = HIST;
+    let dat = this.dat;
     let bars = this.svg.selectAll('.bar').data(dat);
     bars.exit().remove();
     let newbars = bars.enter()
@@ -73,8 +97,8 @@ class HistogramGraphic extends BaseChart {
   }
 
   static init() {
-    let g = new HistogramGraphic();
-    return g;
+    new HistogramGraphic('#histogram', 20);
+    new HistogramGraphic('#histogram-full', 0);
   }
 }
 
