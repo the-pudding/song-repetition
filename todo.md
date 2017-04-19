@@ -21,7 +21,9 @@
     - mini gif version of compression, inline
 
 ## Repetition through the ages
+- fix line animation length bug
 - ylabel
+- use rscore for everything but ylabels
 - drop points (except when talking about specific years)
 - try a subtle scatterplot underlay effect
 - fix animation bugs
@@ -41,6 +43,7 @@
     - smoothing
     - colormap?
     - maybe scale up max height according to number of songs (would help contextualize a discography like TSwift's)
+- maybe introduce histogram earlier so that it's familiar? (Maybe before overtime?)
 - force text into bubbles (truncating if necessary)
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)

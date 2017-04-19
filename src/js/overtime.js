@@ -38,7 +38,7 @@ class OverTimeGraphic {
     var viewportHeight = window.innerHeight;
     var enterExitScene = new ScrollMagic.Scene({
       triggerElement: rootsel,
-      triggerHook: '0', // TODO: meaning?
+      triggerHook: 'onLeave',
       duration: Math.max(1, this.root.node().offsetHeight - viewportHeight),
     });
     // TODO: is there maybe an easier way to do this with scrollmagic's API?
@@ -101,7 +101,7 @@ class OverTimeChart {
     var totalH = 600;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
-    this.R = 3; // radius of year dots
+    this.R = 4; // radius of year dots
     this.svg = this.root.append('svg')
       .attr('width', totalW)
       .attr('height', totalH)
@@ -113,34 +113,24 @@ class OverTimeChart {
     this.xscale = d3.scaleLinear() // TODO: figure out ordinal v linear
       .domain(d3.extent(DATA, (yr) => (yr.year)))
       .range([0, this.W]);
-    // Scale the y axis up enough to accomodate the top topsong
-    // (TODO: might want to do this dynamically)
-    let topsongs = DATA.map((yr) => (yr.topsong.rscore));
     let yrscores = DATA.map((yr) => (yr.rscore));
     let hitscores = DATA.map((yr) => (yr.hitsRscore));
     let all_ys = yrscores.concat(hitscores);
-    if (!MOVING_YAXIS && !SMALL_YAXIS) {
-      all_ys = all_ys.concat(topsongs);
-    }
-    all_ys.push(0.75); 
+    all_ys.push(0.75); // ???
     let yextent = d3.extent(all_ys);
     this.ymin = yextent[0];
     this.ymax = yextent[1];
-    if (c.runits === 'pct') {
-      all_ys = all_ys.map(comm.rscore_to_pct);
-    }
     let yrange = INVERT_Y ? [0, this.H] : [this.H, 0];
+    let ticks_pct = d3.range(41, 61);
+    let ticks = ticks_pct.map(comm.pct_to_rscore);
+    this.yticks = ticks;
     this.yscale = d3.scaleLinear()
-      .domain(d3.extent(all_ys))
+      .domain(d3.extent(ticks))
       .range(yrange);
     
     // helper functions mapping from data points to x/y coords
-    this.datx = (yr) => (this.xscale(yr.year));
-    if (c.runits === 'pct') {
-      this.daty = yr => this.yscale(comm.rscore_to_pct(yr.rscore));
-    } else {
-      this.daty = (yr) => (this.yscale(yr.rscore));
-    }
+    this.datx = yr => (this.xscale(yr.year));
+    this.daty = yr => (this.yscale(yr.rscore));
 
     // X axis
     this.svg.append("g")
@@ -153,7 +143,9 @@ class OverTimeChart {
         .classed('yaxis', true)
         .call(
             d3.axisLeft(this.yscale)
-            .tickFormat(c.runits === 'pct' && d3.format('.0%'))
+            .tickValues(ticks)
+            .tickFormat(comm.rscore_to_readable)
+            //.tickFormat(c.runits === 'pct' && d3.format('.0%'))
         )
         .append("text")
           .attr("transform", "rotate(-90)")
@@ -172,123 +164,49 @@ class OverTimeChart {
     this.maxyear = stage.maxyear;
     this.focalyear = stage.focus;
     this.show_hits = stage.hits;
-    this.redrawData();
+    this.redrawData(stage);
     this.drawHits();
-    // TODO: highlight 'focal' year. May also want to show topsongs
-    // for 1980 and 2014.
-    // TODO: top 10 line
-
   }
 
   /** Called when this.maxyear changes. Show/hide the appropriate points and
    * parts of the line, using d3 transitions. */
-  redrawData() {
-    // TODO: cannot figure out why dots trail the line animation
-    // from 1980 to 2014 despite headstart :/
+  redrawData(stage) {
     let currData = DATA.filter((y) => (y.year <= this.maxyear));
-    console.log('Redrawing with ' + currData.length + ' data points.');
-    let opacityFn = y => {
-      if (!this.focalyear) return 1;
-      return y.year === this.focalyear ? 1 : .5;
-    }
-    let pts = this.svg.selectAll('.allpt').data(currData);
-    let newpts = pts.enter().append('circle');
-    newpts.merge(pts)
-      .classed('pt allpt', true)
-      .attr('r', y => (y.year === this.focalyear ? this.R*1.8 : this.R))
+    // Draw a point for focal year, if any
+    let focalData = DATA.filter(y=> y.year === this.focalyear)
+    let pt = this.svg.selectAll('.pt').data(focalData);
+    pt.exit()
+      .remove();
+    let newpt = pt.enter()
+      .append('circle')
+      .classed('pt', true);
+    pt = pt.merge(newpt)
+    pt
+      .attr('r', this.R)
       .attr('cx', this.datx)
       .attr('cy', this.daty)
-      .on('mouseover', (d,i,n) => {this.focusYear(d,i,n)})
-      .on('mouseout', (d,i,n) => {this.defocusYear(d,i,n)})
-      .attr('opacity', opacityFn)
-      .attr('fill', y => (y.year === this.focalyear ? 'rgb(0, 111, 200)' : linecolor));
-    // TODO: this should probably be a function of the number of nodes being 
-    // added/removed, so that it happens at a consistent speed.
-    let animation_duration = 2000;
-    // Remove extra points (happens when scrolling up)
-    // TODO: race condition-y bug with fast scrolling back and forth. When entering
-    // a stage, points that are on their way out from having left earlier might be
-    // caught in the selection. Then they get removed, and we don't have the right
-    // number of points.
-    // Maybe the solution is to do something similar to how the path is handled. 
-    // Draw the whole thing at the beginning and never remove it, just selectively
-    // mask and unmask it.
-    pts.exit()
-      .transition()
-      .duration(animation_duration)
       .attr('opacity', 0)
-      .remove();
-    // Start point animation this much before line animation
-    let headstart = 200;
-    // How long to fade in an individual point
-    let pointAnimationDuration = 200;
-    let delay_scale = (d,i) => {
-      if (newpts.size() === 1) {
-        return animation_duration - pointAnimationDuration;
-      }
-      let scale = d3.scaleLinear().domain([0, newpts.size()-1])
-        .range([0, animation_duration-pointAnimationDuration])
-      return scale(i);
-    }
-    newpts.attr('opacity', 0)
-      .transition()
-      .delay(delay_scale)
-      .duration(pointAnimationDuration)
-      .attr('opacity', opacityFn);
+      .attr('fill', 'rgb(0, 111, 200)');
 
-    // update extent of path/line
-    // TODO: why does the line stop just short of 1980 in stage 1?
-    var totalLength = this.path.node().getTotalLength();
-    var lenscale = d3.scaleLinear()
-      .clamp(true)
-      .domain(c.year_extent)
-      .range([totalLength, 0]);
-    var newLength = lenscale(this.maxyear);
-    this.path.transition()
-      .delay(headstart)
+    let next_offset = this.path.node().getTotalLength()-stage.pathlength;
+    let old_offset = this.path.attr('stroke-dashoffset');
+    let delta = Math.abs(next_offset-old_offset);
+    let animation_duration = 50 + 2.5*delta;
+    
+    this.path
+      .transition()
       .duration(animation_duration)
-      .ease(d3.easeLinear)
-      .attr('stroke-dashoffset', newLength);
+      .attr('stroke-dashoffset', next_offset)
+    pt.transition()
+      .delay(animation_duration)
+      .duration(200)
+      .attr('opacity', 1);
   }
 
   drawHits() {
     let dat = this.show_hits ? DATA : [];
-    console.log(`show_hits = ${this.show_hits}, dat.length = ${dat.length}`);
-    let pts = this.svg.selectAll('.hitpt').data(dat);
     let animation_duration = 2000;
-    let hity = yr => {
-      if (c.runits === 'pct') {
-        return this.yscale(comm.rscore_to_pct(yr.hitsRscore));
-      } else {
-        return this.yscale(yr.hitsRscore);
-      }
-    }
-    pts.exit().transition()
-      .duration(animation_duration)
-      .attr('opacity', 0)
-      .remove();
-    let newpts = pts.enter().append('circle');
-    newpts.merge(pts)
-      .classed('pt hitpt', true)
-      .attr('r', this.R)
-      .attr('cy', hity)
-      .attr('cx', this.datx)
-      .attr('fill', 'orange');
-    // How long to fade in an individual point
-    let pointAnimationDuration = 200;
-    let delay_scale = (d,i) => {
-      if (newpts.size() === 1) {
-        return animation_duration - pointAnimationDuration;
-      }
-      let scale = d3.scaleLinear().domain([0, newpts.size()-1])
-        .range([0, animation_duration-pointAnimationDuration])
-      return scale(i);
-    }
-    newpts.attr('opacity', 0)
-      .transition()
-      .delay(delay_scale)
-      .duration(pointAnimationDuration)
-      .attr('opacity', 1);
+    let hity = yr => this.yscale(yr.hitsRscore);
     let hitline = d3.line().y(hity).x(this.datx);
     let hitpath = this.svg.select('.hitpath');
     if (hitpath.empty()) {
@@ -316,27 +234,9 @@ class OverTimeChart {
       .attr('stroke-dashoffset', newLength);
   }
 
-  updateYMax(ymax) {
-    if (!ymax) {
-      this.ymax = this.prevYMax;
-      this.prevYMax = null;
-    } else {
-      this.prevYMax = this.ymax;
-      this.ymax = ymax;
-    }
-    this.yscale.domain([this.ymin, this.ymax]);
-    this.svg.select('.yaxis').call(d3.axisLeft(this.yscale));
-    // need to redraw all points
-    //this.plotOverall()
-    // TODO: this turns out to be kinda complicated. probably should try
-    // to smoothly animate the line down (or up), but this has the effect
-    // of pulling the rug from under the user's cursor, causing the point
-    // they were on to be mouseout'd. Blargh.
-  }
-
   addGridLines() {
     let xgrid = d3.axisBottom(this.xscale).ticks(8);
-    let ygrid = d3.axisLeft(this.yscale).ticks(8);
+    let ygrid = d3.axisLeft(this.yscale).tickValues(this.yticks);
     let gridwidth = .3;
     this.svg.append("g")
       .attr("class", "grid grid-x")
@@ -357,61 +257,30 @@ class OverTimeChart {
 
   setupOverall() {
     // line
-    var line = d3.line()
+    this.line = d3.line()
       .x(this.datx)
       .y(this.daty);
     // render it
     this.path = this.svg.append("path")
-      .datum(DATA)
       .attr("stroke", linecolor)
       .attr("stroke-width", 1.5)
       .attr("fill", "none")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("d", line);
-    
-    // Hide the line by default (using some svg magic I don't totally understand)
+    this.setupPathLengths();
+    this.path.attr('d', this.line(DATA));
     var totalLength = this.path.node().getTotalLength();
     this.path
-      .attr('stroke-dasharray', totalLength + ' ' +totalLength)
+      .attr('stroke-dasharray', totalLength +' ' + totalLength)
       .attr('stroke-dashoffset', totalLength);
   }
 
-  focusYear(dat, i, nodes) {
-    let pt = nodes[i];
-    d3.select(pt).attr('fill', 'red');
-    // add a point and label for topsong
-    let hov = this.svg.append('g').classed('hover', true);
-    let topsong = dat.topsong;
-    topsong.year = dat.year;
-    let x = this.xscale(topsong.year);
-    if (MOVING_YAXIS && topsong.rscore > this.ymax) {
-      console.log('increasing ymax');
-      this.updateYMax(topsong.rscore);
+  setupPathLengths() {
+    for (let stage of STAGES) {
+      let stagedat = DATA.filter(y=> y.year <= stage.maxyear);
+      this.path.attr('d', this.line(stagedat));
+      stage.pathlength = this.path.node().getTotalLength();
     }
-    let y = this.yscale(topsong.rscore);
-    hov.append('circle')
-      .classed('pt', true)
-      .attr('r', 3)
-      .attr('cx', x)
-      .attr('cy', y)
-      .attr('fill', 'fuchsia');
-
-    hov.append('text')
-      .text(topsong.artist + ' - ' + topsong.title)
-      .attr('x', x+11)
-      .attr('y', y+3)
-      .attr('font-size', 16);
-
-  }
-
-  defocusYear(dat, i, nodes) {
-    if (this.prevYMax) {
-      this.updateYMax();
-    }
-    let pt = nodes[i];
-    d3.select(pt).attr('fill', linecolor);
-    this.svg.selectAll('.hover').remove();
   }
 
   static init() {

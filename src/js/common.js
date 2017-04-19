@@ -1,3 +1,4 @@
+import * as d3 from 'd3';
 
 function round(x, places=2) {
   let n = Math.pow(10, places);
@@ -11,9 +12,15 @@ function rscore_to_pct(rscore) {
   return 1 - Math.pow(2, -rscore);
 }
 
+function pct_to_rscore(pct) {
+  let frac = pct/100;
+  return -1 * Math.log2(1-frac);
+}
+
 function rscore_to_readable(rscore, places=0) {
-  return round(100 * rscore_to_pct(rscore), places) + '%';
+  const formatter = d3.format('.0%');
+  return formatter(rscore_to_pct(rscore));
 }
 
 
-export {rscore_to_readable, rscore_to_pct};
+export {rscore_to_readable, rscore_to_pct, pct_to_rscore};
