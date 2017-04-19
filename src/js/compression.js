@@ -13,7 +13,9 @@ const ravel_duration = 2000;
 
 const scroll_acceleration = 2;
 
-const scroll_duration = 6400/3 / 10;
+// If true, show a bunch of buttons helpful for debugging.
+const debug = 0;
+const scroll_duration = 6400/3;
 
 // When animating underlining of some text, the given duration will be
 // interpreted as ms required to traverse this many pixels of text.
@@ -172,22 +174,23 @@ class CompressionGraphic {
     this.rootsel = '#compression';
     this.setScene();
     this.root = d3.select(this.rootsel);
-    let butcon = this.root.append('div');
-    const buttons = [
-      {name: 'step', cb: ()=>this.step()},
-      {name: 'unstep', cb: ()=>this.unstep()},
-      {name: 'reset', cb: ()=>this.reset()},
-      {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
-      {name: 'defrag', cb: ()=>this.defrag()},
-      {name: 'debug', cb: ()=>this.thing()},
-    ];
-    butcon.selectAll('button').data(buttons)
-      .enter()
-      .append('button')
-      .classed('btn', true)
-      .text(d=>d.name)
-      .on('click', d=>d.cb());
-
+    if (debug) {
+      let butcon = this.root.append('div');
+      const buttons = [
+        {name: 'step', cb: ()=>this.step()},
+        {name: 'unstep', cb: ()=>this.unstep()},
+        {name: 'reset', cb: ()=>this.reset()},
+        {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
+        {name: 'defrag', cb: ()=>this.defrag()},
+        {name: 'debug', cb: ()=>this.thing()},
+      ];
+      butcon.selectAll('button').data(buttons)
+        .enter()
+        .append('button')
+        .classed('btn', true)
+        .text(d=>d.name)
+        .on('click', d=>d.cb());
+    }
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
     var totalW = 1300;
     var totalH = 600;

@@ -19,6 +19,7 @@
 ## Most repetitive songs
 - headings
 - search
+- animated transitions when adding/removing rows, or switching between decades
 - NTH: show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
 - Should the bars be colormapped? Problematic because either:

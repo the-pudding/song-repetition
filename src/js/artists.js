@@ -133,10 +133,11 @@ class ArtChart extends BeeswarmChart {
       .classed("artistNode", true);
     containers
       .append("circle")
-      .attr("fill", "aqua")
       .attr("r", this.R)
       .attr("cx", 0)
       .attr("cy", 0);
+    a.merge(containers).select('circle')
+      .attr("fill", a=>comm.rscore_cmap(a.rscore))
     // TODO: make text not overflow container
     containers
       .append("text")

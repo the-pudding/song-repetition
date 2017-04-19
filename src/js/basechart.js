@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as c from './constants.js';
+import * as comm from './common.js';
 
 class BaseChart {
   constructor(rootsel, size={}) {
@@ -35,7 +36,7 @@ class BeeswarmChart extends BaseChart {
   }
 
   addAxis() {
-    let h = this.H/2;
+    let h = this.H-this.R;
     let labelh = h + this.H*5/20;
     this.svg.append("g")
       .classed("axis", true)
@@ -55,7 +56,8 @@ class BeeswarmChart extends BaseChart {
 
   updateAxis() {
     let axis_el = this.svg.select('.axis');
-    let axis = d3.axisBottom(this.xscale).ticks(0);
+    let axis = d3.axisBottom(this.xscale)
+      .tickFormat(comm.rscore_to_readable);
     axis_el.call(axis);
   }
 
