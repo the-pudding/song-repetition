@@ -14,12 +14,7 @@
 - NTH: other songs (selectable via dropdown or something)
 
 ## Histogram
-- Add some dotted lines for context
-    - Bad Romance
-    - Newswire article
-    - Median/Mean
 - Do a scrollytelling transition between first and second version of histogram (without and with outliers)
-- Color by quantile?
 
 ## Most repetitive songs
 - headings
@@ -31,12 +26,8 @@
     - I use a version of the colormap rescaled to the domain of the top songs. Which could be confusing. i.e. the same shade of green corresponds to a different amount of repetition depending on which chart you're looking at.
 
 ## Repetition through the ages
-- fix line animation length bug
 - ylabel
-- use rscore for everything but ylabels
-- drop points (except when talking about specific years)
 - try a subtle scatterplot underlay effect
-- fix animation bugs
 - add a legend after adding orange line? or maybe just a label pointing to the new line.
 - maybe do major/minor grid lines for y axis? (and x?)
 
@@ -54,7 +45,6 @@
     - smoothing
     - colormap?
     - maybe scale up max height according to number of songs (would help contextualize a discography like TSwift's)
-- maybe introduce histogram earlier so that it's familiar? (Maybe before overtime?)
 - force text into bubbles (truncating if necessary)
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
@@ -79,6 +69,7 @@
 - speculating on the 'why' of the trends
     - worth mentioning possible experimental biases? Might be too technical/uninteresting.
     - my claim about golden age of hip hop is pretty wild speculation. I don't know if this period actually coincided with extraordinary success in the hot 100.
+- shorten/simplify prose before discog section. Brief comments on default artist discog and pointers to interesting examples.
 - conclusion
     - story sort of starts with Q of whether music is getting more repetitive
     - which is basically answered after the trend-over-time graphic

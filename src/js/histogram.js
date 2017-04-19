@@ -6,11 +6,10 @@ import HIST from './histogram-data.js';
 var RSCORE_SCALE = 1;
 const debug = 0;
 
-// TODO
 const vlines = [
-  {text: 'Bad Romance', rscore: 2.028},
   {text: 'Newswire article', rscore: .7}, // TODO: idk
   {text: 'Avg. song', rscore:.995},
+  {text: 'Bad Romance', rscore: 2.028},
 ];
 
 class HistogramGraphic extends BaseChart {
@@ -44,7 +43,6 @@ class HistogramGraphic extends BaseChart {
           this.renderData();
         })
     }
-    this.renderData();
   }
 
   updateData() {
@@ -81,10 +79,35 @@ class HistogramGraphic extends BaseChart {
       tickFormat = d3.format('.0%');
     }
 
-      this.xaxis.call(
-        d3.axisBottom(_xscale)
-        .tickFormat(tickFormat)
-      )
+    this.xaxis.call(
+      d3.axisBottom(_xscale)
+      .tickFormat(tickFormat)
+    );
+    this.renderData();
+    this.renderVlines();
+  }
+
+  renderVlines() {
+    let containers = this.svg.selectAll('.vline').data(vlines);
+    let newlines = containers.enter()
+      .append('g')
+      .classed('vline', true);
+    let [bottom, top] = [10, 10];
+    newlines.append('line')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('stroke-dasharray', 5)
+      .attr('y1', this.H)
+      .attr('y2', 0);
+    newlines.append('text')
+      .attr('y', (v,i) => this.H*1/3 + i*30)
+      .attr('font-size', 12)
+      .text(v=>v.text)
+    this.svg.selectAll('.vline line')
+      .attr('x1', v=>this.xscale(v.rscore))
+      .attr('x2', v=>this.xscale(v.rscore));
+    this.svg.selectAll('.vline text')
+      .attr('x', v=> this.xscale(v.rscore) + 5)
   }
 
   renderData() {
