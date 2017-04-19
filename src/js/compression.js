@@ -13,7 +13,7 @@ const ravel_duration = 2000;
 
 const scroll_acceleration = 2;
 
-const scroll_duration = 6400/3;
+const scroll_duration = 6400/3 / 10;
 
 // When animating underlining of some text, the given duration will be
 // interpreted as ms required to traverse this many pixels of text.

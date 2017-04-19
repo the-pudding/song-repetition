@@ -73,18 +73,20 @@ What does this have to do with pop music? The Lempel-Ziv algorithm works by expl
 </div><div class="container">
 
 <p>
-After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (or bytes) to 717, a 75% reduction in size. 
-In my dataset of 15,000 songs, the average song is reduced by 50% after compression. For comparison, an average newswire article is X% compressible.
+After applying the LZ algorithm, <i>Bad Romance</i> went from 2,918 characters (or bytes) to 717, a 75% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across all 15,000 songs in my dataset:
 </p>
+
+<div id="histogram">
+</div>
+
+<p><small>
+You may have noticed the percentages on the x-axis are not evenly spaced. I'm using a logarithmic scale with the property that, for any given song, a song that compresses half as small is a fixed distance away. For example, the distance between 20% and 60% is the same as between 98% and 99%. I'll be using this kind of scale throughout.
+</small></p>
 
 <p>Using this size reduction metric, what are <b>the most repetitive songs of all time</b>?
 </p>
 
 <div id="topsongs"></div>
-
-<p><small>
-(You may notice that the difference between 98% and 95% is wider than between 88% and 85%. Intuitively, a single % gets more important the closer we are to 100% or 0%. Going from a 98% size reduction to a 99% size reduction would mean the compressed text becomes half as small. For this reason, I'm using logarithmic scales for size reduction throughout.)
-</small></p>
 
 <p>
 <i>Around The World</i> by Daft Punk gets reduced a whopping <b>98%</b>. It goes from 2,610 characters to 61. Small enough to fit in a tweet - twice! (<a href="http://www.azlyrics.com/lyrics/daftpunk/aroundtheworld.html">Here are the lyrics</a>, if you're not familiar with the song.)

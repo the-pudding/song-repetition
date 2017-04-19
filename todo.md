@@ -13,6 +13,14 @@
 - NTH: start with single col layout with large font size (and enough room on right for prose sidebar), then zoom out when necessary
 - NTH: other songs (selectable via dropdown or something)
 
+## Histogram
+- Add note on right-hand side: "+15 more", or however many got cut off.
+    - And make it clickable, to expand the xscale to incorporate the outliers
+    - (Or just do it scrollytell style?)
+- Add some dotted lines for context
+    - Bad Romance
+    - Newswire article
+    - Median/Mean
 
 ## Most repetitive songs
 - headings
@@ -28,6 +36,7 @@
 - try a subtle scatterplot underlay effect
 - fix animation bugs
 - add a legend after adding orange line? or maybe just a label pointing to the new line.
+- maybe do major/minor grid lines for y axis? (and x?)
 
 ## Artists beeswarm
 - color artists by genre?

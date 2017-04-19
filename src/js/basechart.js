@@ -2,8 +2,19 @@ import * as d3 from 'd3';
 import * as c from './constants.js';
 
 class BaseChart {
-  constructor(rootsel) {
+  constructor(rootsel, size={}) {
     this.root = d3.select(rootsel);
+    let margin = {top: 20, right: 20, bottom: 50, left: 20};
+    var totalW = size.W || 1000;
+    var totalH = size.H || 600;
+    this.W = totalW - margin.left - margin.right;
+    this.H = totalH - margin.top - margin.bottom;
+    this.svg = this.root.append('svg')
+      .attr('width', totalW)
+      .attr('height', totalH)
+      .style('background-color', 'rgba(240,255,255,1)')
+      .append("g")
+        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
   }
 }
 
@@ -11,18 +22,7 @@ class BeeswarmChart extends BaseChart {
 
   constructor(rootsel) {
     super(rootsel);
-    let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    var totalW = 1000;
-    var totalH = 600;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
     this.R = 25; // radius of circles
-    this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
-      .style('background-color', 'rgba(240,255,255,1)')
-      .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
 
     this.xscale = d3.scaleLinear()
       .domain(this.extent)
@@ -119,4 +119,4 @@ class BeeswarmChart extends BaseChart {
   }
 }
 
-export { BeeswarmChart };
+export { BeeswarmChart, BaseChart };
