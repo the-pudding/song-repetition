@@ -1,6 +1,4 @@
 import * as d3 from 'd3';
-import LINES from './lines.js';
-import DITTOS from './dittos.js';
 import scroll_controller from './scroll.js';
 import ScrollMagic from 'scrollmagic';
 
@@ -48,9 +46,12 @@ class CompressionGraphic {
     if (this.defragged) {
       return;
     }
+    if (!this.dittos) {
+      return;
+    }
     progress = Math.pow(progress, scroll_acceleration);
     let slack = .1;
-    let prog_per_ditto = (1-slack)/DITTOS.length;
+    let prog_per_ditto = (1-slack)/this.dittos.length;
     let i = Math.floor(progress/prog_per_ditto);
     this.setLastDitto(i);
   }
@@ -154,10 +155,9 @@ class CompressionGraphic {
       .attr('y', (d,i) => this.y.text(i));
   }
 
-  constructor() {
+  constructor(rootsel) {
     this.defragged = false;
     this.controller = scroll_controller;
-    this.dittos = DITTOS;
     this.fontsize = 16 * text_scale;
     // pretty close
     this.glyphwidth = 9.6 * text_scale;
@@ -171,7 +171,7 @@ class CompressionGraphic {
       marker: y => (this.lineheight * y) - this.lineheight * .25,
       text: y=>this.basey(y),
     };
-    this.rootsel = '#compression';
+    this.rootsel = rootsel;
     this.setScene();
     this.root = d3.select(this.rootsel);
     if (debug) {
@@ -208,7 +208,7 @@ class CompressionGraphic {
     this.colwidth = this.W/this.ncols;
     this.ditto_radius = this.fontsize/4;
 
-    // Based on http://bl.ocks.org/mbostock/1153292
+    // Arrow head defn. Based on http://bl.ocks.org/mbostock/1153292
     this.root.select('svg')
       .append('defs')
         .append('marker')
@@ -224,8 +224,7 @@ class CompressionGraphic {
 
     
     this.lastditto = -1;
-    this.renderText();
-    this.renderOdometer();
+    this.setSong('cheapthrills');
   }
 
   thing() {
@@ -241,8 +240,7 @@ class CompressionGraphic {
     //this.setScene();
     this.scene.enabled(true);
     this.svg.text('');
-    this.renderOdometer();
-    this.renderText();
+    this.setSong('cheapthrills');
     this.controller.scrollTo(this.scene);
   }
 
@@ -258,10 +256,23 @@ class CompressionGraphic {
     return Math.floor(y/this.maxlines);
   }
 
-  renderText() {
+  setSong(slug) {
+    let url = 'assets/lz/' + slug + '.json';
+    d3.json(url, songdat => {
+      let lines = songdat.lines;
+      this.dittos = songdat.dittos;
+      this.totalchars = d3.sum(lines, 
+          l => Math.max(0, d3.sum(l, w=>w.length))
+      );
+      this.renderText(lines);
+      this.renderOdometer();
+    });
+  }
+
+  renderText(raw_lines) {
     let linedat = [];
     let y = 0;
-    for (let line of LINES) {
+    for (let line of raw_lines) {
       line = line.map((word,i)=> ({word:word, x:i, y:y, visible:true}));
       y += 1;
       linedat.push(line);
@@ -297,9 +308,6 @@ class CompressionGraphic {
       .append('text')
       .classed('reduction', true)
       .text('Size reduction: 0%');
-    this.totalchars = d3.sum(LINES, 
-        l => Math.max(0, d3.sum(l, w=>w.length))
-    );
     return;
     let lineno = 0;
     for (let classname of ['orig', 'comp', 'reduction']) {
@@ -577,7 +585,7 @@ class CompressionGraphic {
 
   // Return the length of the given line in characters.
   linewidth(y) {
-    return d3.sum(LINES[y], s=>s.length);
+    return d3.sum(this.linedat[y], w=>w.word.length);
   }
 
   locate(where) {
@@ -713,7 +721,7 @@ class CompressionGraphic {
   }
 
   static init() {
-    let c = new CompressionGraphic();
+    let c = new CompressionGraphic('#compression');
   }
 }
 

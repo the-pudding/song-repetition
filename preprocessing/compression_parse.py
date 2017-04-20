@@ -2,12 +2,13 @@ from __future__ import division
 from collections import namedtuple
 import json
 import os
+import sys
 
 # Smallest match size we'll consider significant
 # TODO: experiment with bigger values
 MINMATCH = 3
 
-OUTDIR = '../src/js'
+OUTDIR = '../src/assets/lz/'
 
 def dict_to_js(d, fname, varname="DATA", pprint=1):
     s = json.dumps(d, indent=(2 if pprint else None))
@@ -82,8 +83,13 @@ class CompressionParser(object):
             offset += p.length
         return parts
 
-    def save_lines(self, fname='lines.js'):
-        dict_to_js(self.get_lines(), fname)
+    def save(self, slug):
+        lines = self.get_lines()
+        dittos = self.ditto_dicts()
+        fname = slug+'.json'
+        with open(os.path.join(OUTDIR, fname), 'w') as f:
+            obj = {'lines': lines, 'dittos': dittos}
+            json.dump(obj, f, indent=2)
 
     def get_lines(self):
         lines = []
@@ -102,9 +108,6 @@ class CompressionParser(object):
         for ditto in self.dittos:
             dittos.append(ditto.serialize(self))
         return dittos
-
-    def save_dittos(self, fname='dittos.js'):
-        dict_to_js(self.ditto_dicts(), fname)
 
     def char_index_to_word_index(self, i, end=False, local=True):
         """return a word index local to whichever line that word is on"""
@@ -230,10 +233,13 @@ class Literal(object):
         return kls(txt, length, i)
 
 if __name__ == '__main__':
-    raw = 'Lady_Gaga-Bad_Romance.txt'
-    inf = raw + '.gz.infgen'
-    rawf = open(raw)
-    inff = open(inf)
-    parser = CompressionParser(rawf, inff)
-    parser.save_lines()
-    parser.save_dittos()
+    raw_fnames = sys.argv[1:]
+    for raw in raw_fnames:
+        slug = raw.split('.')[0]
+        inf = raw + '.gz.infgen'
+        rawf = open(raw)
+        inff = open(inf)
+        parser = CompressionParser(rawf, inff)
+        parser.save(slug)
+        rawf.close()
+        inff.close()
