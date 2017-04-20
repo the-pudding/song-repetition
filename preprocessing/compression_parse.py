@@ -6,9 +6,10 @@ import sys
 
 # Smallest match size we'll consider significant
 # TODO: experiment with bigger values
-MINMATCH = 3
+MINMATCH = 4
 
 OUTDIR = '../src/assets/lz/'
+JSDIR = '../src/js/'
 
 def dict_to_js(d, fname, varname="DATA", pprint=1):
     s = json.dumps(d, indent=(2 if pprint else None))
@@ -17,7 +18,7 @@ def dict_to_js(d, fname, varname="DATA", pprint=1):
 def _json_str_to_js(json_str, fname, varname):
     if not fname.endswith('.js'):
         fname += '.js'
-    path = os.path.join(OUTDIR, fname)
+    path = os.path.join(JSDIR, fname)
     with open(path, 'w') as f:
         f.write('var {} = '.format(varname))
         f.write(json_str)
@@ -234,8 +235,10 @@ class Literal(object):
 
 if __name__ == '__main__':
     raw_fnames = sys.argv[1:]
+    slugs = []
     for raw in raw_fnames:
         slug = raw.split('.')[0]
+        slugs.append(slug)
         inf = raw + '.gz.infgen'
         rawf = open(raw)
         inff = open(inf)
@@ -243,3 +246,5 @@ if __name__ == '__main__':
         parser.save(slug)
         rawf.close()
         inff.close()
+
+    dict_to_js(slugs, 'lz-directory.js')
