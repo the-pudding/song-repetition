@@ -21,14 +21,15 @@ One thing we might try is looking at the number of unique words in a song, as a 
 
 <div class="row">
     <div class="col-xs-5">
-        <blockquote><p>Baby I don't need dollar bills to have fun tonight<br>
+        <blockquote>
+        <p>baby I don't need dollar bills to have fun tonight<br>
         I love cheap thrills<br>
-        Baby I don't need dollar bills to have fun tonight<br>
+        baby I don't need dollar bills to have fun tonight<br>
         I love cheap thrills<br>
         I don't need no money<br>
-        As long as I can feel the beat<br>
+        as long as I can feel the beat<br>
         I don't need no money<br>
-        As long as I keep dancing</p>
+        as long as I keep dancing</p>
         <p><cite>~ Sia, Cheap Thrills</cite></p>
         </blockquote>
     </div>
@@ -61,8 +62,19 @@ You may not have heard of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ
 What does this have to do with pop music? The Lempel-Ziv algorithm works by exploiting repeated sequences. How efficiently LZ can compress a text is directly correlated with the number and length of the repeated sections in that text.
 </p>
 
+<!--
 <p>In short, the LZ algorithm scans the input from start to end looking for sections that match an earlier part of the text. If it finds one then, in the output, it replaces that repeated text with a signpost that says "go back X letters, and copy Y characters".
+</p> -->
+
+<p>Here's how it works.
 </p>
+
+</div><div class="container-fluid">
+<div class="graphic scrolly-columns" id="compression-mini">
+    <div class="graphic-vis"></div>
+    <div class="graphic-prose"></div>
+</div>
+</div><div class="container">
 
 <p>It's probably easier to understand when seen in action. Let's see what the LZ algorithm does to Lady Gaga's <i>Bad Romance</i>...
 </p>

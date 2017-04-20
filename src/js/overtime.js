@@ -70,12 +70,10 @@ class OverTimeGraphic {
       });
 
       scene.on('enter', () => {
-        console.log('Entered stage' + n);
         this.chart.step(n);
         d3.select(sel).classed('active', true);
       })
       .on('leave', () => {
-        console.log('Left stage' + n);
         this.chart.step(Math.max(0, n-1));
         d3.select(sel).classed('active', false);
       });
