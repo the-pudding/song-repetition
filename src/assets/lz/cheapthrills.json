@@ -6,14 +6,11 @@
       ",", 
       " ", 
       "c", 
-      "ome", 
-      " on", 
-      ", ", 
+      "ome on, ", 
       "turn", 
       " the ", 
       "radio", 
-      " on", 
-      "\n"
+      " on\n"
     ], 
     [
       "It's ", 
@@ -37,15 +34,11 @@
       "night", 
       " and i", 
       "t w", 
-      "o", 
-      "n't", 
-      " ", 
+      "on't ", 
       "be", 
       " long", 
       " ", 
-      "'ti", 
-      "l I", 
-      "\n"
+      "'til I\n"
     ], 
     [
       "\n"
@@ -66,19 +59,13 @@
     [
       "I", 
       " got ", 
-      "al", 
-      "l", 
-      " I", 
-      " ", 
+      "all I ", 
       "need", 
       "\n"
     ], 
     [
-      "No", 
-      " ", 
-      "I ", 
-      "ai", 
-      "n't", 
+      "No ", 
+      "I ain't", 
       " got ", 
       "cash\n"
     ], 
@@ -86,42 +73,26 @@
       "I ain't got cash\n"
     ], 
     [
-      "But", 
-      " ", 
-      "I ", 
-      "got ", 
+      "But ", 
+      "I got ", 
       "you", 
-      " b", 
-      "aby", 
-      "\n"
+      " baby\n"
     ], 
     [
       "\n"
     ], 
     [
-      "B", 
-      "aby", 
-      " I", 
-      " ", 
-      "d", 
-      "o", 
-      "n't ", 
+      "Baby I d", 
+      "on't ", 
       "need", 
-      " do", 
-      "llar b", 
+      " dollar b", 
       "ills", 
-      " to", 
-      " ha", 
-      "ve ", 
-      "fun", 
-      " to", 
+      " to have fun to", 
       "night", 
       "\n"
     ], 
     [
-      "(I lo", 
-      "ve ", 
-      "cheap thr", 
+      "(I love cheap thr", 
       "ills", 
       "!)", 
       "\n"
@@ -162,16 +133,12 @@
     ], 
     [
       "Come on", 
-      " come on, ", 
-      "tur", 
-      "n the radio", 
+      " come on, turn the radio", 
       " on\n"
     ], 
     [
       "It's ", 
-      "Sa", 
-      "tur", 
-      "day", 
+      "Saturday", 
       " and i", 
       "t won't be long\n"
     ], 
@@ -337,11 +304,11 @@
       "dest": {
         "x2": 17, 
         "x1word": 5, 
-        "x2word": 7, 
+        "x2word": 5, 
         "y1": 0, 
         "x1": 10, 
         "y2": 0, 
-        "nwords": 3
+        "nwords": 1
       }, 
       "src": {
         "x2": 8, 
@@ -352,27 +319,6 @@
         "x1": 1, 
         "y2": 0, 
         "nwords": 3
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 34, 
-        "x1word": 11, 
-        "x2word": 11, 
-        "y1": 0, 
-        "x1": 32, 
-        "y2": 0, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 15, 
-        "x1word": 6, 
-        "x2word": 6, 
-        "y1": 0, 
-        "txt": " on", 
-        "x1": 13, 
-        "y2": 0, 
-        "nwords": 1
       }
     }, 
     {
@@ -400,21 +346,21 @@
       "dest": {
         "x2": 37, 
         "x1word": 8, 
-        "x2word": 8, 
+        "x2word": 6, 
         "y1": 2, 
         "x1": 32, 
         "y2": 3, 
-        "nwords": 10
+        "nwords": 8
       }, 
       "src": {
         "x2": 37, 
-        "x1word": 11, 
+        "x1word": 9, 
         "x2word": 2, 
         "y1": 0, 
         "txt": " on\nIt's Friday night and it won't be long", 
         "x1": 32, 
         "y2": 1, 
-        "nwords": 5
+        "nwords": 4
       }
     }, 
     {
@@ -429,8 +375,8 @@
       }, 
       "src": {
         "x2": 26, 
-        "x1word": 9, 
-        "x2word": 9, 
+        "x1word": 7, 
+        "x2word": 7, 
         "y1": 0, 
         "txt": " the ", 
         "x1": 22, 
@@ -461,72 +407,9 @@
     }, 
     {
       "dest": {
-        "x2": 10, 
-        "x1word": 3, 
-        "x2word": 4, 
-        "y1": 7, 
-        "x1": 8, 
-        "y2": 7, 
-        "nwords": 2
-      }, 
-      "src": {
-        "x2": 44, 
-        "x1word": 11, 
-        "x2word": 11, 
-        "y1": 3, 
-        "txt": "l I", 
-        "x1": 42, 
-        "y2": 3, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 4, 
-        "x1word": 1, 
-        "x2word": 2, 
-        "y1": 8, 
-        "x1": 2, 
-        "y2": 8, 
-        "nwords": 2
-      }, 
-      "src": {
-        "x2": 11, 
-        "x1word": 4, 
-        "x2word": 5, 
-        "y1": 7, 
-        "txt": " I ", 
-        "x1": 9, 
-        "y2": 7, 
-        "nwords": 2
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 9, 
-        "x1word": 4, 
-        "x2word": 4, 
-        "y1": 8, 
-        "x1": 7, 
-        "y2": 8, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 29, 
-        "x1word": 5, 
-        "x2word": 5, 
-        "y1": 3, 
-        "txt": "n't", 
-        "x1": 27, 
-        "y2": 3, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
         "x2": 14, 
-        "x1word": 5, 
-        "x2word": 5, 
+        "x1word": 2, 
+        "x2word": 2, 
         "y1": 8, 
         "x1": 10, 
         "y2": 8, 
@@ -555,24 +438,24 @@
       }, 
       "src": {
         "x2": 19, 
-        "x1word": 2, 
-        "x2word": 6, 
+        "x1word": 1, 
+        "x2word": 3, 
         "y1": 8, 
         "txt": "I ain't got cash\n", 
         "x1": 3, 
         "y2": 8, 
-        "nwords": 5
+        "nwords": 3
       }
     }, 
     {
       "dest": {
         "x2": 9, 
-        "x1word": 2, 
-        "x2word": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
         "y1": 10, 
         "x1": 4, 
         "y2": 10, 
-        "nwords": 2
+        "nwords": 1
       }, 
       "src": {
         "x2": 5, 
@@ -587,72 +470,30 @@
     }, 
     {
       "dest": {
-        "x2": 3, 
+        "x2": 12, 
         "x1word": 1, 
         "x2word": 1, 
         "y1": 12, 
-        "x1": 1, 
-        "y2": 12, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 17, 
-        "x1word": 6, 
-        "x2word": 6, 
-        "y1": 10, 
-        "txt": "aby", 
-        "x1": 15, 
-        "y2": 10, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 6, 
-        "x1word": 2, 
-        "x2word": 3, 
-        "y1": 12, 
-        "x1": 4, 
-        "y2": 12, 
-        "nwords": 2
-      }, 
-      "src": {
-        "x2": 5, 
-        "x1word": 1, 
-        "x2word": 2, 
-        "y1": 10, 
-        "txt": " I ", 
-        "x1": 3, 
-        "y2": 10, 
-        "nwords": 2
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 12, 
-        "x1word": 5, 
-        "x2word": 6, 
-        "y1": 12, 
         "x1": 8, 
         "y2": 12, 
-        "nwords": 2
+        "nwords": 1
       }, 
       "src": {
         "x2": 30, 
         "x1word": 4, 
-        "x2word": 6, 
+        "x2word": 4, 
         "y1": 3, 
         "txt": "on't ", 
         "x1": 26, 
         "y2": 3, 
-        "nwords": 3
+        "nwords": 1
       }
     }, 
     {
       "dest": {
         "x2": 16, 
-        "x1word": 7, 
-        "x2word": 7, 
+        "x1word": 2, 
+        "x2word": 2, 
         "y1": 12, 
         "x1": 13, 
         "y2": 12, 
@@ -660,8 +501,8 @@
       }, 
       "src": {
         "x2": 15, 
-        "x1word": 6, 
-        "x2word": 6, 
+        "x1word": 3, 
+        "x2word": 3, 
         "y1": 7, 
         "txt": "need", 
         "x1": 12, 
@@ -671,51 +512,9 @@
     }, 
     {
       "dest": {
-        "x2": 19, 
-        "x1word": 8, 
-        "x2word": 8, 
-        "y1": 12, 
-        "x1": 17, 
-        "y2": 12, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 8, 
-        "x1word": 3, 
-        "x2word": 5, 
-        "y1": 12, 
-        "txt": " do", 
-        "x1": 6, 
-        "y2": 12, 
-        "nwords": 3
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 44, 
-        "x1word": 15, 
-        "x2word": 15, 
-        "y1": 12, 
-        "x1": 42, 
-        "y2": 12, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 32, 
-        "x1word": 11, 
-        "x2word": 11, 
-        "y1": 12, 
-        "txt": " to", 
-        "x1": 30, 
-        "y2": 12, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
         "x2": 49, 
-        "x1word": 16, 
-        "x2word": 16, 
+        "x1word": 6, 
+        "x2word": 6, 
         "y1": 12, 
         "x1": 45, 
         "y2": 12, 
@@ -734,30 +533,9 @@
     }, 
     {
       "dest": {
-        "x2": 7, 
+        "x2": 20, 
         "x1word": 1, 
         "x2word": 1, 
-        "y1": 13, 
-        "x1": 5, 
-        "y2": 13, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 38, 
-        "x1word": 13, 
-        "x2word": 13, 
-        "y1": 12, 
-        "txt": "ve ", 
-        "x1": 36, 
-        "y2": 12, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 20, 
-        "x1word": 3, 
-        "x2word": 3, 
         "y1": 13, 
         "x1": 17, 
         "y2": 13, 
@@ -765,8 +543,8 @@
       }, 
       "src": {
         "x2": 29, 
-        "x1word": 10, 
-        "x2word": 10, 
+        "x1word": 4, 
+        "x2word": 4, 
         "y1": 12, 
         "txt": "ills", 
         "x1": 26, 
@@ -777,7 +555,7 @@
     {
       "dest": {
         "x2": 23, 
-        "x1word": 5, 
+        "x1word": 3, 
         "x2word": 1, 
         "y1": 13, 
         "x1": 23, 
@@ -787,12 +565,12 @@
       "src": {
         "x2": 22, 
         "x1word": 0, 
-        "x2word": 4, 
+        "x2word": 2, 
         "y1": 11, 
         "txt": "\nBaby I don't need dollar bills to have fun tonight\n(I love cheap thrills!)", 
         "x1": 0, 
         "y2": 13, 
-        "nwords": 24
+        "nwords": 12
       }
     }, 
     {
@@ -828,8 +606,8 @@
       }, 
       "src": {
         "x2": 38, 
-        "x1word": 8, 
-        "x2word": 9, 
+        "x1word": 6, 
+        "x2word": 7, 
         "y1": 3, 
         "txt": " long ", 
         "x1": 33, 
@@ -929,7 +707,7 @@
         "y1": 21, 
         "x1": 7, 
         "y2": 22, 
-        "nwords": 5
+        "nwords": 3
       }, 
       "src": {
         "x2": 4, 
@@ -939,34 +717,13 @@
         "txt": " come on, turn the radio on\nIt's ", 
         "x1": 8, 
         "y2": 1, 
-        "nwords": 11
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 9, 
-        "x1word": 2, 
-        "x2word": 2, 
-        "y1": 22, 
-        "x1": 7, 
-        "y2": 22, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 19, 
-        "x1word": 2, 
-        "x2word": 2, 
-        "y1": 21, 
-        "txt": "tur", 
-        "x1": 17, 
-        "y2": 21, 
-        "nwords": 1
+        "nwords": 8
       }
     }, 
     {
       "dest": {
         "x2": 5, 
-        "x1word": 4, 
+        "x1word": 2, 
         "x2word": 0, 
         "y1": 22, 
         "x1": 13, 
@@ -1038,13 +795,13 @@
       }, 
       "src": {
         "x2": 18, 
-        "x1word": 4, 
-        "x2word": 4, 
+        "x1word": 2, 
+        "x2word": 2, 
         "y1": 21, 
         "txt": " on\nIt's Saturday and i", 
         "x1": 31, 
         "y2": 22, 
-        "nwords": 6
+        "nwords": 4
       }
     }, 
     {
@@ -1060,12 +817,12 @@
       "src": {
         "x2": 12, 
         "x1word": 3, 
-        "x2word": 4, 
+        "x2word": 2, 
         "y1": 3, 
         "txt": "t won't be long 'til I\n\nHit the dancefloor\nHit the dancefloor\nI got all I need\nNo I ain't got cash\nI ain't got cash\nBut I got you", 
         "x1": 23, 
         "y2": 10, 
-        "nwords": 41
+        "nwords": 29
       }
     }, 
     {
@@ -1080,13 +837,13 @@
       }, 
       "src": {
         "x2": 25, 
-        "x1word": 5, 
+        "x1word": 3, 
         "x2word": 3, 
         "y1": 10, 
         "txt": " baby\n\nBaby I don't need dollar bills to have fun tonight\n(I love cheap thrills!)\nBaby I don't need dollar bills to have fun tonight\n(I love cheap thrills!)\nI don't need no money\nAs long as I can feel the beat\nI don't need no money\nAs long as I keep dancing\n", 
         "x1": 13, 
         "y2": 19, 
-        "nwords": 47
+        "nwords": 33
       }
     }, 
     {

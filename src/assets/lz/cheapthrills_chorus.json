@@ -1,37 +1,22 @@
 {
   "lines": [
     [
-      "Baby I", 
-      " do", 
-      "n't need", 
-      " do", 
-      "llar b", 
+      "baby I don't need dollar b", 
       "ills", 
-      " to", 
-      " ha", 
-      "ve ", 
-      "fun", 
-      " to", 
-      "night\n"
+      " to have fun tonight\n"
     ], 
     [
-      "(I lo", 
-      "ve ", 
-      "cheap thr", 
+      "I love cheap thr", 
       "ills", 
-      "!)\n"
+      "!\n"
     ], 
     [
-      "Baby ", 
+      "baby ", 
       "I don't need ", 
       "dollar bills to have fun tonight\n"
     ], 
     [
-      "(I", 
-      " lo", 
-      "ve cheap", 
-      " th", 
-      "rills!)", 
+      "I love cheap thrills!", 
       "\n"
     ], 
     [
@@ -39,19 +24,15 @@
       "no money\n"
     ], 
     [
-      "As", 
-      " lo", 
-      "ng as I ", 
-      "can feel", 
-      " th", 
-      "e beat", 
+      "as long as I ", 
+      "can feel the beat", 
       "\n"
     ], 
     [
       "I don't need no money\n"
     ], 
     [
-      "As long as I ", 
+      "as long as I ", 
       "keep dancing\n"
     ], 
     [
@@ -62,80 +43,17 @@
     {
       "dest": {
         "x2": 19, 
-        "x1word": 3, 
-        "x2word": 3, 
-        "y1": 0, 
-        "x1": 17, 
-        "y2": 0, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 8, 
-        "x1word": 1, 
-        "x2word": 1, 
-        "y1": 0, 
-        "txt": " do", 
-        "x1": 6, 
-        "y2": 0, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 44, 
-        "x1word": 10, 
-        "x2word": 10, 
-        "y1": 0, 
-        "x1": 42, 
-        "y2": 0, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 32, 
-        "x1word": 6, 
-        "x2word": 6, 
-        "y1": 0, 
-        "txt": " to", 
-        "x1": 30, 
-        "y2": 0, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 7, 
         "x1word": 1, 
         "x2word": 1, 
         "y1": 1, 
-        "x1": 5, 
-        "y2": 1, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 38, 
-        "x1word": 8, 
-        "x2word": 8, 
-        "y1": 0, 
-        "txt": "ve ", 
-        "x1": 36, 
-        "y2": 0, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 20, 
-        "x1word": 3, 
-        "x2word": 3, 
-        "y1": 1, 
-        "x1": 17, 
+        "x1": 16, 
         "y2": 1, 
         "nwords": 1
       }, 
       "src": {
         "x2": 29, 
-        "x1word": 5, 
-        "x2word": 5, 
+        "x1word": 1, 
+        "x2word": 1, 
         "y1": 0, 
         "txt": "ills", 
         "x1": 26, 
@@ -145,23 +63,23 @@
     }, 
     {
       "dest": {
-        "x2": 23, 
+        "x2": 21, 
         "x1word": 0, 
-        "x2word": 5, 
+        "x2word": 1, 
         "y1": 2, 
         "x1": 0, 
         "y2": 3, 
-        "nwords": 9
+        "nwords": 5
       }, 
       "src": {
-        "x2": 23, 
+        "x2": 21, 
         "x1word": 0, 
-        "x2word": 4, 
+        "x2word": 2, 
         "y1": 0, 
-        "txt": "Baby I don't need dollar bills to have fun tonight\n(I love cheap thrills!)\n", 
+        "txt": "baby I don't need dollar bills to have fun tonight\nI love cheap thrills!\n", 
         "x1": 0, 
         "y2": 1, 
-        "nwords": 17
+        "nwords": 6
       }
     }, 
     {
@@ -187,50 +105,8 @@
     }, 
     {
       "dest": {
-        "x2": 4, 
-        "x1word": 1, 
-        "x2word": 1, 
-        "y1": 5, 
-        "x1": 2, 
-        "y2": 5, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 4, 
-        "x1word": 1, 
-        "x2word": 1, 
-        "y1": 3, 
-        "txt": " lo", 
-        "x1": 2, 
-        "y2": 3, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
-        "x2": 23, 
-        "x1word": 4, 
-        "x2word": 4, 
-        "y1": 5, 
-        "x1": 21, 
-        "y2": 5, 
-        "nwords": 1
-      }, 
-      "src": {
-        "x2": 15, 
-        "x1word": 3, 
-        "x2word": 3, 
-        "y1": 3, 
-        "txt": " th", 
-        "x1": 13, 
-        "y2": 3, 
-        "nwords": 1
-      }
-    }, 
-    {
-      "dest": {
         "x2": 12, 
-        "x1word": 6, 
+        "x1word": 2, 
         "x2word": 0, 
         "y1": 5, 
         "x1": 30, 
@@ -239,13 +115,13 @@
       }, 
       "src": {
         "x2": 12, 
-        "x1word": 5, 
-        "x2word": 2, 
+        "x1word": 1, 
+        "x2word": 0, 
         "y1": 3, 
-        "txt": "\nI don't need no money\nAs long as I ", 
-        "x1": 23, 
+        "txt": "\nI don't need no money\nas long as I ", 
+        "x1": 21, 
         "y2": 5, 
-        "nwords": 6
+        "nwords": 4
       }
     }
   ]
