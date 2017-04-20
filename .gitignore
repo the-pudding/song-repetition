@@ -5,3 +5,6 @@ dev
 dist
 .tmp
 .fusebox
+preprocessing/*.gz
+preprocessing/*.infgen
+preprocessing/*.txt
