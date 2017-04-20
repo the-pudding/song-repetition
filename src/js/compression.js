@@ -14,7 +14,7 @@ const ravel_duration = 2000;
 const scroll_acceleration = 2;
 
 // If true, show a bunch of buttons helpful for debugging.
-const debug = 0;
+const debug = 1;
 const scroll_duration = 6400/3;
 
 // When animating underlining of some text, the given duration will be
@@ -67,8 +67,8 @@ class CompressionGraphic {
     // much as me, but may want to fix it. Need to detect whether scroll
     // on load is greater than where this element would be if it weren't
     // pinned, and if so, go straight to our dormant state.
-    //this.scene.enabled(false);
-    this.scene.destroy(true);
+    this.scene.enabled(false);
+    //this.scene.destroy(true);
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -207,6 +207,21 @@ class CompressionGraphic {
     this.maxlines = 44;
     this.colwidth = this.W/this.ncols;
     this.ditto_radius = this.fontsize/4;
+
+    // Based on http://bl.ocks.org/mbostock/1153292
+    this.root.select('svg')
+      .append('defs')
+        .append('marker')
+        .attr('id', 'arrow')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 15)
+        .attr('refY', -1.5)
+        .attr('markerWidth', 6)
+        .attr('markerHeight', 6)
+        .attr('orient', 'auto')
+        .append('path')
+          .attr('d', 'M0,-5L10,0L0,5');
+
     
     this.lastditto = -1;
     this.renderText();
@@ -222,8 +237,9 @@ class CompressionGraphic {
 
   reset() {
     this.defragged = false;
-    this.setScene();
-    //this.scene.enabled(true);
+    this.lastditto = -1;
+    //this.setScene();
+    this.scene.enabled(true);
     this.svg.text('');
     this.renderOdometer();
     this.renderText();
@@ -532,7 +548,7 @@ class CompressionGraphic {
       .attr('opacity', 1)
       .style('pointer-events', 'none')
       .attr('d', line(pts));
-    return this.animatePath(path, duration, delay);
+    return this.animatePath(path, duration, delay, 1);
   }
 
   getInflection(start, end) {
@@ -665,9 +681,9 @@ class CompressionGraphic {
   }
 
   // Make the path grow to its full length over the given duration
-  animatePath(path, duration, delay) {
+  animatePath(path, duration, delay, arrow=false) {
     let totalLength = path.node().getTotalLength();
-    return path
+    let trans = path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()
@@ -675,6 +691,12 @@ class CompressionGraphic {
         .duration(duration)
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
+    if (arrow) {
+      trans
+        .transition()
+        .attr('marker-end', 'url(#arrow)');
+    }
+    return trans;
   }
 
   rangeContains(range, dat) {
