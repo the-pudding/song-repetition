@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import scroll_controller from './scroll.js';
 import ScrollMagic from 'scrollmagic';
+import SLUGS from './lz-directory.js';
 
 const text_scale = 4/5;
 
@@ -13,6 +14,7 @@ const scroll_acceleration = 2;
 
 // If true, show a bunch of buttons helpful for debugging.
 const debug = 1;
+// TODO: this should scale with the length of the text
 const scroll_duration = 6400/3;
 
 // When animating underlining of some text, the given duration will be
@@ -68,8 +70,8 @@ class CompressionGraphic {
     // much as me, but may want to fix it. Need to detect whether scroll
     // on load is greater than where this element would be if it weren't
     // pinned, and if so, go straight to our dormant state.
-    this.scene.enabled(false);
-    //this.scene.destroy(true);
+    //this.scene.enabled(false);
+    this.scene.destroy(true);
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     invis
@@ -182,6 +184,7 @@ class CompressionGraphic {
         {name: 'reset', cb: ()=>this.reset()},
         {name: 'fast-forward', cb: ()=>this.step(null, 1000)},
         {name: 'defrag', cb: ()=>this.defrag()},
+        {name: 'shuffle', cb: ()=>this.shuffle()},
         {name: 'debug', cb: ()=>this.thing()},
       ];
       butcon.selectAll('button').data(buttons)
@@ -224,7 +227,7 @@ class CompressionGraphic {
 
     
     this.lastditto = -1;
-    this.setSong('cheapthrills');
+    this.setSong('cheapthrills_chorus');
   }
 
   thing() {
@@ -234,13 +237,19 @@ class CompressionGraphic {
     let z = 1;
   }
 
-  reset() {
+  shuffle() {
+    let i = Math.floor(Math.random() * SLUGS.length);
+    this.reset(SLUGS[i]);
+  }
+
+  reset(slug) {
     this.defragged = false;
     this.lastditto = -1;
-    //this.setScene();
-    this.scene.enabled(true);
+    this.scene.destroy(true);
+    this.setScene();
+    //this.scene.enabled(true);
     this.svg.text('');
-    this.setSong('cheapthrills');
+    this.setSong(slug || this.slug);
     this.controller.scrollTo(this.scene);
   }
 
@@ -257,6 +266,7 @@ class CompressionGraphic {
   }
 
   setSong(slug) {
+    this.slug = slug;
     let url = 'assets/lz/' + slug + '.json';
     d3.json(url, songdat => {
       let lines = songdat.lines;
@@ -392,6 +402,9 @@ class CompressionGraphic {
     // Those changes should probably be happening further
     // upstream.
     let dest = this.selectRange(d.dest);
+    dest.each(d=> {
+      this.linedat[d.y][d.x].visible = true;
+    });
     // cancel any ongoing transitions
     dest.interrupt();
     // Unhide the corresponding dest text
