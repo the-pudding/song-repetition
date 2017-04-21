@@ -161,7 +161,7 @@ class CompressionWrapper {
   {
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
-      // TODO: too laggy. Need to preload or something.
+      // TODO: smooth transition between songs
       comp.reset('thrillscheap');
       // TODO: try binding to scroll progress rather than just setting 
       // to autoplay
@@ -189,6 +189,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
     // dedicated scratch space.
     this.stagebox = this.svg.append('g')
       .classed('stage-sandbox', true);
+    this.warmCache(['thrillscheap', 'essay_intro']);
   }
 
 }

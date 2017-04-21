@@ -16,6 +16,7 @@ class BaseCompressionGraphic {
 
   constructor(rootsel, config={}) {
     this.ravel_duration = 2000;
+    this.json_cache = new Map();
     this.running = false;
     this.defragged = false;
     this.fontsize = 16 * text_scale;
@@ -235,8 +236,7 @@ class BaseCompressionGraphic {
   setSong(slug) {
     this.slug = slug;
     this.ready = false;
-    let url = 'assets/lz/' + slug + '.json';
-    d3.json(url, songdat => {
+    let songdat_callback = songdat => {
       let lines = songdat.lines;
       this.dittos = songdat.dittos;
       this.totalchars = d3.sum(lines, 
@@ -247,7 +247,22 @@ class BaseCompressionGraphic {
       this.ready = true;
       this.ready_queue.forEach(cb => cb());
       this.ready_queue = [];
-    });
+    }
+    let cached = this.json_cache.get(slug);
+    if (cached) {
+      console.log('Cache hit');
+      songdat_callback(cached);
+    } else {
+      let url = 'assets/lz/' + slug + '.json';
+      d3.json(url, songdat_callback);
+    }
+  }
+
+  warmCache(slugs) {
+    for (let slug of slugs) {
+      let url = 'assets/lz/' + slug + '.json';
+      d3.json(url, songdat => this.json_cache.set(slug, songdat));
+    }
   }
 
   onReady(cb) {
