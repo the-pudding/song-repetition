@@ -16,6 +16,7 @@ class BaseCompressionGraphic {
 
   constructor(rootsel, config={}) {
     this.ravel_duration = 2000;
+    this.defrag_duration = 5000;
     this.json_cache = new Map();
     this.running = false;
     this.defragged = false;
@@ -105,6 +106,9 @@ class BaseCompressionGraphic {
 
   reset(slug, smooth=false) {
     this.defragged = false;
+    // TODO: all these different booleans are messy and brittle. Should just
+    // have one 'state' enum variable.
+    this.running = false;
     this.lastditto = -1;
     this.shutdowneverything();
     if (!smooth) {
@@ -177,37 +181,55 @@ class BaseCompressionGraphic {
     if (this.defragged) {
       return;
     }
+    let clock = 0;
+    let dur;
+    const time_pie = {
+      erase: .2,
+      dittosweep: .2, // concurrent with above?
+      crunch: .2,
+      banner: .3,
+      odom: .1,
+    }
+    Object.keys(time_pie).map(k => {
+      time_pie[k] = time_pie[k] * this.defrag_duration;
+    });
     // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
     this.defragged = true;
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
+    dur = time_pie.erase;
     invis
       .attr('font-size', this.fontsize)
       .transition()
-      .duration(5000)
+      .duration(dur)
       .attr('font-size', 0.1)
       // XXX: for some reason transitioning to 0 and/or remove()ing
       // causes a noticeable jitter at the end
+    clock += dur;
 
     // Sweep dittos into a few lines in top-right
     let dittos_per_line = Math.floor(this.colwidth/(2*2*this.ditto_radius));
+    let odom_bbox = this.odometer.node().getBBox();
     let dittowhere = i => {
       let row = Math.floor(i/dittos_per_line);
       let col = i % dittos_per_line;
       return {x: this.W - this.ditto_radius - (col*this.ditto_radius*2),
-        y: this.ditto_radius + (row*this.ditto_radius*2)
+        y: odom_bbox.height + this.ditto_radius + (row*this.ditto_radius*2)
       };
     }
 
+    dur = time_pie.dittosweep;
     this.svg.selectAll('.ditto')
       .on('mouseover', null)
       .on('mouseout', null)
       .transition()
-      .duration(5000)
+      .duration(dur)
       .attr('cx', (d,i) => dittowhere(i).x)
       .attr('cy', (d,i) => dittowhere(i).y)
       
-    this.crunch();
+    dur = time_pie.crunch;
+    this.crunch(dur, clock);
+    clock += dur;
 
     // show size reduction info
     let [bannerx, bannery] = [this.W/3, this.H/3];
@@ -229,16 +251,19 @@ class BaseCompressionGraphic {
       .attr('dy', lineheight)
       .text(compline);
     
+    dur = time_pie.banner;
     let banner_trans = banner
       .transition()
-      .delay(5000*2)
-      .duration(5000)
+      .delay(clock)
+      .duration(dur)
       .attr('opacity', 1)
+    clock += dur;
     // translate and scale odometer
+    dur = time_pie.odom;
     this.odometer
       .transition()
-      .delay(5000*3)
-      .duration(5000)
+      .delay(clock)
+      .duration(dur)
       .attr('transform', `translate(${bannerx}, ${bannery+lineheight*2.5})`)
       .attr('font-size', 24);
 
@@ -252,14 +277,14 @@ class BaseCompressionGraphic {
   }
 
   // Vertically compactify
-  crunch() {
+  crunch(dur, wait) {
     let lines = this.svg.selectAll('.line')
       .filter(line => line.some(w=>w.visible));
     lines.exit().remove();
     lines
       .transition()
-      .delay(5000)
-      .duration(5000)
+      .delay(wait)
+      .duration(dur)
       .attr('x', (d,i) => this.linex(i))
       .attr('y', (d,i) => this.y.text(i));
   }
@@ -343,13 +368,11 @@ class BaseCompressionGraphic {
   }
 
   renderOdometer() {
-    let x = (.5 + this.ncols-1)*this.colwidth
-    //let y = (this.maxlines-2)*this.lineheight;
-    let y = this.lineheight;
+    let where = this.odometerWhere();
     this.odometer = this.svg.append('g')
       .classed('odometer', true)
       .attr('font-size', 18)
-      .attr('transform', `translate(${x}, ${y})`);
+      .attr('transform', `translate(${where.x}, ${where.y})`);
     this.odometer
       .append('text')
       .classed('reduction', true)
@@ -360,10 +383,18 @@ class BaseCompressionGraphic {
       this.odometer
         .append('text')
         .attr('dy', this.lineheight*lineno++)
+        .attr('text-anchor', 'end')
         .classed(classname, true);
     }
     this.odometer.select('.orig')
       .text(`Original size: ${this.totalchars} characters`);
+  }
+  odometerWhere() {
+    //let x = (.5 + this.ncols-1)*this.colwidth
+    //let y = this.lineheight;
+    let x = this.W;
+    let y = 0;
+    return {x,y};
   }
 
   compressionStats() {

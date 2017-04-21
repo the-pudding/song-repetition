@@ -85,6 +85,7 @@ class CompressionWrapper {
   }
 
 
+  /////////////////////////////// STAGE DATA //////////////////////////////////
 
   get_stage_data() {
     return [
@@ -95,7 +96,7 @@ class CompressionWrapper {
     html: `<p>The <code>ills</code> in "thrills" is out first non-trivial repetition.</p>`,
     onEnter: (comp) => {
       let ditto = comp.dittos[0];
-      let highlight_dur = 500;
+      let highlight_dur = 2500;
       comp.highlightSrc(ditto.src, highlight_dur);
       comp.highlightDest(ditto.dest, highlight_dur);
     },
@@ -111,7 +112,7 @@ class CompressionWrapper {
     <p><small>Each signpost is represented by two numbers: how far back the match is, and how long it is. Storing those two numbers takes about as much space as three characters (i.e. about 3 bytes), so it's only worth replacing a repetition if it's longer than that. That's why we didn't replace any of the smaller repeated substrings that occur earlier like <code>I </code> or <code> to</code>.</small></p>`,
     onEnter: (comp) => {
       let ditto = comp.dittos[0];
-      let dur = 500;
+      let dur = 1000;
       comp.animateArrow(ditto, comp.stagebox, dur, 0);
       // this method name is misleading...
       comp.eraseDitto(ditto, dur, dur, comp.stagebox);
@@ -137,7 +138,7 @@ class CompressionWrapper {
         comp.clearHighlights();
         comp.clearArrows();
       }
-      comp.step(500);
+      comp.step(2500);
       // TODO: draw attention to odometer
     },
     onExit: {
@@ -147,12 +148,20 @@ class CompressionWrapper {
 
   {
     html: `<p>In the end, the chorus alone is reduced in size 46%.</p>`,
-    onEnter: comp => {
+    onEnter: (comp, down) => {
+      if (!down) {
+        comp.quickChange('cheapthrills_chorus').then(() => {
+          // TODO: ravelling should happen at superspeed
+          comp.play();
+        });
+        return;
+      }
+      let dur = 2500;
       for (let i=2; i < comp.dittos.length; i++) {
-        comp.ravel(comp.dittos[i], 500);
+        comp.ravel(comp.dittos[i], dur);
       }
       comp.updateOdometer();
-      let wait = 500;
+      let wait = dur;
       d3.timeout( () => comp.defrag(), wait);
     },
     // TODO: gonna be real hard to reverse this :/
@@ -161,20 +170,18 @@ class CompressionWrapper {
   {
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
-      // TODO: smooth transition between songs
-      let wait = comp.reset('thrillscheap', true);
       // TODO: try binding to scroll progress rather than just setting 
       // to autoplay
-      d3.timeout( () => comp.onReady(()=>comp.play()), 
-          wait);
+      // TODO: but if it does stick with autoplay, it needs to accelerate
+      // and be a bit faster overall
+      comp.quickChange('thrillscheap').then( ()=> comp.play() );
     },
   },
 
   {
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
-      comp.reset('essay_intro');
-      comp.onReady(() => comp.play());
+      comp.quickChange('essay_intro').then( ()=> comp.play() );
     },
   },
   ]
@@ -190,7 +197,31 @@ class CompressionTutorial extends BaseCompressionGraphic {
     // dedicated scratch space.
     this.stagebox = this.svg.append('g')
       .classed('stage-sandbox', true);
-    this.warmCache(['thrillscheap', 'essay_intro']);
+    // TODO: technically an extra request here
+    this.warmCache(['thrillscheap', 'essay_intro', 'cheapthrills_chorus']);
+  }
+
+  quickChange(song) {
+    if (song === this.slug) {
+      console.log('Already on that song. Nothing to do.');
+      return new Promise(cb => cb());
+    }
+    let wait = this.reset(song, true);
+    return new Promise( cb => {
+      d3.timeout( () => this.onReady(cb), wait);
+    });
+  }
+  renderOdometer() {
+    super.renderOdometer();
+    // TODO: this results in some jitter when width of text changes
+    this.odometer.select('text')
+      .attr('text-anchor', 'end');
+  }
+
+  odometerWhere() {
+    let x = this.W;
+    let y = 0;
+    return {x,y};
   }
 
 }
