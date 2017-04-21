@@ -3,6 +3,8 @@ import { BaseCompressionGraphic } from './compression-base.js';
 
 const default_song = 'cheapthrills_chorus';
 
+/* The 'main' compression graphic (the full-width one without accompanying
+ * explanatory text and scrollytelling. */
 class CompressionGraphic extends BaseCompressionGraphic {
 
   constructor(rootsel) {

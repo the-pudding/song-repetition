@@ -5,6 +5,9 @@ import { BaseCompressionGraphic } from './compression-base.js';
 
 // TODO: maybe show extended odometer?
 
+const play_accel = 1.1;
+const play_speed = 2;
+
 class CompressionWrapper {
   constructor() {
     this.controller = scroll_controller;
@@ -95,6 +98,7 @@ class CompressionWrapper {
   {
     html: `<p>The <code>ills</code> in "thrills" is out first non-trivial repetition.</p>`,
     onEnter: (comp) => {
+      console.assert(comp.slug === 'cheapthrills_chorus');
       let ditto = comp.dittos[0];
       let highlight_dur = 2500;
       comp.highlightSrc(ditto.src, highlight_dur);
@@ -152,7 +156,7 @@ class CompressionWrapper {
       if (!down) {
         comp.quickChange('cheapthrills_chorus').then(() => {
           // TODO: ravelling should happen at superspeed
-          comp.play();
+          comp.play(4, 0);
         });
         return;
       }
@@ -174,14 +178,18 @@ class CompressionWrapper {
       // to autoplay
       // TODO: but if it does stick with autoplay, it needs to accelerate
       // and be a bit faster overall
-      comp.quickChange('thrillscheap').then( ()=> comp.play() );
+      comp.quickChange('thrillscheap').then( 
+        ()=> comp.play(play_speed, play_accel) 
+      );
     },
   },
 
   {
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
-      comp.quickChange('essay_intro').then( ()=> comp.play() );
+      comp.quickChange('essay_intro').then(
+        ()=> comp.play(play_speed, play_accel) 
+      );
     },
   },
   ]
@@ -199,6 +207,8 @@ class CompressionTutorial extends BaseCompressionGraphic {
       .classed('stage-sandbox', true);
     // TODO: technically an extra request here
     this.warmCache(['thrillscheap', 'essay_intro', 'cheapthrills_chorus']);
+    this.ravel_duration = 2000;
+    this.defrag_duration = 5000;
   }
 
   quickChange(song) {

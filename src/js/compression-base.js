@@ -12,14 +12,23 @@ const ravel_duration = 2000;
 // interpreted as ms required to traverse this many pixels of text.
 const text_reference_length = 200;
 
+const STATE = {
+  loading: 'loading',
+  ready: 'ready',
+  running: 'running',
+  paused: 'paused',
+  defragged: 'defragged',
+}
+
 class BaseCompressionGraphic {
 
   constructor(rootsel, config={}) {
+    // TODO: define as a sort of state machine? (Cause there are sort of certain
+    // rules that apply when going between certain pairs of states.)
+    this.state = STATE.loading;
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
     this.json_cache = new Map();
-    this.running = false;
-    this.defragged = false;
     this.fontsize = 16 * text_scale;
     // pretty close
     this.glyphwidth = 9.6 * text_scale;
@@ -87,7 +96,6 @@ class BaseCompressionGraphic {
           .attr('d', 'M0,-5L10,0L0,5');
 
     this.lastditto = -1;
-    this.ready = false;
     this.ready_queue = [];
     this.setSong(config.song || 'cheapthrills_chorus');
   }
@@ -105,6 +113,7 @@ class BaseCompressionGraphic {
   }
 
   reset(slug, smooth=false) {
+    this.state = STATE.loading;
     this.defragged = false;
     // TODO: all these different booleans are messy and brittle. Should just
     // have one 'state' enum variable.
@@ -154,33 +163,39 @@ class BaseCompressionGraphic {
       .remove();
   }
 
-  play() {
-    if (this.running || this.defragged) {
-      console.warn("Can't play.");
-      return;
+  play(speed=1.0, accel=0) {
+    if (!(this.state === STATE.ready || this.state === STATE.paused)) {
+      console.log(`Can't play in state ${this.state}`);
+    } else {
+      this.state = STATE.running;
+      this._playloop(speed, accel);
     }
-    this.running = true;
-    this._playloop();
   }
   pause() {
-    this.running = false;
+    this.state = STATE.paused;
   }
-  _playloop() {
-    if (!this.running) return;
-    let step = this.step();
+  _playloop(speed, accel, iter=0) {
+    if (this.state != STATE.running) return;
+    let dur = this.ravel_duration/speed;
+    if (accel) {
+      console.assert(accel > 1);
+      dur /= Math.pow(accel, iter);
+    }
+    let step = this.step(dur);
     if (!step) {
-      this.running = false;
       // TODO: not clear if this should happen here or in step()
-      this.defrag();
+      this.defrag(this.defrag_duration/speed);
     } else {
-      step.then(()=> this._playloop());
+      step.then(()=> this._playloop(speed, accel, iter+1));
     }
   }
 
   defrag() {
-    if (this.defragged) {
+    if (this.state === STATE.loading || this.state === STATE.defragged) {
+      console.log(`Can't defrag in state ${this.state}`);
       return;
     }
+    this.state = STATE.defragged;
     let clock = 0;
     let dur;
     const time_pie = {
@@ -194,7 +209,6 @@ class BaseCompressionGraphic {
       time_pie[k] = time_pie[k] * this.defrag_duration;
     });
     // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
-    this.defragged = true;
     let invis = this.svg.selectAll('.word')
       .filter(d => !d.visible);
     dur = time_pie.erase;
@@ -302,7 +316,7 @@ class BaseCompressionGraphic {
 
   setSong(slug) {
     this.slug = slug;
-    this.ready = false;
+    this.state = STATE.loading;
     let songdat_callback = songdat => {
       let lines = songdat.lines;
       this.dittos = songdat.dittos;
@@ -311,7 +325,7 @@ class BaseCompressionGraphic {
       );
       this.renderText(lines);
       this.renderOdometer();
-      this.ready = true;
+      this.state = STATE.ready;
       this.ready_queue.forEach(cb => cb());
       this.ready_queue = [];
     }
@@ -331,7 +345,9 @@ class BaseCompressionGraphic {
       d3.json(url, songdat => this.json_cache.set(slug, songdat));
     }
   }
-
+  get ready() {
+    return this.state !== STATE.loading;
+  }
   onReady(cb) {
     if (this.ready) {
       cb();
@@ -376,6 +392,7 @@ class BaseCompressionGraphic {
     this.odometer
       .append('text')
       .classed('reduction', true)
+      .attr('text-anchor', 'end')
       .text('Size reduction: 0%');
     return;
     let lineno = 0;
@@ -383,7 +400,6 @@ class BaseCompressionGraphic {
       this.odometer
         .append('text')
         .attr('dy', this.lineheight*lineno++)
-        .attr('text-anchor', 'end')
         .classed(classname, true);
     }
     this.odometer.select('.orig')
@@ -809,4 +825,4 @@ class BaseCompressionGraphic {
   }
 }
 
-export { BaseCompressionGraphic };
+export { BaseCompressionGraphic, STATE };
