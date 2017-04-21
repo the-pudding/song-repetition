@@ -162,10 +162,11 @@ class CompressionWrapper {
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
       // TODO: smooth transition between songs
-      comp.reset('thrillscheap');
+      let wait = comp.reset('thrillscheap', true);
       // TODO: try binding to scroll progress rather than just setting 
       // to autoplay
-      comp.onReady(() => comp.play());
+      d3.timeout( () => comp.onReady(()=>comp.play()), 
+          wait);
     },
   },
 

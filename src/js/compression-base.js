@@ -55,6 +55,8 @@ class BaseCompressionGraphic {
     let margin = {top: 20, right: 20, bottom: 50, left: 40};
     var totalW = config.W || 1300;
     var totalH = config.H || 600;
+    this.totalW = totalW;
+    this.totalH = totalH;
     this.W = totalW - margin.left - margin.right;
     this.H = totalH - margin.top - margin.bottom;
     this.svg = this.root.append('svg')
@@ -101,11 +103,51 @@ class BaseCompressionGraphic {
     this.reset(SLUGS[i]);
   }
 
-  reset(slug) {
+  reset(slug, smooth=false) {
     this.defragged = false;
     this.lastditto = -1;
-    this.svg.text('');
-    this.setSong(slug || this.slug);
+    this.shutdowneverything();
+    if (!smooth) {
+      this.svg.text('');
+      this.setSong(slug || this.slug);
+    } else {
+      let dur = 1000;
+      this.wipeIn(dur)
+        .on('end', () => {
+          this.svg.text('');
+          this.setSong(slug || this.slug);
+          this.wipeOut(dur);
+        });
+      return dur*2;
+    }
+  }
+
+  shutdowneverything() {
+    this.svg.selectAll('*').interrupt();
+  }
+
+  wipeIn(dur) {
+    let mask = this.root.select('svg')
+      .append('rect')
+      .classed('mask', true)
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', this.totalW)
+      .attr('height', this.totalH)
+      .attr('fill', 'white')
+      .attr('opacity', 0);
+    return mask
+      .transition()
+      .duration(dur)
+      .attr('opacity', 1);
+  }
+  // ha ha ha ha ha
+  wipeOut(dur) {
+    this.root.select('.mask')
+      .transition()
+      .duration(dur)
+      .attr('opacity', 0)
+      .remove();
   }
 
   play() {
