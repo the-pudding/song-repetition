@@ -1,7 +1,10 @@
 import * as d3 from 'd3';
-import { BaseCompressionGraphic } from './compression-base.js';
+import { BaseCompressionGraphic, STATE } from './compression-base.js';
 
 const default_song = 'cheapthrills_chorus';
+const default_accel = (iter, dur) => {
+  return Math.max(100, dur - iter*40);
+};
 
 /* The 'main' compression graphic (the full-width one without accompanying
  * explanatory text and scrollytelling. */
@@ -11,10 +14,12 @@ class CompressionGraphic extends BaseCompressionGraphic {
     let config = {
       song: default_song,
       W: 1100, ncols: 2, H: 600,
+      debug: true,
     };
     super(rootsel, config);
     this.ravel_duration = 3000;
     this.renderButtons();
+    this.speed = 1;
   }
 
   // TODO: make sure this is periodically called. Maybe need a generic 
@@ -27,14 +32,36 @@ class CompressionGraphic extends BaseCompressionGraphic {
     }
     let button_data = [
       {
-        name: 'play', cb: () => this.play(), visible: () => (!this.running)
+        name: 'play', cb: () => this.play(this.speed, default_accel), 
+          visible: () => (!this.running)
       },
       {name: 'pause', cb: () => this.pause(), visible: () => this.running
       },
       {name: 'step', cb: () => this.step(), visible: () => !this.running
       },
+      {name: 'faster',
+        cb: () => {
+          // TODO: whoops, this can totally cause concurrency issues
+          // with multiple playloops running at once
+          // Easiest sol'n probably just to use the speed attr rather
+          // than passing it to play method.
+          let running = this.state === STATE.running;
+          if (running) this.pause();
+          this.speed *= 1.2;
+          if (running) this.play(this.speed, default_accel);
+        },
+      },
+      {name: 'slower',
+        cb: () => {
+          let running = this.state === STATE.running;
+          if (running) this.pause();
+          this.speed *= .8;
+          if (running) this.play(this.speed, default_accel);
+        },
+      },
+
     ];
-    let visible_buttdata = button_data.filter(bd=>bd.visible());
+    let visible_buttdata = button_data.filter(bd=> !(bd.visible) || bd.visible());
     let butts = butcon.selectAll('button').data(visible_buttdata)
     let newbutts = butts.enter()
       .append('button')

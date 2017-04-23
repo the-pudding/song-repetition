@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import SLUGS from './lz-directory.js';
+import { BaseChart } from './basechart.js';
 
 const text_scale = 4/5;
 
@@ -20,11 +21,13 @@ const STATE = {
   defragged: 'defragged',
 }
 
-class BaseCompressionGraphic {
+class BaseCompressionGraphic extends BaseChart {
 
   constructor(rootsel, config={}) {
     // TODO: define as a sort of state machine? (Cause there are sort of certain
     // rules that apply when going between certain pairs of states.)
+    super(rootsel, {...config, responsive: true});
+    this.rootsel = rootsel;
     this.state = STATE.loading;
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
@@ -42,14 +45,11 @@ class BaseCompressionGraphic {
       marker: y => (this.lineheight * y) - this.lineheight * .25,
       text: y=>this.basey(y),
     };
-    this.rootsel = rootsel;
-    this.root = d3.select(this.rootsel);
     if (config.debug) {
-      let butcon = this.root.append('div');
+      let butcon = this.root.insert('div', ':first-child');
       const buttons = [
         {name: 'step', cb: ()=>this.step()},
-        //{name: 'unstep', cb: ()=>this.unstep()},
-        {name: 'reset', cb: ()=>this.reset()},
+        //{name: 'reset', cb: ()=>this.reset()},
         {name: 'fast-forward', cb: ()=>this.setLastDitto(10000)},
         {name: 'defrag', cb: ()=>this.defrag()},
         {name: 'shuffle', cb: ()=>this.shuffle()},
@@ -62,20 +62,6 @@ class BaseCompressionGraphic {
         .text(d=>d.name)
         .on('click', d=>d.cb());
     }
-    let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = config.W || 1300;
-    var totalH = config.H || 600;
-    this.totalW = totalW;
-    this.totalH = totalH;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
-    this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
-      .style('background-color', 'rgba(255,240,255,1)')
-      .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
-    
     this.ncols = config.ncols || 3;
     this.maxlines = 44;
     this.colwidth = this.W/this.ncols;
@@ -163,7 +149,7 @@ class BaseCompressionGraphic {
       .remove();
   }
 
-  play(speed=1.0, accel=0) {
+  play(speed=1.0, accel=null) {
     if (!(this.state === STATE.ready || this.state === STATE.paused)) {
       console.log(`Can't play in state ${this.state}`);
     } else {
@@ -178,8 +164,7 @@ class BaseCompressionGraphic {
     if (this.state != STATE.running) return;
     let dur = this.ravel_duration/speed;
     if (accel) {
-      console.assert(accel > 1);
-      dur /= Math.pow(accel, iter);
+      dur = accel(iter, dur);
     }
     let step = this.step(dur);
     if (!step) {

@@ -1,12 +1,16 @@
 import * as d3 from 'd3';
 import scroll_controller from './scroll.js';
 import ScrollMagic from 'scrollmagic';
-import { BaseCompressionGraphic } from './compression-base.js';
+import { BaseCompressionGraphic, STATE } from './compression-base.js';
 
 // TODO: maybe show extended odometer?
 
-const play_accel = 1.1;
+const play_accel = null;
 const play_speed = 2;
+const autoplay = 0;
+const scroll_acceleration = 1;
+
+// TODO: would be cool to bind *all* the stages to scroll progress
 
 class CompressionWrapper {
   constructor() {
@@ -33,11 +37,14 @@ class CompressionWrapper {
       .append('div')
       .classed('slide-wrapper', true)
       .classed('first', (d,i) => i===0)
+      .classed('progressive', d => d.progressive)
       .append('div')
       .classed('slide', true)
       .html(sd => sd.html)
   }
 
+  // Setup the overall scene wherein the compression graphic is pinned to
+  // the top, and the sub-scenes for each stage of the graphic.
   setScene() {
     let viewportHeight = window.innerHeight;
     // TODO: use setpin instead?
@@ -52,15 +59,20 @@ class CompressionWrapper {
       .addTo(this.controller);
 
     let slides = this.prose.selectAll('.slide');
-    let slide_offset = -1 * viewportHeight * 2/5;
+    // How far down from the top of the viewport does a scene's
+    // paragraph become active
+    let slide_offset = -1 * viewportHeight * 1/2;
+    // TODO: Need some way to ensure no more than one scene can be 
+    // active at once. (Otherwise the progress stuff is gonna get fucky.)
+    // Maybe need some arbitrator that manages a lock on current scene.
     slides.each( (dat,i,n) => {
       let stagenode = n[i];
       let slide_scene = new ScrollMagic.Scene({
         triggerElement: stagenode,
         triggerHook: 'onLeave',
-        // TODO: should probably be a function of viewport height
         offset: slide_offset, 
-        duration: (-1*slide_offset) + stagenode.offsetHeight/2,
+        duration: (-1*slide_offset)
+           + (dat.progressive ? viewportHeight/2 : 0), //+ stagenode.offsetHeight/2,
       })
         .on('enter', (e) => {
           if (dat.onEnter) {
@@ -77,6 +89,12 @@ class CompressionWrapper {
           }
         })
         .addTo(this.controller);
+        if (!autoplay && dat.progressive) {
+          slide_scene.on('progress', e => {
+            console.log(e.progress);
+            this.comp.onScroll(e.progress);
+          });
+        }
     });
   }
   toggleFixed(fixed, bottom) {
@@ -96,9 +114,10 @@ class CompressionWrapper {
     html: `<p>The Lempel-Ziv algorithm scans the input from beginning to end looking for chunks of text that exactly match earlier parts</p>`,
   },
   {
-    html: `<p>The <code>ills</code> in "thrills" is out first non-trivial repetition.</p>`,
+    html: `<p>The <code>ills</code> in "thrills" is our first non-trivial repetition.</p>`,
     onEnter: (comp) => {
-      console.assert(comp.slug === 'cheapthrills_chorus');
+      console.assert(comp.slug === 'cheapthrills_chorus', 
+          `Wrong song. Expected ct_chorus, got ${comp.slug}`);
       let ditto = comp.dittos[0];
       let highlight_dur = 2500;
       comp.highlightSrc(ditto.src, highlight_dur);
@@ -155,8 +174,7 @@ class CompressionWrapper {
     onEnter: (comp, down) => {
       if (!down) {
         comp.quickChange('cheapthrills_chorus').then(() => {
-          // TODO: ravelling should happen at superspeed
-          comp.play(4, 0);
+          comp.play(4);
         });
         return;
       }
@@ -169,27 +187,36 @@ class CompressionWrapper {
       d3.timeout( () => comp.defrag(), wait);
     },
     // TODO: gonna be real hard to reverse this :/
+    // Need a refrag method, or just kinda do a reset and skip ahead.
   },
 
   {
+    // TODO: need to figure out how to slow down scrolling during
+    // these stages
+    progressive: true,
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
       // TODO: try binding to scroll progress rather than just setting 
       // to autoplay
-      // TODO: but if it does stick with autoplay, it needs to accelerate
-      // and be a bit faster overall
-      comp.quickChange('thrillscheap').then( 
-        ()=> comp.play(play_speed, play_accel) 
-      );
+      let qc = comp.quickChange('thrillscheap');
+      if (autoplay) {
+        qc.then( 
+          ()=> comp.play(play_speed, play_accel) 
+        );
+      }
     },
   },
 
   {
+    progressive: true,
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
-      comp.quickChange('essay_intro').then(
-        ()=> comp.play(play_speed, play_accel) 
-      );
+      let qc = comp.quickChange('essay_intro');
+      if (autoplay) {
+        qc.then( 
+          ()=> comp.play(play_speed, play_accel) 
+        );
+      }
     },
   },
   ]
@@ -213,7 +240,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
 
   quickChange(song) {
     if (song === this.slug) {
-      console.log('Already on that song. Nothing to do.');
+      console.log(`Already on ${song}. Nothing to do.`);
       return new Promise(cb => cb());
     }
     let wait = this.reset(song, true);
@@ -221,6 +248,23 @@ class CompressionTutorial extends BaseCompressionGraphic {
       d3.timeout( () => this.onReady(cb), wait);
     });
   }
+
+  onScroll(progress) {
+    if (this.state === STATE.loading || this.state === STATE.defragged) {
+      return;
+    }
+    progress = Math.pow(progress, scroll_acceleration);
+    let slack = .1;
+    let prog_per_ditto = (1-slack)/this.dittos.length;
+    let i = Math.floor(progress/prog_per_ditto);
+    if (this.lastditto === i && i === this.dittos.length-1) {
+      // We're at the end. We've run out of dittos. Defrag.
+      this.defrag();
+    } else {
+      this.setLastDitto(i);
+    }
+  }
+
   renderOdometer() {
     super.renderOdometer();
     // TODO: this results in some jitter when width of text changes

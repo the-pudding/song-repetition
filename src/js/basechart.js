@@ -6,13 +6,17 @@ class BaseChart {
   constructor(rootsel, size={}) {
     this.root = d3.select(rootsel);
     let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    var totalW = size.W || 1000;
-    var totalH = size.H || 600;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
+    if (size.responsive) {
+      this.totalW = this.root.node().offsetWidth;
+    } else {
+      this.totalW = size.W || 1000;
+    }
+    this.totalH = size.H || 600;
+    this.W = this.totalW - margin.left - margin.right;
+    this.H = this.totalH - margin.top - margin.bottom;
     this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
+      .attr('width', this.totalW)
+      .attr('height', this.totalH)
       .style('background-color', 'rgba(240,255,255,1)')
       .append("g")
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");

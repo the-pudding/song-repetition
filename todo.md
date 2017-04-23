@@ -58,6 +58,7 @@
 - "I wanted a visual signal of repetitiveness across the article. Maybe consistent coloring of repetitiveness (red is higher than X (e.g., “Tequila by the Champs would be here.”, “0 is Bohemian Rhapsody which would be here”)"
 - stop hard-coding dimensions of graphics. Should probably set size as fn of the size of the containing div (which should probably be set with % units)
 - review easing (which is right now a random mix of linear and the default cubic)
+- resizing shenanigans
 
 ## Data
 - Consider doing more normalization before compressing. As a way of removing non-meaningful variations in how lyrics are transcribed that could lead to different compression ratios.
