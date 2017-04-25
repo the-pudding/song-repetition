@@ -1,0 +1,920 @@
+{
+  "lines": [
+    [
+      "A", 
+      "ll", 
+      " th", 
+      "e ", 
+      "s", 
+      "ma", 
+      "ll t", 
+      "h", 
+      "ing", 
+      "s\n"
+    ], 
+    [
+      "Tru", 
+      "e", 
+      " car", 
+      "e", 
+      " truth br", 
+      "ings\n"
+    ], 
+    [
+      "I", 
+      "'", 
+      "ll ", 
+      "t", 
+      "ake one lift", 
+      "\n"
+    ], 
+    [
+      "You", 
+      "r ride best trip\n"
+    ], 
+    [
+      "Always", 
+      " I know", 
+      "\n"
+    ], 
+    [
+      "You", 
+      "'ll ", 
+      "be", 
+      " at my show\n"
+    ], 
+    [
+      "Watc", 
+      "h", 
+      "ing", 
+      ", ", 
+      "wai", 
+      "t", 
+      "ing", 
+      ", ", 
+      "co", 
+      "mmisera", 
+      "ting", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Say it ain't so, I will not go\n"
+    ], 
+    [
+      "Turn", 
+      " t", 
+      "he ", 
+      "l", 
+      "ight", 
+      "s off,", 
+      " car", 
+      "ry", 
+      " ", 
+      "me ", 
+      "home", 
+      "\n"
+    ], 
+    [
+      "N", 
+      "a, n", 
+      "a, na, na", 
+      "\n"
+    ], 
+    [
+      "N", 
+      "a, n", 
+      "a, na, na, na, na, na, na, na, na, na", 
+      " \n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Lat", 
+      "e n", 
+      "ight", 
+      ", co", 
+      "me home\n"
+    ], 
+    [
+      "Work sucks,", 
+      " I", 
+      " know", 
+      "\n"
+    ], 
+    [
+      "S", 
+      "he l", 
+      "ef", 
+      "t", 
+      " me", 
+      " ", 
+      "ro", 
+      "ses ", 
+      "by", 
+      " the s", 
+      "tairs\n"
+    ], 
+    [
+      "Surpri", 
+      "ses ", 
+      "le", 
+      "t me", 
+      " know", 
+      " sh", 
+      "e care", 
+      "s", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Say it ain't so, I will not go\n"
+    ], 
+    [
+      "Turn the lights off, carry me home\n"
+    ], 
+    [
+      "Na, na, na, na\n"
+    ], 
+    [
+      "Na, na, na, na, na, na, na, na, na, na, na \n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Say it ain't so, I", 
+      " will ", 
+      "not go\n"
+    ], 
+    [
+      "Turn the lights off, carry me home\n"
+    ], 
+    [
+      "Keep", 
+      " your ", 
+      "head still, I", 
+      "'ll be", 
+      " your ", 
+      "thr", 
+      "ill\n"
+    ], 
+    [
+      "Th", 
+      "e night", 
+      " will ", 
+      "go on", 
+      ", m", 
+      "y little windm", 
+      "ill\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Say it ain't so, I will not go\n"
+    ], 
+    [
+      "Turn the lights off, carry me home\n"
+    ], 
+    [
+      "Keep your head still, I'll be your thrill", 
+      "\n"
+    ], 
+    [
+      "The night will go on", 
+      "\n"
+    ], 
+    [
+      "The night will go on\n"
+    ], 
+    [
+      "M", 
+      "y little windmill\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "y1": 0, 
+        "x1": 11, 
+        "y2": 0, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 5, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 0, 
+        "txt": "ll th", 
+        "x1": 1, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 1, 
+        "x1": 18, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 20, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "y1": 0, 
+        "txt": "ings\n", 
+        "x1": 16, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 5, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 2, 
+        "x1": 2, 
+        "y2": 2, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 0, 
+        "txt": "ll t", 
+        "x1": 11, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 2, 
+        "x1word": 2, 
+        "x2word": 0, 
+        "y1": 4, 
+        "x1": 13, 
+        "y2": 5, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 2, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "y1": 2, 
+        "txt": "\nYou", 
+        "x1": 18, 
+        "y2": 3, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 5, 
+        "x1": 3, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 2, 
+        "txt": "'ll ", 
+        "x1": 1, 
+        "y2": 2, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 7, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 6, 
+        "x1": 4, 
+        "y2": 6, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "y1": 0, 
+        "txt": "hing", 
+        "x1": 15, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "y1": 6, 
+        "x1": 14, 
+        "y2": 6, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 6, 
+        "txt": "ing, ", 
+        "x1": 5, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 31, 
+        "x1word": 10, 
+        "x2word": 10, 
+        "y1": 6, 
+        "x1": 28, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "y1": 6, 
+        "txt": "ting", 
+        "x1": 13, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 9, 
+        "x1": 4, 
+        "y2": 9, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 7, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 0, 
+        "txt": " the ", 
+        "x1": 3, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 9, 
+        "x1": 20, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 7, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 1, 
+        "txt": " car", 
+        "x1": 4, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 13, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 10, 
+        "x1": 5, 
+        "y2": 10, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 10, 
+        "txt": "a, n", 
+        "x1": 1, 
+        "y2": 10, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 3, 
+        "x2word": 1, 
+        "y1": 10, 
+        "x1": 14, 
+        "y2": 11, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 11, 
+        "x2word": 1, 
+        "y1": 9, 
+        "txt": "\nNa, n", 
+        "x1": 34, 
+        "y2": 10, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 41, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 11, 
+        "x1": 5, 
+        "y2": 11, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 11, 
+        "txt": "a, n", 
+        "x1": 1, 
+        "y2": 11, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 13, 
+        "x1": 6, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 9, 
+        "txt": "ight", 
+        "x1": 10, 
+        "y2": 9, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 13, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 13, 
+        "x1": 10, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 20, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "y1": 6, 
+        "txt": ", co", 
+        "x1": 17, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 13, 
+        "x1": 14, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 9, 
+        "x2word": 11, 
+        "y1": 9, 
+        "txt": "me home\n", 
+        "x1": 27, 
+        "y2": 9, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "y1": 14, 
+        "x1": 11, 
+        "y2": 14, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 4, 
+        "txt": " I know\n", 
+        "x1": 6, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 15, 
+        "x1": 1, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 9, 
+        "txt": "he l", 
+        "x1": 6, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "y1": 15, 
+        "x1": 8, 
+        "y2": 15, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 29, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "y1": 9, 
+        "txt": " me ", 
+        "x1": 26, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "y1": 15, 
+        "x1": 20, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 2, 
+        "x2word": 4, 
+        "y1": 0, 
+        "txt": " the s", 
+        "x1": 3, 
+        "y2": 0, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 16, 
+        "x1": 6, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 15, 
+        "txt": "ses ", 
+        "x1": 14, 
+        "y2": 15, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 16, 
+        "x1": 12, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 15, 
+        "txt": "t me", 
+        "x1": 7, 
+        "y2": 15, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 16, 
+        "x1": 16, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 14, 
+        "txt": " know", 
+        "x1": 13, 
+        "y2": 14, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 16, 
+        "x1": 24, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "y1": 1, 
+        "txt": "e care", 
+        "x1": 3, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 8, 
+        "x2word": 0, 
+        "y1": 16, 
+        "x1": 31, 
+        "y2": 22, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 11, 
+        "x2word": 0, 
+        "y1": 6, 
+        "txt": "\n\nSay it ain't so, I will not go\nTurn the lights off, carry me home\nNa, na, na, na\nNa, na, na, na, na, na, na, na, na, na, na \n\n", 
+        "x1": 32, 
+        "y2": 12, 
+        "nwords": 24
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 23, 
+        "x1": 0, 
+        "y2": 24, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 18, 
+        "txt": "Say it ain't so, I will not go\nTurn the lights off, carry me home\n", 
+        "x1": 0, 
+        "y2": 19, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 28, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 25, 
+        "x1": 23, 
+        "y2": 25, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 5, 
+        "txt": "'ll be", 
+        "x1": 3, 
+        "y2": 5, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 25, 
+        "x1": 29, 
+        "y2": 25, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 25, 
+        "txt": " your ", 
+        "x1": 4, 
+        "y2": 25, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 26, 
+        "x1": 2, 
+        "y2": 26, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 13, 
+        "txt": "e night", 
+        "x1": 3, 
+        "y2": 13, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 26, 
+        "x1": 9, 
+        "y2": 26, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 23, 
+        "txt": " will ", 
+        "x1": 18, 
+        "y2": 23, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 40, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 26, 
+        "x1": 37, 
+        "y2": 26, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 41, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 25, 
+        "txt": "ill\n", 
+        "x1": 38, 
+        "y2": 25, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 27, 
+        "x1": 0, 
+        "y2": 31, 
+        "nwords": 6
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 3, 
+        "y1": 22, 
+        "txt": "\nSay it ain't so, I will not go\nTurn the lights off, carry me home\nKeep your head still, I'll be your thrill\nThe night will go on", 
+        "x1": 0, 
+        "y2": 26, 
+        "nwords": 16
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 31, 
+        "x1": 20, 
+        "y2": 32, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 30, 
+        "txt": "\nThe night will go on", 
+        "x1": 41, 
+        "y2": 31, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 33, 
+        "x1": 1, 
+        "y2": 33, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 40, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "y1": 26, 
+        "txt": "y little windmill\n", 
+        "x1": 23, 
+        "y2": 26, 
+        "nwords": 2
+      }
+    }
+  ]
+}

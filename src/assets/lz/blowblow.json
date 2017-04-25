@@ -1,0 +1,923 @@
+{
+  "lines": [
+    [
+      "B", 
+      "low,", 
+      " b", 
+      "low,", 
+      " t", 
+      "hou", 
+      " ", 
+      "win", 
+      "ter", 
+      " ", 
+      "win", 
+      "d", 
+      ",\n"
+    ], 
+    [
+      "T", 
+      "hou ", 
+      "art", 
+      " not s", 
+      "o ", 
+      "unkind", 
+      "\n"
+    ], 
+    [
+      "As ", 
+      "man's ingratitude;\n"
+    ], 
+    [
+      "Thy tooth", 
+      " ", 
+      "is", 
+      " ", 
+      "not", 
+      " so ", 
+      "keen\n"
+    ], 
+    [
+      "Because", 
+      " ", 
+      "t", 
+      "hou", 
+      " ", 
+      "art not s", 
+      "een,\n"
+    ], 
+    [
+      "Al", 
+      "th", 
+      "ou", 
+      "gh t", 
+      "hy breath be rude", 
+      ".\n"
+    ], 
+    [
+      "H", 
+      "eigh-ho! ", 
+      "s", 
+      "ing", 
+      " ", 
+      "h", 
+      "eigh-ho!", 
+      " ", 
+      "unto", 
+      " the", 
+      " green", 
+      " h", 
+      "olly", 
+      ":\n"
+    ], 
+    [
+      "M", 
+      "ost ", 
+      "friend", 
+      "ship", 
+      " is ", 
+      "feigning,", 
+      " m", 
+      "ost ", 
+      "lov", 
+      "ing ", 
+      "mere f", 
+      "olly", 
+      ":\n"
+    ], 
+    [
+      "Th", 
+      "en,", 
+      " heigh-ho!", 
+      " ", 
+      "the", 
+      " ", 
+      "h", 
+      "olly", 
+      "!\n"
+    ], 
+    [
+      "This life is", 
+      " m", 
+      "ost ", 
+      "j", 
+      "olly", 
+      ".", 
+      " \n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "F", 
+      "reeze,", 
+      " f", 
+      "reeze,", 
+      " thou", 
+      " ", 
+      "bit", 
+      "ter ", 
+      "sky", 
+      ",\n"
+    ], 
+    [
+      "T", 
+      "h", 
+      "ou ", 
+      "d", 
+      "ost ", 
+      "not", 
+      " bit", 
+      "e", 
+      " so ", 
+      "nigh", 
+      "\n"
+    ], 
+    [
+      "As ", 
+      "benefits forgot", 
+      ":\n"
+    ], 
+    [
+      "Th", 
+      "ough t", 
+      "hou ", 
+      "the ", 
+      "waters warp", 
+      ",\n"
+    ], 
+    [
+      "Th", 
+      "y st", 
+      "ing ", 
+      "is", 
+      " not", 
+      " so ", 
+      "sharp", 
+      "\n"
+    ], 
+    [
+      "As ", 
+      "friend", 
+      " remember'd", 
+      " not", 
+      ".\n"
+    ], 
+    [
+      "Heigh-ho! sing heigh-ho! unto the green holly:\n"
+    ], 
+    [
+      "Most friendship is feigning, most loving mere folly:\n"
+    ], 
+    [
+      "Then, heigh-ho! the holly!\n"
+    ], 
+    [
+      "This life is most jolly.", 
+      "\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 0, 
+        "x1": 7, 
+        "y2": 0, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 0, 
+        "txt": "low,", 
+        "x1": 1, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 9, 
+        "x2word": 10, 
+        "y1": 0, 
+        "x1": 23, 
+        "y2": 0, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "y1": 0, 
+        "txt": " win", 
+        "x1": 16, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 1, 
+        "x1": 1, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "y1": 0, 
+        "txt": "hou ", 
+        "x1": 13, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "y1": 3, 
+        "x1": 12, 
+        "y2": 3, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 1, 
+        "txt": " not so ", 
+        "x1": 8, 
+        "y2": 1, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "y1": 4, 
+        "x1": 9, 
+        "y2": 4, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "y1": 1, 
+        "txt": "hou art not s", 
+        "x1": 1, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 5, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 5, 
+        "x1": 2, 
+        "y2": 5, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 4, 
+        "txt": "thou", 
+        "x1": 8, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "y1": 6, 
+        "x1": 16, 
+        "y2": 6, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 6, 
+        "txt": "eigh-ho! ", 
+        "x1": 1, 
+        "y2": 6, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 7, 
+        "x1": 15, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "y1": 3, 
+        "txt": " is ", 
+        "x1": 9, 
+        "y2": 3, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 7, 
+        "x1": 30, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 7, 
+        "txt": "ost ", 
+        "x1": 1, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 40, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "y1": 7, 
+        "x1": 37, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 6, 
+        "txt": "ing ", 
+        "x1": 11, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 52, 
+        "x1word": 11, 
+        "x2word": 12, 
+        "y1": 7, 
+        "x1": 47, 
+        "y2": 7, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 46, 
+        "x1word": 12, 
+        "x2word": 13, 
+        "y1": 6, 
+        "txt": "olly:\n", 
+        "x1": 41, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 8, 
+        "x1": 5, 
+        "y2": 8, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 4, 
+        "x2word": 6, 
+        "y1": 6, 
+        "txt": " heigh-ho!", 
+        "x1": 14, 
+        "y2": 6, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 8, 
+        "x1": 15, 
+        "y2": 8, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 32, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "y1": 6, 
+        "txt": " the", 
+        "x1": 29, 
+        "y2": 6, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "y1": 8, 
+        "x1": 19, 
+        "y2": 8, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 44, 
+        "x1word": 11, 
+        "x2word": 12, 
+        "y1": 6, 
+        "txt": " holly", 
+        "x1": 39, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 17, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 9, 
+        "x1": 12, 
+        "y2": 9, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 33, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "y1": 7, 
+        "txt": " most ", 
+        "x1": 28, 
+        "y2": 7, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 9, 
+        "x1": 19, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 24, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 8, 
+        "txt": "olly", 
+        "x1": 21, 
+        "y2": 8, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 12, 
+        "x1": 9, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 12, 
+        "txt": "reeze,", 
+        "x1": 1, 
+        "y2": 12, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "y1": 12, 
+        "x1": 15, 
+        "y2": 12, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 4, 
+        "y1": 4, 
+        "txt": " thou ", 
+        "x1": 7, 
+        "y2": 4, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 12, 
+        "x1": 24, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "y1": 0, 
+        "txt": "ter ", 
+        "x1": 20, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 9, 
+        "x2word": 2, 
+        "y1": 12, 
+        "x1": 31, 
+        "y2": 13, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 12, 
+        "x2word": 1, 
+        "y1": 0, 
+        "txt": ",\nThou ", 
+        "x1": 28, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 13, 
+        "x1": 6, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 9, 
+        "txt": "ost ", 
+        "x1": 14, 
+        "y2": 9, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 13, 
+        "x1": 13, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "y1": 12, 
+        "txt": " bit", 
+        "x1": 20, 
+        "y2": 12, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 8, 
+        "x2word": 8, 
+        "y1": 13, 
+        "x1": 18, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 3, 
+        "txt": " so ", 
+        "x1": 16, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 2, 
+        "x1word": 10, 
+        "x2word": 0, 
+        "y1": 13, 
+        "x1": 26, 
+        "y2": 14, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 2, 
+        "x1word": 6, 
+        "x2word": 0, 
+        "y1": 1, 
+        "txt": "\nAs ", 
+        "x1": 22, 
+        "y2": 2, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 1, 
+        "x1word": 2, 
+        "x2word": 0, 
+        "y1": 14, 
+        "x1": 18, 
+        "y2": 15, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 1, 
+        "x1word": 12, 
+        "x2word": 0, 
+        "y1": 7, 
+        "txt": ":\nTh", 
+        "x1": 51, 
+        "y2": 8, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 7, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 15, 
+        "x1": 2, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 5, 
+        "txt": "ough t", 
+        "x1": 4, 
+        "y2": 5, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 15, 
+        "x1": 8, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 13, 
+        "txt": "hou ", 
+        "x1": 1, 
+        "y2": 13, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 15, 
+        "x1": 12, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "y1": 8, 
+        "txt": "the ", 
+        "x1": 16, 
+        "y2": 8, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 1, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "y1": 15, 
+        "x1": 27, 
+        "y2": 16, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 1, 
+        "x1word": 9, 
+        "x2word": 1, 
+        "y1": 12, 
+        "txt": ",\nTh", 
+        "x1": 31, 
+        "y2": 13, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 16, 
+        "x1": 6, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 40, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "y1": 7, 
+        "txt": "ing ", 
+        "x1": 37, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "y1": 16, 
+        "x1": 10, 
+        "y2": 16, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 2, 
+        "x2word": 5, 
+        "y1": 3, 
+        "txt": "is not so ", 
+        "x1": 10, 
+        "y2": 3, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 2, 
+        "x1word": 7, 
+        "x2word": 0, 
+        "y1": 16, 
+        "x1": 25, 
+        "y2": 17, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 2, 
+        "x1word": 10, 
+        "x2word": 0, 
+        "y1": 13, 
+        "txt": "\nAs ", 
+        "x1": 26, 
+        "y2": 14, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 17, 
+        "x1": 3, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 7, 
+        "txt": "friend", 
+        "x1": 5, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 17, 
+        "x1": 20, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 16, 
+        "txt": " not", 
+        "x1": 12, 
+        "y2": 16, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "y1": 17, 
+        "x1": 24, 
+        "y2": 21, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 5, 
+        "txt": ".\nHeigh-ho! sing heigh-ho! unto the green holly:\nMost friendship is feigning, most loving mere folly:\nThen, heigh-ho! the holly!\nThis life is most jolly.", 
+        "x1": 27, 
+        "y2": 9, 
+        "nwords": 43
+      }
+    }
+  ]
+}

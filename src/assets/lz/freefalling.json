@@ -1,0 +1,594 @@
+{
+  "lines": [
+    [
+      "F", 
+      "ree falling", 
+      ",", 
+      " f", 
+      "ree falling", 
+      "\n"
+    ], 
+    [
+      "I", 
+      "t's ", 
+      "like I'm", 
+      " free falling", 
+      ",", 
+      " i", 
+      "t's ", 
+      "a change of course", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Here I am I", 
+      " sing the verse,", 
+      " sing the ", 
+      "verse,", 
+      " sing the verse", 
+      "\n"
+    ], 
+    [
+      "Upside down and", 
+      " in re", 
+      "verse,", 
+      " in reverse, in reverse", 
+      "\n"
+    ], 
+    [
+      "Here I am I sing the verse, sing the verse, sing", 
+      " the ", 
+      "verse\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse,", 
+      " in ", 
+      "reverse", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Free falling, free falling", 
+      "...", 
+      "\n"
+    ], 
+    [
+      "It's like I'm free fall", 
+      "ing", 
+      " ", 
+      "it's a change of course\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Feel", 
+      " ", 
+      "the ", 
+      "pressure", 
+      " in ", 
+      "my head", 
+      "\n"
+    ], 
+    [
+      "Feel ", 
+      "it happen", 
+      "ing ", 
+      "again", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Here I am I sing the verse, sing the verse, sing the verse\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse, in reverse\n"
+    ], 
+    [
+      "Here I am I sing the verse, sing the verse, sing the verse\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse, in reverse", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Here I am I sing the verse, sing the verse, sing the verse\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse, in reverse\n"
+    ], 
+    [
+      "Here I am I sing the verse, sing the verse, sing the verse", 
+      "\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse, in reverse", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Here I am I sing th", 
+      "e verse, sing th", 
+      "e verse, sing the verse,", 
+      "\n"
+    ], 
+    [
+      "Upside down and in reverse, in reverse, in reverse", 
+      "\n"
+    ], 
+    [
+      "Feel the pressure in my head\n"
+    ], 
+    [
+      "Feel it happening again", 
+      "\n"
+    ], 
+    [
+      "Feel the pressure in my head\n"
+    ], 
+    [
+      "Feel it happening again\n"
+    ], 
+    [
+      "Feel the pressure in my head", 
+      "...\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 0, 
+        "x1": 15, 
+        "y2": 0, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 0, 
+        "txt": "ree falling", 
+        "x1": 1, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 1, 
+        "x1": 13, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 0, 
+        "txt": " free falling", 
+        "x1": 13, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 32, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 1, 
+        "x1": 29, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 1, 
+        "txt": "t's ", 
+        "x1": 1, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 57, 
+        "x1word": 2, 
+        "x2word": 4, 
+        "y1": 3, 
+        "x1": 27, 
+        "y2": 3, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 26, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 3, 
+        "txt": " sing the verse,", 
+        "x1": 11, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 4, 
+        "x1": 21, 
+        "y2": 4, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 42, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 3, 
+        "txt": "verse,", 
+        "x1": 37, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 4, 
+        "x1": 27, 
+        "y2": 4, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 26, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 4, 
+        "txt": " in reverse,", 
+        "x1": 15, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 50, 
+        "x1word": 4, 
+        "x2word": 3, 
+        "y1": 4, 
+        "x1": 50, 
+        "y2": 6, 
+        "nwords": 8
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 0, 
+        "x2word": 3, 
+        "y1": 2, 
+        "txt": "\nHere I am I sing the verse, sing the verse, sing the verse\nUpside down and in reverse, in reverse, in reverse", 
+        "x1": 0, 
+        "y2": 4, 
+        "nwords": 11
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 8, 
+        "x1": 0, 
+        "y2": 8, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 0, 
+        "x2word": 4, 
+        "y1": 0, 
+        "txt": "Free falling, free falling", 
+        "x1": 0, 
+        "y2": 0, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 2, 
+        "x2word": 1, 
+        "y1": 8, 
+        "x1": 29, 
+        "y2": 9, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 5, 
+        "x2word": 3, 
+        "y1": 0, 
+        "txt": "\nIt's like I'm free falling", 
+        "x1": 26, 
+        "y2": 1, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 2, 
+        "x2word": 0, 
+        "y1": 9, 
+        "x1": 26, 
+        "y2": 10, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "y1": 1, 
+        "txt": " it's a change of course\n\n", 
+        "x1": 27, 
+        "y2": 2, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 11, 
+        "x1": 4, 
+        "y2": 11, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 52, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 5, 
+        "txt": " the ", 
+        "x1": 48, 
+        "y2": 5, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 11, 
+        "x1": 17, 
+        "y2": 11, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 42, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 6, 
+        "txt": " in ", 
+        "x1": 39, 
+        "y2": 6, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 6, 
+        "x2word": 0, 
+        "y1": 11, 
+        "x1": 28, 
+        "y2": 12, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "y1": 10, 
+        "txt": "\nFeel ", 
+        "x1": 0, 
+        "y2": 11, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 17, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 12, 
+        "x1": 14, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 26, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 9, 
+        "txt": "ing ", 
+        "x1": 23, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "y1": 12, 
+        "x1": 23, 
+        "y2": 17, 
+        "nwords": 6
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 8, 
+        "x2word": 2, 
+        "y1": 1, 
+        "txt": "\n\nHere I am I sing the verse, sing the verse, sing the verse\nUpside down and in reverse, in reverse, in reverse\nHere I am I sing the verse, sing the verse, sing the verse\nUpside down and in reverse, in reverse, in reverse", 
+        "x1": 51, 
+        "y2": 6, 
+        "nwords": 19
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 17, 
+        "x1": 50, 
+        "y2": 24, 
+        "nwords": 11
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "y1": 12, 
+        "txt": "\n\nHere I am I sing the verse, sing the verse, sing the verse\nUpside down and in reverse, in reverse, in reverse\nHere I am I sing the verse, sing the verse, sing the verse\nUpside down and in reverse, in reverse, in reverse", 
+        "x1": 23, 
+        "y2": 17, 
+        "nwords": 6
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 58, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 24, 
+        "x1": 35, 
+        "y2": 24, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 24, 
+        "txt": "e verse, sing th", 
+        "x1": 19, 
+        "y2": 24, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "y1": 24, 
+        "x1": 59, 
+        "y2": 25, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 21, 
+        "txt": "\nUpside down and in reverse, in reverse, in reverse", 
+        "x1": 58, 
+        "y2": 22, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 25, 
+        "x1": 50, 
+        "y2": 27, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 22, 
+        "x1word": 0, 
+        "x2word": 3, 
+        "y1": 10, 
+        "txt": "\nFeel the pressure in my head\nFeel it happening again", 
+        "x1": 0, 
+        "y2": 12, 
+        "nwords": 12
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 27, 
+        "x1": 23, 
+        "y2": 30, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 22, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 25, 
+        "txt": "\nFeel the pressure in my head\nFeel it happening again", 
+        "x1": 50, 
+        "y2": 27, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 31, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 30, 
+        "x1": 28, 
+        "y2": 30, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 29, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 8, 
+        "txt": "...\n", 
+        "x1": 26, 
+        "y2": 8, 
+        "nwords": 2
+      }
+    }
+  ]
+}

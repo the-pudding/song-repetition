@@ -15,7 +15,7 @@ class CompressionGraphic extends BaseCompressionGraphic {
     let config = {
       song: default_song,
       W: 1100, ncols: 2, H: 600,
-      debug: true,
+      //debug: true,
     };
     super(rootsel, config);
     this.ravel_duration = 3000;

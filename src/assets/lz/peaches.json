@@ -1,0 +1,890 @@
+{
+  "lines": [
+    [
+      "Movin' to the country,\n"
+    ], 
+    [
+      "Gonna eat", 
+      " ", 
+      "a lot of peaches\n"
+    ], 
+    [
+      "Movin' to the country,\n"
+    ], 
+    [
+      "Gonna eat", 
+      " ", 
+      "me", 
+      " a lot of peaches\n"
+    ], 
+    [
+      "Movin' to the country,\n"
+    ], 
+    [
+      "Gonna eat", 
+      " a lot of peaches\n"
+    ], 
+    [
+      "Mov", 
+      "in' ", 
+      "to the country,\n"
+    ], 
+    [
+      "Gonna", 
+      " eat", 
+      " a lot of", 
+      " p", 
+      "eaches", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "P", 
+      "eaches", 
+      " come from a c", 
+      "an,\n"
+    ], 
+    [
+      "They w", 
+      "ere ", 
+      "put", 
+      " t", 
+      "h", 
+      "e", 
+      "re", 
+      " ", 
+      "by a man\n"
+    ], 
+    [
+      "In a facto", 
+      "ry ", 
+      "d", 
+      "own", 
+      "town\n"
+    ], 
+    [
+      "If I had", 
+      " my", 
+      " ", 
+      "little ", 
+      "way,\n"
+    ], 
+    [
+      "I'd", 
+      " eat", 
+      " peaches", 
+      " eve", 
+      "ry d", 
+      "ay\n"
+    ], 
+    [
+      "Sun-soak", 
+      "in' ", 
+      "bulges in", 
+      " the", 
+      " shad", 
+      "e\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "M", 
+      "ovin' to the country,\n"
+    ], 
+    [
+      "Gonna eat a lot of peaches\n"
+    ], 
+    [
+      "Movin' to the country,\n"
+    ], 
+    [
+      "Gonna eat me a lot of peaches\n"
+    ], 
+    [
+      "Movin' to the country,\n"
+    ], 
+    [
+      "Gonna eat a lot of peaches\n"
+    ], 
+    [
+      "Movin' to", 
+      " the", 
+      " country,\n"
+    ], 
+    [
+      "Gonna eat a lot", 
+      " of", 
+      " peach", 
+      "es", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "T", 
+      "ake a", 
+      " little", 
+      " ", 
+      "naps w", 
+      "here", 
+      " the", 
+      " roo", 
+      "ts all tw", 
+      "ist\n"
+    ], 
+    [
+      "Squish", 
+      "ed a", 
+      " rotten", 
+      " peach", 
+      " in", 
+      " my ", 
+      "f", 
+      "i", 
+      "st\n"
+    ], 
+    [
+      "And dream", 
+      "ed a", 
+      "bout you, wom", 
+      "an,\n"
+    ], 
+    [
+      "I poked", 
+      " my fi", 
+      "nger ", 
+      "down", 
+      " ins", 
+      "ide\n"
+    ], 
+    [
+      "M", 
+      "ake a little", 
+      " roo", 
+      "m", 
+      " f", 
+      "or", 
+      " a", 
+      "n ant to h", 
+      "ide\n"
+    ], 
+    [
+      "Nature's", 
+      " can", 
+      "dy", 
+      " in my ", 
+      "hand or", 
+      " can", 
+      " ", 
+      "or a", 
+      " pi", 
+      "e\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "M", 
+      "illions", 
+      " of", 
+      " peaches", 
+      ",", 
+      " peaches", 
+      " for", 
+      " ", 
+      "me", 
+      "\n"
+    ], 
+    [
+      "Millions of peaches, peaches for ", 
+      "free\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Look out!\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "y1": 2, 
+        "x1": 0, 
+        "y2": 3, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "y1": 0, 
+        "txt": "Movin' to the country,\nGonna eat ", 
+        "x1": 0, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "y1": 3, 
+        "x1": 12, 
+        "y2": 5, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "y1": 1, 
+        "txt": " a lot of peaches\nMovin' to the country,\nGonna eat", 
+        "x1": 9, 
+        "y2": 3, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 1, 
+        "x2word": 5, 
+        "y1": 5, 
+        "x1": 9, 
+        "y2": 7, 
+        "nwords": 10
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "y1": 3, 
+        "txt": " a lot of peaches\nMovin' to the country,\nGonna eat", 
+        "x1": 12, 
+        "y2": 5, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 9, 
+        "x1": 1, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 7, 
+        "txt": "eaches", 
+        "x1": 20, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "y1": 10, 
+        "x1": 16, 
+        "y2": 10, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 10, 
+        "txt": "ere ", 
+        "x1": 6, 
+        "y2": 10, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 13, 
+        "x1": 3, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 7, 
+        "txt": " eat", 
+        "x1": 5, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 13, 
+        "x1": 7, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "y1": 7, 
+        "txt": " peaches", 
+        "x1": 18, 
+        "y2": 7, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "y1": 13, 
+        "x1": 19, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 11, 
+        "txt": "ry d", 
+        "x1": 10, 
+        "y2": 11, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 14, 
+        "x1": 8, 
+        "y2": 14, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 6, 
+        "txt": "in' ", 
+        "x1": 3, 
+        "y2": 6, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 14, 
+        "x1": 21, 
+        "y2": 14, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "y1": 10, 
+        "txt": " the", 
+        "x1": 13, 
+        "y2": 10, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 16, 
+        "x1": 0, 
+        "y2": 24, 
+        "nwords": 16
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "y1": 0, 
+        "txt": "Movin' to the country,\nGonna eat a lot of peaches\nMovin' to the country,\nGonna eat me a lot of peaches\nMovin' to the country,\nGonna eat a lot of peaches\nMovin' to the country,\nGonna eat a lot of peaches\n\n", 
+        "x1": 0, 
+        "y2": 8, 
+        "nwords": 22
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 13, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 25, 
+        "x1": 6, 
+        "y2": 25, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 12, 
+        "txt": " little ", 
+        "x1": 11, 
+        "y2": 12, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 25, 
+        "x1": 20, 
+        "y2": 25, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 4, 
+        "x2word": 6, 
+        "y1": 10, 
+        "txt": "here", 
+        "x1": 15, 
+        "y2": 10, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 25, 
+        "x1": 24, 
+        "y2": 25, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 22, 
+        "txt": " the", 
+        "x1": 9, 
+        "y2": 22, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 26, 
+        "x1": 17, 
+        "y2": 26, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 23, 
+        "txt": " peach", 
+        "x1": 18, 
+        "y2": 23, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 26, 
+        "x1": 26, 
+        "y2": 26, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 12, 
+        "txt": " my ", 
+        "x1": 8, 
+        "y2": 12, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "y1": 26, 
+        "x1": 31, 
+        "y2": 26, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 44, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "y1": 25, 
+        "txt": "ist\n", 
+        "x1": 41, 
+        "y2": 25, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 27, 
+        "x1": 9, 
+        "y2": 27, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 26, 
+        "txt": "ed a", 
+        "x1": 6, 
+        "y2": 26, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 27, 
+        "x1": 26, 
+        "y2": 27, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 24, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 9, 
+        "txt": "an,\n", 
+        "x1": 21, 
+        "y2": 9, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 28, 
+        "x1": 7, 
+        "y2": 28, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 31, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "y1": 26, 
+        "txt": " my fi", 
+        "x1": 26, 
+        "y2": 26, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 28, 
+        "x1": 18, 
+        "y2": 28, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 11, 
+        "txt": "down", 
+        "x1": 13, 
+        "y2": 11, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 29, 
+        "x1": 1, 
+        "y2": 29, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 12, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 25, 
+        "txt": "ake a little", 
+        "x1": 1, 
+        "y2": 25, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 29, 
+        "x1": 13, 
+        "y2": 29, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 31, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 25, 
+        "txt": " roo", 
+        "x1": 28, 
+        "y2": 25, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 8, 
+        "x2word": 8, 
+        "y1": 29, 
+        "x1": 34, 
+        "y2": 29, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 29, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 28, 
+        "txt": "ide\n", 
+        "x1": 26, 
+        "y2": 28, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 30, 
+        "x1": 14, 
+        "y2": 30, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 29, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "y1": 26, 
+        "txt": " in my ", 
+        "x1": 23, 
+        "y2": 26, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 31, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 30, 
+        "x1": 28, 
+        "y2": 30, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 30, 
+        "txt": " can", 
+        "x1": 8, 
+        "y2": 30, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 36, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "y1": 30, 
+        "x1": 33, 
+        "y2": 30, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "y1": 29, 
+        "txt": "or a", 
+        "x1": 20, 
+        "y2": 29, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 9, 
+        "x2word": 0, 
+        "y1": 30, 
+        "x1": 40, 
+        "y2": 32, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "y1": 14, 
+        "txt": "e\n\nM", 
+        "x1": 30, 
+        "y2": 16, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "y1": 32, 
+        "x1": 8, 
+        "y2": 32, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "y1": 23, 
+        "txt": " of peaches", 
+        "x1": 15, 
+        "y2": 23, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "y1": 32, 
+        "x1": 20, 
+        "y2": 32, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 32, 
+        "txt": " peaches", 
+        "x1": 11, 
+        "y2": 32, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 31, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "y1": 32, 
+        "x1": 28, 
+        "y2": 32, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 21, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "y1": 29, 
+        "txt": " for", 
+        "x1": 18, 
+        "y2": 29, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 32, 
+        "x1word": 9, 
+        "x2word": 0, 
+        "y1": 32, 
+        "x1": 35, 
+        "y2": 33, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 32, 
+        "x1word": 0, 
+        "x2word": 7, 
+        "y1": 31, 
+        "txt": "\nMillions of peaches, peaches for ", 
+        "x1": 0, 
+        "y2": 32, 
+        "nwords": 9
+      }
+    }
+  ]
+}

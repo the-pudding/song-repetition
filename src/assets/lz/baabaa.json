@@ -1,0 +1,156 @@
+{
+  "lines": [
+    [
+      "B", 
+      "aa, b", 
+      "aa, b", 
+      "lack sheep,\n"
+    ], 
+    [
+      "Have you any wool?\n"
+    ], 
+    [
+      "Y", 
+      "es, sir,", 
+      " y", 
+      "es, sir,", 
+      "\n"
+    ], 
+    [
+      "Three bags full;\n"
+    ], 
+    [
+      "O", 
+      "ne for the ", 
+      "master", 
+      ",\n"
+    ], 
+    [
+      "And o", 
+      "ne for the ", 
+      "dame", 
+      ",\n"
+    ], 
+    [
+      "And one for", 
+      " the ", 
+      "l", 
+      "ittle boy\n"
+    ], 
+    [
+      "Who lives down", 
+      " the l", 
+      "ane.\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "y1": 0, 
+        "x1": 6, 
+        "y2": 0, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 5, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 0, 
+        "txt": "aa, b", 
+        "x1": 1, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "y1": 2, 
+        "x1": 11, 
+        "y2": 2, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 2, 
+        "txt": "es, sir,", 
+        "x1": 1, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 5, 
+        "x1": 5, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 4, 
+        "txt": "ne for the ", 
+        "x1": 1, 
+        "y2": 4, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 3, 
+        "x2word": 1, 
+        "y1": 5, 
+        "x1": 20, 
+        "y2": 6, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 3, 
+        "x2word": 1, 
+        "y1": 4, 
+        "txt": ",\nAnd one for the ", 
+        "x1": 18, 
+        "y2": 5, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "y1": 7, 
+        "x1": 14, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "y1": 6, 
+        "txt": " the l", 
+        "x1": 11, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }
+  ]
+}
