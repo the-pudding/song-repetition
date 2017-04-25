@@ -5,9 +5,11 @@ import { BaseCompressionGraphic, STATE } from './compression-base.js';
 
 // TODO: maybe show extended odometer?
 
-const play_accel = null;
-const play_speed = 2;
-const autoplay = 0;
+const play_accel = (iter, dur) => {
+  return Math.max(100, dur * Math.pow(0.9, iter));
+};
+const play_speed = 4;
+const autoplay = 1;
 const scroll_acceleration = 1;
 
 // TODO: would be cool to bind *all* the stages to scroll progress
@@ -58,30 +60,42 @@ class CompressionWrapper {
       .on('leave', e => this.toggleFixed(false, e.scrollDirection === 'FORWARD'))
       .addTo(this.controller);
 
-    let slides = this.prose.selectAll('.slide');
+    let slides = this.prose.selectAll('.slide-wrapper');
     // How far down from the top of the viewport does a scene's
     // paragraph become active
     let slide_offset = -1 * viewportHeight * 1/2;
     // TODO: Need some way to ensure no more than one scene can be 
     // active at once. (Otherwise the progress stuff is gonna get fucky.)
     // Maybe need some arbitrator that manages a lock on current scene.
+    //
+    // Or carefully set each scene's duration to exactly the distance 
+    // to the next trigger.
+    //
+    // TODO YOUAREHERE: Okay, maybe set it up so that instead of using offsets, 
+    // we can just use an onLeave trigger on each slide-wrapper element. Then
+    // calculating the durations is really easy, cause it's just the height of
+    // the slide-wrapper el.
     slides.each( (dat,i,n) => {
-      let stagenode = n[i];
+      let wrappernode = n[i];
+      let stagenode = d3.select(wrappernode).select('.slide');
       let slide_scene = new ScrollMagic.Scene({
-        triggerElement: stagenode,
+        triggerElement: wrappernode,
         triggerHook: 'onLeave',
-        offset: slide_offset, 
-        duration: (-1*slide_offset)
-           + (dat.progressive ? viewportHeight/2 : 0), //+ stagenode.offsetHeight/2,
+        duration: wrappernode.offsetHeight,
+        //(-1*slide_offset) + (dat.progressive ? viewportHeight/2 : 0), //+ stagenode.offsetHeight/2,
       })
         .on('enter', (e) => {
+          console.log(`Entered stage ${i}`);
           if (dat.onEnter) {
             dat.onEnter(this.comp, e.scrollDirection === 'FORWARD');
           }
-          d3.select(stagenode).classed('active', true);
+          stagenode.classed('active', true);
         })
+        // NB: when duration is not set, leave event is fired when the 
+        // trigger is scrolled past from the opposite scroll direction
         .on('leave', (e) => {
-          d3.select(stagenode).classed('active', false);
+          console.log(`Left stage ${i}`);
+          stagenode.classed('active', false);
           let exitkey = e.scrollDirection === 'FORWARD' ? 'down' : 'up';
           let exitfn = dat.onExit && dat.onExit[exitkey];
           if (exitfn) {
@@ -91,7 +105,6 @@ class CompressionWrapper {
         .addTo(this.controller);
         if (!autoplay && dat.progressive) {
           slide_scene.on('progress', e => {
-            console.log(e.progress);
             this.comp.onScroll(e.progress);
           });
         }
@@ -160,8 +173,8 @@ class CompressionWrapper {
       if (down) {
         comp.clearHighlights();
         comp.clearArrows();
+        comp.step(2500);
       }
-      comp.step(2500);
       // TODO: draw attention to odometer
     },
     onExit: {
@@ -201,6 +214,8 @@ class CompressionWrapper {
       let qc = comp.quickChange('thrillscheap');
       if (autoplay) {
         qc.then( 
+          // TODO: if doing the progressive thing, need to make sure the
+          // progress() calls wait for load
           ()=> comp.play(play_speed, play_accel) 
         );
       }

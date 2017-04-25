@@ -28,6 +28,7 @@ class BaseCompressionGraphic extends BaseChart {
     // rules that apply when going between certain pairs of states.)
     super(rootsel, {...config, responsive: true});
     this.rootsel = rootsel;
+    this.speed = 1.0;
     this.state = STATE.loading;
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
@@ -162,14 +163,14 @@ class BaseCompressionGraphic extends BaseChart {
   }
   _playloop(speed, accel, iter=0) {
     if (this.state != STATE.running) return;
-    let dur = this.ravel_duration/speed;
+    let dur = this.ravel_duration/this.speed;
     if (accel) {
       dur = accel(iter, dur);
     }
     let step = this.step(dur);
     if (!step) {
       // TODO: not clear if this should happen here or in step()
-      this.defrag(this.defrag_duration/speed);
+      this.defrag(this.defrag_duration/this.speed);
     } else {
       step.then(()=> this._playloop(speed, accel, iter+1));
     }
@@ -268,11 +269,15 @@ class BaseCompressionGraphic extends BaseChart {
 
     let butt = banner.append('text')
       .text('Start Again?')
-      .on('click', ()=>this.reset())
+      .on('click', ()=>this.startagain())
       .attr('dy', lineheight*5)
       .style('cursor', 'pointer')
       .attr('fill', 'blue');
 
+  }
+
+  startagain() {
+    this.reset();
   }
 
   // Vertically compactify

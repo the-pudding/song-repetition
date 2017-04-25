@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import { BaseCompressionGraphic, STATE } from './compression-base.js';
+import SLUGS from './lz-directory.js';
 
 const default_song = 'cheapthrills_chorus';
 const default_accel = (iter, dur) => {
@@ -45,22 +46,36 @@ class CompressionGraphic extends BaseCompressionGraphic {
           // with multiple playloops running at once
           // Easiest sol'n probably just to use the speed attr rather
           // than passing it to play method.
-          let running = this.state === STATE.running;
-          if (running) this.pause();
           this.speed *= 1.2;
-          if (running) this.play(this.speed, default_accel);
         },
       },
       {name: 'slower',
         cb: () => {
-          let running = this.state === STATE.running;
-          if (running) this.pause();
           this.speed *= .8;
-          if (running) this.play(this.speed, default_accel);
         },
       },
 
     ];
+    let dd = butcon.select('select');
+    if (dd.empty()) {
+      dd = butcon.append('select');
+    }
+    let opts = dd.selectAll('option').data(SLUGS)
+    let newopts = opts
+      .enter()
+      .append('option')
+      .text(s=>s)
+      .attr('value', s=>s);
+    opts.merge(newopts)
+      .attr('selected', s => s===this.slug ? true : null);
+    dd.on('change', () => {
+      let i = dd.node().selectedIndex;
+      let slug = SLUGS[i];
+      if (slug !== this.slug) {
+        this.reset(slug);
+      }
+    });
+
     let visible_buttdata = button_data.filter(bd=> !(bd.visible) || bd.visible());
     let butts = butcon.selectAll('button').data(visible_buttdata)
     let newbutts = butts.enter()
