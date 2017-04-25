@@ -8,7 +8,6 @@ const more_songs = 30;
 const rscore_axis_min = 1;
 
 // TODO:
-// - try colormap for bars
 // - search bar?
 // - animate expand/contract
 class TopSongsGraphic {
@@ -104,7 +103,8 @@ class TopSongsGraphic {
     let barcells = rows.select('.barcell')
       .attr('title', s=>(`${s.raw} -> ${s.icomp}`));
     barcells.select('.bar')
-      .style('width', s => (this.barscale(s.rscore)+'px'));
+      .style('width', s => (this.barscale(s.rscore)+'px'))
+      .style('background-color', s=> comm.rscore_cmap(s.rscore));
   }
 
 
