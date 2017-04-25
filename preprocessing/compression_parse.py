@@ -11,6 +11,29 @@ MINMATCH = 4
 OUTDIR = '../src/assets/lz/'
 JSDIR = '../src/js/'
 
+SAVE_INDEX = 1
+FIX_MISSING = 0
+
+songdat = [
+  {"slug": "allyouneedislove", "title": "All You Need is Love", "artist": "The Beatles", "reduction": 0, "hidden": False}, 
+  {"slug": "barbiegirl", "title": "Barbie Girl", "artist": "Aqua", "reduction": 0, "hidden": False}, 
+  {"slug": "billsbillsbills", "title": "Bills, Bills, Bills", "artist": "Destiny's Child", "reduction": 0, "hidden": False}, 
+  {"slug": "blackbeatles", "title": "Black Beatles", "artist": "Rae Sremmurd", "reduction": 0, "hidden": False}, 
+  {"slug": "bomt", "title": "Baby One More Time", "artist": "Britney Spears", "reduction": 0, "hidden": False}, 
+  {"slug": "cgyoomh", "title": "Can't Get You Out Of My Head", "artist": "Kylie Minogue", "reduction": 0, "hidden": False}, 
+  {"slug": "cheapthrills_chorus", "title": "cheapthrills_chorus", "artist": "", "reduction": 0, "hidden": True}, 
+  {"slug": "cheapthrills", "title": "Cheap Thrills", "artist": "Sia", "reduction": 0, "hidden": False}, 
+  {"slug": "essay_intro", "title": "essay_intro", "artist": "", "reduction": 0, "hidden": True}, 
+  {"slug": "geniusoflove", "title": "Genius of Love", "artist": "Tom-Tom Club", "reduction": 0, "hidden": False}, 
+  {"slug": "ifeellove", "title": "I Feel Love", "artist": "Donna Summer", "reduction": 0, "hidden": False}, 
+  {"slug": "praiseyou", "title": "Praise You", "artist": "Fatboy Slim", "reduction": 0, "hidden": False}, 
+  {"slug": "sabotage", "title": "Sabotage", "artist": "Beastie Boys", "reduction": 0, "hidden": False}, 
+  {"slug": "thrillscheap", "title": "thrillscheap", "artist": "", "reduction": 0, "hidden": True}, 
+  {"slug": "whereismymind", "title": "Where is My Mind", "artist": "Pixies", "reduction": 0, "hidden": False}, 
+  {"slug": "wouldntitbenice", "title": "Wouldn't it be Nice", "artist": "The Beach Boys", "reduction": 0, "hidden": False},
+  {"slug": "buddyholly", "title": "Buddy Holly", "artist": "Weezer", "reduction": 0, "hidden": False},
+]
+
 def dict_to_js(d, fname, varname="DATA", pprint=1):
     s = json.dumps(d, indent=(2 if pprint else None))
     _json_str_to_js(s, fname, varname)
@@ -28,6 +51,7 @@ class CompressionParser(object):
     def __init__(self, raw_file, infgen_file):
         self.raw = raw_file.read()
         self.lines = self.raw.split('\n')
+        # Also sets self.reduction
         self.compressed_parts = self.parse_infgen(infgen_file)
         self.words = list(self.get_words())
 
@@ -69,12 +93,18 @@ class CompressionParser(object):
     def parse_infgen(self, f):
         parts = []
         offset = 0
+        # Compression savings, counted in characters
+        reduction = 0
         for line in f:
             if line.startswith('match'):
                 p = Ditto.from_line(line, offset)
                 if p.trivial():
                     offset += p.length
                     continue
+                else:
+                    savings = p.length - 3
+                    assert savings > 0
+                    reduction += savings
             elif line.startswith('literal'):
                 p = Literal.from_line(line, offset)
                 assert p.txt == self.raw[p.i:p.i+p.length]
@@ -82,6 +112,7 @@ class CompressionParser(object):
                 continue
             parts.append(p)
             offset += p.length
+        self.reduction = reduction / len(self.raw)
         return parts
 
     def save(self, slug):
@@ -177,6 +208,7 @@ class Range(object):
         res = dict(x1=x1, y1=y1, x2=x2, y2=y2, x1word=x1word, x2word=x2word)
         # More debugging stuff
         res['nwords'] = self.nwords(parser)
+        res['nchars'] = self.length
         return res
 
 class Ditto(object):
@@ -235,10 +267,17 @@ class Literal(object):
 
 if __name__ == '__main__':
     raw_fnames = sys.argv[1:]
-    slugs = []
     for raw in raw_fnames:
         slug = raw.split('.')[0]
-        slugs.append(slug)
+        slugixs = [i for (i, dat) in enumerate(songdat) if dat['slug'] == slug]
+        #assert len(slugixs) > 0, "Couldn't find song data for {}".format(slug)
+        assert len(slugixs) < 2
+        if len(slugixs) == 0:
+            assert FIX_MISSING
+            slugdat = dict(slug=slug, title=slug, artist='', hidden=False)
+            songdat.append(slugdat)
+        else:
+            slugdat = songdat[slugixs[0]]
         inf = raw + '.gz.infgen'
         rawf = open(raw)
         inff = open(inf)
@@ -246,5 +285,8 @@ if __name__ == '__main__':
         parser.save(slug)
         rawf.close()
         inff.close()
+        slugdat['reduction'] = parser.reduction
 
-    dict_to_js(slugs, 'lz-directory.js')
+    if SAVE_INDEX:
+        ix = [dat for dat in songdat if not dat['hidden']] 
+        dict_to_js(ix, 'lz-directory.js')

@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import SLUGS from './lz-directory.js';
 import { BaseChart } from './basechart.js';
 
 const text_scale = 4/5;
@@ -46,23 +45,6 @@ class BaseCompressionGraphic extends BaseChart {
       marker: y => (this.lineheight * y) - this.lineheight * .25,
       text: y=>this.basey(y),
     };
-    if (config.debug) {
-      let butcon = this.root.insert('div', ':first-child');
-      const buttons = [
-        {name: 'step', cb: ()=>this.step()},
-        //{name: 'reset', cb: ()=>this.reset()},
-        {name: 'fast-forward', cb: ()=>this.setLastDitto(10000)},
-        {name: 'defrag', cb: ()=>this.defrag()},
-        {name: 'shuffle', cb: ()=>this.shuffle()},
-        {name: 'debug', cb: ()=>this.thing()},
-      ];
-      butcon.selectAll('button').data(buttons)
-        .enter()
-        .append('button')
-        .classed('btn', true)
-        .text(d=>d.name)
-        .on('click', d=>d.cb());
-    }
     this.ncols = config.ncols || 3;
     this.maxlines = 44;
     this.colwidth = this.W/this.ncols;
@@ -92,11 +74,6 @@ class BaseCompressionGraphic extends BaseChart {
     let y = this.ncols;
     debugger;
     let z = 1;
-  }
-
-  shuffle() {
-    let i = Math.floor(Math.random() * SLUGS.length);
-    this.reset(SLUGS[i]);
   }
 
   reset(slug, smooth=false) {
@@ -494,7 +471,6 @@ class BaseCompressionGraphic extends BaseChart {
       .datum(d)
       .attr('cx', where.x)
       .attr('cy', where.y)
-      // TODO: maybe radius should scale with the size of the ditto?
       .attr('r', this.ditto_radius)
       .attr('opacity', .4)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))

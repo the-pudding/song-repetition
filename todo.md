@@ -6,7 +6,6 @@
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
-- fix song selector dropdown (include proper title+artist, sort by repetitiveness)
 
 ## Histogram
 - Do a scrollytelling transition between first and second version of histogram (without and with outliers)

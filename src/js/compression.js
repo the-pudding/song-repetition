@@ -1,8 +1,9 @@
 import * as d3 from 'd3';
+import * as comm from './common.js';
 import { BaseCompressionGraphic, STATE } from './compression-base.js';
-import SLUGS from './lz-directory.js';
+import SONGDAT from './lz-directory.js';
 
-const default_song = 'cheapthrills_chorus';
+const default_song = 'cheapthrills';
 const default_accel = (iter, dur) => {
   return Math.max(100, dur - iter*40);
 };
@@ -19,6 +20,7 @@ class CompressionGraphic extends BaseCompressionGraphic {
     };
     super(rootsel, config);
     this.ravel_duration = 3000;
+    this.songdat = SONGDAT.sort( (a,b) => d3.descending(a.reduction, b.reduction));
     this.renderButtons();
     this.speed = 1;
   }
@@ -60,17 +62,27 @@ class CompressionGraphic extends BaseCompressionGraphic {
     if (dd.empty()) {
       dd = butcon.append('select');
     }
-    let opts = dd.selectAll('option').data(SLUGS)
+    let opts = dd.selectAll('option').data(this.songdat);
     let newopts = opts
       .enter()
       .append('option')
-      .text(s=>s)
+      .style('background-color', sd => {
+        let rscore = comm.pct_to_rscore(sd.reduction*100);
+        let color = d3.color(comm.rscore_cmap(rscore));
+        let c = d3.rgb(color);
+        let c2 = d3.rgb(c.r, c.g, c.b, .2);
+        return c2;
+      })
+      .text(sd => {
+        return sd.artist + ' - ' + sd.title + ' ('
+          + d3.format('.1%')(sd.reduction) + ')';
+      })
       .attr('value', s=>s);
     opts.merge(newopts)
-      .attr('selected', s => s===this.slug ? true : null);
+      .attr('selected', sd => sd.slug===this.slug ? true : null);
     dd.on('change', () => {
       let i = dd.node().selectedIndex;
-      let slug = SLUGS[i];
+      let slug = this.songdat[i].slug;
       if (slug !== this.slug) {
         this.reset(slug);
       }
