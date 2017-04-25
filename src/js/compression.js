@@ -70,6 +70,7 @@ class CompressionGraphic extends BaseCompressionGraphic {
         let rscore = comm.pct_to_rscore(sd.reduction*100);
         let color = d3.color(comm.rscore_cmap(rscore));
         let c = d3.rgb(color);
+        // Decrease the opacity. (Is there really no better way to do this?)
         let c2 = d3.rgb(c.r, c.g, c.b, .2);
         return c2;
       })

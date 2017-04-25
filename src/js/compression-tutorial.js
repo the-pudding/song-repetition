@@ -85,14 +85,23 @@ class CompressionWrapper {
         //(-1*slide_offset) + (dat.progressive ? viewportHeight/2 : 0), //+ stagenode.offsetHeight/2,
       })
         .on('enter', (e) => {
-          console.log(`Entered stage ${i}`);
-          if (dat.onEnter) {
-            dat.onEnter(this.comp, e.scrollDirection === 'FORWARD');
+          let slug = dat.slug;
+          let cb = dat.onEnter ? 
+            () => dat.onEnter(this.comp, e.scrollDirection === 'FORWARD')
+          : () => null;
+          if (this.comp.slug != slug) {
+            console.log(`Quickchanging. Slide slug = ${slug}, current graphic slug = ${this.comp.slug}`);
+            this.comp.quickChange(slug).then(cb);
+          } else {
+            console.log('No QC necessary. OnEntering.')
+            cb();
           }
+          console.log(`Entered stage ${i}`);
           stagenode.classed('active', true);
         })
         // NB: when duration is not set, leave event is fired when the 
         // trigger is scrolled past from the opposite scroll direction
+        // TODO: this shouldn't be necessary
         .on('leave', (e) => {
           console.log(`Left stage ${i}`);
           stagenode.classed('active', false);
@@ -124,11 +133,12 @@ class CompressionWrapper {
   get_stage_data() {
     return [
   {
+    slug: 'cheapthrills_chorus',
     html: `<p>The Lempel-Ziv algorithm scans the input from beginning to end looking for chunks of text that exactly match earlier parts</p>`,
   },
   {
     html: `<p>The <code>ills</code> in "thrills" is our first non-trivial repetition.</p>`,
-    onEnter: (comp) => {
+    onEnter: (comp, down) => {
       console.assert(comp.slug === 'cheapthrills_chorus', 
           `Wrong song. Expected ct_chorus, got ${comp.slug}`);
       let ditto = comp.dittos[0];
@@ -144,6 +154,7 @@ class CompressionWrapper {
   },
 
   {
+    slug: 'cheapthrills_chorus',
     html: `<p>We replace it with a marker pointing back to the occurrence on the first line, in "bills".</p>
     <p><small>Each signpost is represented by two numbers: how far back the match is, and how long it is. Storing those two numbers takes about as much space as three characters (i.e. about 3 bytes), so it's only worth replacing a repetition if it's longer than that. That's why we didn't replace any of the smaller repeated substrings that occur earlier like <code>I </code> or <code> to</code>.</small></p>`,
     onEnter: (comp) => {
@@ -168,6 +179,7 @@ class CompressionWrapper {
   },
 
   {
+    slug: 'cheapthrills_chorus',
     html: `<p>The third and fourth lines are exact duplicates of the first two, so we can replace them with a single marker. At this point, we've already reduced the size of the chorus by 29%.</p>`,
     onEnter: (comp, down) => {
       if (down) {
@@ -183,12 +195,11 @@ class CompressionWrapper {
   },
 
   {
+    slug: 'cheapthrills_chorus',
     html: `<p>In the end, the chorus alone is reduced in size 46%.</p>`,
     onEnter: (comp, down) => {
       if (!down) {
-        comp.quickChange('cheapthrills_chorus').then(() => {
-          comp.play(4);
-        });
+        comp.play(4);
         return;
       }
       let dur = 2500;
@@ -207,30 +218,26 @@ class CompressionWrapper {
     // TODO: need to figure out how to slow down scrolling during
     // these stages
     progressive: true,
+    slug: 'thrillscheap',
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
       // TODO: try binding to scroll progress rather than just setting 
       // to autoplay
-      let qc = comp.quickChange('thrillscheap');
       if (autoplay) {
-        qc.then( 
-          // TODO: if doing the progressive thing, need to make sure the
-          // progress() calls wait for load
-          ()=> comp.play(play_speed, play_accel) 
-        );
+        // TODO: if doing the progressive thing, need to make sure the
+        // progress() calls wait for load
+        comp.play(play_speed, play_accel) ;
       }
     },
   },
 
   {
     progressive: true,
+    slug: 'essay_intro',
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
-      let qc = comp.quickChange('essay_intro');
       if (autoplay) {
-        qc.then( 
-          ()=> comp.play(play_speed, play_accel) 
-        );
+        comp.play(play_speed, play_accel);
       }
     },
   },
@@ -260,7 +267,13 @@ class CompressionTutorial extends BaseCompressionGraphic {
     }
     let wait = this.reset(song, true);
     return new Promise( cb => {
-      d3.timeout( () => this.onReady(cb), wait);
+      d3.timeout( () => {
+        if (this.slug === song) {
+          this.onReady(cb);
+        } else {
+          console.log('Aborting stale QC callback');
+        }
+      }, wait);
     });
   }
 

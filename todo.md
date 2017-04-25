@@ -6,6 +6,8 @@
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
+- scrollytelling section: seems like this kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
+- code is getting super awkward and spaghetti-ish. Need to make sure that the data attributes are the canonical source of truth, and all the UI transformations bend to them.
 
 ## Histogram
 - Do a scrollytelling transition between first and second version of histogram (without and with outliers)
