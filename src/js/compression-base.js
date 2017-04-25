@@ -143,7 +143,7 @@ class BaseCompressionGraphic extends BaseChart {
   }
   // ha ha ha ha ha
   wipeOut(dur) {
-    this.root.select('.mask')
+    this.root.selectAll('.mask')
       .transition()
       .duration(dur)
       .attr('opacity', 0)
