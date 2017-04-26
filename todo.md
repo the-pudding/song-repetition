@@ -5,12 +5,16 @@
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
+    - or replace with *all* the dittos, coalesced together
 - code is getting super awkward and spaghetti-ish. Need to make sure that the data attributes are the canonical source of truth, and all the UI transformations bend to them.
 - helper class for json cache
 - finesse marker placement
+- arrangement of 'banner' components after defragging
+- when trying to defrag, we should make sure that all the dittos have been processed (and if not, maybe just go ahead and speed through them)
 
 ### compression-tutorial.js
 - seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
+    - I think part of the problem might be dynamically adding the compression-tutorial slide/stage elements dynamically. They take up a lot of space, so whenever they get added, the page shifts around a lot.
 - experiment with acceleration (and lack thereof)
 
 ### compression.js
@@ -58,6 +62,7 @@
     - strip punctuation
     - asciify
 - Consider loosening criteria for artist/discog charts, include featured artists.
+- I would love to increase the minimum match length, because I think 3 captures too many incidentally repeated substrings that aren't really instances of the kind of repetition I'm interested in. But that's possibly a lot of work. Probably.
     
 ## Prose
 - Link to Around The World lyrics. Probably not possible to find a non-scummy/ad-bloated lyrics site. Maybe just host text file in assets, or pointer to file in github repo.

@@ -12,6 +12,8 @@ const play_speed = 4;
 const autoplay = 0;
 const scroll_acceleration = 1;
 
+const std_padding = {top: 10, bottom: 10};
+
 // TODO: would be cool to bind *all* the stages to scroll progress
 
 class CompressionWrapper {
@@ -112,7 +114,7 @@ class CompressionWrapper {
         .addTo(this.controller);
         if (!autoplay && dat.progressive) {
           slide_scene.on('progress', e => {
-            this.comp.onScroll(e.progress, i);
+            this.comp.onScroll(e.progress, i, dat);
           });
         }
     });
@@ -183,6 +185,8 @@ class CompressionWrapper {
   },
 
   {
+    padding: {top: std_padding.top, bottom: 0},
+    progressive: false,
     slug: 'cheapthrills_chorus',
     allow_defragged: false,
     html: `<p>The third and fourth lines are exact duplicates of the first two, so we can replace them with a single marker. At this point, we've already reduced the size of the chorus by 29%.</p>`,
@@ -193,19 +197,34 @@ class CompressionWrapper {
       comp.clearArrows();
       comp.setLastDitto(1, {ravel_duration: 2500});
       // TODO: draw attention to odometer
-      return;
     },
     onExit: {
       up: comp => comp.unravel(comp.dittos[1]),
     },
   },
+  
+  {
+    progressive: true,
+    ditto_offset: 2,
+    slug: 'cheapthrills_chorus',
+    allow_defragged: false,
+    html: '',
+    onEnter: (comp, down) => {
+    },
+  },
 
   {
-    // TODO: make this progressive
+    padding: {top: std_padding.top, bottom: std_padding.bottom/2},
     slug: 'cheapthrills_chorus',
     allow_defragged: true,
-    html: `<p>In the end, the chorus alone is reduced in size 46%.</p>`,
+    html: `<p>In the end, the chorus is reduced in size 46%, from 247 characters to 133. That's the number of letters that weren't replaced by a marker (121), plus 3 characters for each of the 4 markers.</p>
+<small>
+<p>The choice of 3 characters as the cost of a marker is somewhat arbitrary. We could slide this up to a high value like 20 if we only care about larger-scale repetition. The only opportunities for compression in that case would be repeated sequences of 20 or more characters - i.e. multi-word phrases, not just repetitions of single words or parts of words. </p>
+</small>
+      `,
     onEnter: (comp, down) => {
+      comp.defrag();
+      return;
       let wait = comp.setLastDitto(100);
       d3.timeout(() => {
         if (comp.slug != 'cheapthrills_chorus') {
@@ -341,7 +360,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
     }
   }
 
-  onScroll(progress, stage) {
+  onScroll(progress, stage, stagedat) {
     if (stage !== this.scroll_owner) {
       console.log('Dropping scroll signal from pretender stage.');
       return;
@@ -350,9 +369,11 @@ class CompressionTutorial extends BaseCompressionGraphic {
       return;
     }
     progress = Math.pow(progress, scroll_acceleration);
-    let slack = .1;
-    let prog_per_ditto = (1-slack)/this.dittos.length;
-    let i = Math.floor(progress/prog_per_ditto);
+    let slack = .1; // TODO: Why?
+    let offset = stagedat.ditto_offset ? stagedat.ditto_offset : 0;
+    let dittorange = this.dittos.length - offset;
+    let prog_per_ditto = (1-slack)/dittorange;
+    let i = offset + Math.floor(progress/prog_per_ditto);
     if (this.lastditto === i && i === this.dittos.length-1) {
       // We're at the end. We've run out of dittos. Defrag.
       //this.defrag();
