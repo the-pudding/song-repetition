@@ -33,6 +33,7 @@ class BaseCompressionGraphic extends BaseChart {
     super(rootsel, {...config, responsive: true});
     this.rootsel = rootsel;
     this.speed = 1.0;
+    this.restartable = true;
     this.state = STATE.loading;
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
@@ -240,12 +241,14 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('transform', `translate(${bannerx}, ${bannery+lineheight*2.5})`)
       .attr('font-size', 24);
 
-    let butt = banner.append('text')
-      .text('Start Again?')
-      .on('click', ()=>this.startagain())
-      .attr('dy', lineheight*5)
-      .style('cursor', 'pointer')
-      .attr('fill', 'blue');
+    if (this.restartable) {
+      banner.append('text')
+        .text('Start Again?')
+        .on('click', ()=>this.startagain())
+        .attr('dy', lineheight*5)
+        .style('cursor', 'pointer')
+        .attr('fill', 'blue');
+    }
 
   }
   refrag() {

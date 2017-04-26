@@ -302,6 +302,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
 
   constructor(rootsel, config={}) {
     super(rootsel, config);
+    this.restartable = false;
     // Add a container that the stage transitions can use as a sort of 
     // dedicated scratch space.
     this.stagebox = this.svg.append('g')
