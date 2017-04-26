@@ -187,8 +187,11 @@ class BaseCompressionGraphic extends BaseChart {
     let dittowhere = i => {
       let row = Math.floor(i/dittos_per_line);
       let col = i % dittos_per_line;
-      return {x: this.W - this.ditto_radius - (col*this.ditto_radius*2),
-        y: odom_bbox.height + this.ditto_radius + (row*this.ditto_radius*2)
+      return {
+        //x: this.W - this.ditto_radius - (col*this.ditto_radius*2),
+        x: d3.randomUniform(this.ditto_radius, this.W-this.ditto_radius)(),
+        //y: odom_bbox.height + this.ditto_radius + (row*this.ditto_radius*2)
+        y: this.H + this.ditto_radius + (row*this.ditto_radius*2)
       };
     }
 
@@ -198,7 +201,13 @@ class BaseCompressionGraphic extends BaseChart {
       .on('mouseout', null)
       .transition()
       .duration(dur)
-      .attr('cx', (d,i) => dittowhere(i).x)
+      .delay(() => Math.max(0, d3.randomNormal(100, 25)()))
+      .ease(d3.easeBounceOut)
+      .attr('cx', (d,i,n) => {
+        let node = d3.select(n[i]);
+        return node.attr('cx');
+        //dittowhere(i).x)
+      })
       .attr('cy', (d,i) => dittowhere(i).y)
       
     dur = time_pie.crunch;
@@ -263,10 +272,11 @@ class BaseCompressionGraphic extends BaseChart {
   }
   // Vertically compactify
   _crunch(dur, wait) {
-    let lines = this.svg.selectAll('.line')
-      .filter(line => line.some(w=>w.visible));
-    lines.exit().remove();
-    lines
+    let lines = this.svg.selectAll('.line');
+    let empties = lines.filter(line => !line.some(w=>w.visible));
+    let remaining = lines.filter(line => line.some(w=>w.visible));
+    empties.remove();
+    remaining
       .transition()
       .delay(wait)
       .duration(dur)

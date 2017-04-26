@@ -11,6 +11,8 @@
 - finesse marker placement
 - arrangement of 'banner' components after defragging
 - when trying to defrag, we should make sure that all the dittos have been processed (and if not, maybe just go ahead and speed through them)
+    - maybe only show the full banner in the first tutorial example
+    - maybe even defragging should only happen in the tutorial?
 
 ### compression-tutorial.js
 - seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
@@ -19,6 +21,7 @@
 
 ### compression.js
 - maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
+- better speed controls (slider?)
 
 ## Histogram
 - annotations for the outliers
