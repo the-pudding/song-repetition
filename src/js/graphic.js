@@ -12,13 +12,17 @@ function resize() {
 }
 
 function init() {
-  compression_tutorial.init();
+  // XXX: Hack, to make sure scrollmagic doesn't go haywire on page
+  // load/refresh
+  d3.timeout( () => {
+    compression_tutorial.init();
+    OverTime.init();
+  }, 1000);
   compression.init();
   histogram.init();
   topsongs.init();
   discog.init();
   ArtistCircles.init();
-  OverTime.init();
 }
 
 export default { init, resize }

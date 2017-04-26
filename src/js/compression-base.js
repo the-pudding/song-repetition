@@ -15,11 +15,16 @@ const text_reference_length = 200;
 const STATE = {
   loading: 'loading',
   ready: 'ready',
+  // TODO: move the play/pause stuff to compression.js. No longer needed
+  // in tutorial. Or maybe it is...
   running: 'running',
   paused: 'paused',
   defragged: 'defragged',
 }
 
+// TODO: the problem with this design is that there are too many methods with
+// overlapping effects and purviews. Need to have a minimal 'public' API with
+// clear semantics.
 class BaseCompressionGraphic extends BaseChart {
 
   constructor(rootsel, config={}) {
@@ -31,6 +36,7 @@ class BaseCompressionGraphic extends BaseChart {
     this.state = STATE.loading;
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
+    // TODO: helper class for this
     this.json_cache = new Map();
     this.fontsize = 16 * text_scale;
     // pretty close
@@ -68,41 +74,32 @@ class BaseCompressionGraphic extends BaseChart {
     this.ready_queue = [];
     this.setSong(config.song || 'cheapthrills_chorus');
   }
-
-  thing() {
-    let x = 12;
-    let y = this.ncols;
-    debugger;
-    let z = 1;
-  }
-
   reset(slug, smooth=false) {
     this.state = STATE.loading;
-    this.defragged = false;
-    // TODO: all these different booleans are messy and brittle. Should just
-    // have one 'state' enum variable.
-    this.running = false;
     this.lastditto = -1;
     this.shutdowneverything();
     if (!smooth) {
+      // TODO: bleh, this is a super coarse solution
       this.svg.text('');
       this.setSong(slug || this.slug);
+      this.postReset();
     } else {
-      let dur = 1000;
+      let dur = 500;
       this.wipeIn(dur)
         .on('end', () => {
           this.svg.text('');
           this.setSong(slug || this.slug);
+          this.postReset();
           this.wipeOut(dur);
         });
       return dur*2;
     }
   }
-
+  postReset() {
+  }
   shutdowneverything() {
     this.svg.selectAll('*').interrupt();
   }
-
   wipeIn(dur) {
     let mask = this.root.select('svg')
       .append('rect')
@@ -126,7 +123,6 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('opacity', 0)
       .remove();
   }
-
   play(speed=1.0, accel=null) {
     if (!(this.state === STATE.ready || this.state === STATE.paused)) {
       console.log(`Can't play in state ${this.state}`);
@@ -147,12 +143,12 @@ class BaseCompressionGraphic extends BaseChart {
     let step = this.step(dur);
     if (!step) {
       // TODO: not clear if this should happen here or in step()
+      // TODO: defrag takes no arguments?
       this.defrag(this.defrag_duration/this.speed);
     } else {
       step.then(()=> this._playloop(speed, accel, iter+1));
     }
   }
-
   defrag() {
     if (this.state === STATE.loading || this.state === STATE.defragged) {
       console.log(`Can't defrag in state ${this.state}`);
@@ -205,7 +201,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('cy', (d,i) => dittowhere(i).y)
       
     dur = time_pie.crunch;
-    this.crunch(dur, clock);
+    this._crunch(dur, clock);
     clock += dur;
 
     // show size reduction info
@@ -252,13 +248,18 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('fill', 'blue');
 
   }
-
+  refrag() {
+    this.state = STATE.ready;
+    let ld = this.lastditto;
+    this.reset(this.slug);
+    // TODO: not sure if this is necessary?
+    this.setLastDitto(ld);
+  }
   startagain() {
     this.reset();
   }
-
   // Vertically compactify
-  crunch(dur, wait) {
+  _crunch(dur, wait) {
     let lines = this.svg.selectAll('.line')
       .filter(line => line.some(w=>w.visible));
     lines.exit().remove();
@@ -280,7 +281,7 @@ class BaseCompressionGraphic extends BaseChart {
   getcol(y) {
     return Math.floor(y/this.maxlines);
   }
-
+  // TODO: semantics of this method unclear (vs. reset)
   setSong(slug) {
     this.slug = slug;
     this.state = STATE.loading;
@@ -298,14 +299,12 @@ class BaseCompressionGraphic extends BaseChart {
     }
     let cached = this.json_cache.get(slug);
     if (cached) {
-      console.log('Cache hit');
       songdat_callback(cached);
     } else {
       let url = 'assets/lz/' + slug + '.json';
       d3.json(url, songdat_callback);
     }
   }
-
   warmCache(slugs) {
     for (let slug of slugs) {
       let url = 'assets/lz/' + slug + '.json';
@@ -322,7 +321,6 @@ class BaseCompressionGraphic extends BaseChart {
       this.ready_queue.push(cb);
     }
   }
-
   renderText(raw_lines) {
     let linedat = [];
     let y = 0;
@@ -349,7 +347,6 @@ class BaseCompressionGraphic extends BaseChart {
       .classed('word', true)
       .text(w=>w.word);
   }
-
   renderOdometer() {
     let where = this.odometerWhere();
     this.odometer = this.svg.append('g')
@@ -379,7 +376,6 @@ class BaseCompressionGraphic extends BaseChart {
     let y = 0;
     return {x,y};
   }
-
   compressionStats() {
     let ndittos = this.lastditto+1;
     // TODO: XXX: store ditto size in chars
@@ -427,7 +423,7 @@ class BaseCompressionGraphic extends BaseChart {
       d3.timeout(resolve, wait);
     });
   }
-  setLastDitto(nexti) {
+  setLastDitto(nexti, kwargs={}) {
     nexti = Math.min(this.dittos.length-1, nexti);
     nexti = Math.max(-1, nexti);
     if (nexti === this.lastditto) {
@@ -438,11 +434,13 @@ class BaseCompressionGraphic extends BaseChart {
     // TODO: could probably do this in one less step...
     this.dittos.forEach((d,i)=> {d.active = i <= this.lastditto});
     let dittos = this.svg.selectAll('.ditto').data(this.activeDittos);
-    dittos.enter().each( (d,i,n) => this.ravel(d, ravel_duration) );
+    let dur = kwargs.ravel_duration || ravel_duration;
+    dittos.enter().each( (d,i,n) => this.ravel(d, dur) );
     dittos.exit()
       .each( (d,i,n) => this.unravel(d,n[i]) )
       .remove();
     this.updateOdometer();
+    return dur;
   }
 
   eraseDitto(d, dur, wait=0, root=null) {

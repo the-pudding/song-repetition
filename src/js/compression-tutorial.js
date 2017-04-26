@@ -86,6 +86,7 @@ class CompressionWrapper {
       })
         .on('enter', (e) => {
           let slug = dat.slug;
+          console.assert(slug, "No slug set for this stage");
           let cb = dat.onEnter ? 
             () => dat.onEnter(this.comp, e.scrollDirection === 'FORWARD')
           : () => null;
@@ -93,10 +94,13 @@ class CompressionWrapper {
             console.log(`Quickchanging. Slide slug = ${slug}, current graphic slug = ${this.comp.slug}`);
             this.comp.quickChange(slug).then(cb);
           } else {
-            console.log('No QC necessary. OnEntering.')
+            if (this.comp.state === STATE.defragged && !dat.allow_defragged) {
+              console.log('Refragging');
+              this.comp.refrag();
+            }
             cb();
           }
-          console.log(`Entered stage ${i}`);
+          console.log(`Entered stage ${i} w direction ${e.scrollDirection}`);
           stagenode.classed('active', true);
         })
         // NB: when duration is not set, leave event is fired when the 
@@ -134,13 +138,20 @@ class CompressionWrapper {
     return [
   {
     slug: 'cheapthrills_chorus',
+    allow_defragged: false,
     html: `<p>The Lempel-Ziv algorithm scans the input from beginning to end looking for chunks of text that exactly match earlier parts</p>`,
+    onEnter: (comp, down) => {
+      comp.setLastDitto(-1);
+      comp.clearStagebox();
+    }
   },
   {
+    slug: 'cheapthrills_chorus',
+    allow_defragged: false,
     html: `<p>The <code>ills</code> in "thrills" is our first non-trivial repetition.</p>`,
     onEnter: (comp, down) => {
-      console.assert(comp.slug === 'cheapthrills_chorus', 
-          `Wrong song. Expected ct_chorus, got ${comp.slug}`);
+      comp.clearStagebox();
+      comp.setLastDitto(-1);
       let ditto = comp.dittos[0];
       let highlight_dur = 2500;
       comp.highlightSrc(ditto.src, highlight_dur);
@@ -149,45 +160,46 @@ class CompressionWrapper {
     onExit: {
       up: (comp) => {
         comp.clearHighlights();
+        comp.clearArrows();
       }
     },
   },
 
   {
     slug: 'cheapthrills_chorus',
+    allow_defragged: false,
     html: `<p>We replace it with a marker pointing back to the occurrence on the first line, in "bills".</p>
     <p><small>Each signpost is represented by two numbers: how far back the match is, and how long it is. Storing those two numbers takes about as much space as three characters (i.e. about 3 bytes), so it's only worth replacing a repetition if it's longer than that. That's why we didn't replace any of the smaller repeated substrings that occur earlier like <code>I </code> or <code> to</code>.</small></p>`,
-    onEnter: (comp) => {
-      let ditto = comp.dittos[0];
+    onEnter: (comp, down) => {
       let dur = 1000;
-      comp.animateArrow(ditto, comp.stagebox, dur, 0);
-      // this method name is misleading...
-      comp.eraseDitto(ditto, dur, dur, comp.stagebox);
-      comp.lastditto = 0;
-      comp.updateOdometer();
-    },
-    onExit: {
-      // TODO: Add some transitions to removals
-      up: comp => {
-        console.log('leaving up-wise');
-        comp.stagebox.text('');
-        comp.clearMarkers();
-        comp.lastditto = -1;
+      let ditto = comp.dittos[0];
+      if (!down) {
+        // TODO: make sure highlight is there :/
+        comp.setLastDitto(0);
+        comp.animateArrow(ditto, comp.stagebox, dur, 0);
+      } else {
+        comp.animateArrow(ditto, comp.stagebox, dur, 0);
+        // this method name is misleading...
+        comp.eraseDitto(ditto, dur, dur, comp.stagebox);
+        // TODO: want to avoid setting this directly where possible
+        comp.lastditto = 0;
         comp.updateOdometer();
-      },
+      }
     },
   },
 
   {
     slug: 'cheapthrills_chorus',
+    allow_defragged: false,
     html: `<p>The third and fourth lines are exact duplicates of the first two, so we can replace them with a single marker. At this point, we've already reduced the size of the chorus by 29%.</p>`,
     onEnter: (comp, down) => {
-      if (down) {
-        comp.clearHighlights();
-        comp.clearArrows();
-        comp.step(2500);
-      }
+      // TODO: Why does this reiterate the animation for the first ditto?
+      comp.clearStagebox();
+      comp.clearHighlights();
+      comp.clearArrows();
+      comp.setLastDitto(1, {ravel_duration: 2500});
       // TODO: draw attention to odometer
+      return;
     },
     onExit: {
       up: comp => comp.unravel(comp.dittos[1]),
@@ -196,36 +208,34 @@ class CompressionWrapper {
 
   {
     slug: 'cheapthrills_chorus',
+    allow_defragged: true,
     html: `<p>In the end, the chorus alone is reduced in size 46%.</p>`,
     onEnter: (comp, down) => {
-      if (!down) {
-        comp.play(4);
-        return;
-      }
-      let dur = 2500;
-      for (let i=2; i < comp.dittos.length; i++) {
-        comp.ravel(comp.dittos[i], dur);
-      }
-      comp.updateOdometer();
-      let wait = dur;
-      d3.timeout( () => comp.defrag(), wait);
+      let wait = comp.setLastDitto(100);
+      d3.timeout(() => {
+        if (comp.slug != 'cheapthrills_chorus') {
+          console.log('Aborting defrag');
+        } else {
+          comp.defrag();
+        }
+      }, wait);
+      return;
     },
-    // TODO: gonna be real hard to reverse this :/
-    // Need a refrag method, or just kinda do a reset and skip ahead.
   },
 
   {
     // TODO: need to figure out how to slow down scrolling during
     // these stages
     progressive: true,
+    allow_defragged: true,
     slug: 'thrillscheap',
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
-      // TODO: try binding to scroll progress rather than just setting 
-      // to autoplay
+      // TODO: if doing the progressive thing, need to make sure the
+      // progress() calls wait for load
       if (autoplay) {
-        // TODO: if doing the progressive thing, need to make sure the
-        // progress() calls wait for load
+        // TODO: Maybe just use setLastDitto rather than play?
+        comp.speed = play_speed;
         comp.play(play_speed, play_accel) ;
       }
     },
@@ -233,10 +243,12 @@ class CompressionWrapper {
 
   {
     progressive: true,
+    allow_defragged: true,
     slug: 'essay_intro',
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
       if (autoplay) {
+        comp.speed = play_speed;
         comp.play(play_speed, play_accel);
       }
     },
@@ -260,6 +272,15 @@ class CompressionTutorial extends BaseCompressionGraphic {
     this.defrag_duration = 5000;
   }
 
+  postReset() {
+    this.stagebox = this.svg.append('g')
+      .classed('stage-sandbox', true);
+  }
+
+  clearStagebox() {
+    this.stagebox.text('');
+  }
+
   quickChange(song) {
     if (song === this.slug) {
       console.log(`Already on ${song}. Nothing to do.`);
@@ -271,6 +292,11 @@ class CompressionTutorial extends BaseCompressionGraphic {
         if (this.slug === song) {
           this.onReady(cb);
         } else {
+          // TODO: There needs to be a better way to deal with this kind of thing.
+          // I think this is an argument for splitting into two classes, one 
+          // permanent (per graphic/svg) and one ephemeral (overwritten on
+          // every song change). So any callbacks associated with an overwritten
+          // object should just naturally go away.
           console.log('Aborting stale QC callback');
         }
       }, wait);
