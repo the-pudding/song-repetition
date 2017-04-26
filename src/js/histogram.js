@@ -6,6 +6,8 @@ import HIST from './histogram-data.js';
 var RSCORE_SCALE = 1;
 const debug = 0;
 
+let animation_dur = 1000;
+
 const vlines = [
   {text: 'This essay', rscore: comm.pct_to_rscore(10.8)}, // TODO: idk
   {text: 'Avg. song', rscore:.995},
@@ -105,9 +107,13 @@ class HistogramGraphic extends BaseChart {
       .attr('font-size', 12)
       .text(v=>v.text)
     this.svg.selectAll('.vline line')
+      .transition()
+      .duration(animation_dur)
       .attr('x1', v=>this.xscale(v.rscore))
       .attr('x2', v=>this.xscale(v.rscore));
     this.svg.selectAll('.vline text')
+      .transition()
+      .duration(animation_dur)
       .attr('x', v=> this.xscale(v.rscore) + 5)
   }
 
@@ -120,6 +126,8 @@ class HistogramGraphic extends BaseChart {
       .classed('bar', true);
     bars.merge(newbars)
       .attr('fill', h => comm.rscore_cmap((h.left+h.right)/2) )
+      .transition()
+      .duration(animation_dur)
       .attr('x', h=> this.xscale(h.left))
       .attr('y', h=> this.yscale(h.count))
       .attr('width', h=> this.xscale(h.right) - this.xscale(h.left))
@@ -129,7 +137,6 @@ class HistogramGraphic extends BaseChart {
 
   static init() {
     new HistogramGraphic('#histogram', 20);
-    new HistogramGraphic('#histogram-full', 0);
   }
 }
 

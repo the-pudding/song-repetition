@@ -17,7 +17,7 @@
 - maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
 
 ## Histogram
-- Do a scrollytelling transition between first and second version of histogram (without and with outliers)
+- annotations for the outliers
 
 ## Most repetitive songs
 - headings

@@ -4,6 +4,7 @@ import * as comm from './common.js';
 
 class BaseChart {
   constructor(rootsel, size={}) {
+    this.rootsel = rootsel;
     this.root = d3.select(rootsel);
     let margin = {top: 20, right: 20, bottom: 50, left: 20};
     if (size.responsive) {

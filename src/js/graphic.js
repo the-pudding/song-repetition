@@ -6,6 +6,7 @@ import topsongs from './topsongs.js';
 import compression from './compression.js';
 import compression_tutorial from './compression-tutorial.js';
 import histogram from './histogram.js';
+import histogram_accordion from './histogram-accordion.js';
 
 function resize() {
 
@@ -17,6 +18,7 @@ function init() {
   d3.timeout( () => {
     compression_tutorial.init();
     OverTime.init();
+    histogram_accordion.init();
   }, 1000);
   compression.init();
   histogram.init();
