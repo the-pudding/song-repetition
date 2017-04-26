@@ -7,9 +7,10 @@ var RSCORE_SCALE = 1;
 const debug = 0;
 
 const vlines = [
-  {text: 'Newswire article', rscore: .7}, // TODO: idk
+  {text: 'This essay', rscore: comm.pct_to_rscore(10.8)}, // TODO: idk
   {text: 'Avg. song', rscore:.995},
-  {text: 'Bad Romance', rscore: 2.028},
+  //{text: 'Bad Romance', rscore: 2.028},
+  {text: 'Cheap Thrills', rscore: comm.pct_to_rscore(76.2)},
 ];
 
 class HistogramGraphic extends BaseChart {
