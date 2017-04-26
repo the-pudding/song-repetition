@@ -369,7 +369,7 @@ class BaseCompressionGraphic extends BaseChart {
     this.odometer
       .append('text')
       .classed('reduction', true)
-      .attr('text-anchor', 'end')
+      //.attr('text-anchor', 'end')
       .text('Size reduction: 0%');
     return;
     let lineno = 0;
@@ -385,7 +385,7 @@ class BaseCompressionGraphic extends BaseChart {
   odometerWhere() {
     //let x = (.5 + this.ncols-1)*this.colwidth
     //let y = this.lineheight;
-    let x = this.W;
+    let x = this.W*.75;
     let y = 0;
     return {x,y};
   }

@@ -383,15 +383,8 @@ class CompressionTutorial extends BaseCompressionGraphic {
     }
   }
 
-  renderOdometer() {
-    super.renderOdometer();
-    // TODO: this results in some jitter when width of text changes
-    this.odometer.select('text')
-      .attr('text-anchor', 'end');
-  }
-
   odometerWhere() {
-    let x = this.W;
+    let x = this.W*.75;
     let y = 0;
     return {x,y};
   }
