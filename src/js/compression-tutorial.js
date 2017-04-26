@@ -9,7 +9,7 @@ const play_accel = (iter, dur) => {
   return Math.max(100, dur * Math.pow(0.9, iter));
 };
 const play_speed = 4;
-const autoplay = 1;
+const autoplay = 0;
 const scroll_acceleration = 1;
 
 // TODO: would be cool to bind *all* the stages to scroll progress
@@ -34,15 +34,19 @@ class CompressionWrapper {
   }
 
   setupProse() {
-    this.prose.selectAll('.slide-wrapper').data(this.stage_data)
+    let proses = this.prose.selectAll('.slide-wrapper').data(this.stage_data)
       .enter()
       .append('div')
       .classed('slide-wrapper', true)
       .classed('first', (d,i) => i===0)
       .classed('progressive', d => d.progressive)
+    proses
       .append('div')
       .classed('slide', true)
       .html(sd => sd.html)
+    proses.filter(sd => sd.padding)
+      .style('padding-top', sd=> sd.padding.top + 'em')
+      .style('padding-bottom', sd=> sd.padding.bottom + 'em')
   }
 
   // Setup the overall scene wherein the compression graphic is pinned to
@@ -53,28 +57,13 @@ class CompressionWrapper {
     let outerscene = new ScrollMagic.Scene({
       triggerElement: this.rootsel,
       triggerHook: 'onLeave',
-      // Allow for the prose to land halfway up before ending the scene
-      duration: Math.max(1, this.root.node().offsetHeight - viewportHeight/2),
+      duration: Math.max(1, this.root.node().offsetHeight - viewportHeight),
     })
       .on('enter', () => this.toggleFixed(true, false))
       .on('leave', e => this.toggleFixed(false, e.scrollDirection === 'FORWARD'))
       .addTo(this.controller);
 
     let slides = this.prose.selectAll('.slide-wrapper');
-    // How far down from the top of the viewport does a scene's
-    // paragraph become active
-    let slide_offset = -1 * viewportHeight * 1/2;
-    // TODO: Need some way to ensure no more than one scene can be 
-    // active at once. (Otherwise the progress stuff is gonna get fucky.)
-    // Maybe need some arbitrator that manages a lock on current scene.
-    //
-    // Or carefully set each scene's duration to exactly the distance 
-    // to the next trigger.
-    //
-    // TODO YOUAREHERE: Okay, maybe set it up so that instead of using offsets, 
-    // we can just use an onLeave trigger on each slide-wrapper element. Then
-    // calculating the durations is really easy, cause it's just the height of
-    // the slide-wrapper el.
     slides.each( (dat,i,n) => {
       let wrappernode = n[i];
       let stagenode = d3.select(wrappernode).select('.slide');
@@ -82,7 +71,6 @@ class CompressionWrapper {
         triggerElement: wrappernode,
         triggerHook: 'onLeave',
         duration: wrappernode.offsetHeight,
-        //(-1*slide_offset) + (dat.progressive ? viewportHeight/2 : 0), //+ stagenode.offsetHeight/2,
       })
         .on('enter', (e) => {
           let slug = dat.slug;
@@ -102,6 +90,9 @@ class CompressionWrapper {
           }
           console.log(`Entered stage ${i} w direction ${e.scrollDirection}`);
           stagenode.classed('active', true);
+          if (dat.progressive) {
+            this.comp.acquireScrollLock(i);
+          }
         })
         // NB: when duration is not set, leave event is fired when the 
         // trigger is scrolled past from the opposite scroll direction
@@ -114,11 +105,14 @@ class CompressionWrapper {
           if (exitfn) {
             exitfn(this.comp);
           }
+          if (dat.progressive) {
+            this.comp.releaseScrollLock(i);
+          }
         })
         .addTo(this.controller);
         if (!autoplay && dat.progressive) {
           slide_scene.on('progress', e => {
-            this.comp.onScroll(e.progress);
+            this.comp.onScroll(e.progress, i);
           });
         }
     });
@@ -207,6 +201,7 @@ class CompressionWrapper {
   },
 
   {
+    // TODO: make this progressive
     slug: 'cheapthrills_chorus',
     allow_defragged: true,
     html: `<p>In the end, the chorus alone is reduced in size 46%.</p>`,
@@ -227,7 +222,7 @@ class CompressionWrapper {
     // TODO: need to figure out how to slow down scrolling during
     // these stages
     progressive: true,
-    allow_defragged: true,
+    allow_defragged: false,
     slug: 'thrillscheap',
     html: `<p>How does that compare to my jumbled version of the same words?</p>`,
     onEnter: (comp) => {
@@ -242,8 +237,21 @@ class CompressionWrapper {
   },
 
   {
-    progressive: true,
+    padding: {top: 10, bottom: 3},
+    progressive: false,
     allow_defragged: true,
+    slug: 'thrillscheap',
+    html: `<p>The jumbled version shrinks less than the original (29.5% vs. 46%). This is good! It agrees with intuition.</p>`,
+    onEnter: (comp, down) => {
+      if (comp.state !== STATE.defragged) {
+        comp.defrag();
+      }
+    }
+  },
+
+  {
+    progressive: true,
+    allow_defragged: false,
     slug: 'essay_intro',
     html: `<p>What about the first paragraph of this post?</p>`,
     onEnter: (comp) => {
@@ -253,6 +261,19 @@ class CompressionWrapper {
       }
     },
   },
+
+  {
+    padding: {top: 10, bottom: 3},
+    allow_defragged: true,
+    slug: 'essay_intro',
+    html: `<p>A mere 11% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
+    onEnter: (comp, down) => {
+      if (comp.state !== STATE.defragged) {
+        comp.defrag();
+      }
+    }
+  },
+
   ]
   }
 }
@@ -270,6 +291,8 @@ class CompressionTutorial extends BaseCompressionGraphic {
     this.warmCache(['thrillscheap', 'essay_intro', 'cheapthrills_chorus']);
     this.ravel_duration = 2000;
     this.defrag_duration = 5000;
+    // TODO: should this be reset on reset()
+    this.scroll_owner = null;
   }
 
   postReset() {
@@ -297,13 +320,32 @@ class CompressionTutorial extends BaseCompressionGraphic {
           // permanent (per graphic/svg) and one ephemeral (overwritten on
           // every song change). So any callbacks associated with an overwritten
           // object should just naturally go away.
+          // TODO: some way to check whether the initiating stage is still active?
           console.log('Aborting stale QC callback');
         }
       }, wait);
     });
   }
 
-  onScroll(progress) {
+  releaseScrollLock(i) {
+    if (this.scroll_owner === i) {
+      this.scroll_owner = null;
+    }
+  }
+
+  acquireScrollLock(i) {
+    if (this.scroll_owner !== null) {
+      console.warn(`Stage $[i} failed to acquire scroll lock.`);
+    } else {
+      this.scroll_owner = i;
+    }
+  }
+
+  onScroll(progress, stage) {
+    if (stage !== this.scroll_owner) {
+      console.log('Dropping scroll signal from pretender stage.');
+      return;
+    }
     if (this.state === STATE.loading || this.state === STATE.defragged) {
       return;
     }
@@ -313,7 +355,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
     let i = Math.floor(progress/prog_per_ditto);
     if (this.lastditto === i && i === this.dittos.length-1) {
       // We're at the end. We've run out of dittos. Defrag.
-      this.defrag();
+      //this.defrag();
     } else {
       this.setLastDitto(i);
     }

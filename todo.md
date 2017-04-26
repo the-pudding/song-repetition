@@ -1,15 +1,19 @@
 ## Compression animation
-- try scaling ditto radius with size
 - arrow stuff...
     - nicer trajectories
     - should they go from dest to src (as they do now), or the opposite? Going the other way would direct the eye to the final part of the transition (the erasing of the dest text)
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
-- scrollytelling section: seems like this kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
 - code is getting super awkward and spaghetti-ish. Need to make sure that the data attributes are the canonical source of truth, and all the UI transformations bend to them.
 - helper class for json cache
 - finesse marker placement
+
+### compression-tutorial.js
+- seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
+
+### compression.js
+- maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
 
 ## Histogram
 - Do a scrollytelling transition between first and second version of histogram (without and with outliers)
