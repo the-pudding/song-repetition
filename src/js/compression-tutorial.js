@@ -223,17 +223,10 @@ class CompressionWrapper {
 </small>
       `,
     onEnter: (comp, down) => {
-      comp.defrag();
-      return;
-      let wait = comp.setLastDitto(100);
-      d3.timeout(() => {
-        if (comp.slug != 'cheapthrills_chorus') {
-          console.log('Aborting defrag');
-        } else {
-          comp.defrag();
-        }
-      }, wait);
-      return;
+      if (comp.state !== STATE.defragged) {
+        comp.fastforward();
+        comp.defrag();
+      }
     },
   },
 
@@ -263,6 +256,7 @@ class CompressionWrapper {
     html: `<p>The jumbled version shrinks less than the original (29.5% vs. 46%). This is good! It agrees with intuition.</p>`,
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
+        comp.fastforward();
         comp.defrag();
       }
     }
@@ -288,7 +282,9 @@ class CompressionWrapper {
     html: `<p>A mere 11% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
-        comp.defrag();
+        comp.fastforward();
+        let cfg = {bannery: comp.H*2/3};
+        comp.defrag(cfg);
       }
     }
   },

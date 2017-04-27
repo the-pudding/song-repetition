@@ -143,14 +143,13 @@ class BaseCompressionGraphic extends BaseChart {
     }
     let step = this.step(dur);
     if (!step) {
-      // TODO: not clear if this should happen here or in step()
-      // TODO: defrag takes no arguments?
-      this.defrag(this.defrag_duration/this.speed);
+      // For now, don't auto-defrag at the end. Just quit.
+      //this.defrag();
     } else {
       step.then(()=> this._playloop(speed, accel, iter+1));
     }
   }
-  defrag() {
+  defrag(kwargs={}) {
     if (this.state === STATE.loading || this.state === STATE.defragged) {
       console.log(`Can't defrag in state ${this.state}`);
       return;
@@ -215,7 +214,10 @@ class BaseCompressionGraphic extends BaseChart {
     clock += dur;
 
     // show size reduction info
-    let [bannerx, bannery] = [this.W/3, this.H/3];
+    let [bannerx, bannery] = [
+        kwargs.bannerx || this.W/3, 
+        kwargs.bannery || this.H/3
+          ];
     let banner = this.svg
       .append('g')
       .attr('transform', `translate(${bannerx}, ${bannery})`)
@@ -435,6 +437,9 @@ class BaseCompressionGraphic extends BaseChart {
       // should be good enough
       d3.timeout(resolve, wait);
     });
+  }
+  fastforward() {
+    this.setLastDitto(this.dittos.length-1, {ravel_duration:0});
   }
   setLastDitto(nexti, kwargs={}) {
     nexti = Math.min(this.dittos.length-1, nexti);
