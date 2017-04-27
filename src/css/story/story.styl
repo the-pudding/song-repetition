@@ -1,26 +1,69 @@
 fontify($ptSerif, $ptSerif-hash, $serif)
 fontify($roboto, $roboto-hash, $sans)
+fontify($atlas, $publico, $canela)
 
 html, body
 	background-color #fff
 	color $off-black
 	font-size 17px
 
-p 
+p
 	line-height 1.6
 	margin-bottom 10px
+	font-family $publico
+	a
+		text-decoration underline
+		color inherit
+	a:hover
+		color red
 
+.row
+	blockquote
+		p
+			font-family $atlas
+			font-size .85rem
+
+.prose
+	max-width 40rem
+	margin 0 auto
+	margin-bottom 1.3em
+	font-size 1rem
+	line-height 1.7
+	font-weight 400
+	-webkit-font-smoothing antialiased
+	color black
+.prose-big
+	font-size 1.1rem
+	line-height 1.9
+	font-weight 100
 h1
 	font-size 32px
 	margin-bottom 30px
 h2
-	font-size 24px
-	margin-bottom 20px
+	font-size 1.6rem
+	font-family $atlas
+	font-weight 100
+	max-width 40rem
+	margin 0 auto
+	margin-bottom 1.3rem
+	margin-top 4rem
+	color	rgba(0,0,0,.90)
+
+.prose-pull-quote
+	margin-top 3rem
+	margin-bottom	2rem
+
+.flex-box
+	-webkit-display flex
+	display flex
+	-webkit-justify-content space-around
+	justify-content space-around
+
 footer
 	// XXX: hiding this for now because CSS is hard
 	display: none
 small
-	font-size 70%
+	font-size 1rem
 button
 	padding: 6px
 	margin 6px
@@ -38,3 +81,7 @@ button
 #girls
 	float right
 	width 40%
+	display none
+#histogram
+	margin-top 3rem
+	margin-bottom 2rem

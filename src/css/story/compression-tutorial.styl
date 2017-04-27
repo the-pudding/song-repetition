@@ -9,15 +9,27 @@ have no idea how to accomplish this. */
         width 60%
         margin-left 40%
     .graphic-prose
-        width 34%
+        width 38%
     .slide-wrapper
         // TODO: use vh units?
         padding-top 10em
         padding-bottom 10em
-        background-color inherit
         .slide
-            background-color rgba(255,240,220,1)
+            padding 1.5rem
+            p
+              background #f3f3f3
+              border-left 4px solid rgba(255, 2, 2, 0.63)
+              font-family $atlas
+              font-size .9rem
+              line-height 1.5
+              padding: 1rem 1.5rem
     .slide-wrapper.first
         padding-top 5em
     .slide-wrapper.progressive
         padding-bottom 15em
+
+
+.graphic-vis
+  svg
+    border 1px dashed #d4d4d4
+    box-shadow 7px -6px 0 1px #f5f5f5

@@ -18,7 +18,7 @@ class BaseChart {
     this.svg = this.root.append('svg')
       .attr('width', this.totalW)
       .attr('height', this.totalH)
-      .style('background-color', 'rgba(240,255,255,1)')
+      .style('background-color', '#fff')
       .append("g")
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
   }
@@ -95,9 +95,9 @@ class BeeswarmChart extends BaseChart {
     let i = 0
     for (let token of tokens) {
       line += token + ' ';
-      if (line.length >= maxlen || 
+      if (line.length >= maxlen ||
           // look ahead for icebergs
-          (line.length && (i+1) < tokens.length && 
+          (line.length && (i+1) < tokens.length &&
             (line.length + tokens[i+1].length) > maxlen * 1.75
           )
          ) {

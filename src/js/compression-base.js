@@ -3,8 +3,12 @@ import { BaseChart } from './basechart.js';
 
 const text_scale = 4/5;
 
-const src_color = 'purple';
-const dest_color = 'darkgreen';
+// const src_color = 'purple';
+// const src_color = 'rgba(255,2,2,.95)';
+// const dest_color = '#2196f3';
+
+const src_color = '#2196f3';
+const dest_color = 'rgba(255,2,2,.95)';
 
 const ravel_duration = 2000;
 
@@ -43,7 +47,7 @@ class BaseCompressionGraphic extends BaseChart {
     // pretty close
     this.glyphwidth = 9.6 * text_scale;
     this.lineheight = this.fontsize*1.05;
-    // scaling for various pieces of the graphic 
+    // scaling for various pieces of the graphic
     this.x = {
       underline: x=>this.glyphwidth * x,
       marker: x => (this.glyphwidth * x) + this.glyphwidth/2
@@ -63,9 +67,10 @@ class BaseCompressionGraphic extends BaseChart {
         .append('marker')
         .attr('id', 'arrow')
         .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 15)
-        .attr('refY', -1.5)
+        .attr('refX', 8)
+        .attr('refY', 0)
         .attr('markerWidth', 6)
+        .attr("markerUnits","strokeWidth")
         .attr('markerHeight', 6)
         .attr('orient', 'auto')
         .append('path')
@@ -209,7 +214,7 @@ class BaseCompressionGraphic extends BaseChart {
         //dittowhere(i).x)
       })
       .attr('cy', (d,i) => dittowhere(i).y)
-      
+
     dur = time_pie.crunch;
     this._crunch(dur, clock);
     clock += dur;
@@ -219,7 +224,9 @@ class BaseCompressionGraphic extends BaseChart {
     let banner = this.svg
       .append('g')
       .attr('transform', `translate(${bannerx}, ${bannery})`)
-      .attr('opacity', 0);
+      .attr('opacity', 0)
+      .attr("class","reduction-end");
+
     let line = banner
       .append('text')
       .text(`Original size: ${this.totalchars} characters`);
@@ -233,7 +240,7 @@ class BaseCompressionGraphic extends BaseChart {
       .append('text')
       .attr('dy', lineheight)
       .text(compline);
-    
+
     dur = time_pie.banner;
     let banner_trans = banner
       .transition()
@@ -301,7 +308,7 @@ class BaseCompressionGraphic extends BaseChart {
     let songdat_callback = songdat => {
       let lines = songdat.lines;
       this.dittos = songdat.dittos;
-      this.totalchars = d3.sum(lines, 
+      this.totalchars = d3.sum(lines,
           l => Math.max(0, d3.sum(l, w=>w.length))
       );
       this.renderText(lines);
@@ -431,7 +438,7 @@ class BaseCompressionGraphic extends BaseChart {
     let wait = this.ravel(ditto, dur);
     this.updateOdometer();
     return new Promise( (resolve,reject) => {
-      // imperfect sol'n (compared to actually chaining transitions), but 
+      // imperfect sol'n (compared to actually chaining transitions), but
       // should be good enough
       d3.timeout(resolve, wait);
     });
@@ -483,7 +490,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('cx', where.x)
       .attr('cy', where.y)
       .attr('r', this.ditto_radius)
-      .attr('opacity', .4)
+      .attr('opacity', .8)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
       .attr('fill', src_color);
@@ -505,11 +512,11 @@ class BaseCompressionGraphic extends BaseChart {
       .duration(ravel_duration/4)
       .attr('opacity', 1);
   }
-  
+
   ravel(d, duration) {
     var dur, delay, root, wait;
     const steps = [
-      {dur: 1, desc: 'underline dest', 
+      {dur: 1, desc: 'underline dest',
         fn: () => {
           //console.log(`step 1. wait=${wait}, dur=${dur}`);
           return this.addTextLine(d.dest, dest_color, dur, root, wait);
@@ -552,7 +559,7 @@ class BaseCompressionGraphic extends BaseChart {
       dur = durscale(step.dur);
       wait = clock;
       let res = step.fn();
-      // Step functions may optionally return a duration, if they need 
+      // Step functions may optionally return a duration, if they need
       // flexibility in taking more or less time than the suggested
       // duration.
       if (res) {
@@ -796,7 +803,7 @@ class BaseCompressionGraphic extends BaseChart {
 
   selectRange(range) {
     return this.svg.selectAll('.word')
-      .filter( 
+      .filter(
           d => this.rangeContains(range, d)
       );
   }

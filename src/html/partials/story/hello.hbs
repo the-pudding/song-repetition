@@ -1,72 +1,67 @@
 <div class="container">
-<h1>La la la - title TK</h1>
+<!-- <h1>la la - title TK</h1> -->
 
-<img id="girls" src="assets/img/girls_rhapsody.jpg" />
+<!-- <img id="girls" src="assets/img/girls_rhapsody.jpg" /> -->
 
-<p>Is popular music getting more repetitive?</p>
+<p class="prose prose-big">Are popular music lyrics getting more repetitive?</p>
 
-<p>This meme that's been floating around the internet seems to suggest that that's the case.</p>
+<!-- <p class="prose">This meme that's been floating around the internet seems to suggest that that's the case.</p> -->
 
-<p>It's not a new idea. In 1977, the great computer scientist Donald Knuth published a paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, which is basically one long joke about the repetitive lyrics of newfangled music (example quote: "the advent of modern drugs has led to demands for still less memory, and the ultimate improvement of Theorem 1 has consequently just been announced").
+<p class="prose">In 1977, the great computer scientist Donald Knuth published a paper called <a href="https://en.wikipedia.org/wiki/The_Complexity_of_Songs">The Complexity of Songs</a>, which is basically one long joke about the repetitive lyrics of newfangled music (example quote: "the advent of modern drugs has led to demands for still less memory, and the ultimate improvement of Theorem 1 has consequently just been announced").
 </p>
 
-<p>I'm going to try to test this hypothesis with data. I'll be analyzing the repetitiveness of a dataset of 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017.
+<p class="prose">I'm going to try to test this hypothesis with data. I'll be analyzing the repetitiveness of a dataset of 15,000 songs that charted on the Billboard Hot 100 between 1958 and 2017.
 </p>
 
 <h2>Measuring repetitiveness?</h2>
 
-<p>
-I know a repetitive song when I hear one, but translating that intuition into a number isn't easy.
-One thing we might try is looking at the number of unique words in a song, as a fraction of the total number of words. But this metric would call the following lyric excerpts equally repetitive:</p>
+<p class="prose">I know a repetitive song when I hear one, but translating that intuition into a number isn't easy. One thing we might try is looking at the number of unique words in a song, as a fraction of the total number of words. But this metric would call the following lyric excerpts equally repetitive:</p>
 
-<div class="row">
-    <div class="col-xs-5">
-        <blockquote>
-        <p>baby I don't need dollar bills to have fun tonight<br>
-        I love cheap thrills<br>
-        baby I don't need dollar bills to have fun tonight<br>
-        I love cheap thrills<br>
-        I don't need no money<br>
-        as long as I can feel the beat<br>
-        I don't need no money<br>
-        as long as I keep dancing</p>
-        <p><cite>~ Sia, Cheap Thrills</cite></p>
-        </blockquote>
-    </div>
-    
-    <div class="col-xs-5">
-        <blockquote><p>tonight I need dollar bills<br>
-        I don't keep fun<br>
-        cheap thrills long to feel money<br>
-        the bills don't need the dancing baby<br>
-        fun dollar dancing thrills the baby I need<br>
-        don't have fun<br>
-        no no don't have dancing fun tonight<br>
-        beat the can as I don't feel thrills<br>
-        love the dancing money</p>
-        <p><cite>~ Colin Morris, Original composition</cite></p>
-        </blockquote>
-    </div>
+<div class="prose-pull-quote">
+  <div class="row flex-box">
+      <div class="col-xs-5">
+          <blockquote>
+          <p>baby I don't need dollar bills to have fun tonight<br>
+          I love cheap thrills<br>
+          baby I don't need dollar bills to have fun tonight<br>
+          I love cheap thrills<br>
+          I don't need no money<br>
+          as long as I can feel the beat<br>
+          I don't need no money<br>
+          as long as I keep dancing</p>
+          <p><cite>~ Sia, Cheap Thrills</cite></p>
+          </blockquote>
+      </div>
+
+      <div class="col-xs-5">
+          <blockquote><p>tonight I need dollar bills<br>
+          I don't keep fun<br>
+          cheap thrills long to feel money<br>
+          the bills don't need the dancing baby<br>
+          fun dollar dancing thrills the baby I need<br>
+          don't have fun<br>
+          no no don't have dancing fun tonight<br>
+          beat the can as I don't feel thrills<br>
+          love the dancing money</p>
+          <p><cite>~ Colin Morris, Original composition</cite></p>
+          </blockquote>
+      </div>
+  </div>
 </div>
-<p>These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
+
+<p class="prose">These are both 52 words long and use the same 23 word vocabulary, but the first one is clearly more repetitive, because it arranges words in a predictable, repetitive order.</p>
 
 
 
 <h2>Repetitiveness ≈ compressibility?</h2>
 
-<p>
-You may not have heard of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithm</a>, but you probably use it every day. It's a lossless compression algorithm that powers gifs, pngs, and most archive formats (zip, gzip, rar...).
+<p class="prose">You may not have heard of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">Lempel-Ziv algorithm</a>, but you probably use it every day. It's a lossless compression algorithm that powers gifs, pngs, and most archive formats (zip, gzip, rar...).
 </p>
 
-<p>
-What does this have to do with pop music? The Lempel-Ziv algorithm works by exploiting repeated sequences. How efficiently LZ can compress a text is directly correlated with the number and length of the repeated sections in that text.
+<p class="prose">What does this have to do with pop music? The Lempel-Ziv algorithm works by exploiting repeated sequences. How efficiently LZ can compress a text is directly correlated with the number and length of the repeated sections in that text.
 </p>
 
-<!--
-<p>In short, the LZ algorithm scans the input from start to end looking for sections that match an earlier part of the text. If it finds one then, in the output, it replaces that repeated text with a signpost that says "go back X letters, and copy Y characters".
-</p> -->
-
-<p>Here's how it works.
+<p class="prose">Here's how it works.
 </p>
 
 </div><div class="container-fluid">
@@ -76,7 +71,7 @@ What does this have to do with pop music? The Lempel-Ziv algorithm works by expl
 </div>
 </div><div class="container">
 
-<p>Check out what the algorithm does with all the lyrics of <i>Cheap Thrills</i> below (or select a different a song).</i>...
+<p class="prose">Check out what the algorithm does with all the lyrics of <i>Cheap Thrills</i> below (or select a different a song).</i>...
 </p>
 
 </div><div class="container-fluid">
@@ -84,80 +79,74 @@ What does this have to do with pop music? The Lempel-Ziv algorithm works by expl
 </div>
 </div><div class="container">
 
-<p>
-After applying the LZ algorithm, <i>Cheap Thrills</i> went from 1,651 characters (or bytes) to 294, a 76% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across (almost) all 15,000 songs in my dataset:
+<p class="prose">After applying the LZ algorithm, <i>Cheap Thrills</i> went from 1,651 characters (or bytes) to 294, a 76% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across (almost) all 15,000 songs in my dataset:
 </p>
 
 <div id="histogram">
 </div>
 
-<p><small>
-You may have noticed the percentages on the x-axis are not evenly spaced. I'm using a logarithmic scale with the property that, for any given song, a song that compresses half as small is a fixed distance away. For example, the distance between 20% and 60% is the same as between 98% and 99%. I'll be using this kind of scale throughout.
-</small></p>
+<p class="prose">
+  <small>
+    You may have noticed the percentages on the x-axis are not evenly spaced. I'm using a logarithmic scale with the property that, for any given song, a song that compresses half as small is a fixed distance away. For example, the distance between 20% and 60% is the same as between 98% and 99%. I'll be using this kind of scale throughout.
+  </small>
+</p>
 
-<p>I excluded the 20 most repetitive songs in the dataset from the above chart. When you see what it looks like with them, you'll understand why:
+<p class="prose">I excluded the 20 most repetitive songs in the dataset from the above chart. When you see what it looks like with them, you'll understand why:
 </p>
 
 <div id="histogram-full">
 </div>
 
-<p>What are these uber-repetitive outliers?
+<p class="prose">What are these uber-repetitive outliers?
 </p>
 
 <h2>The most repetitive songs of all time</h2>
 
 <div id="topsongs"></div>
 
-<p>
-<i>Around The World</i> by Daft Punk gets reduced a whopping <b>98%</b>. It goes from 2,610 characters to 61. Small enough to fit in a tweet - twice! (<a href="http://www.azlyrics.com/lyrics/daftpunk/aroundtheworld.html">Here are the lyrics</a>, if you're not familiar with the song.)
+<p class="prose"><i>Around The World</i> by Daft Punk gets reduced a whopping <b>98%</b>. It goes from 2,610 characters to 61. Small enough to fit in a tweet - twice! (<a href="http://www.azlyrics.com/lyrics/daftpunk/aroundtheworld.html">Here are the lyrics</a>, if you're not familiar with the song.)
 </p>
 
-<p>Intuitively, <i>Around The World</i> definitely <i>feels</i> like a very repetitive song. In fact, many of the familiar songs on this list are comically repetitive (Macarena, Duck Sauce, The Thong Song, Cotton Eye Joe...). This inspires some confidence in the metric I'm using.
+<p class="prose">Intuitively, <i>Around The World</i> definitely <i>feels</i> like a very repetitive song. In fact, many of the familiar songs on this list are comically repetitive (Macarena, Duck Sauce, The Thong Song, Cotton Eye Joe...). This inspires some confidence in the metric I'm using.
 </p>
 
-<p>So, is music getting more repetitive? The current decade is pretty well-represented in the top 10 above, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). We'll need to look at a lot more data to be sure...</p>
+<p class="prose">So, is music getting more repetitive? The current decade is pretty well-represented in the top 10 above, but it's also a bit overrepresented in my dataset (it's easier to find lyrics for recent songs). We'll need to look at a lot more data to be sure...</p>
 
 {{> story/overtime }}
 
-<p>
-<b>Why would the top 10 be consistently more repetitive than the rest of the hot 100?</b>
+<p class="prose"><b>Why would the top 10 be consistently more repetitive than the rest of the hot 100?</b>
 The easiest explanation would be an appeal to natural selection. Maybe listeners generally like music more the more repetitive it is, so the most repetitive songs of the year chart the highest.
 </p>
 
-<p>
-The chart position of a song is clearly going to be affected by whether the artist and their label choose it as a single, and how heavily they promote it. Maybe they're more likely to choose the more repetitive songs on an album to promote?
+<p class="prose">The chart position of a song is clearly going to be affected by whether the artist and their label choose it as a single, and how heavily they promote it. Maybe they're more likely to choose the more repetitive songs on an album to promote?
 </p>
 
-<p>
-More importantly, <b>why is music getting more repetitive with time</b>? The simplest answer would be that the public's taste in music has just been shifting toward a greater appetite for repetition.
+<p class="prose">More importantly, <b>why is music getting more repetitive with time</b>? The simplest answer would be that the public's taste in music has just been shifting toward a greater appetite for repetition.
 </p>
 
-<p>
-Maybe taste has tended to favour more repetitive musical genres over time. There does seem to be a significant jump in repetition from the mid-70's to the early 80's that coincides with the rise of disco. This could also explain the slump from the mid-80's to the early 90's, coinciding with the <a href="https://en.wikipedia.org/wiki/Golden_age_hip_hop">Golden age of hip hop</a>.
+<p class="prose">Maybe taste has tended to favour more repetitive musical genres over time. There does seem to be a significant jump in repetition from the mid-70's to the early 80's that coincides with the rise of disco. This could also explain the slump from the mid-80's to the early 90's, coinciding with the <a href="https://en.wikipedia.org/wiki/Golden_age_hip_hop">Golden age of hip hop</a>.
 </p>
 
 <h2>Who's responsible for this madness?</h2>
 
-<p>Let's look at the average repetitiveness of some prolific artists in the dataset (those that have at least 15 charting songs as solo artists).</p>
-
-<br/>
-
+<p class="prose">Let's look at the average repetitiveness of some prolific artists in the dataset (those that have at least 15 charting songs as solo artists).
+</p>
 
 <div id="artist-circles"></div>
 
-<p>Genre does seem like a differentiating factor here. In the 00's, our artists actually separate pretty cleanly into two clusters, with country music and hip-hop (and whatever John Mayer does) on the left, and pop and rock on the right.
+<p class="prose">Genre does seem like a differentiating factor here. In the 00's, our artists actually separate pretty cleanly into two clusters, with country music and hip-hop (and whatever John Mayer does) on the left, and pop and rock on the right.
 </p>
 
-<p>The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 60%, to Brad Paisley's 38%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
+<p class="prose">The variation between artists is considerable. The Backstreet Boys have an average compression ratio of 60%, to Brad Paisley's 38%. In other words, if we asked the Backstreet Boys and Brad Paisley to each write a 400 word song, and compressed them both, we'd expect Brad's compressed song to be 50% bigger than BSB's.
 </p>
 
-<p>Let's zoom in on a specific artist, say Gwen Stefani. Each circle below represents a song in her discography. The pink blob is a histogram of the repetitiveness of all the songs in the dataset, for reference.
+<p class="prose">Let's zoom in on a specific artist, say Gwen Stefani. Each circle below represents a song in her discography. The pink blob is a histogram of the repetitiveness of all the songs in the dataset, for reference.
 </p>
 
-<p>Gwen's music is highly repetitive (her average score beats Britney, Beyonce, and Lady Gaga), but there's quite a spread. Four hugely repetitive songs contrast with the hugely non-repetitive ballad "Cool". The only repeated hook in the latter is the line "I know we're cool", repeated 9 times. "Hollaback Girl", on the other hand, has a 26-word refrain ("Few times I've been around that track... ain't no hollaback girl") that repeats 8 times, along with 33 repetitions of "this my shit", and a memorably repetitive speak-and-spell bridge. Gwen has range!</p>
+<p class="prose">Gwen's music is highly repetitive (her average score beats Britney, Beyonce, and Lady Gaga), but there's quite a spread. Four hugely repetitive songs contrast with the hugely non-repetitive ballad "Cool". The only repeated hook in the latter is the line "I know we're cool", repeated 9 times. "Hollaback Girl", on the other hand, has a 26-word refrain ("Few times I've been around that track... ain't no hollaback girl") that repeats 8 times, along with 33 repetitions of "this my shit", and a memorably repetitive speak-and-spell bridge. Gwen has range!</p>
 
-<div id="discog-widget"></div>
-
-<div class="spacer"></div>
-
+<div id="discog-widget">
 </div>
+
+<!-- <div class="spacer"></div>
+</div> -->
