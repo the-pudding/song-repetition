@@ -4,19 +4,19 @@
     - should they go from dest to src (as they do now), or the opposite? Going the other way would direct the eye to the final part of the transition (the erasing of the dest text)
 - (maybe) special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
-- explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
-    - or replace with *all* the dittos, coalesced together
 - helper class for json cache
 - finesse marker placement
 
 ### compression-tutorial.js
 - seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
     - I think part of the problem might be dynamically adding the compression-tutorial slide/stage elements dynamically. They take up a lot of space, so whenever they get added, the page shifts around a lot.
-- experiment with acceleration (and lack thereof)
+- NTH: when scrolling up to the defrag scenes, we should just draw the final result of the defrag without any delays/animations. 
 
 ### compression.js
 - maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
-- better speed controls (slider?)
+- better controls
+    - switch between play/pause as appropriate
+    - try a slider for speed controls
 
 ## Histogram
 - annotations for the outliers

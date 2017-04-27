@@ -228,13 +228,28 @@ class BaseCompressionGraphic extends BaseChart {
     let lineheight = this.lineheight*2;
     let stats = this.compressionStats();
     let compchars = this.totalchars - stats.chars_saved;
-    let compline = `Compressed size: ${compchars} characters/bytes`;
-    compline += ` + ${stats.ndittos} dittos`;
-    compline += ` = ${compchars+stats.ndittos*3} bytes`;
-    banner
+    let compline = {};
+    compline.lhs = `Compressed size: ${compchars} characters/bytes`;
+    compline.lhs += ` + ${stats.ndittos} \u00D7`;
+    compline.rhs = ` = ${compchars+stats.ndittos*3} bytes`;
+    let lhs = banner
       .append('text')
       .attr('dy', lineheight)
-      .text(compline);
+      .text(compline.lhs);
+    let bb = lhs.node().getBBox();
+    let rad = this.ditto_radius * 1.5;
+    let pad = rad * .5;
+    let dittorep = banner.append('circle')
+      .classed('ditto', true)
+      .attr('cx', bb.x+bb.width+rad+pad)
+      .attr('cy', bb.y+bb.height/2)
+      .attr('r', rad)
+      .attr('opacity', .4)
+      .attr('fill', src_color);
+    banner.append('text')
+      .attr('dx', bb.width+rad*2+pad*2.5)
+      .attr('dy', lineheight)
+      .text(compline.rhs);
     
     dur = time_pie.banner;
     let banner_trans = banner
