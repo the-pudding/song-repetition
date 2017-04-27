@@ -10,6 +10,7 @@ const play_accel = (iter, dur) => {
 };
 const play_speed = 4;
 const autoplay = 0;
+// 1: no acceleration. >1: positive acceleration.
 const scroll_acceleration = 1;
 
 const std_padding = {top: 10, bottom: 10};

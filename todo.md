@@ -6,13 +6,8 @@
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - explain dittos (maybe replace 'ditto' text in final banner with an actual dot)
     - or replace with *all* the dittos, coalesced together
-- code is getting super awkward and spaghetti-ish. Need to make sure that the data attributes are the canonical source of truth, and all the UI transformations bend to them.
 - helper class for json cache
 - finesse marker placement
-- arrangement of 'banner' components after defragging
-- when trying to defrag, we should make sure that all the dittos have been processed (and if not, maybe just go ahead and speed through them)
-    - maybe only show the full banner in the first tutorial example
-    - maybe even defragging should only happen in the tutorial?
 
 ### compression-tutorial.js
 - seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
