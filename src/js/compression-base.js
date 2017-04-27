@@ -244,7 +244,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('cx', bb.x+bb.width+rad+pad)
       .attr('cy', bb.y+bb.height/2)
       .attr('r', rad)
-      .attr('opacity', .4)
+      .attr('opacity', .8)
       .attr('fill', src_color);
     banner.append('text')
       .attr('dx', bb.width+rad*2+pad*2.5)
