@@ -3,13 +3,11 @@
 ## Compression animation
 - arrow stuff...
     - nicer trajectories
-    - arrow transition duration should scale with distance (i.e. speed should be constant, not duration)
     - give dest highlight a bit of a headstart before the arrow arrives
 - special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - helper class for json cache
-- in setLastDitto, if add an increasing delay to ravels after the first one, so that if a bunch of
-them come in at once, they sort of get drawn in order
+- in setLastDitto, if add an increasing delay to ravels after the first one, so that if a bunch of them come in at once, they sort of get drawn in order
 
 ### compression-tutorial.js
 * seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
@@ -56,8 +54,6 @@ them come in at once, they sort of get drawn in order
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 
 ## Multi-chart todos
-* stop hard-coding dimensions of graphics. Should probably set size as fn of the size of the containing div (which should probably be set with % units)
-* review easing (which is right now a random mix of linear and the default cubic)
 
 ## Data
 - Consider doing more normalization before compressing. As a way of removing non-meaningful variations in how lyrics are transcribed that could lead to different compression ratios.
