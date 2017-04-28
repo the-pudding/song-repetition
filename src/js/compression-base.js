@@ -480,6 +480,7 @@ class BaseCompressionGraphic extends BaseChart {
     if (!root) {
       root = this.svg;
     }
+    let marker_time_share = .3;
     let dest = this.selectRange(d.dest);
     dest.each(d=> {
       this.linedat[d.y][d.x].visible = false;
@@ -493,7 +494,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('opacity', 1)
       .transition()
       .delay(wait)
-      .duration(dur)
+      .duration(dur * (1-marker_time_share))
       .ease(d3.easeLinear)
       .attr('opacity', .1);
     let where = this.locate(this.rangeCentroid(d.dest));
@@ -501,12 +502,18 @@ class BaseCompressionGraphic extends BaseChart {
       .classed('ditto wordlike', true)
       .datum(d)
       .attr('cx', where.x)
-      .attr('cy', where.y)
+      // The y coord returned by this.locate is wrt the bottom of the corresponding
+      // line of text. Need to offset it to the middle.
+      .attr('cy', where.y - this.lineheight/3)
       .attr('r', this.ditto_radius)
-      .attr('opacity', .4)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
-      .attr('fill', src_color);
+      .attr('fill', src_color)
+      .attr('opacity', .1)
+    marker.transition()
+      .delay(wait+(dur * (1-marker_time_share)))
+      .duration(dur * marker_time_share)
+      .attr('opacity', .8);
   }
 
   unravel(d) {
@@ -529,20 +536,19 @@ class BaseCompressionGraphic extends BaseChart {
   ravel(d, duration) {
     var dur, delay, root, wait;
     const steps = [
-      {dur: 1, desc: 'underline dest', 
+      {dur: .5, desc: 'underline src',
         fn: () => {
-          //console.log(`step 1. wait=${wait}, dur=${dur}`);
-          return this.addTextLine(d.dest, dest_color, dur, root, wait);
+          return this.addTextLine(d.src, src_color, dur, root, wait);
         }
       },
       {dur: 2, desc: 'arrow',
         fn: () => {
-          this.animateArrow(d, root, dur, wait, 'src');
+          this.animateArrow(d, root, dur, wait, 'dest');
         }
       },
-      {dur: .5, desc: 'underline src',
+      {dur: 1, desc: 'underline dest', 
         fn: () => {
-          return this.addTextLine(d.src, src_color, dur, root, wait);
+          return this.addTextLine(d.dest, dest_color, dur, root, wait);
         }
       },
       {dur: 1, desc: 'erase dest',

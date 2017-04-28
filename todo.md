@@ -3,7 +3,7 @@
 ## Compression animation
 - arrow stuff...
     - nicer trajectories
-    - should they go from dest to src (as they do now), or the opposite? Going the other way would direct the eye to the final part of the transition (the erasing of the dest text)
+    - arrow transition duration should scale with distance (i.e. speed should be constant, not duration)
 - special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - helper class for json cache
@@ -13,12 +13,14 @@
 * seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
     - I think part of the problem might be dynamically adding the compression-tutorial slide/stage elements dynamically. They take up a lot of space, so whenever they get added, the page shifts around a lot.
 - when scrolling up to the defrag scenes, we should just draw the final result of the defrag without any delays/animations. 
+* add more padding to the progressive scenes, particularly the ones that have lots of dittos (right now a single quantum of scrollwheel adds several dittos at once)
 
 ### compression.js
 - maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
 * better controls
     - switch between play/pause as appropriate
     - try a slider for speed controls
+- ability to control minimum match size. This'd be a nice thing to include in a standalone version.
 
 ## Histogram
 - annotations for the outliers
@@ -78,7 +80,8 @@
     - So not clear how the piece should end. Just reiterating the conclusion that "yeah, it does seem like music is getting more repetitive after all" seems kind of lame.
     - Maybe just move the repetition-over-time graphic to the end?
 
-## Misc thoughts
+## Misc
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
 - Would be nice to define some common design element to use for 'small print' stuff, like explaining logarithmic scale in topsongs, rolling average in overtime, etc.
 * If the intro is going to use the Beyonce vs. Queen meme, it seems appropriate to use 'Girls'/Bohemian Rhapsody at some point as examples.
+* Review the many, many TODOs and XXXs in code.
