@@ -16,7 +16,7 @@ const INVERT_Y = 0;
 // scrollmagic transitions
 const STAGES = [
   {maxyear:0}, {maxyear:1960, focus:1960}, {maxyear:1980, focus:1980},
-  {maxyear:2014, focus:2014}, {maxyear:2015}, 
+  {maxyear:2014, focus:2014}, {maxyear:2015},
   {maxyear: 2015, hits:true}
 ]
 
@@ -29,7 +29,7 @@ const STAGES = [
 class OverTimeGraphic {
   constructor(chart) {
     this.chart = chart;
-    this.controller = scroll_controller; 
+    this.controller = scroll_controller;
     let rootsel = '#overtime-graphic';
     this.root = d3.select(rootsel);
     this.vis = this.root.select('.graphic-vis');
@@ -42,7 +42,7 @@ class OverTimeGraphic {
       duration: Math.max(1, this.root.node().offsetHeight - viewportHeight),
     });
     // TODO: is there maybe an easier way to do this with scrollmagic's API?
-    // look into emulating this example? 
+    // look into emulating this example?
     // http://scrollmagic.io/examples/basic/simple_pinning.html
     enterExitScene
       .on('enter', () => {
@@ -103,7 +103,7 @@ class OverTimeChart {
     this.svg = this.root.append('svg')
       .attr('width', totalW)
       .attr('height', totalH)
-      .style('background-color', 'rgba(255,240,255,1)')
+      // .style('background-color', 'rgba(255,240,255,1)')
       .append("g")
         .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
 
@@ -125,7 +125,7 @@ class OverTimeChart {
     this.yscale = d3.scaleLinear()
       .domain(d3.extent(ticks))
       .range(yrange);
-    
+
     // helper functions mapping from data points to x/y coords
     this.datx = yr => (this.xscale(yr.year));
     this.daty = yr => (this.yscale(yr.rscore));
@@ -154,7 +154,7 @@ class OverTimeChart {
     // set up the data path for all songs (no top 10 yet)
     this.setupOverall();
   }
-  
+
   step(stage_index) {
     console.assert(0 <= stage_index && stage_index < STAGES.length);
     let stage = STAGES[stage_index];
@@ -190,7 +190,7 @@ class OverTimeChart {
     let old_offset = this.path.attr('stroke-dashoffset');
     let delta = Math.abs(next_offset-old_offset);
     let animation_duration = 50 + 2.5*delta;
-    
+
     this.path
       .transition()
       .duration(animation_duration)
@@ -219,7 +219,7 @@ class OverTimeChart {
       hitpath
         .attr('stroke-dasharray', totalLength + ' ' +totalLength)
         .attr('stroke-dashoffset', totalLength);
-    } 
+    }
     var totalLength = hitpath.node().getTotalLength();
     var lenscale = d3.scaleLinear()
       .clamp(true)

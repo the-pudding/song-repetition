@@ -4,7 +4,7 @@ import * as comm from './common.js';
 import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
-  
+
 var data = artists;
 
 const max_artists = 50;
@@ -68,7 +68,7 @@ class ArtChart extends BeeswarmChart {
       return data;
     }
     // Reapply decade filter
-    var curr = data.filter( (d) => 
+    var curr = data.filter( (d) =>
         (d.year >= this.decade.earliest && d.year <= this.decade.latest)
     );
     if (curr.length > max_artists) {
@@ -113,7 +113,7 @@ class ArtChart extends BeeswarmChart {
     // Okay, apparently both restart *and* alpha are necessary. idkkkkk
     this.forcesim.nodes(this.currData)
       .restart()
-      .alpha(1); 
+      .alpha(1);
   }
 
   nudgeArtists() {
@@ -121,7 +121,7 @@ class ArtChart extends BeeswarmChart {
       .attr("transform", (d)=>("translate("+d.x+" "+d.y+")"));
   }
 
-  renderArtists() {    
+  renderArtists() {
     var a = this.svg.selectAll(".artistNode").data(this.currData);
     a.exit().remove();
     var containers = a.enter()
@@ -143,7 +143,7 @@ class ArtChart extends BeeswarmChart {
       .append("text")
       .attr("text-anchor", "middle")
       .attr("font-size", 8)
-      .attr("font-family", "verdana")
+      .attr("class","artists-bubble-text")
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", this.R*2)

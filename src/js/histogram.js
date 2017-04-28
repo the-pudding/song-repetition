@@ -23,7 +23,9 @@ class HistogramGraphic extends BaseChart {
     this.svg.append('text')
       .attr('transform', `translate(${this.W/2}, ${this.xaxis_y+50})`)
       .attr('text-anchor', 'middle')
-      .text('Size Reduction');
+      .text('Size Reduction')
+      .attr("class","xaxis-label")
+      ;
 
     if (kwargs.hide_title) {
       // Still need to leave some room for vline labels
@@ -80,6 +82,10 @@ class HistogramGraphic extends BaseChart {
     this.xaxis.call(
       d3.axisBottom(_xscale)
       .tickFormat(tickFormat)
+      .tickSizeOuter(0)
+      .tickSizeInner(4)
+      .tickPadding(6)
+
     );
     this.renderData();
     this.renderVlines();
@@ -93,7 +99,7 @@ class HistogramGraphic extends BaseChart {
     let vlines = this.vlineData();
     // Match each vline to a corresponding bar
     let buckets = vlines.map(vl => {
-      return HIST.find(buck => 
+      return HIST.find(buck =>
         (buck.left <= vl.rscore && vl.rscore <= buck.right)
         );
     });
@@ -135,7 +141,7 @@ class HistogramGraphic extends BaseChart {
       .classed('bar', true);
     bars.merge(newbars)
       .attr('fill', h => comm.rscore_cmap((h.left+h.right)/2) )
-      .attr('y', h=> h.count === 0 ? 
+      .attr('y', h=> h.count === 0 ?
           this.yscale(h.count)
           :
           Math.min(this.xaxis_y-this.min_barheight, this.yscale(h.count))
