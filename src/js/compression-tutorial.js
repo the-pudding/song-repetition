@@ -205,7 +205,7 @@ class CompressionWrapper {
       } else {
         comp.animateArrow(ditto, comp.stagebox, dur, 0);
         // this method name is misleading...
-        comp.eraseDitto(ditto, dur, dur, comp.stagebox);
+        comp.eraseDitto(ditto, dur, dur);
         // TODO: want to avoid setting this directly where possible
         comp.lastditto = 0;
         comp.updateOdometer();
@@ -220,7 +220,6 @@ class CompressionWrapper {
     allow_defragged: false,
     html: `<p>The third and fourth lines are exact duplicates of the first two, so we can replace them with a single marker. At this point, we've already reduced the size of the chorus by 29%.</p>`,
     onEnter: (comp, down) => {
-      // TODO: Why does this reiterate the animation for the first ditto?
       comp.clearStagebox();
       comp.clearHighlights();
       comp.clearArrows();
@@ -331,6 +330,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
     this.restartable = false;
     // Add a container that the stage transitions can use as a sort of 
     // dedicated scratch space.
+    // TODO: I think this does more harm than good at this point.
     this.stagebox = this.svg.append('g')
       .classed('stage-sandbox', true);
     // TODO: technically an extra request here
