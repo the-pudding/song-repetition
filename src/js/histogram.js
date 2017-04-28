@@ -97,7 +97,7 @@ class HistogramGraphic extends BaseChart {
       .classed('vline', true);
     let [bottom, top] = [10, 10];
     newlines.append('line')
-      .attr('stroke', 'black')
+      .attr('stroke', "black")
       .attr('stroke-width', 1)
       .attr('stroke-dasharray', 5)
       .attr('y1', this.H)
