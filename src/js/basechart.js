@@ -7,10 +7,10 @@ class BaseChart {
     this.rootsel = rootsel;
     this.root = d3.select(rootsel);
     let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    if (size.responsive) {
-      this.totalW = this.root.node().offsetWidth;
+    if (size.W) {
+      this.totalW = size.W;
     } else {
-      this.totalW = size.W || 1000;
+      this.totalW = this.root.node().offsetWidth;
     }
     this.totalH = size.H || 600;
     this.W = this.totalW - margin.left - margin.right;
