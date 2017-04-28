@@ -73,7 +73,7 @@
 </div>
 </div><div class="container">
 
-<p class="prose">Check out what the algorithm does with all the lyrics of <i>Cheap Thrills</i> below (or select a different a song).</i>...
+<p class="prose">Check out what the algorithm does with the full lyrics of <i>Cheap Thrills</i> below (or select a different a song).</i>...
 </p>
 
 </div><div class="container-fluid">
@@ -82,7 +82,12 @@
 </div>
 </div><div class="container">
 
-<p class="prose">After applying the LZ algorithm, <i>Cheap Thrills</i> went from 1,651 characters (or bytes) to 294, a 76% reduction in size. Is that a lot? Here's the distribution of size reduction percentages across (almost) all 15,000 songs in my dataset:
+<p class="prose">
+The LZ algorithm reduces <i>Cheap Thrills</i> in size by 76%. (The song as a whole is more compressible than the chorus alone. Why? The first instance of the chorus is 46% compressible, but the next time it occurs, the whole thing can be replaced with a single marker, making it virtually 100% compressed.)
+</p>
+
+<p class="prose">
+Is 76% a lot? Here's the distribution of size reduction percentages across (almost) all 15,000 songs in my dataset:
 </p>
 
 <div id="histogram">

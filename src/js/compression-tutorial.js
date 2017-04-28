@@ -247,10 +247,13 @@ class CompressionWrapper {
     slug: 'cheapthrills_chorus',
     allow_defragged: true,
     html: `<p>In the end, the chorus is reduced in size 46%, from 247 characters to 133. That's the number of letters that weren't replaced by a marker (121), plus 3 characters for each of the 4 markers.</p>
-<small>
-<p>The choice of 3 characters as the cost of a marker is somewhat arbitrary. We could slide this up to a high value like 20 if we only care about larger-scale repetition. The only opportunities for compression in that case would be repeated sequences of 20 or more characters - i.e. multi-word phrases, not just repetitions of single words or parts of words. </p>
-</small>
       `,
+/*
+<p><small>
+The choice of 3 characters as the cost of a marker is somewhat arbitrary. We could slide this up to a high value like 20 if we only care about larger-scale repetition. The only opportunities for compression in that case would be repeated sequences of 20 or more characters - i.e. multi-word phrases, not just repetitions of single words or parts of words. 
+</small></p>
+      `,
+*/
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
         comp.fastforward();
