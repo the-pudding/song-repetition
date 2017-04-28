@@ -62,7 +62,10 @@ class CompressionGraphic extends BaseCompressionGraphic {
     ];
     let dd = butcon.select('select');
     if (dd.empty()) {
-      dd = butcon.append('select');
+      let label = butcon.append('label')
+        .text('Song');
+      dd = label.append('select')
+        .attr('id', 'compression-song-dd')
     }
     let opts = dd.selectAll('option').data(this.songdat);
     let newopts = opts
