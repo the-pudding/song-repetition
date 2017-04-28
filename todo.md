@@ -4,9 +4,12 @@
 - arrow stuff...
     - nicer trajectories
     - arrow transition duration should scale with distance (i.e. speed should be constant, not duration)
+    - give dest highlight a bit of a headstart before the arrow arrives
 - special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - helper class for json cache
+- in setLastDitto, if add an increasing delay to ravels after the first one, so that if a bunch of
+them come in at once, they sort of get drawn in order
 
 ### compression-tutorial.js
 * seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?

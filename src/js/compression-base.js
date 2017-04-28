@@ -15,6 +15,8 @@ const ravel_duration = 2000;
 // When animating underlining of some text, the given duration will be
 // interpreted as ms required to traverse this many pixels of text.
 const text_reference_length = 200;
+// Same as above, but length of arrows between src and dest sections
+const arrow_reference_length = 100;
 
 const STATE = {
   loading: 'loading',
@@ -553,7 +555,7 @@ class BaseCompressionGraphic extends BaseChart {
       },
       {dur: 2, desc: 'arrow',
         fn: () => {
-          this.animateArrow(d, root, dur, wait, 'dest');
+          return this.animateArrow(d, root, dur, wait, 'dest');
         }
       },
       {dur: 1, desc: 'underline dest', 
@@ -644,7 +646,6 @@ class BaseCompressionGraphic extends BaseChart {
   }
 
   animateArrow(d, root, duration, delay=0, to='dest') {
-    // TODO: give this arrow a pointy end
     // TODO: should start from underline position, not where a marker would be
     let start = this.locate(this.rangeCentroid(d.src));
     let end = this.locate(this.rangeCentroid(d.dest));
@@ -808,20 +809,20 @@ class BaseCompressionGraphic extends BaseChart {
   // Make the path grow to its full length over the given duration
   animatePath(path, duration, delay, arrow=false) {
     let totalLength = path.node().getTotalLength();
+    let dur = duration * Math.pow(totalLength / arrow_reference_length, .75);
     let trans = path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()
         .delay(delay)
-        .duration(duration)
-        .ease(d3.easeLinear)
+        .duration(dur)
         .attr("stroke-dashoffset", 0);
     if (arrow) {
       trans
         .transition()
         .attr('marker-end', 'url(#arrow)');
     }
-    return trans;
+    return dur;
   }
 
   rangeContains(range, dat) {
