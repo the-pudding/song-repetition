@@ -10,8 +10,18 @@ const play_accel = (iter, dur) => {
 };
 const play_speed = 4;
 const autoplay = 0;
+// 1: no acceleration. >1: positive acceleration.
 const scroll_acceleration = 1;
 
+// Standard padding for slide-wrapper elements. This affects the distance
+// between slide paragraphs (obviously). It's especially important for 
+// 'progressive' stages (i.e. ones that tie scroll progress to the corresponding
+// animation) because it determines the duration of their scene, and therefore
+// the rate of animation progress per pixel scrolled.
+// Measured in ems.
+// TODO: I'm not even entirely sure padding is the right attr to be using
+// here (rather than margin/border). I always forget the difference, and 
+// how the collapsing stuff works.
 const std_padding = {top: 10, bottom: 10};
 
 // TODO: would be cool to bind *all* the stages to scroll progress
@@ -223,23 +233,15 @@ class CompressionWrapper {
 </small>
       `,
     onEnter: (comp, down) => {
-      comp.defrag();
-      return;
-      let wait = comp.setLastDitto(100);
-      d3.timeout(() => {
-        if (comp.slug != 'cheapthrills_chorus') {
-          console.log('Aborting defrag');
-        } else {
-          comp.defrag();
-        }
-      }, wait);
-      return;
+      if (comp.state !== STATE.defragged) {
+        comp.fastforward();
+        comp.defrag();
+      }
     },
   },
 
   {
-    // TODO: need to figure out how to slow down scrolling during
-    // these stages
+    padding: {top: std_padding.top, bottom: std_padding.bottom*4.5},
     progressive: true,
     allow_defragged: false,
     slug: 'thrillscheap',
@@ -263,12 +265,14 @@ class CompressionWrapper {
     html: `<p>The jumbled version shrinks less than the original (29.5% vs. 46%). This is good! It agrees with intuition.</p>`,
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
+        comp.fastforward();
         comp.defrag();
       }
     }
   },
 
   {
+    padding: {top: std_padding.top, bottom: std_padding.bottom*2.5},
     progressive: true,
     allow_defragged: false,
     slug: 'essay_intro',
@@ -288,7 +292,9 @@ class CompressionWrapper {
     html: `<p>A mere 11% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
-        comp.defrag();
+        comp.fastforward();
+        let cfg = {bannery: comp.H*2/3};
+        comp.defrag(cfg);
       }
     }
   },

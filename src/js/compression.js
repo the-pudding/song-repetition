@@ -4,9 +4,11 @@ import { BaseCompressionGraphic, STATE } from './compression-base.js';
 import SONGDAT from './lz-directory.js';
 
 const default_song = 'cheapthrills';
-const default_accel = (iter, dur) => {
+const default_accel = null;
+/*
+(iter, dur) => {
   return Math.max(100, dur - iter*40);
-};
+};*/
 
 /* The 'main' compression graphic (the full-width one without accompanying
  * explanatory text and scrollytelling. */
@@ -22,7 +24,7 @@ class CompressionGraphic extends BaseCompressionGraphic {
     this.ravel_duration = 3000;
     this.songdat = SONGDAT.sort( (a,b) => d3.descending(a.reduction, b.reduction));
     this.renderButtons();
-    this.speed = 1;
+    this.speed = 2;
   }
 
   // TODO: make sure this is periodically called. Maybe need a generic 

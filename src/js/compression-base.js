@@ -148,14 +148,13 @@ class BaseCompressionGraphic extends BaseChart {
     }
     let step = this.step(dur);
     if (!step) {
-      // TODO: not clear if this should happen here or in step()
-      // TODO: defrag takes no arguments?
-      this.defrag(this.defrag_duration/this.speed);
+      // For now, don't auto-defrag at the end. Just quit.
+      //this.defrag();
     } else {
       step.then(()=> this._playloop(speed, accel, iter+1));
     }
   }
-  defrag() {
+  defrag(kwargs={}) {
     if (this.state === STATE.loading || this.state === STATE.defragged) {
       console.log(`Can't defrag in state ${this.state}`);
       return;
@@ -220,7 +219,10 @@ class BaseCompressionGraphic extends BaseChart {
     clock += dur;
 
     // show size reduction info
-    let [bannerx, bannery] = [this.W/3, this.H/3];
+    let [bannerx, bannery] = [
+        kwargs.bannerx || this.W/3, 
+        kwargs.bannery || this.H/3
+          ];
     let banner = this.svg
       .append('g')
       .attr('transform', `translate(${bannerx}, ${bannery})`)
@@ -233,14 +235,29 @@ class BaseCompressionGraphic extends BaseChart {
     let lineheight = this.lineheight*2;
     let stats = this.compressionStats();
     let compchars = this.totalchars - stats.chars_saved;
-    let compline = `Compressed size: ${compchars} characters/bytes`;
-    compline += ` + ${stats.ndittos} dittos`;
-    compline += ` = ${compchars+stats.ndittos*3} bytes`;
-    banner
+    let compline = {};
+    compline.lhs = `Compressed size: ${compchars} characters/bytes`;
+    compline.lhs += ` + ${stats.ndittos} \u00D7`;
+    compline.rhs = ` = ${compchars+stats.ndittos*3} bytes`;
+    let lhs = banner
       .append('text')
       .attr('dy', lineheight)
-      .text(compline);
-
+      .text(compline.lhs);
+    let bb = lhs.node().getBBox();
+    let rad = this.ditto_radius * 1.5;
+    let pad = rad * .5;
+    let dittorep = banner.append('circle')
+      .classed('ditto', true)
+      .attr('cx', bb.x+bb.width+rad+pad)
+      .attr('cy', bb.y+bb.height/2)
+      .attr('r', rad)
+      .attr('opacity', .8)
+      .attr('fill', src_color);
+    banner.append('text')
+      .attr('dx', bb.width+rad*2+pad*2.5)
+      .attr('dy', lineheight)
+      .text(compline.rhs);
+    
     dur = time_pie.banner;
     let banner_trans = banner
       .transition()
@@ -443,6 +460,9 @@ class BaseCompressionGraphic extends BaseChart {
       d3.timeout(resolve, wait);
     });
   }
+  fastforward() {
+    this.setLastDitto(this.dittos.length-1, {ravel_duration:0});
+  }
   setLastDitto(nexti, kwargs={}) {
     nexti = Math.min(this.dittos.length-1, nexti);
     nexti = Math.max(-1, nexti);
@@ -467,6 +487,7 @@ class BaseCompressionGraphic extends BaseChart {
     if (!root) {
       root = this.svg;
     }
+    let marker_time_share = .3;
     let dest = this.selectRange(d.dest);
     dest.each(d=> {
       this.linedat[d.y][d.x].visible = false;
@@ -480,7 +501,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('opacity', 1)
       .transition()
       .delay(wait)
-      .duration(dur)
+      .duration(dur * (1-marker_time_share))
       .ease(d3.easeLinear)
       .attr('opacity', .1);
     let where = this.locate(this.rangeCentroid(d.dest));
@@ -488,12 +509,18 @@ class BaseCompressionGraphic extends BaseChart {
       .classed('ditto wordlike', true)
       .datum(d)
       .attr('cx', where.x)
-      .attr('cy', where.y)
+      // The y coord returned by this.locate is wrt the bottom of the corresponding
+      // line of text. Need to offset it to the middle.
+      .attr('cy', where.y - this.lineheight/3)
       .attr('r', this.ditto_radius)
-      .attr('opacity', .8)
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
-      .attr('fill', src_color);
+      .attr('fill', src_color)
+      .attr('opacity', .1)
+    marker.transition()
+      .delay(wait+(dur * (1-marker_time_share)))
+      .duration(dur * marker_time_share)
+      .attr('opacity', .8);
   }
 
   unravel(d) {
@@ -516,20 +543,19 @@ class BaseCompressionGraphic extends BaseChart {
   ravel(d, duration) {
     var dur, delay, root, wait;
     const steps = [
-      {dur: 1, desc: 'underline dest',
+      {dur: .5, desc: 'underline src',
         fn: () => {
-          //console.log(`step 1. wait=${wait}, dur=${dur}`);
-          return this.addTextLine(d.dest, dest_color, dur, root, wait);
+          return this.addTextLine(d.src, src_color, dur, root, wait);
         }
       },
       {dur: 2, desc: 'arrow',
         fn: () => {
-          this.animateArrow(d, root, dur, wait, 'src');
+          this.animateArrow(d, root, dur, wait, 'dest');
         }
       },
-      {dur: .5, desc: 'underline src',
+      {dur: 1, desc: 'underline dest', 
         fn: () => {
-          return this.addTextLine(d.src, src_color, dur, root, wait);
+          return this.addTextLine(d.dest, dest_color, dur, root, wait);
         }
       },
       {dur: 1, desc: 'erase dest',
