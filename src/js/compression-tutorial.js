@@ -316,9 +316,73 @@ class CompressionTutorial extends BaseCompressionGraphic {
     // TODO: technically an extra request here
     this.warmCache(['thrillscheap', 'essay_intro', 'cheapthrills_chorus']);
     this.ravel_duration = 2000;
-    this.defrag_duration = 5000;
+    this.defrag_duration = 3000;
     // TODO: should this be reset on reset()
     this.scroll_owner = null;
+  }
+
+  renderOdometer() {
+    let extant = this.svg.select('.odometer');
+    console.assert(extant.empty());
+    this.odometer_offset = this.H * .8;
+    this.odometer = this.svg.append('g')
+      .classed('odometer', true)
+      .attr('transform', `translate(0, ${this.odometer_offset})`);
+
+    this.odometer.append('line')
+      .attr('x1', 0)
+      .attr('x2', this.W)
+      .attr('y1', 0)
+      .attr('y2', 0)
+      .attr('stroke-width', 1)
+      .attr('stroke', '#ccc')
+      .attr('stroke-dasharray', 4)
+
+    let texty = 40;
+    this.odometer.append('text')
+      .classed('reduction', true)
+      .attr('x', this.W * .05)
+      .attr('y', texty);
+
+    let sizex = this.W * .3;
+    this.odometer.append('text')
+      .classed('size size-original', true)
+      .attr('x', sizex)
+      .attr('y', texty)
+      .text(`Original size: ${this.totalchars} bytes/characters`); 
+
+    this.odometer.append('text')
+      .classed('size size-compressed', true)
+      .attr('x', sizex)
+      .attr('y', (this.H-this.odometer_offset) * .75);
+  }
+
+  updateOdometer() {
+    let stats = this.compressionStats();
+    let reduc_pct = d3.format('.1%')(stats.reduction);
+    this.odometer.select('.reduction')
+      .text(reduc_pct + ' Size Reduction');
+
+    let compsize = this.odometer.select('.size-compressed');
+    let cstext = `Compressed size: ${stats.compressed_bytes} bytes`;
+    cstext += ` (${stats.uncompressed_chars} characters + `;
+    // Make a little space to draw a marker representation in
+    let markernest = Array(5).join("\u00A0");
+    cstext += `${stats.ndittos} \u00D7 ${markernest})`; 
+    compsize.text(cstext);
+    let bb = compsize.node().getBBox();
+    let rad = this.ditto_radius * 1.5;
+    let src_color = '#2196f3';
+    let dittorepr = this.odometer.select('circle');
+    if (dittorepr.empty()) {
+      dittorepr = this.odometer.append('circle')
+      .attr('r', rad)
+      .attr('opacity', .8)
+      .attr('fill', src_color);
+    }
+    dittorepr
+      .attr('cx', bb.x+bb.width-20)
+      .attr('cy', bb.y+bb.height/2);
   }
 
   postReset() {
@@ -388,13 +452,49 @@ class CompressionTutorial extends BaseCompressionGraphic {
       this.setLastDitto(i);
     }
   }
+  defrag(kwargs={}) {
+    if (this.state === STATE.loading || this.state === STATE.defragged) {
+      console.log(`Can't defrag in state ${this.state}`);
+      return;
+    }
+    this.state = STATE.defragged;
+    let clock = 0;
+    let dur;
+    const time_pie = {
+      erase: .33,
+      dittosweep: .33, // concurrent with above?
+      crunch: .33,
+    }
+    Object.keys(time_pie).map(k => {
+      time_pie[k] = time_pie[k] * this.defrag_duration;
+    });
+    // TODO: cancel any ongoing ditto transitions, clear any underlines/arrows
+    let invis = this.svg.selectAll('.word')
+      .filter(d => !d.visible);
+    dur = time_pie.erase;
+    invis
+      .attr('font-size', this.fontsize)
+      .transition()
+      .duration(dur)
+      .attr('font-size', 0.1)
+      // XXX: for some reason transitioning to 0 and/or remove()ing
+      // causes a noticeable jitter at the end
+    clock += dur;
 
-  odometerWhere() {
-    let x = this.W*.75;
-    let y = 0;
-    return {x,y};
+    // Drop dittos to the bottom
+    dur = time_pie.dittosweep;
+    this.svg.selectAll('.ditto')
+      .on('mouseover', null)
+      .on('mouseout', null)
+      .transition()
+      .duration(dur)
+      .delay(() => Math.max(0, d3.randomNormal(100, 25)()))
+      .ease(d3.easeBounceOut)
+      .attr('cy', this.odometer_offset*.95)
+
+    dur = time_pie.crunch;
+    this._crunch(dur, clock);
   }
-
 }
 
 export default CompressionWrapper;

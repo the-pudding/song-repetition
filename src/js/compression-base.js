@@ -415,13 +415,14 @@ class BaseCompressionGraphic extends BaseChart {
   }
   compressionStats() {
     let ndittos = this.lastditto+1;
-    // TODO: XXX: store ditto size in chars
-    // Orrrr... could just select visible tspans and look at their words.
-    let chars_saved = d3.sum(this.svg.selectAll('.word')
-      .filter(d=>!d.visible)
-      .data(), d=> d.word.length);
+    let chars_saved = d3.sum(this.dittos,
+        (d,i) => i <= this.lastditto ? d.dest.nchars : 0
+    )
+    let uncomp_chars = this.totalchars-chars_saved;
     return {ndittos: ndittos, chars_saved: chars_saved,
       reduction: ((chars_saved-(ndittos*3))/this.totalchars),
+      uncompressed_chars: uncomp_chars,
+      compressed_bytes: uncomp_chars+(ndittos*3),
     };
   }
 
@@ -477,7 +478,7 @@ class BaseCompressionGraphic extends BaseChart {
     let dur = kwargs.ravel_duration || ravel_duration;
     dittos.enter().each( (d,i,n) => this.ravel(d, dur) );
     dittos.exit()
-      .each( (d,i,n) => this.unravel(d,n[i]) )
+      .each(d => this.unravel(d))
       .remove();
     this.updateOdometer();
     return dur;
