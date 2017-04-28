@@ -7,13 +7,12 @@
 - special case dittos that start on a newline so they don't look so funny
 - underlining animation should probably accelerate. (But doing so across lines is probably tricky.)
 - helper class for json cache
-* finesse marker placement
 
 ### compression-tutorial.js
 * seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
     - I think part of the problem might be dynamically adding the compression-tutorial slide/stage elements dynamically. They take up a lot of space, so whenever they get added, the page shifts around a lot.
 - when scrolling up to the defrag scenes, we should just draw the final result of the defrag without any delays/animations. 
-* add more padding to the progressive scenes, particularly the ones that have lots of dittos (right now a single quantum of scrollwheel adds several dittos at once)
+- some of the slide wrappers have enough padding between them that you can scroll to a point between them such that neither is visible (violating the rule that there always needs to be something moving up when the user scrolls). Maybe insert some dummy '...' elements between them or something?
 
 ### compression.js
 - maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.

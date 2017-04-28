@@ -13,6 +13,15 @@ const autoplay = 0;
 // 1: no acceleration. >1: positive acceleration.
 const scroll_acceleration = 1;
 
+// Standard padding for slide-wrapper elements. This affects the distance
+// between slide paragraphs (obviously). It's especially important for 
+// 'progressive' stages (i.e. ones that tie scroll progress to the corresponding
+// animation) because it determines the duration of their scene, and therefore
+// the rate of animation progress per pixel scrolled.
+// Measured in ems.
+// TODO: I'm not even entirely sure padding is the right attr to be using
+// here (rather than margin/border). I always forget the difference, and 
+// how the collapsing stuff works.
 const std_padding = {top: 10, bottom: 10};
 
 // TODO: would be cool to bind *all* the stages to scroll progress
@@ -232,8 +241,7 @@ class CompressionWrapper {
   },
 
   {
-    // TODO: need to figure out how to slow down scrolling during
-    // these stages
+    padding: {top: std_padding.top, bottom: std_padding.bottom*4.5},
     progressive: true,
     allow_defragged: false,
     slug: 'thrillscheap',
@@ -264,6 +272,7 @@ class CompressionWrapper {
   },
 
   {
+    padding: {top: std_padding.top, bottom: std_padding.bottom*2.5},
     progressive: true,
     allow_defragged: false,
     slug: 'essay_intro',
