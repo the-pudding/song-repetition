@@ -22,7 +22,7 @@ const scroll_acceleration = 1;
 // TODO: I'm not even entirely sure padding is the right attr to be using
 // here (rather than margin/border). I always forget the difference, and 
 // how the collapsing stuff works.
-const std_padding = {top: 10, bottom: 10};
+const std_padding = {top: 0, bottom: 10};
 
 // TODO: would be cool to bind *all* the stages to scroll progress
 
@@ -79,10 +79,19 @@ class CompressionWrapper {
     slides.each( (dat,i,n) => {
       let wrappernode = n[i];
       let stagenode = d3.select(wrappernode).select('.slide');
+      let stageheight = stagenode.node().offsetHeight;
+      let duration = wrappernode.offsetHeight - stageheight;
+      if (i === n.length-1) {
+        duration += 500; // XXX hack
+      } else {
+        let nextstage = d3.select(n[i+1]).select('.slide').node();
+        duration += nextstage.offsetHeight;
+      }
       let slide_scene = new ScrollMagic.Scene({
         triggerElement: wrappernode,
-        triggerHook: 'onLeave',
-        duration: wrappernode.offsetHeight,
+        triggerHook: 'onEnter',
+        offset: stageheight,
+        duration: duration,
       })
         .on('enter', (e) => {
           let slug = dat.slug;
@@ -105,6 +114,11 @@ class CompressionWrapper {
           if (dat.progressive) {
             this.comp.acquireScrollLock(i);
           }
+          if (dat.proxy) {
+            let proxynode = n[i+dat.proxy];
+            d3.select(proxynode).select('.slide')
+              .classed('active', true);
+          }
         })
         // NB: when duration is not set, leave event is fired when the 
         // trigger is scrolled past from the opposite scroll direction
@@ -119,6 +133,11 @@ class CompressionWrapper {
           }
           if (dat.progressive) {
             this.comp.releaseScrollLock(i);
+          }
+          if (dat.proxy) {
+            let proxynode = n[i+dat.proxy];
+            d3.select(proxynode).select('.slide')
+              .classed('active', false);
           }
         })
         .addTo(this.controller);
@@ -195,7 +214,7 @@ class CompressionWrapper {
   },
 
   {
-    padding: {top: std_padding.top, bottom: 0},
+    padding: {top: std_padding.top, bottom: 3},
     progressive: false,
     slug: 'cheapthrills_chorus',
     allow_defragged: false,
@@ -215,6 +234,7 @@ class CompressionWrapper {
   
   {
     progressive: true,
+    proxy: -1,
     ditto_offset: 2,
     slug: 'cheapthrills_chorus',
     allow_defragged: false,
@@ -258,7 +278,7 @@ class CompressionWrapper {
   },
 
   {
-    padding: {top: 10, bottom: 3},
+    padding: {top: std_padding.top, bottom: 3},
     progressive: false,
     allow_defragged: true,
     slug: 'thrillscheap',
@@ -286,7 +306,7 @@ class CompressionWrapper {
   },
 
   {
-    padding: {top: 10, bottom: 3},
+    padding: {top: std_padding.top, bottom: 0},
     allow_defragged: true,
     slug: 'essay_intro',
     html: `<p>A mere 11% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
