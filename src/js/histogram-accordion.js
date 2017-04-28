@@ -8,7 +8,11 @@ const ndrops = 20;
 class HistogramAccordionGraphic extends HistogramGraphic {
 
   constructor(rootsel, to_drop) {
-    super(rootsel, to_drop);
+    super(rootsel, to_drop, 
+        {hide_title: true, H: 300,
+          xmax_ratio: .9,
+        }
+        );
     this.controller = scroll_controller;
     this.setScene();
   }
@@ -38,8 +42,20 @@ class HistogramAccordionGraphic extends HistogramGraphic {
     this.updateData();
   }
 
+  vlineData() {
+    let v = super.vlineData();
+    if (true || this.to_drop === 0) {
+      v = v.concat([
+          {text: 'The Most Repetitive Song Ever',
+            rscore: 5.419096,
+          }]);
+    }
+    return v;
+  }
+
   static init() {
-    new HistogramAccordionGraphic('#histogram-full', ndrops);
+    let h = new HistogramAccordionGraphic('#histogram-full', ndrops);
+    h.updateData();
   }
 }
 

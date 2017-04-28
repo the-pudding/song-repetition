@@ -29,6 +29,8 @@ const STATE = {
 // TODO: the problem with this design is that there are too many methods with
 // overlapping effects and purviews. Need to have a minimal 'public' API with
 // clear semantics.
+// TODO: clear out now-redundant methods like renderOdometer, updateOdometer,
+// defrag, etc. Maybe mark them as abstract.
 class BaseCompressionGraphic extends BaseChart {
 
   constructor(rootsel, config={}) {

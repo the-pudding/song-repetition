@@ -14,7 +14,7 @@ const pctiles = {
 };
 
 const rscore_cmap = d3.scaleSequential(d3.interpolateViridis)
-  .domain([pctiles[.5], pctiles[99.5]])
+  .domain([pctiles[99.5], pctiles[.5]])
 
 function round(x, places=2) {
   let n = Math.pow(10, places);
