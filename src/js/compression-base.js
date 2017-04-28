@@ -507,7 +507,6 @@ class BaseCompressionGraphic extends BaseChart {
       .transition()
       .delay(wait)
       .duration(dur * (1-marker_time_share))
-      .ease(d3.easeLinear)
       .attr('opacity', .1);
     let where = this.locate(this.rangeCentroid(d.dest));
     let marker = root.append('circle')
@@ -573,7 +572,6 @@ class BaseCompressionGraphic extends BaseChart {
               .transition()
               .delay(wait)
               .duration(dur)
-              .ease(d3.easeLinear)
               .attr('opacity', 0)
               .remove();
           }
@@ -614,7 +612,6 @@ class BaseCompressionGraphic extends BaseChart {
     srctext
       .transition()
       .duration(dur)
-      .ease(d3.easeLinear)
       //.attr('stroke', 'orange')
       .attr('opacity', .6);
 
@@ -629,7 +626,6 @@ class BaseCompressionGraphic extends BaseChart {
       .transition()
       .delay(dur+arrowdur)
       .duration(dur*2)
-      .ease(d3.easeLinear)
       //.attr('stroke', 'orange')
       .attr('opacity', .4);
   }
@@ -789,21 +785,6 @@ class BaseCompressionGraphic extends BaseChart {
       actual_dur += dur;
     });
     return actual_dur;
-  }
-
-  _animatePath(pathsel, dur, delay) {
-    let getLen = (d,i,nodes) => nodes[i].getTotalLength();
-    return pathsel
-      .attr("stroke-dasharray", (d,i,n) => {
-        let l = getLen(d,i,n);
-        return l + " " + l;
-      })
-      .attr("stroke-dashoffset", getLen)
-      .transition()
-        .delay(delay)
-        .duration(dur)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0);
   }
 
   // Make the path grow to its full length over the given duration

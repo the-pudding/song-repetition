@@ -228,7 +228,6 @@ class OverTimeChart {
     var newLength = lenscale(this.show_hits ? this.maxyear : c.minyear);
     hitpath.transition()
       .duration(animation_duration)
-      .ease(d3.easeLinear)
       .attr('stroke-dashoffset', newLength);
   }
 
