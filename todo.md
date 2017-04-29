@@ -37,6 +37,7 @@
 * ylabel
 - add a legend after adding orange line? or maybe just a label pointing to the new line.
 - maybe do major/minor grid lines for y axis? (and x?)
+- bottom padding on last card a little too small
 
 ## Artists beeswarm
 - artist faces
@@ -56,6 +57,10 @@
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 
 ## Multi-chart todos
+
+## Code stuff
+- clean up console.log spam
+* Review the many, many TODOs and XXXs in code.
 
 ## Data
 - Consider doing more normalization before compressing. As a way of removing non-meaningful variations in how lyrics are transcribed that could lead to different compression ratios.
@@ -84,4 +89,3 @@
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
 - Would be nice to define some common design element to use for 'small print' stuff, like explaining logarithmic scale in topsongs, rolling average in overtime, etc.
 * If the intro is going to use the Beyonce vs. Queen meme, it seems appropriate to use 'Girls'/Bohemian Rhapsody at some point as examples.
-* Review the many, many TODOs and XXXs in code.

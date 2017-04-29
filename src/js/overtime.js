@@ -1,16 +1,16 @@
 import * as d3 from 'd3';
+import ScrollMagic from 'scrollmagic';
+import { legendColor } from 'd3-svg-legend';
+
 import DATA from './years.js';
 import * as c from './constants.js';
 import * as comm from './common.js';
 import scroll_controller from './scroll.js';
-import ScrollMagic from 'scrollmagic';
+import { BaseChart } from './basechart.js';
 
-var linecolor = "steelblue";
-// Whether to dynamically adjust the yaxis bounds when hovering over a year,
-// to accomodate topsongs. Doesn't work very well.
-const MOVING_YAXIS = false;
-// Don't include topsongs when calculating ybounds.
-const SMALL_YAXIS = 1;
+// If you change these, make sure to also change vars in overtime.styl
+const linecolor = "steelblue";
+const hitcolor = 'orange';
 const INVERT_Y = 0;
 
 // scrollmagic transitions
@@ -90,25 +90,21 @@ class OverTimeGraphic {
   }
 }
 
-class OverTimeChart {
+class OverTimeChart extends BaseChart {
 
   constructor() {
-    this.root = d3.select('#rovertime');
-    let margin = {top: 20, right: 20, bottom: 50, left: 40};
-    var totalW = 800;
-    var totalH = 600;
-    this.W = totalW - margin.left - margin.right;
-    this.H = totalH - margin.top - margin.bottom;
+    let kwargs = {
+      margin: {left: 40, top: 40, bottom: 20, right: 10},
+    };
+    super('#rovertime', kwargs);
     this.R = 4; // radius of year dots
-    this.svg = this.root.append('svg')
-      .attr('width', totalW)
-      .attr('height', totalH)
-      // .style('background-color', 'rgba(255,240,255,1)')
-      .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
 
-    //this.xscale = d3.scaleOrdinal()
-    this.xscale = d3.scaleLinear() // TODO: figure out ordinal v linear
+    this._svg
+      .append('text')
+      .classed('title', true)
+      .text("Repetition of Popular Music, by Year");
+
+    this.xscale = d3.scaleLinear()
       .domain(d3.extent(DATA, (yr) => (yr.year)))
       .range([0, this.W]);
     let yrscores = DATA.map((yr) => (yr.rscore));
@@ -143,7 +139,6 @@ class OverTimeChart {
             d3.axisLeft(this.yscale)
             .tickValues(ticks)
             .tickFormat(comm.rscore_to_readable)
-            //.tickFormat(c.runits === 'pct' && d3.format('.0%'))
         )
         .append("text")
           .attr("transform", "rotate(-90)")
@@ -155,6 +150,39 @@ class OverTimeChart {
     this.setupOverall();
   }
 
+  setLegend(enabled) {
+    let legend = this._svg.select('.legend');
+    if (legend.empty()) {
+      legend = this.setupLegend();
+    }
+    legend
+      .transition()
+      .duration(400)
+      .attr('opacity', enabled ? 1 : 0);
+  }
+  setupLegend() {
+    let legendel = this._svg.append('g')
+      .attr('opacity', 0)
+      .classed('legend', true);
+    let scale = d3.scaleOrdinal()
+      .domain(['All Songs', 'Top 10'])
+      .range([linecolor, hitcolor]);
+    let legend = legendColor()
+      .shape('rect')
+      .shapeWidth(45)
+      .shapeHeight(4)
+      .shapePadding(15)
+      .orient('horizontal')
+      .scale(scale);
+    legendel.call(legend);
+    let bb = legendel.node().getBBox();
+    let x = this.totalW - bb.width - 10;
+    let y = 10;
+    legendel
+      .attr('transform', `translate(${x}, ${y})`)
+    return legendel;
+  }
+
   step(stage_index) {
     console.assert(0 <= stage_index && stage_index < STAGES.length);
     let stage = STAGES[stage_index];
@@ -164,6 +192,8 @@ class OverTimeChart {
     this.show_hits = stage.hits;
     this.redrawData(stage);
     this.drawHits();
+    // Render the legend iff we're showing both lines.
+    this.setLegend(this.show_hits);
   }
 
   /** Called when this.maxyear changes. Show/hide the appropriate points and
@@ -211,7 +241,7 @@ class OverTimeChart {
       hitpath = this.svg.append('path')
         .datum(DATA)
         .classed('hitpath', true)
-        .attr('stroke', 'orange')
+        .attr('stroke', hitcolor)
         .attr('stroke-width', 1.5)
         .attr('fill', 'none')
         .attr('d', hitline);

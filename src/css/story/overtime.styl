@@ -1,7 +1,15 @@
+// (needs to be kept in parallel with corresponding vars in overtime.js)
+$allsongs-color = steelblue
+$hits-color = orange
+
 #overtime-graphic
 	svg
 		border none
 		box-shadow none
+		.title
+			alignment-baseline hanging
+		.legend
+			smallcaps()
 	.spacer
 		height 300px
 	.graphic-vis
@@ -18,3 +26,7 @@
 	.graphic
 		width 100%
 		position relative
+	.scrolly-slide
+		border-left 4px solid $allsongs-color
+	.scrolly-slide.hits
+		border-left 4px solid $hits-color

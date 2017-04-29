@@ -3,24 +3,25 @@ import * as c from './constants.js';
 import * as comm from './common.js';
 
 class BaseChart {
-  constructor(rootsel, size={}) {
+  constructor(rootsel, kwargs={}) {
     this.rootsel = rootsel;
     this.root = d3.select(rootsel);
-    let margin = {top: 20, right: 20, bottom: 50, left: 20};
-    if (size.W) {
-      this.totalW = size.W;
+    this.margin = {top: 20, right: 20, bottom: 50, left: 20};
+    Object.assign(this.margin, kwargs.margin);
+    if (kwargs.W) {
+      this.totalW = kwargs.W;
     } else {
       this.totalW = this.root.node().offsetWidth;
     }
-    this.totalH = size.H || 600;
-    this.W = this.totalW - margin.left - margin.right;
-    this.H = this.totalH - margin.top - margin.bottom;
-    this.svg = this.root.append('svg')
+    this.totalH = kwargs.H || 600;
+    this.W = this.totalW - this.margin.left - this.margin.right;
+    this.H = this.totalH - this.margin.top - this.margin.bottom;
+    this._svg = this.root.append('svg')
       .attr('width', this.totalW)
       .attr('height', this.totalH)
-      .style('background-color', '#fff')
+    this.svg = this._svg
       .append("g")
-        .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
+        .attr("transform", "translate(" + this.margin.left + " " + this.margin.top + ")");
   }
 }
 
