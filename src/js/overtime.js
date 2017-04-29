@@ -94,7 +94,7 @@ class OverTimeChart extends BaseChart {
 
   constructor() {
     let kwargs = {
-      margin: {left: 40, top: 40, bottom: 20, right: 10},
+      margin: {left: 40, top: 40, bottom: 20, right: 15},
     };
     super('#rovertime', kwargs);
     this.R = 4; // radius of year dots
@@ -107,45 +107,19 @@ class OverTimeChart extends BaseChart {
     this.xscale = d3.scaleLinear()
       .domain(d3.extent(DATA, (yr) => (yr.year)))
       .range([0, this.W]);
-    let yrscores = DATA.map((yr) => (yr.rscore));
-    let hitscores = DATA.map((yr) => (yr.hitsRscore));
-    let all_ys = yrscores.concat(hitscores);
-    all_ys.push(0.75); // ???
-    let yextent = d3.extent(all_ys);
-    this.ymin = yextent[0];
-    this.ymax = yextent[1];
+    
     let yrange = INVERT_Y ? [0, this.H] : [this.H, 0];
-    let ticks_pct = d3.range(41, 61);
-    let ticks = ticks_pct.map(comm.pct_to_rscore);
-    this.yticks = ticks;
+    this.yextent = {pct: [40, 60]};
+    this.yextent.rscore = this.yextent.pct.map(comm.pct_to_rscore);
     this.yscale = d3.scaleLinear()
-      .domain(d3.extent(ticks))
+      .domain(this.yextent.rscore)
       .range(yrange);
 
     // helper functions mapping from data points to x/y coords
     this.datx = yr => (this.xscale(yr.year));
     this.daty = yr => (this.yscale(yr.rscore));
 
-    // X axis
-    this.svg.append("g")
-        .classed('xaxis', true)
-        .attr("transform", "translate(0 " + this.H + ")")
-        .call(d3.axisBottom(this.xscale).ticks(10, 'd'));
-
-    // Y axis
-    this.svg.append("g")
-        .classed('yaxis', true)
-        .call(
-            d3.axisLeft(this.yscale)
-            .tickValues(ticks)
-            .tickFormat(comm.rscore_to_readable)
-        )
-        .append("text")
-          .attr("transform", "rotate(-90)")
-          .text("repetitiveness");
-    // TODO: figure out why label isn't showing up
-
-    this.addGridLines();
+    this.setupAxes();
     // set up the data path for all songs (no top 10 yet)
     this.setupOverall();
   }
@@ -261,25 +235,73 @@ class OverTimeChart extends BaseChart {
       .attr('stroke-dashoffset', newLength);
   }
 
-  addGridLines() {
-    let xgrid = d3.axisBottom(this.xscale).ticks(8);
-    let ygrid = d3.axisLeft(this.yscale).tickValues(this.yticks);
-    let gridwidth = .3;
+  setupAxes() {
+    // X axis
+    let n_xticks = 5;
     this.svg.append("g")
-      .attr("class", "grid grid-x")
-      .attr('stroke-width', gridwidth)
+        .classed('xaxis', true)
+        .attr("transform", "translate(0 " + this.H + ")")
+        .call(d3.axisBottom(this.xscale).ticks(n_xticks, 'd'));
+
+    // Y axis
+    let yticks = {
+      major: d3.range(this.yextent.pct[0], this.yextent.pct[1]+1, 5),
+      minor: d3.range(this.yextent.pct[0], this.yextent.pct[1]+1, 1),
+    }
+    this.svg.append("g")
+        .classed('yaxis', true)
+        .call(
+            d3.axisLeft(this.yscale)
+            .tickValues(yticks.major.map(comm.pct_to_rscore))
+            .tickFormat(comm.rscore_to_readable)
+        )
+        .append("text")
+          .attr("transform", "rotate(-90)")
+          .text("repetitiveness");
+    // TODO: figure out why label isn't showing up
+
+    // X-gridlines
+    let xgrid = d3.axisBottom(this.xscale).ticks(n_xticks);
+    let xgridminor = d3.axisBottom(this.xscale).ticks(45);
+    this.svg.append("g")
+      .attr("class", "grid grid-major grid-x")
       .attr("transform", "translate(0," + this.H + ")")
       .call(xgrid
           .tickSize(-this.H)
           .tickFormat("")
-      );
+      )
+      .call(this._customGrid)
     this.svg.append("g")
-      .attr("class", "grid grid-y")
-      .attr('stroke-width', gridwidth)
-      .call(ygrid
+      .attr("class", "grid grid-minor grid-x")
+      .attr("transform", "translate(0," + this.H + ")")
+      .call(xgridminor
+          .tickSize(-this.H)
+          .tickFormat("")
+      )
+      .call(this._customGrid)
+    // Y-gridlines (major and minor)
+    this.svg.append("g")
+      .attr("class", "grid grid-major grid-y")
+      .call(d3.axisLeft(this.yscale)
+          .tickValues(yticks.major.map(comm.pct_to_rscore))
           .tickSize(-this.W)
           .tickFormat("")
-      );
+      )
+      .call(this._customGrid)
+    this.svg.append("g")
+      .attr("class", "grid grid-minor grid-y")
+      .call(d3.axisLeft(this.yscale)
+          .tickValues(yticks.minor.map(comm.pct_to_rscore))
+          .tickSize(-this.W)
+          .tickFormat("")
+      )
+      .call(this._customGrid)
+  }
+
+  _customGrid(g) {
+    // It stinks that I have to do this.
+    g.select('.domain').remove();
+    g.selectAll('line').attr('stroke', null);
   }
 
   setupOverall() {
