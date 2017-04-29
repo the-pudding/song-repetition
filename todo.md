@@ -30,6 +30,8 @@
 * animated transitions when adding/removing rows, or switching between decades
 - show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
+- deal better with overly long track labels (truncate rather than wrapping to next line? as it is, the extra height on an overflowed row sort of messes up the look of the table)
+- object constancy
 
 ## Repetition through the ages
 * ylabel

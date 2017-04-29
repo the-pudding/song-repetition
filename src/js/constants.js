@@ -20,7 +20,8 @@ for (let d=6; d<=11; d++) {
 
 const pseudo_decades = decades;
 pseudo_decades.push(
-    {earliest: minyear, latest: maxyear, name: 'All'}
+    {earliest: minyear, latest: maxyear, name: 'All Decades'}
 );
+pseudo_decades.reverse();
 
 export {runits, year_extent, minyear, maxyear, pseudo_decades};

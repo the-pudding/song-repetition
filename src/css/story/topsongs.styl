@@ -1,38 +1,64 @@
+$grey = #bbb
+smallcaps()
+    text-transform lowercase
+    font-variant small-caps
+
 #topsongs
-    background-color rgb(230,240,255)
+    width 90%
+    margin 0 auto
+    background-color #fff
     margin-bottom 5rem
-    .body
+    table
+        border-collapse collapse
+        width 100%
+    td
+        padding-top 0
+        padding-bottom 0
+    a
+        cursor pointer
+    a.expander
+        text-align center
         margin 0 auto
-    .row
-        height 30px
-        position relative
+        width 15%
+        display block
+        border 2px solid $grey
+        border-radius 5px
+        smallcaps()
+    .decade-controls
         margin 0 auto
-        border-bottom 1px solid #777
+        width 33%
+        border 2px solid $grey
+        border-radius 5px
+        display block
+        a.decade
+            text-align center
+            display inline-block
+            height 3rem
+            vertical-align middle
+            width 13%
+            border 1px solid $grey
+            color $grey
+            smallcaps()
+        a.decade.active
+            color #000
+    th
+        smallcaps()
+        text-align left
+    tr th:nth-child(1)
+        width 2rem
+    tr th:nth-child(3)
+        width 45%
+    tr
+        border-bottom 1px solid $grey
+    thead tr
+        border-bottom 1px solid #000
+    .bar
+        padding-left 10px
+        height 1.5rem
+    .bar span
+        color white
+        font-size .8rem
+        font-weight bold
+    .track .title
+        font-weight bold
 
-        .cell
-            position absolute
-            font-size 12px
-
-        .rank
-            top 3px
-            left 1px
-
-        .songlabel
-            left 18px
-            top 2px
-
-        .barcell
-            height 100%
-            float left
-            left 360px
-            width 350px
-            .bar
-                height 80%
-                top 10%
-                opacity 70%
-                position absolute
-
-        .pct
-            float right
-            right 10px
-            font-size 16px
