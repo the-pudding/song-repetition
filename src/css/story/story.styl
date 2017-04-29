@@ -52,6 +52,12 @@ h2
     margin-top 4rem
     color    rgba(0,0,0,.90)
 
+.graphic
+    width 80%
+    margin 0 auto
+.graphic.graphic-fullwidth
+    width 100%
+
 .prose-pull-quote
     margin-top 3rem
     margin-bottom    2rem
@@ -79,9 +85,6 @@ button
     float right
     width 40%
     display none
-#histogram
-    margin-top 5rem
-    margin-bottom 2rem
 .tick
     text
         font-family $atlas
@@ -92,9 +95,6 @@ button
         font-family $atlas
         font-weight 500
         letter-spacing -.02rem
-#histogram-full
-    margin-top 4rem
-    margin-bottom 4rem
 .xaxis-label
     font-family $atlas
     font-size .8rem
@@ -107,7 +107,8 @@ button
     font-family $atlas
     font-size .6rem
     font-weight 600
-    
+
+// Reused in topsongs and artists charts 
 .decade-controls
     margin 0 auto
     width 33%
