@@ -4,6 +4,7 @@ import * as comm from './common.js';
 import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
+import { decade_controls } from './helpers.js';
 
 var data = artists;
 
@@ -50,9 +51,10 @@ class ArtChart extends BeeswarmChart {
   constructor() {
     super('#artist-circles');
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
-    this.svg.call(this.tip)
+    this.svg.call(this.tip);
 
-    this.decade = c.pseudo_decades[c.pseudo_decades.length-3];
+    // default to 00's
+    this.decade = c.pseudo_decades[2];
     // TODO: redo on decade change?
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
@@ -85,13 +87,8 @@ class ArtChart extends BeeswarmChart {
   getx(d) { return d.rscore; }
 
   setupControls() {
-    this.controls = this.root.insert('div', ":first-child")
-      .classed('decade-controls', true);
-    this.inputs = this.controls.selectAll("a").data(c.pseudo_decades)
-      .enter()
-      .append("a")
-      .classed('decade', true)
-      .text(d=>d.name)
+    let controls = this.root.select('.decade-controls');
+    this.inputs = decade_controls(controls)
       .on("click", (datum) => {
         this.decade = datum;
         this.rerender();

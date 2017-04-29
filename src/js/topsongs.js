@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import * as c from './constants.js';
 import * as comm from './common.js';
 import TOPS from './topsongs-data.js';
+import { decade_controls } from './helpers.js';
 
 const default_nsongs = 10;
 const more_songs = 30;
@@ -72,12 +73,7 @@ class TopSongsGraphic {
   }
 
   setupControls() {
-    let controls = this.root.select('.decade-controls');
-    controls.selectAll('a').data(c.pseudo_decades)
-      .enter()
-      .append('a')
-      .classed('decade', true)
-      .text(decade => decade.name)
+    decade_controls(this.root.select('.decade-controls'))
       .on('click', decade=>{this.setYears(decade.earliest, decade.latest)});
     this.updateControls();
   }
