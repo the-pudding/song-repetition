@@ -2,8 +2,18 @@
 	position relative
 	.graphic-prose
 		width 34%
+	// TODO: just use consistent class names
 	.scrolly-slide, .slide
 		opacity .5
+		p, blockquote
+			background #f3f3f3
+			border-left 4px solid rgba(255, 2, 2, 0.63)
+			font-family $atlas
+			font-size .9rem
+			line-height 1.5
+			padding: 1rem 1.5rem
+			small
+				font-size .76rem
 	.scrolly-slide.active, .slide.active
 		opacity 1
 	.graphic-vis
