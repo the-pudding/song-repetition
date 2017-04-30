@@ -64,6 +64,7 @@ class CompressionWrapper {
       .append('div')
       .classed('slide', true)
       .html(sd => sd.html)
+      .classed('hidden', sd => !sd.html)
     proses.filter(sd => sd.padding)
       .style('padding-top', sd=> sd.padding.top + 'em')
       .style('padding-bottom', sd=> sd.padding.bottom + 'em')

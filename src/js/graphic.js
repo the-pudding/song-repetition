@@ -3,7 +3,7 @@ import ArtistCircles from './artists.js';
 import OverTime from './overtime.js';
 import discog from './discog.js';
 import topsongs from './topsongs.js';
-import compression from './compression.js';
+//import compression from './compression.js';
 import compression_tutorial from './compression-tutorial.js';
 import histogram from './histogram.js';
 import histogram_accordion from './histogram-accordion.js';
@@ -20,7 +20,7 @@ function init() {
     OverTime.init();
     histogram_accordion.init();
   }, 1000);
-  compression.init();
+  //compression.init();
   histogram.init();
   topsongs.init();
   discog.init();
