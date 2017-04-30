@@ -13,6 +13,14 @@ const autoplay = 0;
 // 1: no acceleration. >1: positive acceleration.
 const scroll_acceleration = 1;
 
+// verbose debug logging
+const verbose = false;
+const vblog = s => {
+  if (verbose) {
+    console.log(s);
+  }
+}
+
 // Standard padding for slide-wrapper elements. This affects the distance
 // between slide paragraphs (obviously). It's especially important for 
 // 'progressive' stages (i.e. ones that tie scroll progress to the corresponding
@@ -100,16 +108,16 @@ class CompressionWrapper {
             () => dat.onEnter(this.comp, e.scrollDirection === 'FORWARD')
           : () => null;
           if (this.comp.slug != slug) {
-            console.log(`Quickchanging. Slide slug = ${slug}, current graphic slug = ${this.comp.slug}`);
+            vblog(`Quickchanging. Slide slug = ${slug}, current graphic slug = ${this.comp.slug}`);
             this.comp.quickChange(slug).then(cb);
           } else {
             if (this.comp.state === STATE.defragged && !dat.allow_defragged) {
-              console.log('Refragging');
+              vblog('Refragging');
               this.comp.refrag();
             }
             cb();
           }
-          console.log(`Entered stage ${i} w direction ${e.scrollDirection}`);
+          vblog(`Entered stage ${i} w direction ${e.scrollDirection}`);
           stagenode.classed('active', true);
           if (dat.progressive) {
             this.comp.acquireScrollLock(i);
@@ -124,7 +132,7 @@ class CompressionWrapper {
         // trigger is scrolled past from the opposite scroll direction
         // TODO: this shouldn't be necessary
         .on('leave', (e) => {
-          console.log(`Left stage ${i}`);
+          vblog(`Left stage ${i}`);
           stagenode.classed('active', false);
           let exitkey = e.scrollDirection === 'FORWARD' ? 'down' : 'up';
           let exitfn = dat.onExit && dat.onExit[exitkey];
@@ -419,7 +427,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
 
   quickChange(song) {
     if (song === this.slug) {
-      console.log(`Already on ${song}. Nothing to do.`);
+      vblog(`Already on ${song}. Nothing to do.`);
       return new Promise(cb => cb());
     }
     let wait = this.reset(song, true);
@@ -434,7 +442,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
           // every song change). So any callbacks associated with an overwritten
           // object should just naturally go away.
           // TODO: some way to check whether the initiating stage is still active?
-          console.log('Aborting stale QC callback');
+          vblog('Aborting stale QC callback');
         }
       }, wait);
     });
@@ -456,7 +464,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
 
   onScroll(progress, stage, stagedat) {
     if (stage !== this.scroll_owner) {
-      console.log('Dropping scroll signal from pretender stage.');
+      console.warn('Dropping scroll signal from pretender stage.');
       return;
     }
     if (this.state === STATE.loading || this.state === STATE.defragged) {
@@ -477,7 +485,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
   }
   defrag(kwargs={}) {
     if (this.state === STATE.loading || this.state === STATE.defragged) {
-      console.log(`Can't defrag in state ${this.state}`);
+      vblog(`Can't defrag in state ${this.state}`);
       return;
     }
     this.state = STATE.defragged;

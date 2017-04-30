@@ -25,11 +25,11 @@ class HistogramAccordionGraphic extends HistogramGraphic {
     })
       .on('enter', () => {
         this.updateToDrop(0);
-        console.log('enter the accordion');
+        //console.log('enter the accordion');
       })
       .on('leave', () => {
         this.updateToDrop(ndrops);
-        console.log('leave the accordion');
+        //console.log('leave the accordion');
       })
       .addTo(this.controller);
   }

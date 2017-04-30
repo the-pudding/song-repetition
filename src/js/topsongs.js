@@ -108,7 +108,6 @@ class TopSongsGraphic {
     // Only thing we need to change in the update case is the rank
     // TODO: er, well, okay, also need to move its position in the table
     let ranktext = (d,i) => i+1 + '.';
-    console.log(rows.size());
     rows.select('.rank')
       .text(ranktext);
     let newrows = rows.enter()
@@ -141,7 +140,6 @@ class TopSongsGraphic {
   }
 
   static init() {
-    console.log('topsongs!');
     let g = new TopSongsGraphic();
     return g;
   }
