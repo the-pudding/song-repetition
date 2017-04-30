@@ -127,7 +127,7 @@ class ArtChart extends BeeswarmChart {
       .attr("height", this.R*2)
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide)
-      .classed("artistNode", true);
+      .classed("artistNode bubble-container", true);
     containers
       .append("circle")
       .attr("r", this.R)
@@ -135,18 +135,23 @@ class ArtChart extends BeeswarmChart {
       .attr("cy", 0);
     a.merge(containers).select('circle')
       .attr("fill", a=>comm.rscore_cmap(a.rscore))
-    // TODO: make text not overflow container
+    // TODO: using containers rather than this.svg.select causes an inscrutable
+    // error when doing a decade switch:
+    //  Cannot read property 'ownerDocument' of null
+    // may want to file a bug on that?
+    let fontsize = this.svg.select('.artistNode').style('font-size');
+    // (I'm assuming the above will always return a size in px)
     containers
       .append("text")
-      .attr("text-anchor", "middle")
-      .attr("font-size", 8)
+      // TODO: currently redundant wrt bubbleText
+      .style("font-size", fontsize)
       .attr("class","artists-bubble-text")
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", this.R*2)
       .attr("height", this.R*2)
     let textsel = a.merge(containers).select('text');
-    this.bubbleText(textsel, a=>a.name);
+    this.bubbleText(textsel, a=>a.name, parseInt(fontsize));
   }
 
   static init() {

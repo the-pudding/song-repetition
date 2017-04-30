@@ -57,6 +57,10 @@
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 
 ## Multi-chart todos
+- beeswarm plots: I wonder if forces could help in fitting text into the bubbles? It could presumably help with a ittle like "Whererever Would I Be", which gets split to "Wherever / Would / I Be". In that case, rather than vertically centering the text, you'd want to shift it down, so that the widest chunk of text is closer to the widest part of the circle.
+    - also, if we take it as a given that sometimes some text is going to spill out of the bubbles, it would probably be good to also repel texts from one another
+- could maybe fit text into bubbles a bit more naturally if they were fat ellipses rather than circles
+- when restarting the force sim, add a tiny bit of y jitter to the initial positions to break symmetry
 
 ## Code stuff
 - clean up console.log spam

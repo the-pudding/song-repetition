@@ -29,7 +29,8 @@ class BeeswarmChart extends BaseChart {
 
   constructor(rootsel) {
     super(rootsel);
-    this.R = 25; // radius of circles
+    this._svg.classed('beeswarm', true);
+    this.R = 27; // radius of circles
 
     this.xscale = d3.scaleLinear()
       .domain(this.extent)
@@ -67,9 +68,31 @@ class BeeswarmChart extends BaseChart {
     axis_el.call(axis);
   }
 
+  /** Arrange text into the given text elements, such that they satisfactorily
+   * fit into an enclosing 'bubble'. This may involve splitting text across
+   * lines (using tspans) and possibly using a font size smaller than the one
+   * suggested, or truncating some of the text.
+   * - textsel is a selection of text elements, bound to some data.
+   * - textgetter maps a bound datum on a text element to the associated
+   *   text that should be drawn in the bubble
+   * - fontsize is assumed to be in px. (Currently only used for line
+   *   spacing. When we alter the font-size of the given text eles, we
+   *   set it in % units)
+   */
   bubbleText(textsel, textgetter, fontsize=11) {
+    let linedat = textsel.data().map(d => this.linify(textgetter(d)));
+    // Reduce font size per text according to max constraint violation
+    let fontscale = d3.scaleLinear()
+      .clamp(true)
+      // No constraint violation: full font size. Exceeding the soft limit
+      // on number of chars per line by 7 or more? 2/3 font size.
+      .domain([0, 7])
+      .range(['100%', '65%']);
+    let fontsizer = (d,i) => fontscale(linedat[i].violation);
+    textsel.style('font-size', fontsizer);
+
     let spans = textsel.selectAll('tspan')
-      .data(d=>this.linify(textgetter(d)));
+      .data( (d,i) => linedat[i].lines );
     spans.exit().remove();
     let newspans = spans.enter().append('tspan');
     let lineheight = fontsize*1.05;
@@ -88,29 +111,64 @@ class BeeswarmChart extends BaseChart {
   }
   /** Return a list of word-wrapped lines that sum to the given text.
    * Given max length is treated as a soft constraint. */
-  linify(s, maxlen=5) {
+  linify(s, maxlen=6) {
+    // if we're going to go past one of these limits, we just give up and
+    // stick in an ellipsis
+    // (Also, yeah, I know, counting characters is imperfect here cause I'm
+    // not using a monospace font, but the alternative of continually rendering
+    // and checking sizes sounds tedious, and possibly slow)
+    const hardlimit = {chars: 20, lines: 5};
     let tokens = s.split(' ');
+    // this is an optimistic estimate
+    let tentativesize = d3.sum(tokens, t=>t.length);
+    // Basic idea here is that, if we know we're going to have to cut this
+    // off early, then do it plenty early. Avoid the awkward situation where
+    // the title came in just over the limit, and we end up rendering almost
+    // the whole title, except a tiny bit at the end that gets ellipsised
+    // (e.g. "Bang Bang (My Baby Show Me...")
+    const charlimit = tentativesize > hardlimit.chars ? 
+      hardlimit.chars*.66 : 100;
     let lines = [];
     let line = '';
+    let violation = 0;
     console.assert(maxlen > 0);
-    let i = 0
+    let i = 0;
+    let totallen = 0;
+    let fedup = false;
     for (let token of tokens) {
-      line += token + ' ';
-      if (line.length >= maxlen ||
+      let wordsleft = (i+1) < tokens.length;
+      // We've hit our hard limit. Add an ellipsis then peace out.
+      if (wordsleft && totallen > charlimit) {
+        fedup = true;
+        line += '...';
+      } else {
+        line += token + ' ';
+      }
+      if (line.length >= maxlen || fedup ||
           // look ahead for icebergs
-          (line.length && (i+1) < tokens.length &&
-            (line.length + tokens[i+1].length) > maxlen * 1.75
+          (line.length && wordsleft &&
+            (line.length + tokens[i+1].length) > maxlen * 1.33
           )
-         ) {
-        lines.push(line.slice(0,-1));
+       )
+      {
+        line = line.slice(0,-1);
+        if (!fedup && lines.length+1 >= hardlimit.lines) {
+          line += '...';
+          fedup = true;
+        }
+        lines.push(line)
+        let len = line.length;
+        violation = Math.max(violation, len-maxlen);
+        totallen += len;
         line = '';
       }
       i++;
+      if (fedup) break;
     }
     if (line) {
       lines.push(line);
     }
-    return lines;
+    return {lines, violation};
   }
 
   get extent() {

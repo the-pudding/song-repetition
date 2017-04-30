@@ -220,7 +220,7 @@ class DiscogWidget extends BeeswarmChart {
       .append("g")
       .on('mouseover', this.mouseover())
       .on('mouseout', this.mouseout())
-      .classed("song", true);
+      .classed("song bubble-container", true);
     let newcircles = newpts
       .append("circle")
       .attr("r", this.R) 
@@ -229,9 +229,6 @@ class DiscogWidget extends BeeswarmChart {
     let fontsize = 10;
     let newtext = newpts
       .append("text")
-      .attr("text-anchor", "middle")
-      .attr("font-size", fontsize)
-      .attr("font-family", "Tahoma, Verdana, sans-serif")
       .classed("songlabel", true);
     pts = pts.merge(newpts);
     pts
