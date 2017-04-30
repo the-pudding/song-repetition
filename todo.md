@@ -56,11 +56,12 @@
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 
-## Multi-chart todos
-- beeswarm plots: I wonder if forces could help in fitting text into the bubbles? It could presumably help with a ittle like "Whererever Would I Be", which gets split to "Wherever / Would / I Be". In that case, rather than vertically centering the text, you'd want to shift it down, so that the widest chunk of text is closer to the widest part of the circle.
+## Beeswarms
+- I wonder if forces could help in fitting text into the bubbles? It could presumably help with a ittle like "Whererever Would I Be", which gets split to "Wherever / Would / I Be". In that case, rather than vertically centering the text, you'd want to shift it down, so that the widest chunk of text is closer to the widest part of the circle.
     - also, if we take it as a given that sometimes some text is going to spill out of the bubbles, it would probably be good to also repel texts from one another
 - could maybe fit text into bubbles a bit more naturally if they were fat ellipses rather than circles
 - when restarting the force sim, add a tiny bit of y jitter to the initial positions to break symmetry
+- add a strong collision force to top and bottom limits of the graph
 
 ## Code stuff
 - clean up console.log spam
@@ -93,3 +94,4 @@
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
 - Would be nice to define some common design element to use for 'small print' stuff, like explaining logarithmic scale in topsongs, rolling average in overtime, etc.
 * If the intro is going to use the Beyonce vs. Queen meme, it seems appropriate to use 'Girls'/Bohemian Rhapsody at some point as examples.
+- resize hooks are probably a generally good idea. (And they'd help a lot with debugging, given how often I open and close the developer console. Or just fiddle with css - I don't know if those changes fire a resize event.)

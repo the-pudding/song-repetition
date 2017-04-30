@@ -95,6 +95,7 @@ class OverTimeChart extends BaseChart {
   constructor() {
     let kwargs = {
       margin: {left: 40, top: 40, bottom: 20, right: 15},
+      hfrac: .9,
     };
     super('#rovertime', kwargs);
     this.R = 4; // radius of year dots

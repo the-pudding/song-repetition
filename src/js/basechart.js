@@ -13,7 +13,20 @@ class BaseChart {
     } else {
       this.totalW = this.root.node().offsetWidth;
     }
-    this.totalH = kwargs.H || 600;
+    if (kwargs.H) {
+      this.totalH = kwargs.H;
+    } else {
+      // TODO: probably clearer and less dangerous to do this with css, using 
+      // vh units
+      this.totalH = Math.min(
+          800, 
+          window.innerHeight * (kwargs.hfrac || .66)
+      );
+      this.totalH = Math.max(
+          this.totalH,
+          kwargs.hmin || 300
+      );
+    }
     this.W = this.totalW - this.margin.left - this.margin.right;
     this.H = this.totalH - this.margin.top - this.margin.bottom;
     this._svg = this.root.append('svg')
@@ -28,9 +41,13 @@ class BaseChart {
 class BeeswarmChart extends BaseChart {
 
   constructor(rootsel) {
-    super(rootsel);
+    let R = 27; // radius of circles
+    let kwargs = {
+      hmin: (R*2)*9,
+    };
+    super(rootsel, kwargs);
     this._svg.classed('beeswarm', true);
-    this.R = 27; // radius of circles
+    this.R = R;
 
     this.xscale = d3.scaleLinear()
       .domain(this.extent)
@@ -42,27 +59,26 @@ class BeeswarmChart extends BaseChart {
 
   }
 
+  get ylabel() {
+    return 'Size Reduction';
+  }
+
+  // render the x-axis
   addAxis() {
-    let h = this.H-this.R;
-    let labelh = h + this.H*5/20;
-    this.svg.append("g")
+    let y = this.H;
+    let labely = 30;
+    this._svg.append("g")
       .classed("axis", true)
-      .attr("transform", "translate(0 "+h+")");
-    this.svg.append('text')
-      .text('Less repetitive')
-      .attr('font-size', '13px')
-      .attr('x', this.W*1/20)
-      .attr('y', labelh);
-    this.svg.append('text')
-      .text('More repetitive')
-      .attr('font-size', '13px')
-      .attr('x', this.W*9/10)
-      .attr('y', labelh);
+      .attr("transform", "translate(0 "+y+")")
+      .append('text')
+      .classed('label', true)
+      .attr('transform', `translate(${this.W/2}, ${labely})`)
+      .text(this.ylabel)
     this.updateAxis();
   }
 
   updateAxis() {
-    let axis_el = this.svg.select('.axis');
+    let axis_el = this._svg.select('.axis');
     let axis = d3.axisBottom(this.xscale)
       .tickFormat(comm.rscore_to_readable);
     axis_el.call(axis);

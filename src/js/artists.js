@@ -65,6 +65,10 @@ class ArtChart extends BeeswarmChart {
     this.rerender();
   }
 
+  get ylabel() {
+    return 'Avg. Size Reduction';
+  }
+
   get currData() {
     if (!this.decade) { // XXX: hack
       return data;
