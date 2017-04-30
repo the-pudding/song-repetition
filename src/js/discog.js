@@ -84,7 +84,7 @@ class DiscogWidget extends BeeswarmChart {
 
   updateAxes() {
     // TODO: I think this is redundant wrt parent class's updateAxis method?
-    this.svg.select('.axis')
+    this._svg.select('.axis')
         .call(d3.axisBottom(this.xscale)
             .tickFormat(comm.rscore_to_readable)
             //.ticks(0)

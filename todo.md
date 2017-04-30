@@ -41,11 +41,13 @@
 
 ## Artists beeswarm
 - artist faces
+- try to get closer to an equal number of artists per decade
 * label axes (maybe in a way that's consistent with whatever's done in discog)
 
 ## Discographies
 - nicer artist-picker
     - one reader suggested arranging from most-to-least repetitive?
+    - maybe just an *additional* artist-picker mechanism? Like, underneath the the chart, have some tabbed lists, organized along a few themes. (decade, highly-repetitive, highly-non-repetitive, high-variance, maybe genre)
 - consider looking at a particular artist's discography (e.g. the Tswift example from Ipython notebook) and talking through some observations, before unleashing the selection of all artists in the dataset.
 - histogram backdrop
     - smoothing
@@ -55,6 +57,9 @@
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
+- x-axis should probably transition smoothly on artist change
+- experiment w rendering of the median line. Maybe do it as a dashed line that exactly matches the height of the corresponding part of the histogram, and label with an annotation/legend
+    - and maybe do something similar with 5%/10%, 90%/95%
 
 ## Beeswarms
 - I wonder if forces could help in fitting text into the bubbles? It could presumably help with a ittle like "Whererever Would I Be", which gets split to "Wherever / Would / I Be". In that case, rather than vertically centering the text, you'd want to shift it down, so that the widest chunk of text is closer to the widest part of the circle.
