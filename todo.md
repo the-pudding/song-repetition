@@ -26,23 +26,19 @@
 - annotations for the outliers
 
 ## Most repetitive songs
-* headings
 * animated transitions when adding/removing rows, or switching between decades
+    - object constancy
 - show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
 - deal better with overly long track labels (truncate rather than wrapping to next line? as it is, the extra height on an overflowed row sort of messes up the look of the table)
-- object constancy
 
 ## Repetition through the ages
 * ylabel
-- add a legend after adding orange line? or maybe just a label pointing to the new line.
-- maybe do major/minor grid lines for y axis? (and x?)
 - bottom padding on last card a little too small
 
 ## Artists beeswarm
 - artist faces
 - try to get closer to an equal number of artists per decade
-* label axes (maybe in a way that's consistent with whatever's done in discog)
 
 ## Discographies
 - nicer artist-picker
@@ -52,7 +48,6 @@
 - histogram backdrop
     - smoothing
     - maybe scale up max height according to number of songs (would help contextualize a discography like TSwift's)
-* force text into bubbles (truncating if necessary)
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
@@ -69,7 +64,6 @@
 - add a strong collision force to top and bottom limits of the graph
 
 ## Code stuff
-- clean up console.log spam
 * Review the many, many TODOs and XXXs in code.
 
 ## Data

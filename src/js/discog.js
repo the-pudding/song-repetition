@@ -39,9 +39,9 @@ class DiscogWidget extends BeeswarmChart {
 
     let controls = insert("div");
     insert('h1');
-    this.setupHeader();
-    controls.append("button")
-      .text("random artist")
+    let head = this.setupHeader();
+    head.append("button")
+      .text("random")
       .on("click", ()=> {
         this.updateArtist();
         this.updateHeader();
@@ -153,6 +153,7 @@ class DiscogWidget extends BeeswarmChart {
       let artist = e.params.data.id;
       this.updateArtist(artist);
     });
+    return hd;
   }
 
   // Called when the artist is changed by some means other than the dropdown
