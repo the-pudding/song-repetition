@@ -31,10 +31,12 @@
 - show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
 - deal better with overly long track labels (truncate rather than wrapping to next line? as it is, the extra height on an overflowed row sort of messes up the look of the table)
+- what about having youtube links to the songs, where possible?
 
 ## Repetition through the ages
 * ylabel
 - bottom padding on last card a little too small
+- is there a better place for footnote-y technical details, like the rolling average thing?
 
 ## Artists beeswarm
 - artist faces
@@ -55,6 +57,7 @@
 - x-axis should probably transition smoothly on artist change
 - experiment w rendering of the median line. Maybe do it as a dashed line that exactly matches the height of the corresponding part of the histogram, and label with an annotation/legend
     - and maybe do something similar with 5%/10%, 90%/95%
+- icon instead of text for randomize button
 
 ## Beeswarms
 - I wonder if forces could help in fitting text into the bubbles? It could presumably help with a ittle like "Whererever Would I Be", which gets split to "Wherever / Would / I Be". In that case, rather than vertically centering the text, you'd want to shift it down, so that the widest chunk of text is closer to the widest part of the circle.
