@@ -5,7 +5,8 @@ fontify($atlas, $publico, $canela)
 html, body
     background-color #fff
     color $off-black
-    font-size 17px
+    margin 0
+    padding 0
 
 p
     line-height 1.6
@@ -43,9 +44,9 @@ h1
     font-size 32px
     margin-bottom 30px
 h2
-    font-size 1.6rem
+    font-size 1.2rem
     font-family $atlas
-    font-weight 100
+    font-weight 500
     max-width 40rem
     margin 0 auto
     margin-bottom 1.3rem
@@ -59,8 +60,13 @@ h2
     width 100%
 
 .prose-pull-quote
+    margin 0 auto
     margin-top 3rem
-    margin-bottom    2rem
+    margin-bottom 2rem
+    max-width 50rem
+
+.col-xs-5
+  width 50%
 
 .flex-box
     -webkit-display flex
@@ -108,7 +114,7 @@ button
     font-size .6rem
     font-weight 600
 
-// Reused in topsongs and artists charts 
+// Reused in topsongs and artists charts
 .decade-controls
     margin 0 auto
     width 33%
@@ -127,3 +133,13 @@ button
         smallcaps()
     a.decade.active
         color #000
+blockquote
+  border-left 5px solid #ececec
+  padding-left 1rem
+  margin 0
+
+.small
+  font-size .85rem
+  font-family $atlas
+  line-height 1.4
+  margin-bottom 1.5rem

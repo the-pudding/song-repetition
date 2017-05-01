@@ -22,13 +22,13 @@ const vblog = s => {
 }
 
 // Standard padding for slide-wrapper elements. This affects the distance
-// between slide paragraphs (obviously). It's especially important for 
+// between slide paragraphs (obviously). It's especially important for
 // 'progressive' stages (i.e. ones that tie scroll progress to the corresponding
 // animation) because it determines the duration of their scene, and therefore
 // the rate of animation progress per pixel scrolled.
 // Measured in ems.
 // TODO: I'm not even entirely sure padding is the right attr to be using
-// here (rather than margin/border). I always forget the difference, and 
+// here (rather than margin/border). I always forget the difference, and
 // how the collapsing stuff works.
 const std_padding = {top: 0, bottom: 10};
 
@@ -105,7 +105,7 @@ class CompressionWrapper {
         .on('enter', (e) => {
           let slug = dat.slug;
           console.assert(slug, "No slug set for this stage");
-          let cb = dat.onEnter ? 
+          let cb = dat.onEnter ?
             () => dat.onEnter(this.comp, e.scrollDirection === 'FORWARD')
           : () => null;
           if (this.comp.slug != slug) {
@@ -129,7 +129,7 @@ class CompressionWrapper {
               .classed('active', true);
           }
         })
-        // NB: when duration is not set, leave event is fired when the 
+        // NB: when duration is not set, leave event is fired when the
         // trigger is scrolled past from the opposite scroll direction
         // TODO: this shouldn't be necessary
         .on('leave', (e) => {
@@ -239,7 +239,7 @@ class CompressionWrapper {
       up: comp => comp.unravel(comp.dittos[1]),
     },
   },
-  
+
   {
     progressive: true,
     proxy: -1,
@@ -259,7 +259,7 @@ class CompressionWrapper {
       `,
 /*
 <p><small>
-The choice of 3 characters as the cost of a marker is somewhat arbitrary. We could slide this up to a high value like 20 if we only care about larger-scale repetition. The only opportunities for compression in that case would be repeated sequences of 20 or more characters - i.e. multi-word phrases, not just repetitions of single words or parts of words. 
+The choice of 3 characters as the cost of a marker is somewhat arbitrary. We could slide this up to a high value like 20 if we only care about larger-scale repetition. The only opportunities for compression in that case would be repeated sequences of 20 or more characters - i.e. multi-word phrases, not just repetitions of single words or parts of words.
 </small></p>
       `,
 */
@@ -340,7 +340,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
   constructor(rootsel, config={}) {
     super(rootsel, config);
     this.restartable = false;
-    // Add a container that the stage transitions can use as a sort of 
+    // Add a container that the stage transitions can use as a sort of
     // dedicated scratch space.
     // TODO: I think this does more harm than good at this point.
     this.stagebox = this.svg.append('g')
@@ -381,7 +381,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
       .classed('size size-original', true)
       .attr('x', sizex)
       .attr('y', texty)
-      .text(`Original size: ${this.totalchars} bytes/characters`); 
+      .text(`Original size: ${this.totalchars} bytes/characters`);
 
     this.odometer.append('text')
       .classed('size size-compressed', true)
@@ -400,7 +400,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
     cstext += ` (${stats.uncompressed_chars} characters + `;
     // Make a little space to draw a marker representation in
     let markernest = Array(5).join("\u00A0");
-    cstext += `${stats.ndittos} \u00D7 ${markernest})`; 
+    cstext += `${stats.ndittos} \u00D7 ${markernest})`;
     compsize.text(cstext);
     let bb = compsize.node().getBBox();
     let rad = this.ditto_radius * 1.5;
@@ -408,12 +408,12 @@ class CompressionTutorial extends BaseCompressionGraphic {
     let dittorepr = this.odometer.select('circle');
     if (dittorepr.empty()) {
       dittorepr = this.odometer.append('circle')
-      .attr('r', rad)
+      .attr('r', rad-1)
       .attr('opacity', .8)
       .attr('fill', src_color);
     }
     dittorepr
-      .attr('cx', bb.x+bb.width-20)
+      .attr('cx', bb.x+bb.width-15)
       .attr('cy', bb.y+bb.height/2);
   }
 
@@ -438,7 +438,7 @@ class CompressionTutorial extends BaseCompressionGraphic {
           this.onReady(cb);
         } else {
           // TODO: There needs to be a better way to deal with this kind of thing.
-          // I think this is an argument for splitting into two classes, one 
+          // I think this is an argument for splitting into two classes, one
           // permanent (per graphic/svg) and one ephemeral (overwritten on
           // every song change). So any callbacks associated with an overwritten
           // object should just naturally go away.
@@ -530,4 +530,3 @@ class CompressionTutorial extends BaseCompressionGraphic {
 }
 
 export default CompressionWrapper;
-

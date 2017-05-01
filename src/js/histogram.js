@@ -38,13 +38,13 @@ class HistogramGraphic extends BaseChart {
         .text('The Repetition of Pop Music')
         .attr('text-anchor', 'middle')
         .attr('x', this.W/2)
-        .attr('y', 0);
+        .attr('y', 10);
       let st = `Distribution of compressibility of 15,000 songs from 1958 to 2017, excluding 20 outliers.`;
       this.svg.append('text')
         .classed('subtitle', true)
         .attr('text-anchor', 'middle')
         .attr('x', this.W/2)
-        .attr('y', this.maxbar_y*.3)
+        .attr('y', this.maxbar_y*.3 + 10)
         .text(st);
     }
     this.xmax = (kwargs.xmax_ratio || 1) * this.W;

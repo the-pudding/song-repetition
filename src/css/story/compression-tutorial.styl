@@ -2,13 +2,16 @@
 have no idea how to accomplish this. */
 #compression-mini
     width 100%
+    max-width 70rem
     margin-top 5rem
     // Chosen to match height of SVG. Fragile.
     padding-bottom 500px
     .size-original
+      pointer-events none
       font-family $atlas
       font-size .85rem
     .size-compressed
+      pointer-events none
       font-family $atlas
       font-size .85rem
     .odometer
@@ -29,8 +32,22 @@ have no idea how to accomplish this. */
   h2
     margin-top 1.5rem
     margin-bottom 1.3rem
-    font-size 1rem
-    font-weight 600
+    font-size 1.8rem
+    font-weight 100
+    max-width 100%
+    font-family $canela
   svg
     border 1px dashed #d4d4d4
     box-shadow 7px -6px 0 1px #f5f5f5
+
+.reduction
+  pointer-events none
+  font-family $atlas
+  font-weight 500
+
+
+.ditto
+  cursor pointer
+
+.ditto:hover
+  fill black
