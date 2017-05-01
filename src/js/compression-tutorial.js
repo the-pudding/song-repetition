@@ -87,7 +87,7 @@ class CompressionWrapper {
     })
       .on('enter', () => this.toggleFixed(true, false))
       .on('leave', e => this.toggleFixed(false, e.scrollDirection === 'FORWARD'))
-      .addIndicators()
+      //.addIndicators()
       .addTo(this.controller);
 
     let slides = this.prose.selectAll('.slide-wrapper');
@@ -110,7 +110,7 @@ class CompressionWrapper {
         offset: stageheight,
         duration: duration,
       })
-        .addIndicators({name: 'inner'+i})
+        //.addIndicators({name: 'inner'+i})
         .on('enter', (e) => {
           let slug = dat.slug;
           console.assert(slug, "No slug set for this stage");

@@ -92,6 +92,12 @@
     - the stuff after that is just gravy. Like, "oh, and here's some other neat stuff for exploring the data at a more granular level"
     - So not clear how the piece should end. Just reiterating the conclusion that "yeah, it does seem like music is getting more repetitive after all" seems kind of lame.
     - Maybe just move the repetition-over-time graphic to the end?
+    
+## Mobile
+- tweak distance between scrollytelling cards (to give graphics a little more room to breathe)
+- look across the board at aspect ratios. Seems to be a common source of mobile wonkiness right now.
+- center overtime graphic vertically
+- histogram subtitle fit
 
 ## Misc
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
