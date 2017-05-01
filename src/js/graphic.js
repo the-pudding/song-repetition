@@ -7,6 +7,7 @@ import topsongs from './topsongs.js';
 import compression_tutorial from './compression-tutorial.js';
 import histogram from './histogram.js';
 import histogram_accordion from './histogram-accordion.js';
+import triangles from './drawing.js';
 
 function resize() {
 
@@ -20,6 +21,7 @@ function init() {
     OverTime.init();
     histogram_accordion.init();
   }, 1000);
+  triangles.init();
   //compression.init();
   histogram.init();
   topsongs.init();

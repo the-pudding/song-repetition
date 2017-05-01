@@ -6953,4 +6953,9 @@ var imageDraw = [
     "color": "#a9aeb4"
   }
 ]
-export default imageDraw;
+
+function init() {
+  // TODO: drawing code
+}
+
+export default { init };
