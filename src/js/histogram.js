@@ -149,7 +149,7 @@ class HistogramGraphic extends BaseChart {
       .transition()
       .duration(animation_dur)
       .attr('x', h=> this.xscale(h.left))
-      .attr('width', h=> this.xscale(h.right) - this.xscale(h.left))
+      .attr('width', h=> this.xscale(h.right) - this.xscale(h.left)-1)
       .attr('height', h=> h.count === 0 ?
           this.hscale(h.count)
           :

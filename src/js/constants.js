@@ -8,11 +8,11 @@ const decades = [];
 for (let d=6; d<=11; d++) {
   let name;
   if (d === 11) {
-    name = "10's";
+    name = "'10s";
   } else if (d === 10) {
-    name = "00's";
+    name = "'00s";
   } else {
-    name = d*10 + "'s";
+    name = "'" + d*10 + "s";
   }
   let decade = {earliest: 1900+d*10, latest: 1900+d*10+9, name: name};
   decades.push(decade);

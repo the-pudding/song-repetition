@@ -1,25 +1,39 @@
 #topsongs
     background-color #fff
-    margin-bottom 5rem
+    margin-bottom 4rem
+    margin-top 4rem
+    font-family $atlas
     table
         border-collapse collapse
         width 100%
     td
+        font-size .9rem
         padding-top 0
         padding-bottom 0
     a
         cursor pointer
-    a.expander
-        text-align center
-        margin 0 auto
-        width 15%
-        display block
-        border 2px solid $gray
-        border-radius 5px
-        smallcaps()
+    .expander-container
+      display flex
+      justify-content center
+      margin-top 1rem
+      a.expander
+        font-weight 500
+        color black
+        font-size .8rem
+        padding .3rem .5rem
+        border 1px solid #adadad
+        border-radius 3px
+        &:hover
+          background-color #eee
+
+
     th
-        smallcaps()
         text-align left
+        font-family $atlas
+        font-size .8rem
+        font-weight 900
+        letter-spacing 0px
+        line-height 1.5rem
     tr th:nth-child(1)
         width 2rem
     tr th:nth-child(3)
@@ -33,8 +47,8 @@
         height 1.5rem
     .bar span
         color white
-        font-size .8rem
-        font-weight bold
+        font-size .7rem
+        line-height 2
+        font-weight 300
     .track .title
         font-weight bold
-

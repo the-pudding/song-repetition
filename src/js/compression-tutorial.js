@@ -410,7 +410,8 @@ class CompressionTutorial extends BaseCompressionGraphic {
       dittorepr = this.odometer.append('circle')
       .attr('r', rad-1)
       .attr('opacity', .8)
-      .attr('fill', src_color);
+      .attr('fill', src_color)
+      ;
     }
     dittorepr
       .attr('cx', bb.x+bb.width-15)

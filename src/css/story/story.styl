@@ -39,7 +39,7 @@ p
     margin-bottom 1rem
 .prose small
     font-size .8rem
-    line-height .6
+    line-height 1
 h1
     font-size 32px
     margin-bottom 30px
@@ -99,12 +99,15 @@ button
 .vline
     text
         font-family $atlas
+        pointer-events none
         font-weight 500
         letter-spacing -.02rem
 .xaxis-label
     font-family $atlas
-    font-size .8rem
+    font-size .75rem
     font-weight 600
+    text-transform uppercase
+    letter-spacing .08em
 .artists-bubble-text
     font-family $atlas
     font-size .6rem
@@ -116,23 +119,25 @@ button
 
 // Reused in topsongs and artists charts
 .decade-controls
+    display flex
     margin 0 auto
-    width 33%
-    border 2px solid $gray
-    border-radius 5px
-    display block
+    font-family $atlas
+    justify-content center
+    margin-top 1rem
+    margin-bottom 1rem
     a.decade
+        padding .2rem .5rem
+        font-size .8rem
         cursor pointer
         text-align center
-        display inline-block
-        height 3rem
-        vertical-align middle
-        width 13%
-        border 1px solid $gray
-        color $gray
-        smallcaps()
+        border 1px solid rgba(127, 125, 156, 0.54)
+        margin-left -1px
     a.decade.active
-        color #000
+        background-color #F5F5F5
+        font-weight 500
+        color black
+        box-shadow inset 0 3px 5px rgba(0,0,0,.125)
+        border-color #adadad
 blockquote
   border-left 5px solid #ececec
   padding-left 1rem
@@ -143,3 +148,25 @@ blockquote
   font-family $atlas
   line-height 1.4
   margin-bottom 1.5rem
+
+.title-nice
+  margin-top 1.5rem
+  margin-bottom 1.3rem
+  font-size 1.8rem
+  font-weight 100
+  max-width 100%
+  font-family $canela
+  text-align center
+  margin-bottom .5rem
+.title-sub
+  font-size .85rem
+  font-family $atlas
+  font-weight 400
+  text-align center
+  margin 0
+.front-curve
+  border-top-left-radius 5px
+  border-bottom-left-radius 5px
+.back-curve
+  border-top-right-radius 5px
+  border-bottom-right-radius 5px
