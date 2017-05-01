@@ -1,8 +1,11 @@
 /** Widget for showing repetitiveness of an individual artist's discography
  */
 import * as d3 from 'd3';
-import * as comm from './common.js';
+import scroll_controller from './scroll.js';
+import ScrollMagic from 'scrollmagic';
 import d3Tip from 'd3-tip';
+
+import * as comm from './common.js';
 import { BeeswarmChart } from './basechart.js';
 
 import ARTIST_LOOKUP from './starmap.js';
@@ -50,6 +53,20 @@ class DiscogWidget extends BeeswarmChart {
     
     this.setupAxes();
     this.updateArtist(DEFAULT_ARTIST);
+    this.bindLinks();
+  }
+
+  // Add click callbacks to the link elements in the later prose which are supposed
+  // to have the effect of jumping to a particular artist.
+  bindLinks() {
+    d3.select('#discog-examples').selectAll('a')
+      .on('click', (d,i,n) => this.jumpToArtist(n[i].textContent));
+  }
+
+  jumpToArtist(artist) {
+    this.updateArtist(artist);
+    this.updateHeader();
+    scroll_controller.scrollTo(this.rootsel);
   }
 
   get extent() {
