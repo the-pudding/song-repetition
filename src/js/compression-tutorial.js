@@ -1,7 +1,9 @@
 import * as d3 from 'd3';
 import scroll_controller from './scroll.js';
 import ScrollMagic from 'scrollmagic';
+import 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
 import { BaseCompressionGraphic, STATE } from './compression-base.js';
+import { isMobile } from './helpers.js';
 
 // TODO: maybe show extended odometer?
 
@@ -26,11 +28,14 @@ const vblog = s => {
 // 'progressive' stages (i.e. ones that tie scroll progress to the corresponding
 // animation) because it determines the duration of their scene, and therefore
 // the rate of animation progress per pixel scrolled.
-// Measured in ems.
+// Measured in rems.
 // TODO: I'm not even entirely sure padding is the right attr to be using
 // here (rather than margin/border). I always forget the difference, and
 // how the collapsing stuff works.
-const std_padding = {top: 0, bottom: 10};
+const std_padding = isMobile() ?
+  {top: 0, bottom: 16}
+  :
+  {top: 0, bottom: 10};
 
 // TODO: would be cool to bind *all* the stages to scroll progress
 
@@ -66,8 +71,8 @@ class CompressionWrapper {
       .html(sd => sd.html)
       .classed('hidden', sd => !sd.html)
     proses.filter(sd => sd.padding)
-      .style('padding-top', sd=> sd.padding.top + 'em')
-      .style('padding-bottom', sd=> sd.padding.bottom + 'em')
+      .style('padding-top', sd=> sd.padding.top + 'rem')
+      .style('padding-bottom', sd=> sd.padding.bottom + 'rem')
   }
 
   // Setup the overall scene wherein the compression graphic is pinned to
@@ -82,6 +87,7 @@ class CompressionWrapper {
     })
       .on('enter', () => this.toggleFixed(true, false))
       .on('leave', e => this.toggleFixed(false, e.scrollDirection === 'FORWARD'))
+      .addIndicators()
       .addTo(this.controller);
 
     let slides = this.prose.selectAll('.slide-wrapper');
@@ -89,6 +95,8 @@ class CompressionWrapper {
       let wrappernode = n[i];
       let stagenode = d3.select(wrappernode).select('.slide');
       let stageheight = stagenode.node().offsetHeight;
+      // we carefully set the duration so that the scenes tile exactly, with 
+      // no gaps or overlaps.
       let duration = wrappernode.offsetHeight - stageheight;
       if (i === n.length-1) {
         duration += 500; // XXX hack
@@ -102,6 +110,7 @@ class CompressionWrapper {
         offset: stageheight,
         duration: duration,
       })
+        .addIndicators({name: 'inner'+i})
         .on('enter', (e) => {
           let slug = dat.slug;
           console.assert(slug, "No slug set for this stage");
@@ -223,6 +232,9 @@ class CompressionWrapper {
   },
 
   {
+    // TODO: seems kind of fragile/confusing to split the work of defining
+    // padding on these things between js and css. Should probably stick to
+    // just one.
     padding: {top: std_padding.top, bottom: 3},
     progressive: false,
     slug: 'cheapthrills_chorus',

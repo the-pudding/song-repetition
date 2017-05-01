@@ -5,10 +5,12 @@ import artists from './artist-data.js';
 import d3Tip from 'd3-tip';
 import { BeeswarmChart } from './basechart.js';
 import { decade_controls } from './helpers.js';
+import { isMobile } from './helpers.js';
 
 var data = artists;
 
-const max_artists = 50;
+// This kinda sucks.
+const max_artists = isMobile() ? 35 : 50;
 
 function round(x) {
   return Math.round(x*100)/100;

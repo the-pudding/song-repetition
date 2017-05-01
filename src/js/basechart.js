@@ -1,12 +1,17 @@
 import * as d3 from 'd3';
 import * as c from './constants.js';
 import * as comm from './common.js';
+import { isMobile } from './helpers.js';
 
 class BaseChart {
   constructor(rootsel, kwargs={}) {
     this.rootsel = rootsel;
     this.root = d3.select(rootsel);
     this.margin = {top: 20, right: 20, bottom: 50, left: 20};
+    if (isMobile()) {
+      this.margin.left = 0;
+      this.margin.right = 0;
+    }
     Object.assign(this.margin, kwargs.margin);
     if (kwargs.W) {
       this.totalW = kwargs.W;
@@ -41,7 +46,7 @@ class BaseChart {
 class BeeswarmChart extends BaseChart {
 
   constructor(rootsel) {
-    let R = 27; // radius of circles
+    let R = isMobile() ? 22 : 27; // radius of circles
     let kwargs = {
       hmin: (R*2)*9,
     };

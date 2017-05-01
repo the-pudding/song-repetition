@@ -7,6 +7,12 @@ html, body
     color $off-black
     margin 0
     padding 0
+    
+html
+    overflow auto
+body
+    width 100%
+    overflow hidden
 
 p
     line-height 1.6
@@ -55,8 +61,10 @@ h2
     color    rgba(0,0,0,.90)
 
 .graphic
-    width 80%
     margin 0 auto
+    width 80%
+    +mobile()
+        width 100%
 .graphic.graphic-fullwidth
     width 100%
 

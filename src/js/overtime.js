@@ -7,6 +7,7 @@ import * as c from './constants.js';
 import * as comm from './common.js';
 import scroll_controller from './scroll.js';
 import { BaseChart } from './basechart.js';
+import { isMobile } from './helpers.js';
 
 // If you change these, make sure to also change vars in overtime.styl
 const linecolor = "steelblue";
@@ -64,17 +65,26 @@ class OverTimeGraphic {
   setupIntermediateScenes() {
     for (let n=0; n <= STAGES.length-1; n++) {
       let sel = '.stage' + n;
-      let scene = new ScrollMagic.Scene({
-        triggerElement: sel,
-        triggerHook: 'onCenter',
-      });
+      let kwargs;
+      if (isMobile()) {
+        let h = d3.select(sel).node().offsetHeight;
+        kwargs = {triggerHook: 'onEnter',
+          duration: window.innerHeight/2,
+        };
+      } else {
+        kwargs = {triggerHook: 'onCenter'};
+      }
+      kwargs.triggerElement = sel;
+      let scene = new ScrollMagic.Scene(kwargs);
 
       scene.on('enter', () => {
         this.chart.step(n);
         d3.select(sel).classed('active', true);
       })
       .on('leave', () => {
-        this.chart.step(Math.max(0, n-1));
+        if (!kwargs.duration) {
+          this.chart.step(Math.max(0, n-1));
+        }
         d3.select(sel).classed('active', false);
       });
 
@@ -95,7 +105,9 @@ class OverTimeChart extends BaseChart {
   constructor() {
     let kwargs = {
       margin: {left: 40, top: 40, bottom: 20, right: 15},
-      hfrac: .9,
+      // TODO: maybe should enforce some constraints on aspect ratio?
+      // that's the basic idea behind the mobile case
+      hfrac: isMobile() ? .6 : .9,
     };
     super('#rovertime', kwargs);
     this.R = 4; // radius of year dots

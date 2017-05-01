@@ -1,7 +1,17 @@
 .scrolly-columns
     position relative
+    width 100%
+    .graphic-vis
+        width 60%
+        position absolute
+        top 0
+        margin-left 30rem
+        transform translate3d(0, 0, 0)
+        // TODO: apparently a bad idea on mobile?
+        height 90vh
     .graphic-prose
-        width 34%
+        width 38%
+        max-width 30rem
     // TODO: just use consistent class names
     .scrolly-slide, .slide
         opacity .5
@@ -18,22 +28,22 @@
         opacity 1
     .scrolly-slide.hidden, .slide.hidden
         opacity 0
-    .graphic-vis
-        width 60%
-        margin-left 40%
-    .graphic-prose
-        width 38%
-    .graphic-vis
-        position absolute
-        top 0
-        margin-left 30rem
-        transform translate3d(0, 0, 0)
-        height 100vh
+    +mobile()
+        .graphic-vis
+            width 100%
+            margin 0
+        .graphic-prose
+            width 75%
+            margin 0 auto
+            position relative
+            z-index 100
+        .scrolly-slide, .slide
+            // I think the really sick thing to do would
+            // be to tween opacity to 0 as the scene falls off the horizon
+            opacity 1
+
     .graphic-vis.is-fixed
         position fixed
     .graphic-vis.is-bottom
         top auto
         bottom 0
-    .graphic
-        width 100%
-        position relative

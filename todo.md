@@ -10,7 +10,7 @@
 - in setLastDitto, if add an increasing delay to ravels after the first one, so that if a bunch of them come in at once, they sort of get drawn in order
 
 ### compression-tutorial.js
-* seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
+- seems like scrollmagic kind of goes haywire on refresh and cycles through a bunch of stages in quick succession for inscrutable reasons. Maybe need to just put the whole thing behind some kind of delay or onLoad callback?
     - I think part of the problem might be dynamically adding the compression-tutorial slide/stage elements dynamically. They take up a lot of space, so whenever they get added, the page shifts around a lot.
 - when scrolling up to the defrag scenes, we should just draw the final result of the defrag without any delays/animations. 
 - some of the slide wrappers have enough padding between them that you can scroll to a point between them such that neither is visible (violating the rule that there always needs to be something moving up when the user scrolls). Maybe insert some dummy '...' elements between them or something?
@@ -27,7 +27,7 @@
 - annotations for the outliers
 
 ## Most repetitive songs
-* animated transitions when adding/removing rows, or switching between decades
+- animated transitions when adding/removing rows, or switching between decades
     - object constancy
 - show something like an excerpt of a song's lyrics when hovering/selecting it
     - mini gif version of compression, inline
@@ -96,5 +96,4 @@
 ## Misc
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
 - Would be nice to define some common design element to use for 'small print' stuff, like explaining logarithmic scale in topsongs, rolling average in overtime, etc.
-* If the intro is going to use the Beyonce vs. Queen meme, it seems appropriate to use 'Girls'/Bohemian Rhapsody at some point as examples.
 - resize hooks are probably a generally good idea. (And they'd help a lot with debugging, given how often I open and close the developer console. Or just fiddle with css - I don't know if those changes fire a resize event.)

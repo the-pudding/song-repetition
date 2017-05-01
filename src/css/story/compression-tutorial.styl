@@ -22,14 +22,19 @@ have no idea how to accomplish this. */
         border-top 1px dashed #d4d4d4
     .slide-wrapper
         // TODO: use vh units?
-        padding-top 0em
-        padding-bottom 10em
+        padding-top 0rem
+        padding-bottom 10rem
         .slide
             padding 1.5rem
     .slide-wrapper.first
         padding-top 5em
     .slide-wrapper.progressive
         padding-bottom 15em
+    +mobile()
+        .slide-wrapper
+            padding-bottom 16rem
+        .slide-wrapper.first
+            padding-top 30rem
 
 
 .graphic-vis
