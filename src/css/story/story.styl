@@ -7,7 +7,7 @@ html, body
     color $off-black
     margin 0
     padding 0
-    
+
 html
     overflow auto
 body
@@ -16,15 +16,16 @@ body
 
 p
     line-height 1.6
-    margin-bottom 10px
     font-family $publico
+    margin 0
 p, .prose
     a
         text-decoration underline
         color inherit
     a:hover
         color red
-
+.prose
+  margin 1rem 0rem
 .row
     blockquote
         p
@@ -65,6 +66,8 @@ h2
     width 80%
     +mobile()
         width 100%
+#artist-circles
+  margin-top 5rem
 .graphic.graphic-fullwidth
     width 100%
 
@@ -114,9 +117,9 @@ button
 .xaxis-label
     font-family $atlas
     font-size .75rem
-    font-weight 600
+    font-weight 500
     text-transform uppercase
-    letter-spacing .08em
+    fill #777
 .artists-bubble-text
     font-family $atlas
     font-size .6rem
@@ -150,7 +153,8 @@ button
 blockquote
   border-left 5px solid #ececec
   padding-left 1rem
-  margin 0
+  margin 1rem 0rem
+
 
 .small
   font-size .85rem
@@ -179,8 +183,10 @@ blockquote
 .back-curve
   border-top-right-radius 5px
   border-bottom-right-radius 5px
-  
+
 #discog-examples
     list-style-type square
     a
         cursor pointer
+.bottom-spacer
+  margin-bottom 5rem

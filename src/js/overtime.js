@@ -120,7 +120,7 @@ class OverTimeChart extends BaseChart {
     this.xscale = d3.scaleLinear()
       .domain(d3.extent(DATA, (yr) => (yr.year)))
       .range([0, this.W]);
-    
+
     let yrange = INVERT_Y ? [0, this.H] : [this.H, 0];
     this.yextent = {pct: [40, 60]};
     this.yextent.rscore = this.yextent.pct.map(comm.pct_to_rscore);
@@ -156,9 +156,9 @@ class OverTimeChart extends BaseChart {
       .range([linecolor, hitcolor]);
     let legend = legendColor()
       .shape('rect')
-      .shapeWidth(45)
-      .shapeHeight(4)
-      .shapePadding(15)
+      .shapeWidth(25)
+      .shapeHeight(3)
+      .shapePadding(40)
       .orient('horizontal')
       .scale(scale);
     legendel.call(legend);
@@ -293,6 +293,7 @@ class OverTimeChart extends BaseChart {
       )
       .call(this._customGrid)
     // Y-gridlines (major and minor)
+
     this.svg.append("g")
       .attr("class", "grid grid-major grid-y")
       .call(d3.axisLeft(this.yscale)

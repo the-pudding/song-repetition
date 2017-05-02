@@ -21,10 +21,10 @@ class BaseChart {
     if (kwargs.H) {
       this.totalH = kwargs.H;
     } else {
-      // TODO: probably clearer and less dangerous to do this with css, using 
+      // TODO: probably clearer and less dangerous to do this with css, using
       // vh units
       this.totalH = Math.min(
-          800, 
+          800,
           window.innerHeight * (kwargs.hfrac || .66)
       );
       this.totalH = Math.max(
@@ -147,7 +147,7 @@ class BeeswarmChart extends BaseChart {
     // the title came in just over the limit, and we end up rendering almost
     // the whole title, except a tiny bit at the end that gets ellipsised
     // (e.g. "Bang Bang (My Baby Show Me...")
-    const charlimit = tentativesize > hardlimit.chars ? 
+    const charlimit = tentativesize > hardlimit.chars ?
       hardlimit.chars*.66 : 100;
     let lines = [];
     let line = '';

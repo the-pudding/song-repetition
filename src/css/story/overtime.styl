@@ -3,6 +3,16 @@ $allsongs-color = steelblue
 $hits-color = orange
 
 #overtime-graphic
+    max-width 70rem
+    margin-bottom 8rem
+    .title
+      fill rgba(0,0,0,.8)
+      margin-top 1.5rem
+      margin-bottom 1.3rem
+      font-size 1.8rem
+      font-weight 100
+      max-width 100%
+      font-family $canela
     svg
         border none
         box-shadow none
@@ -12,13 +22,42 @@ $hits-color = orange
             smallcaps()
         .grid
             stroke-width .5
+            line
+              shape-rendering crispEdges
+        .grid-x
+          display none
         .grid-minor
             stroke #ddd
+            line
+              shape-rendering crispEdges
         .grid-major
             stroke #222
+            line
+              shape-rendering crispEdges
+        .legendCells
+          text
+            font-family $atlas
+            font-size .7rem
+            letter-spacing 0px
+            font-weight 400
+            fill #b1b1b1
     .spacer
         height 300px
     .scrolly-slide
         border-left 4px solid $allsongs-color
+        p
+          margin 1rem 0rem
     .scrolly-slide.hits
         border-left 4px solid $hits-color
+    .xaxis
+      .domain
+        display none
+      .tick
+        line
+          stroke #888
+    .yaxis
+      .domain
+        display none
+      .tick
+        line
+          stroke #888
