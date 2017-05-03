@@ -71,7 +71,7 @@ class BeeswarmChart extends BaseChart {
   // render the x-axis
   addAxis() {
     let y = this.H;
-    let labely = 30;
+    let labely = 40;
     this._svg.append("g")
       .classed("axis", true)
       .attr("transform", "translate(0 "+y+")")
@@ -85,6 +85,9 @@ class BeeswarmChart extends BaseChart {
   updateAxis() {
     let axis_el = this._svg.select('.axis');
     let axis = d3.axisBottom(this.xscale)
+      .tickSizeOuter(0)
+      .tickSizeInner(4)
+      .tickPadding(6)
       .tickFormat(comm.rscore_to_readable);
     axis_el.call(axis);
   }

@@ -26,6 +26,8 @@ p, .prose
         color red
 .prose
   margin 1rem 0rem
+  li
+    margin-bottom 1rem
 .row
     blockquote
         p
@@ -95,8 +97,28 @@ button
     padding: 6px
     margin 6px
     border-radius 5px
-#discog-widget .select2
-    max-width 13em
+
+#discog-widget
+  margin-top 5rem
+  margin-bottom 4rem
+  h1
+    font-family $canela
+    font-weight 100
+    font-size 1.8rem
+    text-transform capitalize
+    .select2
+      max-width 13em
+      margin-left 2rem
+      margin-right .6rem
+      font-family $atlas
+      font-size .8rem
+      color black
+      font-weight 600
+      .select2-selection--single
+        margin-bottom 6px
+        color black
+        .select2-selection__rendered
+          color black
 .spacer
     height 300px
 #girls
@@ -190,3 +212,26 @@ blockquote
         cursor pointer
 .bottom-spacer
   margin-bottom 5rem
+
+.artist-tooltip
+  background white
+  padding: 7px;
+  -webkit-box-shadow 2px 2px 10px rgba(0, 0, 0, 0.10)
+  -moz-box-shadow 4px 4px 10px rgba(0, 0, 0, 0.15)
+  box-shadow 2px 2px 10px rgba(0, 0, 0, 0.10)
+  pointer-events none
+  text-align left
+  -webkit-border-radius 3px
+  -moz-border-radius 3px
+  border-radius 3px
+  div
+    color black
+    font-family $atlas
+    font-size .7rem
+    font-weight 500
+    text-transform capitalize
+    line-height 1.8
+
+.d3-tip.n
+  &::after
+    content:""

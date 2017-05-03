@@ -18,7 +18,7 @@ function round(x) {
 
 function debugartistTooltip(a) {
   var lines = [];
-  let s = '<div class="artist-tooltip d3-tip n">'
+  let s = '<div class="artist-tooltip n">'
   for (let attr of ["name", "rscore", "year", "nsongs", "mostrep"]) {
     let val = a[attr];
     if (attr === 'rscore') {
@@ -40,10 +40,10 @@ function artistTooltip(a) {
   var lines = [];
   let s = '<div class="artist-tooltip d3-tip n">';
 
-  lines.push(a.name);
+  // lines.push(a.name);
   //lines.push(`#songs: ${a.nsongs}`);
   lines.push(`avg. repetition: ${comm.rscore_to_readable(a.rscore)}`);
-  lines.push(`Most repetitive song: ${a.mostrep} (${comm.rscore_to_readable(a.topscore)})`);
+  lines.push(`#1 repetitive: ${a.mostrep} (${comm.rscore_to_readable(a.topscore)})`);
   s += lines.map(t=>`<div>${t}</div>`).join('');
   s += '</div>';
   return s;
@@ -136,7 +136,7 @@ class ArtChart extends BeeswarmChart {
       .classed("artistNode bubble-container", true);
     containers
       .append("circle")
-      .attr("r", this.R)
+      .attr("r", this.R-2)
       .attr("cx", 0)
       .attr("cy", 0);
     a.merge(containers).select('circle')
@@ -156,6 +156,8 @@ class ArtChart extends BeeswarmChart {
       .attr("y", 0)
       .attr("width", this.R*2)
       .attr("height", this.R*2)
+      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
+      ;
     let textsel = a.merge(containers).select('text');
     this.bubbleText(textsel, a=>a.name, parseInt(fontsize));
   }

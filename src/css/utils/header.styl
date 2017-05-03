@@ -3,26 +3,59 @@ $logo-size = 48px
 header
     text-align center
     z-index set-index('overlay')
-    width 13rem
-    margin 2.5rem auto
-    a.logo
-        clearfix()
-        border-bottom none
-        display block
-        .logo__text
-            text-transform uppercase
-            color $off-black
-            display inline-block
-            width 100%
-            margin 0
-            padding 0
-            line-height $logo-size
-            font-size 0.9rem
-            font-weight 400
-            letter-spacing 0.05em
-        .logo__svg
-            width $logo-size
-            height $logo-size
-            fill $off-black
-            display block
-            margin 0 auto
+    padding 2.5rem auto
+    background #ddd
+    height 100vh
+    margin-bottom 4rem
+    display flex
+    flex-direction column
+    justify-content center
+    .animation
+      margin-bottom 2rem
+    .opening-title
+      font-family $canela
+      font-size 4rem
+      max-width 50rem
+      line-height 1.3
+      margin 0 auto
+    .opening-sub
+      font-family $atlas
+      font-size 1.2rem
+      font-weight 300
+      margin-bottom .2rem
+    .byline
+      margin-top 1rem
+      padding-bottom 3rem
+      font-family $atlas
+      font-size .8rem
+      a
+        font-weight 500
+    .logo-container
+      position absolute
+      top 0px
+      left 0px
+      right 0px
+      width 12rem
+      margin 0 auto
+      a.logo
+          clearfix()
+          border-bottom none
+          display block
+          svg
+            fill rgba(0,0,0,.8)
+          .logo__text
+              text-transform uppercase
+              color $off-black
+              display inline-block
+              width 100%
+              margin 0
+              padding 0
+              line-height $logo-size
+              font-size 0.9rem
+              font-weight 400
+              letter-spacing 0.05em
+          .logo__svg
+              width $logo-size
+              height $logo-size
+              display block
+              margin 0 auto

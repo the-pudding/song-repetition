@@ -1,18 +1,26 @@
 svg.beeswarm
+    .baseline
+      text
+        font-family $atlas
+        pointer-events none
+        font-weight 500
+        letter-spacing: 0.02rem
+        text-transform capitalize
     .bubble-container
         font-size .7rem
         text, tspan
             fill #fff
-            stroke #000
             paint-order stroke
-            stroke-width 2px
+            stroke-width 3px
             stroke-linejoin round
             font-weight bold
             text-anchor middle
+            font-weight 500
+            letter-spacing .1em
+            pointer-events none
         circle
             // TODO: could also try a shadow or something?
-            stroke #444
-            stroke-width 1px
+            cursor pointer
     .axis
         text-anchor middle
         .label
@@ -24,5 +32,15 @@ svg.beeswarm
 
 #discog-widget
     h1 button
-        margin-left 1rem
-        smallcaps()
+        margin 0
+        text-transform capitalize
+        font-weight: 500;
+        color: 000
+        font-size 0.8rem
+        padding 0.3rem 0.5rem
+        border 1px solid #adadad
+        border-radius 3px
+        background #fff
+        font-family $atlas
+        position absolute
+        margin-top  4px

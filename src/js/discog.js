@@ -32,7 +32,7 @@ function songToolTip(s) {
 
 class DiscogWidget extends BeeswarmChart {
 
-  // TODO: a general pattern worth trying: use setters to handle the rerendering 
+  // TODO: a general pattern worth trying: use setters to handle the rerendering
   // associated with certain state changes (setting beehive, setting artist, etc.)
   constructor() {
     let rootsel = '#discog-widget';
@@ -49,8 +49,9 @@ class DiscogWidget extends BeeswarmChart {
         this.updateArtist();
         this.updateHeader();
       });
+
     this.svg.call(this.tip);
-    
+
     this.setupAxes();
     this.updateArtist(DEFAULT_ARTIST);
     this.bindLinks();
@@ -103,6 +104,9 @@ class DiscogWidget extends BeeswarmChart {
     // TODO: I think this is redundant wrt parent class's updateAxis method?
     this._svg.select('.axis')
         .call(d3.axisBottom(this.xscale)
+            .tickSizeOuter(0)
+            .tickSizeInner(4)
+            .tickPadding(6)
             .tickFormat(comm.rscore_to_readable)
             //.ticks(0)
             );
@@ -136,7 +140,7 @@ class DiscogWidget extends BeeswarmChart {
     newbars
       .attr("x", h=> this.xscale(h.left))
       // start at the midpoint, then move up half the height of the bar
-      // (the goal is for the bars to be symmetric about the x-axis, which 
+      // (the goal is for the bars to be symmetric about the x-axis, which
       // is located at the midpoint of the y-axis)
       .attr("y", h=> this.H/2 - hscale(h.count)/2)
       .attr("width", h=> this.xscale(h.right)-this.xscale(h.left))
@@ -157,8 +161,8 @@ class DiscogWidget extends BeeswarmChart {
 
   setupHeader() {
     let hd = this.root.select('h1');
+    hd.text('Artist Discography');
     let dd = hd.append('select').classed('discog-artist-dd', true);
-    hd.append('span').text(' discography');
     dd.selectAll('option').data(Object.keys(ARTIST_LOOKUP).sort())
       .enter()
       .append('option')
@@ -241,12 +245,13 @@ class DiscogWidget extends BeeswarmChart {
       .classed("song bubble-container", true);
     let newcircles = newpts
       .append("circle")
-      .attr("r", this.R) 
-      .attr("cx", 0) 
+      .attr("r", this.R)
+      .attr("cx", 0)
       .attr("cy", 0)
     let fontsize = 10;
     let newtext = newpts
       .append("text")
+      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
       .classed("songlabel", true);
     pts = pts.merge(newpts);
     pts
@@ -313,4 +318,3 @@ class DiscogWidget extends BeeswarmChart {
 }
 
 export default DiscogWidget;
-
