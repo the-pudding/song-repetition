@@ -45,12 +45,13 @@ class BaseChart {
 
 class BeeswarmChart extends BaseChart {
 
-  constructor(rootsel) {
-    let R = isMobile() ? 22 : 27; // radius of circles
-    let kwargs = {
+  constructor(rootsel, kwargs={}) {
+    let baseR = kwargs.baseR || 27;
+    let R = isMobile() ? baseR-5 : baseR; // radius of circles
+    let super_kwargs = {
       hmin: (R*2)*9,
     };
-    super(rootsel, kwargs);
+    super(rootsel, super_kwargs);
     this._svg.classed('beeswarm', true);
     this.R = R;
 

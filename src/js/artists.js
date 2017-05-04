@@ -51,7 +51,8 @@ function artistTooltip(a) {
 
 class ArtChart extends BeeswarmChart {
   constructor() {
-    super('#artist-circles');
+    let kwargs = {baseR: 25};
+    super('#artist-circles', kwargs);
     this.tip = d3Tip().html((d) => (artistTooltip(d)));
     this.svg.call(this.tip);
 
@@ -136,7 +137,7 @@ class ArtChart extends BeeswarmChart {
       .classed("artistNode bubble-container", true);
     containers
       .append("circle")
-      .attr("r", this.R-2)
+      .attr("r", this.R)
       .attr("cx", 0)
       .attr("cy", 0);
     a.merge(containers).select('circle')
