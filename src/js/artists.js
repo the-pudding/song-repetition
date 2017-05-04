@@ -61,7 +61,8 @@ class ArtChart extends BeeswarmChart {
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
       .force("y", d3.forceY(this.yscale(0)))
-      .force("collide", d3.forceCollide(this.R))
+      // Add a bit of virtual padding to circles
+      .force("collide", d3.forceCollide(this.R+1))
       .on("tick", ()=>{this.nudgeArtists()});
     this.setupControls();
     this.rerender();
@@ -136,7 +137,7 @@ class ArtChart extends BeeswarmChart {
       .classed("artistNode bubble-container", true);
     containers
       .append("circle")
-      .attr("r", this.R-2)
+      .attr("r", this.R)
       .attr("cx", 0)
       .attr("cy", 0);
     a.merge(containers).select('circle')
