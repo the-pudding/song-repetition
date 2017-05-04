@@ -54,6 +54,7 @@
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
 - may want to limit number of songs per artist (Tswift's discog is v crowded right now)
+    - or maybe even grow height if an artist has a lot of songs?
 - a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 - x-axis should probably transition smoothly on artist change
 - experiment w rendering of the median line. Maybe do it as a dashed line that exactly matches the height of the corresponding part of the histogram, and label with an annotation/legend

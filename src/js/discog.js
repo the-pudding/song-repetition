@@ -251,12 +251,14 @@ class DiscogWidget extends BeeswarmChart {
     let fontsize = 10;
     let newtext = newpts
       .append("text")
-      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
       .classed("songlabel", true);
     pts = pts.merge(newpts);
     pts
       .attr("fill", s => comm.rscore_cmap(s.rscore));
-    this.bubbleText(pts.select('text'), d=>d.title);
+    let textsel = pts.select('text');
+    textsel
+      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
+    this.bubbleText(textsel, d=>d.title);
   }
 
   // TODO: I miss being able to do arrow function methods. Should look into turning
