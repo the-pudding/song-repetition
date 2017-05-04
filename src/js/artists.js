@@ -157,9 +157,10 @@ class ArtChart extends BeeswarmChart {
       .attr("y", 0)
       .attr("width", this.R*2)
       .attr("height", this.R*2)
-      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
       ;
     let textsel = a.merge(containers).select('text');
+    textsel
+      .style("stroke", a=>d3.color(comm.rscore_cmap(a.rscore)).darker(1))
     this.bubbleText(textsel, a=>a.name, parseInt(fontsize));
   }
 
