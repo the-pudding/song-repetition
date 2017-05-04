@@ -222,11 +222,14 @@ class DiscogWidget extends BeeswarmChart {
     this.updateAxes();
     this.updateHistogram();
 
+    let iters = 100; // d3 default corresponds to 300
+    let decay = 1 - Math.pow(0.001, 1/iters);
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX(this.xdat).strength(1))
       .force("y", d3.forceY(this.yscale(0)))
       .force("collide", d3.forceCollide(this.R))
       .on("tick", ()=>{this.nudge()})
+      .alphaDecay(decay)
       .nodes(discog)
 
     // Set initial position data

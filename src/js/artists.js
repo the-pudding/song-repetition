@@ -57,12 +57,14 @@ class ArtChart extends BeeswarmChart {
 
     // default to 00's
     this.decade = c.pseudo_decades[2];
-    // TODO: redo on decade change?
+    let iters = 100; // d3 default corresponds to 300
+    let decay = 1 - Math.pow(0.001, 1/iters);
     this.forcesim = d3.forceSimulation()
       .force("x", d3.forceX( (a) => (this.xscale(a.rscore))).strength(1))
       .force("y", d3.forceY(this.yscale(0)))
       // Add a bit of virtual padding to circles
       .force("collide", d3.forceCollide(this.R+1))
+      .alphaDecay(decay)
       .on("tick", ()=>{this.nudgeArtists()});
     this.setupControls();
     this.rerender();
