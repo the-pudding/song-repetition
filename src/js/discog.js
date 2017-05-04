@@ -230,9 +230,12 @@ class DiscogWidget extends BeeswarmChart {
       .nodes(discog)
 
     // Set initial position data
+    // Add a bit of random jitter to initial y positions to break 
+    // symmetry. 
+    let jitterfn = d3.randomNormal(0, .1);
     discog.forEach(s=> {
       s.x = this.xdat(s);
-      s.y = this.yscale(0);
+      s.y = this.yscale(0+jitterfn());
     });
 
     let pts = this.svg.selectAll('.song').data(discog);
