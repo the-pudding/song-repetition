@@ -21,7 +21,7 @@ class HistogramAccordionGraphic extends HistogramGraphic {
     let scene = new ScrollMagic.Scene({
         triggerElement: this.rootsel,
         triggerHook: 'onLeave',
-        offset: -100,
+        offset: -200,
     })
       .on('enter', () => {
         this.updateToDrop(0);

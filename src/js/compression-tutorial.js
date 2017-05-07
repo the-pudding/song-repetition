@@ -235,7 +235,7 @@ class CompressionWrapper {
     // TODO: seems kind of fragile/confusing to split the work of defining
     // padding on these things between js and css. Should probably stick to
     // just one.
-    padding: {top: std_padding.top, bottom: 3},
+    padding: {top: std_padding.top, bottom: 12},
     progressive: false,
     slug: 'cheapthrills_chorus',
     allow_defragged: false,
