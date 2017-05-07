@@ -1,0 +1,620 @@
+{
+  "lines": [
+    [
+      "tonight", 
+      " I", 
+      " need", 
+      " ", 
+      "dollar", 
+      " ", 
+      "b", 
+      "ills", 
+      "\n"
+    ], 
+    [
+      "I", 
+      " don't", 
+      " ", 
+      "keep", 
+      " fun\n"
+    ], 
+    [
+      "cheap ", 
+      "thr", 
+      "ills", 
+      " ", 
+      "long to ", 
+      "feel", 
+      " money\n"
+    ], 
+    [
+      "the", 
+      " ", 
+      "bills", 
+      " ", 
+      "don't", 
+      " ", 
+      "need ", 
+      "the ", 
+      "dancing", 
+      " ", 
+      "baby", 
+      "\n"
+    ], 
+    [
+      "fun", 
+      " ", 
+      "dollar ", 
+      "dancing", 
+      " ", 
+      "thrills", 
+      " ", 
+      "the ", 
+      "baby", 
+      " I need", 
+      "\n"
+    ], 
+    [
+      "don't ", 
+      "have", 
+      " ", 
+      "fun\n"
+    ], 
+    [
+      "no no ", 
+      "don't have ", 
+      "dancing ", 
+      "fun ", 
+      "tonight", 
+      "\n"
+    ], 
+    [
+      "beat", 
+      " the ", 
+      "can as ", 
+      "I don't ", 
+      "feel", 
+      " thrills", 
+      "\n"
+    ], 
+    [
+      "love ", 
+      "the dancing", 
+      " money\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 12, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 2, 
+        "x1": 9, 
+        "y2": 2, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 26, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 0, 
+        "txt": "ills", 
+        "x1": 23, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 3, 
+        "x1": 3, 
+        "y2": 3, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 26, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "nchars": 6, 
+        "y1": 0, 
+        "txt": " bills", 
+        "x1": 21, 
+        "y2": 0, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 6, 
+        "y1": 3, 
+        "x1": 9, 
+        "y2": 3, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 6, 
+        "y1": 1, 
+        "txt": " don't", 
+        "x1": 1, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "nchars": 6, 
+        "y1": 3, 
+        "x1": 15, 
+        "y2": 3, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 6, 
+        "y1": 0, 
+        "txt": " need ", 
+        "x1": 9, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 3, 
+        "x1": 21, 
+        "y2": 3, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "the ", 
+        "x1": 0, 
+        "y2": 3, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 8, 
+        "y1": 4, 
+        "x1": 3, 
+        "y2": 4, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 21, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "nchars": 8, 
+        "y1": 0, 
+        "txt": " dollar ", 
+        "x1": 14, 
+        "y2": 0, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 8, 
+        "y1": 4, 
+        "x1": 11, 
+        "y2": 4, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 32, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "nchars": 8, 
+        "y1": 3, 
+        "txt": "dancing ", 
+        "x1": 25, 
+        "y2": 3, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "nchars": 8, 
+        "y1": 4, 
+        "x1": 19, 
+        "y2": 4, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 8, 
+        "y1": 2, 
+        "txt": "thrills ", 
+        "x1": 6, 
+        "y2": 2, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 30, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 4, 
+        "x1": 27, 
+        "y2": 4, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 24, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "the ", 
+        "x1": 21, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 8, 
+        "x2word": 8, 
+        "nchars": 4, 
+        "y1": 4, 
+        "x1": 31, 
+        "y2": 4, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 36, 
+        "x1word": 10, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "baby", 
+        "x1": 33, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 41, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "nchars": 7, 
+        "y1": 4, 
+        "x1": 35, 
+        "y2": 4, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 7, 
+        "y1": 0, 
+        "txt": " I need", 
+        "x1": 7, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 5, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 6, 
+        "y1": 5, 
+        "x1": 0, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 6, 
+        "y1": 3, 
+        "txt": "don't ", 
+        "x1": 10, 
+        "y2": 3, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 5, 
+        "y1": 5, 
+        "x1": 10, 
+        "y2": 5, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 5, 
+        "y1": 1, 
+        "txt": " fun\n", 
+        "x1": 12, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 11, 
+        "y1": 6, 
+        "x1": 6, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 0, 
+        "x2word": 2, 
+        "nchars": 11, 
+        "y1": 5, 
+        "txt": "don't have ", 
+        "x1": 0, 
+        "y2": 5, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 8, 
+        "y1": 6, 
+        "x1": 17, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 8, 
+        "y1": 4, 
+        "txt": "dancing ", 
+        "x1": 11, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 28, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 6, 
+        "x1": 25, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 4, 
+        "txt": "fun ", 
+        "x1": 0, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 35, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 7, 
+        "y1": 6, 
+        "x1": 29, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 6, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 7, 
+        "y1": 0, 
+        "txt": "tonight", 
+        "x1": 0, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 8, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 7, 
+        "x1": 4, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 30, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "nchars": 5, 
+        "y1": 4, 
+        "txt": " the ", 
+        "x1": 26, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 8, 
+        "y1": 7, 
+        "x1": 16, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 7, 
+        "x1word": 0, 
+        "x2word": 2, 
+        "nchars": 8, 
+        "y1": 1, 
+        "txt": "I don't ", 
+        "x1": 0, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 7, 
+        "x1": 24, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 2, 
+        "txt": "feel", 
+        "x1": 22, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 35, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 8, 
+        "y1": 7, 
+        "x1": 28, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 8, 
+        "y1": 4, 
+        "txt": " thrills", 
+        "x1": 18, 
+        "y2": 4, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 11, 
+        "y1": 8, 
+        "x1": 5, 
+        "y2": 8, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 31, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "nchars": 11, 
+        "y1": 3, 
+        "txt": "the dancing", 
+        "x1": 21, 
+        "y2": 3, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 7, 
+        "y1": 8, 
+        "x1": 16, 
+        "y2": 8, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 32, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 7, 
+        "y1": 2, 
+        "txt": " money\n", 
+        "x1": 26, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }
+  ]
+}

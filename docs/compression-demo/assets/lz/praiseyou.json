@@ -1,0 +1,428 @@
+{
+  "lines": [
+    [
+      "We've come a", 
+      " long", 
+      " long ", 
+      "way together,\n"
+    ], 
+    [
+      "Through", 
+      " the ", 
+      "hard times and", 
+      " the ", 
+      "good", 
+      ",\n"
+    ], 
+    [
+      "I have to ", 
+      "celebrat", 
+      "e you ", 
+      "baby", 
+      ",\n"
+    ], 
+    [
+      "I have to ", 
+      "prais", 
+      "e you ", 
+      "like I should", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "We've come a long long way together,\n"
+    ], 
+    [
+      "Through the hard times and the good,\n"
+    ], 
+    [
+      "I have to celebrate you baby,\n"
+    ], 
+    [
+      "I have to praise you", 
+      " like I should", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I have to praise you", 
+      "\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you", 
+      " like I should", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I have to praise you", 
+      "\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "We've come a long long way together,\n"
+    ], 
+    [
+      "Through the hard times and the good,\n"
+    ], 
+    [
+      "I have to celebrate you baby,\n"
+    ], 
+    [
+      "I have to praise you like I shoul", 
+      "d", 
+      "ddddd", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I have to praise you", 
+      "\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      "I have to praise you like I should\n"
+    ], 
+    [
+      "I have to praise you\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 0, 
+        "x1": 17, 
+        "y2": 0, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 0, 
+        "txt": " long", 
+        "x1": 12, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 30, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 5, 
+        "y1": 1, 
+        "x1": 26, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 1, 
+        "txt": " the ", 
+        "x1": 7, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 12, 
+        "y1": 2, 
+        "x1": 28, 
+        "y2": 3, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "nchars": 12, 
+        "y1": 1, 
+        "txt": ",\nI have to ", 
+        "x1": 35, 
+        "y2": 2, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 3, 
+        "x1": 15, 
+        "y2": 3, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 2, 
+        "txt": "e you ", 
+        "x1": 18, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 140, 
+        "y1": 5, 
+        "x1": 0, 
+        "y2": 9, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 140, 
+        "y1": 0, 
+        "txt": "We've come a long long way together,\nThrough the hard times and the good,\nI have to celebrate you baby,\nI have to praise you like I should\n\n", 
+        "x1": 0, 
+        "y2": 4, 
+        "nwords": 21
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 20, 
+        "y1": 10, 
+        "x1": 0, 
+        "y2": 10, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 20, 
+        "y1": 8, 
+        "txt": "I have to praise you", 
+        "x1": 0, 
+        "y2": 8, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 63, 
+        "y1": 10, 
+        "x1": 20, 
+        "y2": 13, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 21, 
+        "y1": 9, 
+        "txt": "\nI have to praise you", 
+        "x1": 0, 
+        "y2": 10, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 99, 
+        "y1": 13, 
+        "x1": 20, 
+        "y2": 18, 
+        "nwords": 8
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 99, 
+        "y1": 8, 
+        "txt": " like I should\n\nI have to praise you\nI have to praise you\nI have to praise you\nI have to praise you", 
+        "x1": 20, 
+        "y2": 13, 
+        "nwords": 8
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 140, 
+        "y1": 18, 
+        "x1": 20, 
+        "y2": 23, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 33, 
+        "x1word": 4, 
+        "x2word": 1, 
+        "nchars": 140, 
+        "y1": 3, 
+        "txt": "\n\nWe've come a long long way together,\nThrough the hard times and the good,\nI have to celebrate you baby,\nI have to praise you like I should", 
+        "x1": 34, 
+        "y2": 8, 
+        "nwords": 7
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 38, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 5, 
+        "y1": 23, 
+        "x1": 34, 
+        "y2": 23, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 33, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 1, 
+        "y1": 23, 
+        "txt": "d", 
+        "x1": 33, 
+        "y2": 23, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "nchars": 22, 
+        "y1": 23, 
+        "x1": 39, 
+        "y2": 25, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 2, 
+        "x2word": 0, 
+        "nchars": 22, 
+        "y1": 13, 
+        "txt": "\n\nI have to praise you", 
+        "x1": 34, 
+        "y2": 15, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 99, 
+        "y1": 25, 
+        "x1": 20, 
+        "y2": 29, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 0, 
+        "x2word": 2, 
+        "nchars": 99, 
+        "y1": 9, 
+        "txt": "\nI have to praise you\nI have to praise you\nI have to praise you\nI have to praise you like I should\n", 
+        "x1": 0, 
+        "y2": 13, 
+        "nwords": 8
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 21, 
+        "y1": 30, 
+        "x1": 0, 
+        "y2": 30, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 20, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 21, 
+        "y1": 28, 
+        "txt": "I have to praise you\n", 
+        "x1": 0, 
+        "y2": 28, 
+        "nwords": 1
+      }
+    }
+  ]
+}
