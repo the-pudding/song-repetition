@@ -41,6 +41,15 @@ class BaseChart {
       .append("g")
         .attr("transform", "translate(" + this.margin.left + " " + this.margin.top + ")");
   }
+
+  resizeHeight(h, duration=0) {
+    this.totalH = h;
+    this.H = this.totalH - this.margin.top - this.margin.bottom;
+    this._svg.transition()
+      .duration(duration)
+      .attr('height', this.totalH)
+    ;
+  }
 }
 
 class BeeswarmChart extends BaseChart {

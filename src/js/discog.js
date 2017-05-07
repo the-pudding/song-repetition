@@ -18,6 +18,11 @@ const DEBUG_DISPLACEMENT = false;
 
 const DEFAULT_ARTIST = 'Gwen Stefani';
 
+// If an artist has at least this many songs, grow the height to accomodate all the
+// circles.
+const BIG_DISCOGRAPHY = 40;
+// How much to multiply the base height by when expanding to accomodate a big discography.
+const GROWTH_FACTOR = 1.3;
 
 // Default limits for the rscore axis
 const RLIM = [comm.pctiles[10], comm.pctiles[90]];
@@ -49,12 +54,30 @@ class DiscogWidget extends BeeswarmChart {
         this.updateArtist();
         this.updateHeader();
       });
-
+    this.originalHeight = this.totalH;
     this.svg.call(this.tip);
-
+    // Whether we've grown this figure's height to accomodate a big discography.
+    this.expanded = false;
     this.setupAxes();
     this.updateArtist(DEFAULT_ARTIST);
     this.bindLinks();
+  }
+
+  resizeHeight(h, duration=0) {
+    super.resizeHeight(h, duration);
+    this.yscale.range([this.H-this.R, this.R]);
+    this._svg.select('.axis')
+      .transition()
+      .duration(duration)
+      .attr('transform', `translate(0 ${this.H})`);
+    let offset = 50;
+    // This doesn't work as a transition. Just does nothing. I have nooooo idea why.
+    this.svg.selectAll('.baseline')
+      .select('line')
+      .attr('y1', this.H-offset)
+      .attr('y2', offset)
+
+    this.updateHistogram();
   }
 
   // Add click callbacks to the link elements in the later prose which are supposed
@@ -201,8 +224,19 @@ class DiscogWidget extends BeeswarmChart {
     let url = 'assets/discogs/' + ARTIST_LOOKUP[this.artist];
     d3.json(url, (discog) => {
       this.discog = discog;
+      this.resizeIfNecessary(discog.length);
       this.renderSongs();
     });
+  }
+
+  resizeIfNecessary(nsongs) {
+    let shouldExpand = nsongs >= BIG_DISCOGRAPHY;
+    if (shouldExpand !== this.expanded) {
+      //console.log(`Setting expand = ${shouldExpand} for discography with size ${nsongs}`);
+      let h = this.originalHeight * (shouldExpand ? GROWTH_FACTOR : 1);
+      this.resizeHeight(h, 500);
+      this.expanded = shouldExpand;
+    }
   }
 
   renderSongs() {
