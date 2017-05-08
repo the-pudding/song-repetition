@@ -1,0 +1,1381 @@
+{
+  "lines": [
+    [
+      "L", 
+      "ove", 
+      ", l", 
+      "ove, love, love, love, love, love,", 
+      " love, ", 
+      "love", 
+      ".", 
+      "\n"
+    ], 
+    [
+      "There's n", 
+      "othing you", 
+      " can", 
+      " ", 
+      "do", 
+      " that", 
+      " can", 
+      "'t be ", 
+      "done", 
+      ".\n"
+    ], 
+    [
+      "N", 
+      "othing you can ", 
+      "s", 
+      "ing", 
+      " that can't be ", 
+      "sung", 
+      ".\n"
+    ], 
+    [
+      "Nothing", 
+      " you can ", 
+      "s", 
+      "a", 
+      "y", 
+      ", but", 
+      " you can ", 
+      "learn\n"
+    ], 
+    [
+      "How to", 
+      " play the ga", 
+      "me \n"
+    ], 
+    [
+      "It's easy", 
+      ".\n"
+    ], 
+    [
+      "No", 
+      "thing you can ", 
+      "mak", 
+      "e", 
+      " that can't be ", 
+      "made", 
+      ".\n"
+    ], 
+    [
+      "No", 
+      " one", 
+      " you can ", 
+      "sa", 
+      "v", 
+      "e", 
+      " t", 
+      "hat ", 
+      "ca", 
+      "n't", 
+      " ", 
+      "be ", 
+      "save", 
+      "d", 
+      ".\n"
+    ], 
+    [
+      "Nothing you can ", 
+      "do", 
+      ", but ", 
+      "you ", 
+      "can learn\n"
+    ], 
+    [
+      "H", 
+      "ow", 
+      " t", 
+      "o", 
+      " be", 
+      " ", 
+      "you ", 
+      "in ti", 
+      "me ", 
+      "\n"
+    ], 
+    [
+      "It's easy.", 
+      "\n"
+    ], 
+    [
+      "A", 
+      "ll", 
+      " you ", 
+      "need is", 
+      " love,", 
+      " ", 
+      "a", 
+      "ll you need", 
+      " is love,", 
+      "\n"
+    ], 
+    [
+      "All you need", 
+      " is", 
+      " ", 
+      "love, love.", 
+      " ", 
+      "Love", 
+      " is ", 
+      "all you need", 
+      ".\n"
+    ], 
+    [
+      "Love, love, love, love, love, love, love, love, love.\n"
+    ], 
+    [
+      "All you need is love, all you need is love,\n"
+    ], 
+    [
+      "All you need is love, love. Love is all you need.", 
+      "\n"
+    ], 
+    [
+      "There's no", 
+      "thing you can ", 
+      "kn", 
+      "ow", 
+      " t", 
+      "hat ", 
+      "is", 
+      "n't ", 
+      "kn", 
+      "ow", 
+      "n", 
+      ".", 
+      "\n"
+    ], 
+    [
+      "Nothing", 
+      " you can ", 
+      "s", 
+      "e", 
+      "e", 
+      " that isn't ", 
+      "sh", 
+      "own.", 
+      "\n"
+    ], 
+    [
+      "T", 
+      "here", 
+      "'s", 
+      " no", 
+      "w", 
+      "here", 
+      " you can ", 
+      "b", 
+      "e that isn't ", 
+      "where", 
+      "\n"
+    ], 
+    [
+      "You're meant", 
+      " to be ", 
+      "\n"
+    ], 
+    [
+      "It's easy.\n"
+    ], 
+    [
+      "All you need is love, all you need is love,\n"
+    ], 
+    [
+      "A", 
+      "ll you need is lo", 
+      "ve, lo", 
+      "ve. ", 
+      "Love is all you need", 
+      ".\n"
+    ], 
+    [
+      "All ", 
+      "you need is lo", 
+      "ve. ", 
+      "(", 
+      "All ", 
+      "together", 
+      " now", 
+      ")", 
+      ".\n"
+    ], 
+    [
+      "A", 
+      "ll you need is love. (", 
+      "Everybody", 
+      ").\n"
+    ], 
+    [
+      "A", 
+      "ll you need is love, love. ", 
+      "Love is all you need.\n"
+    ], 
+    [
+      "Love is all you need.\n"
+    ], 
+    [
+      "Love is all you need", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 51, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "nchars": 45, 
+        "y1": 0, 
+        "x1": 7, 
+        "y2": 0, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 0, 
+        "txt": "ove, l", 
+        "x1": 1, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 1, 
+        "x1": 31, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 22, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 1, 
+        "txt": " can", 
+        "x1": 19, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 15, 
+        "y1": 2, 
+        "x1": 1, 
+        "y2": 2, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 15, 
+        "y1": 1, 
+        "txt": "othing you can ", 
+        "x1": 9, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 15, 
+        "y1": 2, 
+        "x1": 20, 
+        "y2": 2, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 40, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "nchars": 15, 
+        "y1": 1, 
+        "txt": " that can't be ", 
+        "x1": 26, 
+        "y2": 1, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 6, 
+        "x2word": 2, 
+        "nchars": 19, 
+        "y1": 2, 
+        "x1": 39, 
+        "y2": 3, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 9, 
+        "x2word": 2, 
+        "nchars": 19, 
+        "y1": 1, 
+        "txt": ".\nNothing you can s", 
+        "x1": 45, 
+        "y2": 2, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 32, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 9, 
+        "y1": 3, 
+        "x1": 24, 
+        "y2": 3, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 9, 
+        "y1": 3, 
+        "txt": " you can ", 
+        "x1": 7, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 18, 
+        "y1": 5, 
+        "x1": 9, 
+        "y2": 6, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 6, 
+        "x2word": 1, 
+        "nchars": 18, 
+        "y1": 2, 
+        "txt": ".\nNothing you can ", 
+        "x1": 39, 
+        "y2": 3, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 34, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 15, 
+        "y1": 6, 
+        "x1": 20, 
+        "y2": 6, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 15, 
+        "y1": 2, 
+        "txt": " that can't be ", 
+        "x1": 20, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 1, 
+        "x1word": 6, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 6, 
+        "x1": 39, 
+        "y2": 7, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 1, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 5, 
+        "txt": ".\nNo", 
+        "x1": 9, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 7, 
+        "x1": 6, 
+        "y2": 7, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 3, 
+        "txt": " you can sa", 
+        "x1": 7, 
+        "y2": 3, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 5, 
+        "x2word": 11, 
+        "nchars": 16, 
+        "y1": 7, 
+        "x1": 18, 
+        "y2": 7, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 34, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 16, 
+        "y1": 6, 
+        "txt": "e that can't be ", 
+        "x1": 19, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 12, 
+        "x2word": 12, 
+        "nchars": 4, 
+        "y1": 7, 
+        "x1": 34, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 18, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": "save", 
+        "x1": 15, 
+        "y2": 7, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 14, 
+        "x2word": 0, 
+        "nchars": 18, 
+        "y1": 7, 
+        "x1": 39, 
+        "y2": 8, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 18, 
+        "y1": 5, 
+        "txt": ".\nNothing you can ", 
+        "x1": 9, 
+        "y2": 6, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 5, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 26, 
+        "y1": 8, 
+        "x1": 18, 
+        "y2": 9, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 5, 
+        "x1word": 5, 
+        "x2word": 0, 
+        "nchars": 26, 
+        "y1": 3, 
+        "txt": ", but you can learn\nHow to", 
+        "x1": 19, 
+        "y2": 4, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 6, 
+        "y2": 9, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 33, 
+        "x1word": 10, 
+        "x2word": 11, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": " be ", 
+        "x1": 30, 
+        "y2": 7, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 13, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 10, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 27, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 8, 
+        "txt": "you ", 
+        "x1": 24, 
+        "y2": 8, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 8, 
+        "x2word": 1, 
+        "nchars": 15, 
+        "y1": 9, 
+        "x1": 19, 
+        "y2": 10, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 2, 
+        "x2word": 1, 
+        "nchars": 15, 
+        "y1": 4, 
+        "txt": "me \nIt's easy.\n", 
+        "x1": 18, 
+        "y2": 5, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 7, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 5, 
+        "y1": 11, 
+        "x1": 3, 
+        "y2": 11, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 5, 
+        "x2word": 6, 
+        "nchars": 5, 
+        "y1": 9, 
+        "txt": " you ", 
+        "x1": 9, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 7, 
+        "y1": 11, 
+        "x1": 15, 
+        "y2": 11, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 47, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 7, 
+        "y1": 0, 
+        "txt": " love, ", 
+        "x1": 41, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 42, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "nchars": 20, 
+        "y1": 11, 
+        "x1": 23, 
+        "y2": 11, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 20, 
+        "x1word": 1, 
+        "x2word": 4, 
+        "nchars": 20, 
+        "y1": 11, 
+        "txt": "ll you need is love,", 
+        "x1": 1, 
+        "y2": 11, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 9, 
+        "x2word": 1, 
+        "nchars": 16, 
+        "y1": 11, 
+        "x1": 43, 
+        "y2": 12, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 16, 
+        "y1": 10, 
+        "txt": "\nAll you need is", 
+        "x1": 10, 
+        "y2": 11, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 12, 
+        "y1": 12, 
+        "x1": 15, 
+        "y2": 12, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 52, 
+        "x1word": 4, 
+        "x2word": 6, 
+        "nchars": 12, 
+        "y1": 0, 
+        "txt": " love, love.", 
+        "x1": 41, 
+        "y2": 0, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 31, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 12, 
+        "x1": 28, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 0, 
+        "txt": "Love", 
+        "x1": 0, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 35, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 12, 
+        "x1": 32, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 12, 
+        "txt": " is ", 
+        "x1": 12, 
+        "y2": 12, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 47, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 12, 
+        "y1": 12, 
+        "x1": 36, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 33, 
+        "x1word": 6, 
+        "x2word": 7, 
+        "nchars": 12, 
+        "y1": 11, 
+        "txt": "all you need", 
+        "x1": 22, 
+        "y2": 11, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 53, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 54, 
+        "y1": 13, 
+        "x1": 0, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 53, 
+        "x1word": 0, 
+        "x2word": 7, 
+        "nchars": 54, 
+        "y1": 0, 
+        "txt": "Love, love, love, love, love, love, love, love, love.\n", 
+        "x1": 0, 
+        "y2": 0, 
+        "nwords": 8
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 94, 
+        "y1": 14, 
+        "x1": 0, 
+        "y2": 15, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 0, 
+        "x2word": 8, 
+        "nchars": 94, 
+        "y1": 11, 
+        "txt": "All you need is love, all you need is love,\nAll you need is love, love. Love is all you need.\n", 
+        "x1": 0, 
+        "y2": 12, 
+        "nwords": 19
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 24, 
+        "y1": 16, 
+        "x1": 0, 
+        "y2": 16, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 0, 
+        "x2word": 3, 
+        "nchars": 24, 
+        "y1": 1, 
+        "txt": "There's nothing you can ", 
+        "x1": 0, 
+        "y2": 1, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 26, 
+        "y2": 16, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 9, 
+        "txt": "ow t", 
+        "x1": 1, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 30, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 24, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": "hat ", 
+        "x1": 21, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 39, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 36, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 30, 
+        "x1word": 9, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": "n't ", 
+        "x1": 27, 
+        "y2": 7, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 43, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 40, 
+        "y2": 16, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 27, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 16, 
+        "txt": "know", 
+        "x1": 24, 
+        "y2": 16, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 11, 
+        "x2word": 2, 
+        "nchars": 19, 
+        "y1": 16, 
+        "x1": 45, 
+        "y2": 17, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 6, 
+        "x2word": 2, 
+        "nchars": 19, 
+        "y1": 2, 
+        "txt": ".\nNothing you can s", 
+        "x1": 39, 
+        "y2": 3, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 30, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 12, 
+        "y1": 17, 
+        "x1": 19, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 39, 
+        "x1word": 4, 
+        "x2word": 7, 
+        "nchars": 12, 
+        "y1": 16, 
+        "txt": " that isn't ", 
+        "x1": 28, 
+        "y2": 16, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 36, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 17, 
+        "x1": 33, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 45, 
+        "x1word": 9, 
+        "x2word": 11, 
+        "nchars": 4, 
+        "y1": 16, 
+        "txt": "own.", 
+        "x1": 42, 
+        "y2": 16, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 8, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 17, 
+        "x1": 37, 
+        "y2": 18, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 11, 
+        "y1": 15, 
+        "txt": "\nThere's no", 
+        "x1": 49, 
+        "y2": 16, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 14, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 18, 
+        "x1": 11, 
+        "y2": 18, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 18, 
+        "txt": "here", 
+        "x1": 1, 
+        "y2": 18, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 9, 
+        "y1": 18, 
+        "x1": 15, 
+        "y2": 18, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 15, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 9, 
+        "y1": 17, 
+        "txt": " you can ", 
+        "x1": 7, 
+        "y2": 17, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 8, 
+        "x2word": 8, 
+        "nchars": 13, 
+        "y1": 18, 
+        "x1": 25, 
+        "y2": 18, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 30, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 13, 
+        "y1": 17, 
+        "txt": "e that isn't ", 
+        "x1": 18, 
+        "y2": 17, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 42, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "nchars": 5, 
+        "y1": 18, 
+        "x1": 38, 
+        "y2": 18, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 5, 
+        "y1": 18, 
+        "txt": "where", 
+        "x1": 10, 
+        "y2": 18, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 18, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 7, 
+        "y1": 19, 
+        "x1": 12, 
+        "y2": 19, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 5, 
+        "nchars": 7, 
+        "y1": 9, 
+        "txt": " to be ", 
+        "x1": 3, 
+        "y2": 9, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 2, 
+        "x2word": 5, 
+        "nchars": 106, 
+        "y1": 19, 
+        "x1": 19, 
+        "y2": 22, 
+        "nwords": 9
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 9, 
+        "x2word": 8, 
+        "nchars": 106, 
+        "y1": 9, 
+        "txt": "\nIt's easy.\nAll you need is love, all you need is love,\nAll you need is love, love. Love is all you need.\n", 
+        "x1": 22, 
+        "y2": 12, 
+        "nwords": 22
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 17, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 18, 
+        "y1": 23, 
+        "x1": 0, 
+        "y2": 23, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 18, 
+        "y1": 22, 
+        "txt": "All you need is lo", 
+        "x1": 0, 
+        "y2": 22, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 23, 
+        "x1": 18, 
+        "y2": 23, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 27, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 22, 
+        "txt": "ve. ", 
+        "x1": 24, 
+        "y2": 22, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 23, 
+        "x1": 23, 
+        "y2": 23, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 23, 
+        "txt": "All ", 
+        "x1": 0, 
+        "y2": 23, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 38, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 23, 
+        "x1": 35, 
+        "y2": 23, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 18, 
+        "txt": " now", 
+        "x1": 7, 
+        "y2": 18, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 8, 
+        "x2word": 1, 
+        "nchars": 25, 
+        "y1": 23, 
+        "x1": 40, 
+        "y2": 24, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 22, 
+        "x1word": 5, 
+        "x2word": 3, 
+        "nchars": 25, 
+        "y1": 22, 
+        "txt": ".\nAll you need is love. (", 
+        "x1": 48, 
+        "y2": 23, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 24, 
+        "x1": 32, 
+        "y2": 25, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 7, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 23, 
+        "txt": ").\nA", 
+        "x1": 39, 
+        "y2": 24, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 49, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 49, 
+        "y1": 25, 
+        "x1": 1, 
+        "y2": 25, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 1, 
+        "x2word": 5, 
+        "nchars": 49, 
+        "y1": 22, 
+        "txt": "ll you need is love, love. Love is all you need.\n", 
+        "x1": 1, 
+        "y2": 22, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 19, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 42, 
+        "y1": 26, 
+        "x1": 0, 
+        "y2": 27, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 49, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 22, 
+        "y1": 25, 
+        "txt": "Love is all you need.\n", 
+        "x1": 28, 
+        "y2": 25, 
+        "nwords": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,765 @@
+{
+  "lines": [
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "I", 
+      "t's so good", 
+      ", i", 
+      "t's so good", 
+      "\n"
+    ], 
+    [
+      "It's so good, it's so good\n"
+    ], 
+    [
+      "It's so good", 
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "H", 
+      "eaven knows", 
+      ", h", 
+      "eaven knows", 
+      "\n"
+    ], 
+    [
+      "Heaven knows, heaven knows\n"
+    ], 
+    [
+      "Heaven knows", 
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "I feel love", 
+      ", ", 
+      "I feel love", 
+      "\n"
+    ], 
+    [
+      "I feel love", 
+      ", I feel love", 
+      "\n"
+    ], 
+    [
+      "I feel love", 
+      "\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I feel love, I feel love", 
+      ", I feel love\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "F", 
+      "allin' free", 
+      ", f", 
+      "allin' free", 
+      "\n"
+    ], 
+    [
+      "Fallin' free, fallin' free\n"
+    ], 
+    [
+      "Fallin' free", 
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "Y", 
+      "ou and me", 
+      ", y", 
+      "ou and me", 
+      "\n"
+    ], 
+    [
+      "You and me,", 
+      " you", 
+      " and me\n"
+    ], 
+    [
+      "You and me", 
+      "\n"
+    ], 
+    [
+      "Ooh\n"
+    ], 
+    [
+      "I feel love, I feel love\n"
+    ], 
+    [
+      "I feel love, I feel love\n"
+    ], 
+    [
+      "I feel love\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I feel love, I feel love, I feel love\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "I'll get", 
+      " you", 
+      ", ", 
+      "I'll get you", 
+      "\n"
+    ], 
+    [
+      "I'll get you, I'll get you\n"
+    ], 
+    [
+      "I'll ge", 
+      "t you", 
+      "\n"
+    ], 
+    [
+      "Ooh", 
+      "\n"
+    ], 
+    [
+      "W", 
+      "ha", 
+      "t you", 
+      " do", 
+      ", w", 
+      "hat you do", 
+      "\n"
+    ], 
+    [
+      "What you do, what you do\n"
+    ], 
+    [
+      "What you do", 
+      "\n"
+    ], 
+    [
+      "Ooh\n"
+    ], 
+    [
+      "I feel love, I feel love\n"
+    ], 
+    [
+      "I feel love, I feel love\n"
+    ], 
+    [
+      "I feel love\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I feel love, I feel love, I feel love\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 1, 
+        "x1": 15, 
+        "y2": 1, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 11, 
+        "y1": 1, 
+        "txt": "t's so good", 
+        "x1": 1, 
+        "y2": 1, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 40, 
+        "y1": 1, 
+        "x1": 26, 
+        "y2": 3, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 27, 
+        "y1": 0, 
+        "txt": "\nIt's so good, it's so good", 
+        "x1": 3, 
+        "y2": 1, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 4, 
+        "x1": 0, 
+        "y2": 4, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 0, 
+        "txt": "Ooh\n", 
+        "x1": 0, 
+        "y2": 0, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 5, 
+        "x1": 15, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 11, 
+        "y1": 5, 
+        "txt": "eaven knows", 
+        "x1": 1, 
+        "y2": 5, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 40, 
+        "y1": 5, 
+        "x1": 26, 
+        "y2": 7, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 27, 
+        "y1": 4, 
+        "txt": "\nHeaven knows, heaven knows", 
+        "x1": 3, 
+        "y2": 5, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 7, 
+        "x1": 12, 
+        "y2": 8, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 3, 
+        "txt": "\nOoh\n", 
+        "x1": 12, 
+        "y2": 4, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 11, 
+        "y1": 9, 
+        "x1": 13, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 11, 
+        "y1": 9, 
+        "txt": "I feel love", 
+        "x1": 0, 
+        "y2": 9, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 3, 
+        "x2word": 0, 
+        "nchars": 37, 
+        "y1": 9, 
+        "x1": 24, 
+        "y2": 11, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 25, 
+        "y1": 8, 
+        "txt": "\nI feel love, I feel love", 
+        "x1": 3, 
+        "y2": 9, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 25, 
+        "y1": 12, 
+        "x1": 0, 
+        "y2": 13, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 3, 
+        "x2word": 1, 
+        "nchars": 25, 
+        "y1": 9, 
+        "txt": "\nI feel love, I feel love", 
+        "x1": 24, 
+        "y2": 10, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 14, 
+        "y1": 13, 
+        "x1": 24, 
+        "y2": 13, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 24, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 14, 
+        "y1": 10, 
+        "txt": ", I feel love\n", 
+        "x1": 11, 
+        "y2": 10, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 14, 
+        "x1": 0, 
+        "y2": 15, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 7, 
+        "txt": "\nOoh\n", 
+        "x1": 12, 
+        "y2": 8, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 11, 
+        "y1": 16, 
+        "x1": 15, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 11, 
+        "y1": 16, 
+        "txt": "allin' free", 
+        "x1": 1, 
+        "y2": 16, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 40, 
+        "y1": 16, 
+        "x1": 26, 
+        "y2": 18, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 27, 
+        "y1": 15, 
+        "txt": "\nFallin' free, fallin' free", 
+        "x1": 3, 
+        "y2": 16, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 18, 
+        "x1": 12, 
+        "y2": 19, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 14, 
+        "txt": "\nOoh\n", 
+        "x1": 0, 
+        "y2": 15, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 21, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 9, 
+        "y1": 20, 
+        "x1": 13, 
+        "y2": 20, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 9, 
+        "y1": 20, 
+        "txt": "ou and me", 
+        "x1": 1, 
+        "y2": 20, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 34, 
+        "y1": 20, 
+        "x1": 22, 
+        "y2": 22, 
+        "nwords": 5
+      }, 
+      "src": {
+        "x2": 21, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 23, 
+        "y1": 19, 
+        "txt": "\nYou and me, you and me", 
+        "x1": 3, 
+        "y2": 20, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 111, 
+        "y1": 22, 
+        "x1": 10, 
+        "y2": 30, 
+        "nwords": 10
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 111, 
+        "y1": 7, 
+        "txt": "\nOoh\nI feel love, I feel love\nI feel love, I feel love\nI feel love\n\nI feel love, I feel love, I feel love\n\nOoh\n", 
+        "x1": 12, 
+        "y2": 15, 
+        "nwords": 18
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 31, 
+        "x1": 8, 
+        "y2": 31, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 14, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 21, 
+        "txt": " you", 
+        "x1": 11, 
+        "y2": 21, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 25, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 12, 
+        "y1": 31, 
+        "x1": 14, 
+        "y2": 31, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 12, 
+        "y1": 31, 
+        "txt": "I'll get you", 
+        "x1": 0, 
+        "y2": 31, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 11, 
+        "x1word": 4, 
+        "x2word": 1, 
+        "nchars": 40, 
+        "y1": 31, 
+        "x1": 26, 
+        "y2": 33, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 27, 
+        "y1": 30, 
+        "txt": "\nI'll get you, I'll get you", 
+        "x1": 3, 
+        "y2": 31, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 2, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 33, 
+        "x1": 12, 
+        "y2": 34, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 29, 
+        "txt": "\nOoh\n", 
+        "x1": 0, 
+        "y2": 30, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 7, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 5, 
+        "y1": 35, 
+        "x1": 3, 
+        "y2": 35, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 11, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 5, 
+        "y1": 33, 
+        "txt": "t you", 
+        "x1": 7, 
+        "y2": 33, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 10, 
+        "y1": 35, 
+        "x1": 14, 
+        "y2": 35, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 10, 
+        "y1": 35, 
+        "txt": "hat you do", 
+        "x1": 1, 
+        "y2": 35, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 6, 
+        "x2word": 0, 
+        "nchars": 37, 
+        "y1": 35, 
+        "x1": 24, 
+        "y2": 37, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 1, 
+        "x2word": 5, 
+        "nchars": 25, 
+        "y1": 34, 
+        "txt": "\nWhat you do, what you do", 
+        "x1": 3, 
+        "y2": 35, 
+        "nwords": 7
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 106, 
+        "y1": 37, 
+        "x1": 11, 
+        "y2": 43, 
+        "nwords": 7
+      }, 
+      "src": {
+        "x2": 37, 
+        "x1word": 1, 
+        "x2word": 0, 
+        "nchars": 106, 
+        "y1": 22, 
+        "txt": "\nOoh\nI feel love, I feel love\nI feel love, I feel love\nI feel love\n\nI feel love, I feel love, I feel love\n", 
+        "x1": 10, 
+        "y2": 28, 
+        "nwords": 7
+      }
+    }
+  ]
+}

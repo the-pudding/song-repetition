@@ -1,0 +1,982 @@
+{
+  "lines": [
+    [
+      "Is popular ", 
+      "music ", 
+      "get", 
+      "ting", 
+      " mor", 
+      "e repetitive", 
+      "?\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "This meme", 
+      " ", 
+      "that", 
+      "'s", 
+      " ", 
+      "been ", 
+      "floa", 
+      "t", 
+      "ing", 
+      " ", 
+      "arou", 
+      "nd", 
+      " ", 
+      "the ", 
+      "\n"
+    ], 
+    [
+      "internet seems to sugg", 
+      "est", 
+      " ", 
+      "th", 
+      "a", 
+      "t", 
+      " ", 
+      "th", 
+      "a", 
+      "t's ", 
+      "the ", 
+      "case", 
+      ".\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I", 
+      "t's ", 
+      "not a new ide", 
+      "a. I", 
+      "n 19", 
+      "77, ", 
+      "the ", 
+      "great computer \n"
+    ], 
+    [
+      "scientist Donald Knuth published a paper ", 
+      "cal", 
+      "l", 
+      "ed ", 
+      "\n"
+    ], 
+    [
+      "The Co", 
+      "mple", 
+      "xity", 
+      " of ", 
+      "S", 
+      "ongs", 
+      ", which is basi", 
+      "call", 
+      "y one \n"
+    ], 
+    [
+      "long joke abou", 
+      "t ", 
+      "th", 
+      "e ", 
+      "repetitive", 
+      " lyric", 
+      "s", 
+      " ", 
+      "of", 
+      " ", 
+      "\n"
+    ], 
+    [
+      "newfang", 
+      "led ", 
+      "music ", 
+      "(exa", 
+      "mple", 
+      " quote: \"", 
+      "the ", 
+      "adv", 
+      "ent ", 
+      "of ", 
+      "\n"
+    ], 
+    [
+      "modern drugs ", 
+      "has ", 
+      "led ", 
+      "to demands for still less \n"
+    ], 
+    [
+      "memory,", 
+      " a", 
+      "nd", 
+      " the ", 
+      "ultimate improvem", 
+      "ent of ", 
+      "Theorem 1 \n"
+    ], 
+    [
+      "has ", 
+      "consequently just", 
+      " been ", 
+      "announced\")", 
+      ".\n"
+    ], 
+    [
+      "\n"
+    ], 
+    [
+      "I", 
+      "'m go", 
+      "ing ", 
+      "to t", 
+      "ry ", 
+      "to t", 
+      "est th", 
+      "is hypothesis with", 
+      " \n"
+    ], 
+    [
+      "dat", 
+      "a", 
+      ". I", 
+      "'ll be analyz", 
+      "ing ", 
+      "the repetitive", 
+      "nes", 
+      "s", 
+      " of", 
+      " ", 
+      "a", 
+      " \n"
+    ], 
+    [
+      "data", 
+      "set", 
+      " of ", 
+      "15,000 s", 
+      "ongs", 
+      " that ", 
+      "charted on", 
+      " the \n"
+    ], 
+    [
+      "Billboard Hot 100 betwee", 
+      "n 19", 
+      "58", 
+      " and", 
+      " 2017.\n"
+    ], 
+    [
+      ""
+    ]
+  ], 
+  "dittos": [
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "nchars": 4, 
+        "y1": 2, 
+        "x1": 26, 
+        "y2": 2, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 23, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 0, 
+        "txt": "ting", 
+        "x1": 20, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 3, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 3, 
+        "x1": 26, 
+        "y2": 3, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 2, 
+        "txt": "that", 
+        "x1": 10, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 6, 
+        "x2word": 9, 
+        "nchars": 8, 
+        "y1": 3, 
+        "x1": 30, 
+        "y2": 3, 
+        "nwords": 4
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 4, 
+        "nchars": 8, 
+        "y1": 2, 
+        "txt": " that's ", 
+        "x1": 9, 
+        "y2": 2, 
+        "nwords": 4
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 41, 
+        "x1word": 10, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 3, 
+        "x1": 38, 
+        "y2": 3, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 41, 
+        "x1word": 13, 
+        "x2word": 13, 
+        "nchars": 4, 
+        "y1": 2, 
+        "txt": "the ", 
+        "x1": 38, 
+        "y2": 2, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 4, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 5, 
+        "x1": 1, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 37, 
+        "x1word": 9, 
+        "x2word": 9, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "t's ", 
+        "x1": 34, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 5, 
+        "x1": 30, 
+        "y2": 5, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 41, 
+        "x1word": 10, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "the ", 
+        "x1": 38, 
+        "y2": 3, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 41, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 7, 
+        "x1": 38, 
+        "y2": 7, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 44, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 6, 
+        "txt": "call", 
+        "x1": 41, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 17, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 8, 
+        "x1": 14, 
+        "y2": 8, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 32, 
+        "x1word": 5, 
+        "x2word": 7, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": "t th", 
+        "x1": 29, 
+        "y2": 3, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 29, 
+        "x1word": 3, 
+        "x2word": 4, 
+        "nchars": 12, 
+        "y1": 8, 
+        "x1": 18, 
+        "y2": 8, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 39, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 12, 
+        "y1": 0, 
+        "txt": "e repetitive", 
+        "x1": 28, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 40, 
+        "x1word": 7, 
+        "x2word": 9, 
+        "nchars": 4, 
+        "y1": 8, 
+        "x1": 37, 
+        "y2": 8, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 17, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": " of ", 
+        "x1": 14, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 7, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 47, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 6, 
+        "txt": "led ", 
+        "x1": 44, 
+        "y2": 6, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 16, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 9, 
+        "x1": 11, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 6, 
+        "y1": 0, 
+        "txt": "music ", 
+        "x1": 11, 
+        "y2": 0, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 24, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 21, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": "mple", 
+        "x1": 6, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 34, 
+        "y2": 9, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 19, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 8, 
+        "txt": "the ", 
+        "x1": 16, 
+        "y2": 8, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 48, 
+        "x1word": 9, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 9, 
+        "x1": 45, 
+        "y2": 9, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 41, 
+        "x1word": 8, 
+        "x2word": 10, 
+        "nchars": 4, 
+        "y1": 8, 
+        "txt": "of \n", 
+        "x1": 38, 
+        "y2": 8, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 10, 
+        "x1": 17, 
+        "y2": 10, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 9, 
+        "txt": "led ", 
+        "x1": 7, 
+        "y2": 9, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 15, 
+        "x1word": 2, 
+        "x2word": 3, 
+        "nchars": 7, 
+        "y1": 11, 
+        "x1": 9, 
+        "y2": 11, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 41, 
+        "x1word": 11, 
+        "x2word": 13, 
+        "nchars": 7, 
+        "y1": 2, 
+        "txt": "nd the ", 
+        "x1": 35, 
+        "y2": 2, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 39, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 7, 
+        "y1": 11, 
+        "x1": 33, 
+        "y2": 11, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 47, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "nchars": 7, 
+        "y1": 9, 
+        "txt": "ent of ", 
+        "x1": 41, 
+        "y2": 9, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 0, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 12, 
+        "x1": 0, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 16, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 10, 
+        "txt": "has ", 
+        "x1": 13, 
+        "y2": 10, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 6, 
+        "y1": 12, 
+        "x1": 21, 
+        "y2": 12, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 21, 
+        "x1word": 4, 
+        "x2word": 5, 
+        "nchars": 6, 
+        "y1": 2, 
+        "txt": " been ", 
+        "x1": 16, 
+        "y2": 2, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 0, 
+        "x1word": 4, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 12, 
+        "x1": 38, 
+        "y2": 14, 
+        "nwords": 3
+      }, 
+      "src": {
+        "x2": 0, 
+        "x1word": 12, 
+        "x2word": 0, 
+        "nchars": 4, 
+        "y1": 3, 
+        "txt": ".\n\nI", 
+        "x1": 46, 
+        "y2": 5, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 14, 
+        "x1": 6, 
+        "y2": 14, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 30, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "nchars": 4, 
+        "y1": 2, 
+        "txt": "ing ", 
+        "x1": 27, 
+        "y2": 2, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 20, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 14, 
+        "x1": 17, 
+        "y2": 14, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 13, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 14, 
+        "txt": "to t", 
+        "x1": 10, 
+        "y2": 14, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 26, 
+        "x1word": 6, 
+        "x2word": 6, 
+        "nchars": 6, 
+        "y1": 14, 
+        "x1": 21, 
+        "y2": 14, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 27, 
+        "x1word": 1, 
+        "x2word": 3, 
+        "nchars": 6, 
+        "y1": 3, 
+        "txt": "est th", 
+        "x1": 22, 
+        "y2": 3, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 6, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 15, 
+        "x1": 3, 
+        "y2": 15, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 21, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 5, 
+        "txt": "a. I", 
+        "x1": 18, 
+        "y2": 5, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 23, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 15, 
+        "x1": 20, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 9, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 14, 
+        "txt": "ing ", 
+        "x1": 6, 
+        "y2": 14, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 37, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 14, 
+        "y1": 15, 
+        "x1": 24, 
+        "y2": 15, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 29, 
+        "x1word": 2, 
+        "x2word": 4, 
+        "nchars": 14, 
+        "y1": 8, 
+        "txt": "the repetitive", 
+        "x1": 16, 
+        "y2": 8, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 44, 
+        "x1word": 7, 
+        "x2word": 8, 
+        "nchars": 4, 
+        "y1": 15, 
+        "x1": 41, 
+        "y2": 15, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 39, 
+        "x1word": 6, 
+        "x2word": 8, 
+        "nchars": 4, 
+        "y1": 8, 
+        "txt": "s of", 
+        "x1": 36, 
+        "y2": 8, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 3, 
+        "x1word": 11, 
+        "x2word": 0, 
+        "nchars": 6, 
+        "y1": 15, 
+        "x1": 47, 
+        "y2": 16, 
+        "nwords": 2
+      }, 
+      "src": {
+        "x2": 3, 
+        "x1word": 8, 
+        "x2word": 1, 
+        "nchars": 6, 
+        "y1": 14, 
+        "txt": " \ndata", 
+        "x1": 45, 
+        "y2": 15, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 10, 
+        "x1word": 2, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 7, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 45, 
+        "x1word": 8, 
+        "x2word": 9, 
+        "nchars": 4, 
+        "y1": 15, 
+        "txt": " of ", 
+        "x1": 42, 
+        "y2": 15, 
+        "nwords": 2
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 22, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 16, 
+        "x1": 19, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 22, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 4, 
+        "y1": 7, 
+        "txt": "ongs", 
+        "x1": 19, 
+        "y2": 7, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 28, 
+        "x1word": 5, 
+        "x2word": 5, 
+        "nchars": 6, 
+        "y1": 16, 
+        "x1": 23, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 30, 
+        "x1word": 2, 
+        "x2word": 6, 
+        "nchars": 6, 
+        "y1": 3, 
+        "txt": " that ", 
+        "x1": 25, 
+        "y2": 3, 
+        "nwords": 5
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 44, 
+        "x1word": 7, 
+        "x2word": 7, 
+        "nchars": 6, 
+        "y1": 16, 
+        "x1": 39, 
+        "y2": 16, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 42, 
+        "x1word": 12, 
+        "x2word": 14, 
+        "nchars": 6, 
+        "y1": 2, 
+        "txt": " the \n", 
+        "x1": 37, 
+        "y2": 2, 
+        "nwords": 3
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 27, 
+        "x1word": 1, 
+        "x2word": 1, 
+        "nchars": 4, 
+        "y1": 17, 
+        "x1": 24, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 25, 
+        "x1word": 4, 
+        "x2word": 4, 
+        "nchars": 4, 
+        "y1": 5, 
+        "txt": "n 19", 
+        "x1": 22, 
+        "y2": 5, 
+        "nwords": 1
+      }
+    }, 
+    {
+      "dest": {
+        "x2": 33, 
+        "x1word": 3, 
+        "x2word": 3, 
+        "nchars": 4, 
+        "y1": 17, 
+        "x1": 30, 
+        "y2": 17, 
+        "nwords": 1
+      }, 
+      "src": {
+        "x2": 10, 
+        "x1word": 1, 
+        "x2word": 2, 
+        "nchars": 4, 
+        "y1": 11, 
+        "txt": " and", 
+        "x1": 7, 
+        "y2": 11, 
+        "nwords": 2
+      }
+    }
+  ]
+}
