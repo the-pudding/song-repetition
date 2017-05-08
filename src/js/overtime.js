@@ -229,9 +229,8 @@ class OverTimeChart extends BaseChart {
     if (hitpath.empty()) {
       hitpath = this.svg.append('path')
         .datum(DATA)
-        .classed('hitpath', true)
+        .classed('trendline hitpath', true)
         .attr('stroke', hitcolor)
-        .attr('stroke-width', 1.5)
         .attr('fill', 'none')
         .attr('d', hitline);
       var totalLength = hitpath.node().getTotalLength();
@@ -275,17 +274,13 @@ class OverTimeChart extends BaseChart {
           .text("repetitiveness");
     // TODO: figure out why label isn't showing up
 
+    // Major and minor gridlines. NB: it's important to draw the minor grids
+    // before the major, so that when they coincide, the major gridlines have
+    // a higher z-index.
+
     // X-gridlines
     let xgrid = d3.axisBottom(this.xscale).ticks(n_xticks);
     let xgridminor = d3.axisBottom(this.xscale).ticks(45);
-    this.svg.append("g")
-      .attr("class", "grid grid-major grid-x")
-      .attr("transform", "translate(0," + this.H + ")")
-      .call(xgrid
-          .tickSize(-this.H)
-          .tickFormat("")
-      )
-      .call(this._customGrid)
     this.svg.append("g")
       .attr("class", "grid grid-minor grid-x")
       .attr("transform", "translate(0," + this.H + ")")
@@ -294,20 +289,28 @@ class OverTimeChart extends BaseChart {
           .tickFormat("")
       )
       .call(this._customGrid)
+    this.svg.append("g")
+      .attr("class", "grid grid-major grid-x")
+      .attr("transform", "translate(0," + this.H + ")")
+      .call(xgrid
+          .tickSize(-this.H)
+          .tickFormat("")
+      )
+      .call(this._customGrid)
     // Y-gridlines (major and minor)
 
     this.svg.append("g")
-      .attr("class", "grid grid-major grid-y")
+      .attr("class", "grid grid-minor grid-y")
       .call(d3.axisLeft(this.yscale)
-          .tickValues(yticks.major.map(comm.pct_to_rscore))
+          .tickValues(yticks.minor.map(comm.pct_to_rscore))
           .tickSize(-this.W)
           .tickFormat("")
       )
       .call(this._customGrid)
     this.svg.append("g")
-      .attr("class", "grid grid-minor grid-y")
+      .attr("class", "grid grid-major grid-y")
       .call(d3.axisLeft(this.yscale)
-          .tickValues(yticks.minor.map(comm.pct_to_rscore))
+          .tickValues(yticks.major.map(comm.pct_to_rscore))
           .tickSize(-this.W)
           .tickFormat("")
       )
@@ -327,8 +330,8 @@ class OverTimeChart extends BaseChart {
       .y(this.daty);
     // render it
     this.path = this.svg.append("path")
+      .classed('trendline', true)
       .attr("stroke", linecolor)
-      .attr("stroke-width", 1.5)
       .attr("fill", "none")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
