@@ -18,6 +18,9 @@ const text_reference_length = 200;
 // Same as above, but length of arrows between src and dest sections
 const arrow_reference_length = 100;
 
+// Measured in characters
+const MIN_COLWIDTH_CHARS = 65;
+
 const STATE = {
   loading: 'loading',
   ready: 'ready',
@@ -51,19 +54,25 @@ class BaseCompressionGraphic extends BaseChart {
     // pretty close
     this.glyphwidth = 9.6 * text_scale;
     this.lineheight = this.fontsize*1.05;
+    this.ditto_radius = this.fontsize/4;
     // scaling for various pieces of the graphic
+    // TODO: redo these when loading a new song, so that text is spread approx. evenly
+    // across columns
     this.x = {
+      // not really accurate. Columns compensated for elsewhere.
       underline: x=>this.glyphwidth * x,
+      // not used
       marker: x => (this.glyphwidth * x) + this.glyphwidth/2
     }
     this.y = {
-      marker: y => (this.lineheight * y) - this.lineheight * .25,
+      marker: y => this.basey(y) - this.lineheight * .25,
       text: y=>this.basey(y),
     };
-    this.ncols = config.ncols || 3;
-    this.maxlines = 44;
+    this.ncols = this.inferNColumns();
     this.colwidth = this.W/this.ncols;
-    this.ditto_radius = this.fontsize/4;
+    console.log(`colwidth = ${this.colwidth}`);
+    // Available lines per column
+    this.maxlines = Math.floor(this.H / this.lineheight);
 
     // Arrow head defn. Based on http://bl.ocks.org/mbostock/1153292
     this.root.select('svg')
@@ -84,6 +93,35 @@ class BaseCompressionGraphic extends BaseChart {
     this.ready_queue = [];
     this.setSong(config.song || 'cheapthrills_chorus');
   }
+
+  inferNColumns() {
+    const w = this.W;
+    const min_colwidth = MIN_COLWIDTH_CHARS * this.glyphwidth;
+    let ncols = Math.floor(w / min_colwidth); 
+    // Gotta have at least one col
+    ncols = Math.max(ncols, 1);
+    // More than 3 columns is just kinda silly
+    ncols = Math.min(ncols, 3);
+    return ncols;
+  }
+
+  updateGeometry(songdat) {
+    const lines = songdat.lines;
+    const availableLines = this.maxlines * this.ncols;
+    if (availableLines < lines.length) {
+      let neededLinesPerCol = Math.ceil(lines.length / this.ncols);
+      let neededHeight = neededLinesPerCol * this.lineheight;
+      let newh = neededHeight + 50;
+      let newtotalh = newh + this.margin.top + this.margin.bottom;
+      this._svg
+        .attr('height', newtotalh);
+      console.log(`Updating svg height from ${this.totalH} to ${newh}`);
+      this.totalH = newtotalh;
+      this.H = newh;
+      this.maxlines = Math.floor(this.H / this.lineheight);
+    }
+  }
+
   reset(slug, smooth=false) {
     this.state = STATE.loading;
     this.lastditto = -1;
@@ -328,6 +366,7 @@ class BaseCompressionGraphic extends BaseChart {
     this.state = STATE.loading;
     let songdat_callback = songdat => {
       let lines = songdat.lines;
+      this.updateGeometry(songdat);
       this.dittos = songdat.dittos;
       this.totalchars = d3.sum(lines,
           l => Math.max(0, d3.sum(l, w=>w.length))

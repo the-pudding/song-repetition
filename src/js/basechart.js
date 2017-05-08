@@ -1,12 +1,17 @@
 import * as d3 from 'd3';
 import * as c from './constants.js';
 import * as comm from './common.js';
+import { isMobile } from './helpers.js';
 
 class BaseChart {
   constructor(rootsel, kwargs={}) {
     this.rootsel = rootsel;
     this.root = d3.select(rootsel);
     this.margin = {top: 20, right: 20, bottom: 50, left: 20};
+    if (isMobile()) {
+      this.margin.left = 0;
+      this.margin.right = 0;
+    }
     Object.assign(this.margin, kwargs.margin);
     if (kwargs.W) {
       this.totalW = kwargs.W;
@@ -16,10 +21,10 @@ class BaseChart {
     if (kwargs.H) {
       this.totalH = kwargs.H;
     } else {
-      // TODO: probably clearer and less dangerous to do this with css, using 
+      // TODO: probably clearer and less dangerous to do this with css, using
       // vh units
       this.totalH = Math.min(
-          800, 
+          800,
           window.innerHeight * (kwargs.hfrac || .66)
       );
       this.totalH = Math.max(
@@ -36,12 +41,21 @@ class BaseChart {
       .append("g")
         .attr("transform", "translate(" + this.margin.left + " " + this.margin.top + ")");
   }
+
+  resizeHeight(h, duration=0) {
+    this.totalH = h;
+    this.H = this.totalH - this.margin.top - this.margin.bottom;
+    this._svg.transition()
+      .duration(duration)
+      .attr('height', this.totalH)
+    ;
+  }
 }
 
 class BeeswarmChart extends BaseChart {
 
   constructor(rootsel) {
-    let R = 27; // radius of circles
+    let R = isMobile() ? 22 : 27; // radius of circles
     let kwargs = {
       hmin: (R*2)*9,
     };
@@ -66,7 +80,7 @@ class BeeswarmChart extends BaseChart {
   // render the x-axis
   addAxis() {
     let y = this.H;
-    let labely = 30;
+    let labely = 40;
     this._svg.append("g")
       .classed("axis", true)
       .attr("transform", "translate(0 "+y+")")
@@ -80,6 +94,9 @@ class BeeswarmChart extends BaseChart {
   updateAxis() {
     let axis_el = this._svg.select('.axis');
     let axis = d3.axisBottom(this.xscale)
+      .tickSizeOuter(0)
+      .tickSizeInner(4)
+      .tickPadding(6)
       .tickFormat(comm.rscore_to_readable);
     axis_el.call(axis);
   }
@@ -142,7 +159,7 @@ class BeeswarmChart extends BaseChart {
     // the title came in just over the limit, and we end up rendering almost
     // the whole title, except a tiny bit at the end that gets ellipsised
     // (e.g. "Bang Bang (My Baby Show Me...")
-    const charlimit = tentativesize > hardlimit.chars ? 
+    const charlimit = tentativesize > hardlimit.chars ?
       hardlimit.chars*.66 : 100;
     let lines = [];
     let line = '';

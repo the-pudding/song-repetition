@@ -17,7 +17,8 @@ class CompressionGraphic extends BaseCompressionGraphic {
   constructor(rootsel) {
     let config = {
       song: default_song,
-      W: 1100, ncols: 2, H: 600,
+      ncols: 2,
+      hfrac: 1,
       //debug: true,
     };
     super(rootsel, config);
@@ -63,7 +64,7 @@ class CompressionGraphic extends BaseCompressionGraphic {
     let dd = butcon.select('select');
     if (dd.empty()) {
       let label = butcon.append('label')
-        .text('Song');
+        .text('');
       dd = label.append('select')
         .attr('id', 'compression-song-dd')
     }

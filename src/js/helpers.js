@@ -5,7 +5,14 @@ function decade_controls(root) {
       .enter()
       .append('a')
       .classed('decade', true)
+      .classed("front-curve",(d,i) => i === 0)
+      .classed("back-curve",(d,i) => i === 6)
       .text(decade => decade.name)
 }
 
-export { decade_controls };
+function isMobile() {
+  const bp = '(min-width: 768px)';
+  return !window.matchMedia(bp).matches;
+}
+
+export { decade_controls, isMobile };
