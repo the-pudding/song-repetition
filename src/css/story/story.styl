@@ -26,6 +26,8 @@ p, .prose
         color red
 .prose
   margin 1rem 0rem
+  +mobile()
+    width 90%
   li
     margin-bottom 1rem
 .row
@@ -62,6 +64,8 @@ h2
     margin-bottom 1.4rem
     margin-top 4rem
     color    rgba(0,0,0,.90)
+    +mobile()
+      width 90%
 
 .graphic
     margin 0 auto
@@ -78,6 +82,8 @@ h2
     margin-top 3rem
     margin-bottom 2rem
     max-width 50rem
+    +mobile()
+      width 90%
 
 .col-xs-5
   width 50%
@@ -106,6 +112,9 @@ button
     font-weight 100
     font-size 1.8rem
     text-transform capitalize
+    +mobile()
+      width 90%
+      margin 0 auto
     .select2
       max-width 13em
       margin-left 2rem
@@ -114,6 +123,9 @@ button
       font-size .8rem
       color black
       font-weight 600
+      +mobile()
+        margin-top  1rem
+        margin-left  0px
       .select2-selection--single
         margin-bottom 6px
         color black

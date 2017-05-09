@@ -104,7 +104,7 @@ class OverTimeChart extends BaseChart {
 
   constructor() {
     let kwargs = {
-      margin: {left: 40, top: 100, bottom: 20, right: 15},
+      margin: {left: 40, top: 100, bottom: 20, right: 60},
       // TODO: maybe should enforce some constraints on aspect ratio?
       // that's the basic idea behind the mobile case
       hfrac: isMobile() ? .6 : .9,
