@@ -503,11 +503,11 @@ class BaseCompressionGraphic extends BaseChart {
     console.assert(expected_nodes === n,
         `Got ${n} nodes, expected ${expected_nodes}`);
     let erase = dest
-      .attr('opacity', 1)
+      .attr('fill-opacity', 1)
       .transition()
       .delay(wait)
       .duration(dur * (1-marker_time_share))
-      .attr('opacity', .1);
+      .attr('fill-opacity', .1);
     let where = this.locate(this.rangeCentroid(d.dest));
     let marker = root.append('circle')
       .classed('ditto wordlike', true)
@@ -520,11 +520,11 @@ class BaseCompressionGraphic extends BaseChart {
       .on('mouseover', (d,i,n)=>this.onMarkerHover(d,n[i]))
       .on('mouseout', ()=>this.clearHover())
       .attr('fill', src_color)
-      .attr('opacity', .1)
+      .attr('fill-opacity', .1)
     marker.transition()
       .delay(wait+(dur * (1-marker_time_share)))
       .duration(dur * marker_time_share)
-      .attr('opacity', .8);
+      .attr('fill-opacity', .8);
   }
 
   unravel(d) {
@@ -541,7 +541,7 @@ class BaseCompressionGraphic extends BaseChart {
     dest
       .transition()
       .duration(ravel_duration/4)
-      .attr('opacity', 1);
+      .attr('fill-opacity', 1);
   }
 
   ravel(d, duration) {
@@ -613,7 +613,7 @@ class BaseCompressionGraphic extends BaseChart {
       .transition()
       .duration(dur)
       //.attr('stroke', 'orange')
-      .attr('opacity', .6);
+      .attr('fill-opacity', .6);
 
     // Draw an arrow from src to dest
     let arrowdur = 1000;
@@ -627,7 +627,7 @@ class BaseCompressionGraphic extends BaseChart {
       .delay(dur+arrowdur)
       .duration(dur*2)
       //.attr('stroke', 'orange')
-      .attr('opacity', .4);
+      .attr('fill-opacity', .4);
   }
 
   clearHover() {
@@ -635,7 +635,7 @@ class BaseCompressionGraphic extends BaseChart {
       marked
         .interrupt()
         .attr('stroke', 'none')
-        .attr('opacity', .1);
+        .attr('fill-opacity', .1);
     }
     this.marked = [];
     this.svg.selectAll('.hoverbox').remove();
@@ -658,7 +658,7 @@ class BaseCompressionGraphic extends BaseChart {
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
       .attr('fill', 'none')
-      .attr('opacity', 1)
+      .attr('fill-opacity', 1)
       .style('pointer-events', 'none')
       .attr('d', line(pts));
     return this.animatePath(path, duration, delay, 1);
@@ -734,7 +734,7 @@ class BaseCompressionGraphic extends BaseChart {
   }
   clearMarkers() {
     this.svg.selectAll('.word')
-      .attr('opacity', 1)
+      .attr('fill-opacity', 1)
       .datum(d => ({...d, visible: true}));
     this.svg.selectAll('.marker').remove();
   }
