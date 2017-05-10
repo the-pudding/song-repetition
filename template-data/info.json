@@ -1,4 +1,5 @@
 {
-    "title": "Are popular music lyrics getting more repetitive?",
+    "title": "Measuring the Repetitiveness of Song Lyrics",
+    "subtitle": "Are popular music lyrics getting more repetitive?",
     "description": "Measuring repetition in song lyrics over time using a compression algorithm"
 }
