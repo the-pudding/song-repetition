@@ -71,8 +71,22 @@ class CompressionWrapper {
       .html(sd => sd.html)
       .classed('hidden', sd => !sd.html)
     proses.filter(sd => sd.padding)
-      .style('padding-top', sd=> sd.padding.top + 'rem')
-      .style('padding-bottom', sd=> sd.padding.bottom + 'rem')
+      .style('padding-top', 
+          sd=> (
+            (sd.paddingMobile && isMobile()) ? 
+              sd.paddingMobile.top
+              :
+              sd.padding.top
+            ) + 'rem'
+      )
+      .style('padding-bottom', 
+          sd=> (
+            (sd.paddingMobile && isMobile()) ? 
+              sd.paddingMobile.bottom
+              :
+              sd.padding.bottom
+            ) + 'rem'
+      )
   }
 
   // Setup the overall scene wherein the compression graphic is pinned to
@@ -265,6 +279,7 @@ class CompressionWrapper {
 
   {
     padding: {top: std_padding.top, bottom: std_padding.bottom/2},
+    paddingMobile: {top: std_padding.top, bottom: std_padding.bottom},
     slug: 'cheapthrills_chorus',
     allow_defragged: true,
     html: `<p>In the end, the chorus is reduced in size 46%, from 247 characters to 133. That's the number of letters that weren't replaced by a marker (121), plus 3 characters for each of the 4 markers.</p>
@@ -388,6 +403,11 @@ class CompressionTutorial extends BaseCompressionGraphic {
       .attr('x', this.W * .05)
       .attr('y', texty);
 
+    if (isMobile()) {
+      // Don't bother rendering the extra stats on mobile. Horizontal space is scarce,
+      // and it's not essential.
+      return;
+    }
     let sizex = this.W * .3;
     this.odometer.append('text')
       .classed('size size-original', true)
@@ -406,6 +426,12 @@ class CompressionTutorial extends BaseCompressionGraphic {
     let reduc_pct = d3.format('.1%')(stats.reduction);
     this.odometer.select('.reduction')
       .text(reduc_pct + ' Size Reduction');
+    
+    if (isMobile()) {
+      // Don't bother rendering the extra stats on mobile. Horizontal space is scarce,
+      // and it's not essential.
+      return;
+    }
 
     let compsize = this.odometer.select('.size-compressed');
     let cstext = `Compressed size: ${stats.compressed_bytes} bytes`;

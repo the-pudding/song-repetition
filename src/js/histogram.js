@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import * as comm from './common.js';
 import { BaseChart } from './basechart.js';
+import { isMobile } from './helpers.js';
 import HIST from './histogram-data.js';
 
 let animation_dur = 1000;
@@ -14,6 +15,11 @@ const vline_dat = [
 
 class HistogramGraphic extends BaseChart {
   constructor(rootsel, to_drop, kwargs={}) {
+    //let margin = {left: isMobile() ? 15 : 20, right: isMobile() ? 15 : 20};
+    // Need to override BaseChart behaviour of setting l/r margins to 0 on mobile
+    // in order for annotations not to be cut off.
+    let margin = {left: 20, right: 20};
+    kwargs.margin = margin;
     super(rootsel, kwargs);
     this.xaxis_y = this.H;
     // X-axis
@@ -27,26 +33,8 @@ class HistogramGraphic extends BaseChart {
       .attr("class","xaxis-label")
       ;
 
-    if (kwargs.hide_title) {
-      // Still need to leave some room for vline labels
-      this.maxbar_y = this.H*.1;
-    } else {
-      // title + subtitle
-      this.maxbar_y = this.H * .3;
-      this.svg.append('text')
-        .classed('title', true)
-        .text('The Repetition of Pop Music')
-        .attr('text-anchor', 'middle')
-        .attr('x', this.W/2)
-        .attr('y', 10);
-      let st = `Distribution of compressibility of 15,000 songs from 1958 to 2017, excluding 20 outliers.`;
-      this.svg.append('text')
-        .classed('subtitle', true)
-        .attr('text-anchor', 'middle')
-        .attr('x', this.W/2)
-        .attr('y', this.maxbar_y*.3 + 10)
-        .text(st);
-    }
+    // Still need to leave some room for vline labels
+    this.maxbar_y = this.H*.1;
     this.xmax = (kwargs.xmax_ratio || 1) * this.W;
     this.min_barheight = 2;
     this.to_drop = to_drop;

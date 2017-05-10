@@ -24,14 +24,12 @@ $hits-color = orange
             stroke-width 1
             line
               shape-rendering crispEdges
+              +mobile()
+                shape-rendering unset
         .grid-minor
             stroke #ddd
-            line
-              shape-rendering crispEdges
         .grid-major
             stroke #aaa
-            line
-              shape-rendering crispEdges
         .trendline
             stroke-width 2
         .legendCells
@@ -43,6 +41,8 @@ $hits-color = orange
             fill #b1b1b1
     .spacer
         height 300px
+        +mobile()
+            height 360px
     .scrolly-slide
         border-left 4px solid $allsongs-color
         p
