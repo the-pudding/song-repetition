@@ -347,7 +347,7 @@ The choice of 3 characters as the cost of a marker is somewhat arbitrary. We cou
     padding: {top: std_padding.top, bottom: 0},
     allow_defragged: true,
     slug: 'essay_intro',
-    html: `<p>A mere 11% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
+    html: `<p>A mere 8% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
     onEnter: (comp, down) => {
       if (comp.state !== STATE.defragged) {
         comp.fastforward();

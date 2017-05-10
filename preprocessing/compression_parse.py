@@ -11,7 +11,7 @@ MINMATCH = 4
 OUTDIR = '../src/assets/lz/'
 JSDIR = '../src/js/'
 
-SAVE_INDEX = 1
+SAVE_INDEX = 0
 FIX_MISSING = 0
 
 songdat = [
