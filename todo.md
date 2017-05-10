@@ -93,6 +93,7 @@
     - the stuff after that is just gravy. Like, "oh, and here's some other neat stuff for exploring the data at a more granular level"
     - So not clear how the piece should end. Just reiterating the conclusion that "yeah, it does seem like music is getting more repetitive after all" seems kind of lame.
     - Maybe just move the repetition-over-time graphic to the end?
+- "You may not have heard of the Lempel-Ziv algorithm, but you probably use it every day." <--- cheeeeeeeesy
     
 ## Mobile
 - tweak distance between scrollytelling cards (to give graphics a little more room to breathe)

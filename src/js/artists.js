@@ -43,7 +43,7 @@ function artistTooltip(a) {
   // lines.push(a.name);
   //lines.push(`#songs: ${a.nsongs}`);
   lines.push(`avg. repetition: ${comm.rscore_to_readable(a.rscore)}`);
-  lines.push(`#1 repetitive: ${a.mostrep} (${comm.rscore_to_readable(a.topscore)})`);
+  lines.push(`Most repetitive song: ${a.mostrep} (${comm.rscore_to_readable(a.topscore)})`);
   s += lines.map(t=>`<div>${t}</div>`).join('');
   s += '</div>';
   return s;

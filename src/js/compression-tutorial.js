@@ -226,7 +226,7 @@ class CompressionWrapper {
     slug: 'cheapthrills_chorus',
     allow_defragged: false,
     html: `<p>We replace it with a marker pointing back to the occurrence on the first line, in "bills".</p>
-    <p><small>Each signpost is represented by two numbers: how far back the match is, and how long it is. Storing those two numbers takes about as much space as three characters (i.e. about 3 bytes), so it's only worth replacing a repetition if it's longer than that. That's why we didn't replace any of the smaller repeated substrings that occur earlier like <code>I </code> or <code> to</code>.</small></p>`,
+    <p class="sidenote"><small>The marker itself takes some space to store (we need to remember how long the match is, and how far back it occurs) - we'll say it's the equivalent of 3 characters. That's why it wasn't worth it to replace any of the smaller repeated substrings that occur earlier like <code>I </code>&nbsp; or &nbsp;<code> to</code>.</small></p>`,
     onEnter: (comp, down) => {
       let dur = 1000;
       let ditto = comp.dittos[0];
@@ -278,11 +278,12 @@ class CompressionWrapper {
   },
 
   {
-    padding: {top: std_padding.top, bottom: std_padding.bottom/2},
+    padding: {top: std_padding.top, bottom: std_padding.bottom * 2/3},
     paddingMobile: {top: std_padding.top, bottom: std_padding.bottom},
     slug: 'cheapthrills_chorus',
     allow_defragged: true,
-    html: `<p>In the end, the chorus is reduced in size 46%, from 247 characters to 133. That's the number of letters that weren't replaced by a marker (121), plus 3 characters for each of the 4 markers.</p>
+    html: `<p>In the end, the chorus is reduced in size 46%, from 247 characters to 133 (counting each marker as the equivalent of 3 characters).
+      </p>
       `,
 /*
 <p><small>
@@ -316,7 +317,7 @@ The choice of 3 characters as the cost of a marker is somewhat arbitrary. We cou
   },
 
   {
-    padding: {top: std_padding.top, bottom: 3},
+    padding: {top: std_padding.top, bottom: std_padding.bottom * 2/3},
     progressive: false,
     allow_defragged: true,
     slug: 'thrillscheap',
