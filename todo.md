@@ -17,11 +17,7 @@
 - have a lot of room to play with. Could try increasing font size.
 
 ### compression.js
-- maybe just have this as a standalone page somewhere and link to it in the body? The scrollytelling version already does a pretty good job of explaining the algo. It's not clear most readers will want to run through more (full song) examples after. And it takes up a lot of space.
-* better controls
-    - switch between play/pause as appropriate
-    - try a slider for speed controls
-- ability to control minimum match size. This'd be a nice thing to include in a standalone version.
+- ability to control minimum match size.
 
 ## Histogram
 - annotations for the outliers
@@ -53,9 +49,6 @@
     - maybe scale up max height according to number of songs (would help contextualize a discography like TSwift's)
 - profile. Seems a bit laggy at times.
 - highlight a few examples of artists with interesting discographies (maybe as an alternative to blathering through a specific example)
-- may want to limit number of songs per artist (Tswift's discog is v crowded right now)
-    - or maybe even grow height if an artist has a lot of songs?
-- a lot of now-obscure artists from 60s/70s (Brenda Lee? Herman's Hermits? The Hollies?) taking up space in the dropdown. May want to restrict data for this chart to the last 4 decades, or be more selective for earlier decades.
 - x-axis should probably transition smoothly on artist change
 - experiment w rendering of the median line. Maybe do it as a dashed line that exactly matches the height of the corresponding part of the histogram, and label with an annotation/legend
     - and maybe do something similar with 5%/10%, 90%/95%
@@ -86,7 +79,6 @@
 * speculating on the 'why' of the trends
     - worth mentioning possible experimental biases? Might be too technical/uninteresting.
     - my claim about golden age of hip hop is pretty wild speculation. I don't know if this period actually coincided with extraordinary success in the hot 100.
-- shorten/simplify prose before discog section. Brief comments on default artist discog and pointers to interesting examples.
 - conclusion
     - story sort of starts with Q of whether music is getting more repetitive
     - which is basically answered after the trend-over-time graphic
@@ -96,10 +88,7 @@
 - "You may not have heard of the Lempel-Ziv algorithm, but you probably use it every day." <--- cheeeeeeeesy
     
 ## Mobile
-- tweak distance between scrollytelling cards (to give graphics a little more room to breathe)
-- look across the board at aspect ratios. Seems to be a common source of mobile wonkiness right now.
 - center overtime graphic vertically
-- histogram subtitle fit
 
 ## Misc
 - Would be nice to connect graphics somehow since they're so naturally hierarchical. Like, when exploring the artist comparison chart, it'd be great if you could select one of those artists and jump to the discography widget for that artist. And then even jump from a particular song in that discography to the corresponding compression graphic.
