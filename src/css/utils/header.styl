@@ -23,12 +23,16 @@ header
         padding 0 1rem
     .opening-sub
       font-family $atlas
-      font-size 1.2rem
       font-weight 300
+      letter-spacing 0.2em
       margin-bottom .2rem
       text-transform uppercase
       font-size .8rem
       font-weight 400
+      +mobile()
+        max-width 90%
+        margin 0 auto
+        display none
     .byline
       margin-top 1rem
       padding-bottom 3rem
