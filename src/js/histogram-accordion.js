@@ -8,7 +8,7 @@ const ndrops = 20;
 class HistogramAccordionGraphic extends HistogramGraphic {
 
   constructor(rootsel, to_drop) {
-    super(rootsel, to_drop, 
+    super(rootsel, to_drop,
         {hide_title: true, H: 300,
           xmax_ratio: .9,
         }
@@ -46,7 +46,7 @@ class HistogramAccordionGraphic extends HistogramGraphic {
     let v = super.vlineData();
     if (true || this.to_drop === 0) {
       v = v.concat([
-          {text: 'The Most Repetitive Song Ever',
+          {text: 'Most Repetitive Song',
             rscore: 5.419096,
           }]);
     }

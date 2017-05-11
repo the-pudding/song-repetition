@@ -107,7 +107,12 @@ class HistogramGraphic extends BaseChart {
     newlines.append('text')
       .attr('y', (d,i) => bary(i)+ypad*2-linesize)
       .attr('font-size', 12)
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', function(d){
+        if(d.text=="Most Repetitive Song"){
+          return "end"
+        }
+        return "middle"
+      })
       .text(v=>v.text)
     this.svg.selectAll('.vline line')
       .transition()

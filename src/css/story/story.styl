@@ -26,7 +26,14 @@ p, .prose
         color red
 .prose
   margin 1rem 0rem
-  +mobile()
+  max-width 40rem
+  margin 0 auto
+  margin-bottom 1.3em
+  font-size 1rem
+  line-height 1.7
+  font-weight 400
+  color black
+  @media screen and (max-width: 450px)
     width 90%
   li
     margin-bottom 1rem
@@ -36,14 +43,6 @@ p, .prose
             font-family $atlas
             font-size .85rem
 
-.prose
-    max-width 40rem
-    margin 0 auto
-    margin-bottom 1.3em
-    font-size 1rem
-    line-height 1.7
-    font-weight 400
-    color black
 .prose-big
     font-size 1.2rem
     line-height 1.9
@@ -221,10 +220,33 @@ blockquote
     list-style-type square
     a
         cursor pointer
+    li
+      @media screen and (max-width: 450px)
+        width 90%
+
 .bottom-spacer
   margin-bottom 5rem
 
 .artist-tooltip
+  background white
+  padding: 7px;
+  -webkit-box-shadow 2px 2px 10px rgba(0, 0, 0, 0.10)
+  -moz-box-shadow 4px 4px 10px rgba(0, 0, 0, 0.15)
+  box-shadow 2px 2px 10px rgba(0, 0, 0, 0.10)
+  pointer-events none
+  text-align left
+  -webkit-border-radius 3px
+  -moz-border-radius 3px
+  border-radius 3px
+  div
+    color black
+    font-family $atlas
+    font-size .7rem
+    font-weight 500
+    text-transform capitalize
+    line-height 1.8
+
+.d3-tip
   background white
   padding: 7px;
   -webkit-box-shadow 2px 2px 10px rgba(0, 0, 0, 0.10)

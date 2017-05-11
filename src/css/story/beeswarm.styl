@@ -30,12 +30,6 @@ svg.beeswarm
           text-transform uppercase
           fill #232323
 
-#discog-widget button
-    padding 0.3rem 0.5rem
-    margin-top  4px
-    +mobile()
-        margin-top 1rem
-    position absolute
 #discog-widget button, #discog-examples button
     margin-top 0.25rem
     text-transform capitalize
@@ -46,3 +40,10 @@ svg.beeswarm
     border-radius 3px
     background #fff
     font-family $atlas
+
+#discog-widget button
+    padding 0.3rem 0.5rem
+    margin-top  4px
+    @media screen and (max-width: 450px)
+        margin-top 1rem
+    position absolute
