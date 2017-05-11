@@ -20,32 +20,29 @@ have no idea how to accomplish this. */
       font-size .85rem
     .odometer
         border-top 1px dashed #d4d4d4
-    .slide-wrapper
-        // TODO: use vh units?
-        padding-top 0rem
-        padding-bottom 10rem
-        //padding: 5em 2rem;
-        //padding-bottom: 10rem;
-        .slide
-            padding 1.5rem
-    .slide-wrapper.first
-        padding-top 5em
-    .slide-wrapper.progressive
-        padding-bottom 15em
-    .slide code
-        background-color powderblue
-        padding .1em .25em
-    .slide .sidenote
-        margin-top 1rem
-        font-style italic
-    .slide .sidenote::before
-        content "*"
-        margin-right .3ch
+    .slide-wrapper.slide
+        padding 1.5rem
+    +desktop()
+        .slide-wrapper
+            // On desktop, slides become active just before they hit the top of the 
+            // viewport. The top-padding gives how much before the top they become active.
+            // On mobile, the situation is reversed (see below)
+            padding-top 10rem
+            padding-bottom 0rem
+        .slide-wrapper.first
+            padding-top 5em
+        .slide-wrapper.last
+            padding-bottom 0
+        .slide-wrapper.progressive
+            padding-top 15em
     +mobile()
         .slide-wrapper
+            padding-top 0
             padding-bottom 16rem
         .slide-wrapper.first
             padding-top 30rem
+        .slide-wrapper.progressive
+            padding-bottom 15em        
         /*
         .slide
             // I've tried fading/hiding non-active slides, but it just ends up
@@ -56,6 +53,15 @@ have no idea how to accomplish this. */
         .slide.active
             opacity 1
         */
+    .slide code
+        background-color powderblue
+        padding .1em .25em
+    .slide .sidenote
+        margin-top 1rem
+        font-style italic
+    .slide .sidenote::before
+        content "*"
+        margin-right .3ch
 
 
 .graphic-vis

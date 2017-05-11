@@ -50,4 +50,6 @@ $mobilebp = 768
 mobile()
     @media only screen and (max-width: $mobilebp - 1 px)
         {block}
-//$desktop = @media only screen and (min-width: $mobilebp px)
+desktop()
+    @media not screen and (max-width: $mobilebp - 1 px)
+        {block}

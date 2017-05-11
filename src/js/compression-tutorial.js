@@ -64,6 +64,7 @@ class CompressionWrapper {
       .append('div')
       .classed('slide-wrapper', true)
       .classed('first', (d,i) => i===0)
+      .classed('last', (d,i) => i=== (this.stage_data.length-1))
       .classed('progressive', d => d.progressive)
     proses
       .append('div')
@@ -71,7 +72,7 @@ class CompressionWrapper {
       .html(sd => sd.html)
       .classed('hidden', sd => !sd.html)
     proses.filter(sd => sd.padding)
-      .style('padding-top', 
+      .style(isMobile() ? 'padding-top' : 'padding-bottom', // XXX
           sd=> (
             (sd.paddingMobile && isMobile()) ? 
               sd.paddingMobile.top
@@ -79,7 +80,7 @@ class CompressionWrapper {
               sd.padding.top
             ) + 'rem'
       )
-      .style('padding-bottom', 
+      .style(isMobile() ? 'padding-bottom' : 'padding-top', 
           sd=> (
             (sd.paddingMobile && isMobile()) ? 
               sd.paddingMobile.bottom
@@ -120,8 +121,8 @@ class CompressionWrapper {
       }
       let slide_scene = new ScrollMagic.Scene({
         triggerElement: wrappernode,
-        triggerHook: 'onEnter',
-        offset: stageheight,
+        triggerHook: isMobile() ? 'onEnter' : 'onLeave',
+        offset: isMobile() ? stageheight : 0,
         duration: duration,
       })
         //.addIndicators({name: 'inner'+i})
@@ -345,7 +346,7 @@ The choice of 3 characters as the cost of a marker is somewhat arbitrary. We cou
   },
 
   {
-    padding: {top: std_padding.top, bottom: 0},
+    //padding: {top: std_padding.top, bottom: std_padding.bottom},
     allow_defragged: true,
     slug: 'essay_intro',
     html: `<p>A mere 8% reduction. Random prose doesn't compress nearly as well as song lyrics.</p>`,
