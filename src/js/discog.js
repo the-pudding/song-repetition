@@ -83,7 +83,7 @@ class DiscogWidget extends BeeswarmChart {
   // Add click callbacks to the link elements in the later prose which are supposed
   // to have the effect of jumping to a particular artist.
   bindLinks() {
-    d3.select('#discog-examples').selectAll('a')
+    d3.select('#discog-examples').selectAll('button')
       .on('click', (d,i,n) => this.jumpToArtist(n[i].textContent));
   }
 
