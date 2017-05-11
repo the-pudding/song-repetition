@@ -104,7 +104,7 @@ class OverTimeChart extends BaseChart {
 
   constructor() {
     let kwargs = {
-      margin: {left: 40, top: 100, bottom: 20, right: 60},
+      margin: {left: 40, top: 20, bottom: 20, right: 60},
       // TODO: maybe should enforce some constraints on aspect ratio?
       // that's the basic idea behind the mobile case
       hfrac: isMobile() ? .6 : .9,
@@ -112,12 +112,12 @@ class OverTimeChart extends BaseChart {
     super('#rovertime', kwargs);
     this.R = 4; // radius of year dots
 
-    this._svg
-      .append('text')
-      .classed('title', true)
-      .text("Repetition of Popular Music, by Year")
-      .attr("transform","translate("+0+","+kwargs.margin.top/3+")")
-      ;
+    // this._svg
+    //   .append('text')
+    //   .classed('title', true)
+    //   .text("Repetition of Popular Music, by Year")
+    //   .attr("transform","translate("+0+","+kwargs.margin.top/3+")")
+    //   ;
 
     this.xscale = d3.scaleLinear()
       .domain(d3.extent(DATA, (yr) => (yr.year)))
