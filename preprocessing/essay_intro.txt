@@ -1,0 +1,13 @@
+In 1977, the great computer scientist Donald 
+Knuth published a paper called The Complexity of 
+Songs, which is basically one long joke about the 
+repetitive lyrics of newfangled music (example 
+quote: "the advent of modern drugs has led to 
+demands for still less memory, and the ultimate 
+improvement of Theorem 1 has consequently just 
+been announced").
+
+I'm going to try to test this hypothesis with 
+data. I'll be analyzing the repetitiveness of a 
+dataset of 15,000 songs that charted on the 
+Billboard Hot 100 between 1958 and 2017.
